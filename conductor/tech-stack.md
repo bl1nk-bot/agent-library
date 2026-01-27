@@ -14,7 +14,7 @@
 - **State & Forms:** React Hook Form with Zod validation
 - **Internationalization:** `next-intl`
 - **Content:** MDX (via `@next/mdx`)
-- **Animations:** Framer Motion (recommended for "Luxury" feel)
+- **Animations:** Framer Motion (Core library for fluid UI transitions)
 - **UI Components:** Shadcn-inspired (Class Variance Authority, tailwind-merge)
 
 ## Integrations & APIs

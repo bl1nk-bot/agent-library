@@ -1,9 +1,10 @@
 import React from 'react';
+import { Background } from '@/components/ui/background';
 
 export default function GatewayPage() {
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-center bg-[#0A0A0A] text-white overflow-hidden relative">
-      <div className="z-10 flex flex-col items-center gap-8">
+    <Background role="main">
+      <div className="flex flex-col items-center gap-8">
          {/* Placeholder for Radar */}
          <div className="w-64 h-64 border border-green-500 rounded-full flex items-center justify-center">
             <span className="text-green-500 text-xs">RADAR SCANNER</span>
@@ -20,6 +21,6 @@ export default function GatewayPage() {
            [ INITIALIZE DECK ]
          </button>
       </div>
-    </main>
+    </Background>
   );
 }

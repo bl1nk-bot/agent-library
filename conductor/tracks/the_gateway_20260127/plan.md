@@ -24,6 +24,6 @@
 - [x] Task: Design and Implement [ INITIALIZE DECK ] Button 171511b
     - [x] Write tests for button interaction
     - [x] Implement "Deep Glass" style button with pulse animation
-- [ ] Task: Implement Navigation Transition
-    - [ ] Add transition effect when navigating away from Gateway
+- [x] Task: Implement Navigation Transition bb6e929
+    - [x] Add transition effect when navigating away from Gateway
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: CTA & Transitions' (Protocol in workflow.md)

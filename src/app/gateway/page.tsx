@@ -1,7 +1,7 @@
 import React from 'react';
 import { Background } from '@/components/ui/background';
 
-import { StatusFeed } from '@/components/ui/status-feed';
+import { InitializeButton } from '@/components/ui/initialize-button';
 
 
 
@@ -20,6 +20,16 @@ export default function GatewayPage() {
     "[STATUS] Handshake Success > Connection established."
 
   ];
+
+
+
+  const handleInitialize = () => {
+
+    console.log("Initializing Deck...");
+
+    // Future navigation logic will go here
+
+  };
 
 
 
@@ -45,14 +55,14 @@ export default function GatewayPage() {
 
 
 
-         <button 
+         <InitializeButton onClick={handleInitialize} />
 
- 
-           className="px-8 py-4 bg-white/5 border border-white/10 rounded-sm text-white font-bold tracking-widest hover:bg-white/10 transition-all duration-300 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-         >
-           [ INITIALIZE DECK ]
-         </button>
       </div>
+
     </Background>
+
   );
+
 }
+
+

@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Home, Command, Box, Settings, Cpu, Terminal, Sparkles, BookOpen } from 'lucide-react';
+import { Home, Command, Box, Settings, Cpu, Terminal, Sparkles, BookOpen, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { setLocale } from "@/lib/i18n/client";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -22,6 +23,13 @@ export function Sidebar() {
     { name: "Gemini", color: "bg-agent-gold", status: "idle" },
     { name: "Claude", color: "bg-agent-sapphire", status: "active" },
   ];
+
+  const toggleLanguage = () => {
+    // Basic toggle between EN and TH for quick access in sidebar
+    // In a full implementation, this could open a small glass menu
+    const newLocale = window.location.pathname.startsWith('/th') ? 'en' : 'th';
+    setLocale(newLocale);
+  };
 
   return (
     <div className="flex flex-col h-full py-6 items-center w-full">
@@ -56,9 +64,21 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Agent Status Indicators (Engine Rack) */}
+      {/* Language Toggle & Agent Status */}
       <div className="mt-auto flex flex-col gap-3 w-full px-4 items-center">
+        <button 
+          onClick={toggleLanguage}
+          className="p-3 mb-2 rounded-md text-white/40 hover:text-white hover:bg-white/5 transition-all group relative"
+          aria-label="Toggle Language"
+        >
+          <Globe size={20} />
+          <span className="absolute left-14 bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none uppercase">
+            Toggle EN/TH
+          </span>
+        </button>
+
         <div className="w-full h-px bg-white/10 mb-2" />
+
         {activeAgents.map((agent) => (
           <div 
             key={agent.name} 

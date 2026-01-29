@@ -28,7 +28,8 @@ const languages = [
   { code: "fa", name: "فارسی" },
   { code: "ru", name: "Русский" },
   { code: "he", name: "עברית" },
-  { code: "el", name: "Ελληνικά" }
+  { code: "el", name: "Ελληνικά" },
+  { code: "th", name: "ไทย" }
 ];
 
 export function LanguageSwitcher() {

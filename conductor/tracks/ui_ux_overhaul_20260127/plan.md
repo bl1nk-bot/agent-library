@@ -14,10 +14,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Gateway' (Protocol in workflow.md)
 
 ## Phase 3: The Command Deck (Panels)
-- [ ] Task: Implement Sidebar and Omni-Bar
-    - [ ] Create Floating Omni-Bar with Slash Command support
-- [ ] Task: Implement Chat Cards and Context Rack
-    - [ ] Refactor responses into Interactive Cards
+- [x] Task: Implement Sidebar and Omni-Bar
+    - [x] Create Floating Omni-Bar with Slash Command support
+- [x] Task: Implement Chat Cards and Context Rack
+    - [x] Refactor responses into Interactive Cards
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: The Deck' (Protocol in workflow.md)
 
 ## Phase 4: Polish & Micro-interactions

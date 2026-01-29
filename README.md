@@ -57,6 +57,8 @@
 
 A curated collection of **prompt examples** for AI chat models. Originally created for ChatGPT, these prompts work great with any modern AI assistant.
 
+**Note:** This repository is a fork of the original [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) by Fatih Kadir Akın. Much of the data and structure originates from there.
+
 | Browse Prompts | Data Formats |
 |----------------|--------------|
 | [prompts.chat](https://prompts.chat/prompts) | [prompts.csv](prompts.csv) |

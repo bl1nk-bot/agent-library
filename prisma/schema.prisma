@@ -97,6 +97,9 @@ model Prompt {
   content             String
   type                PromptType         @default(TEXT)
   isPrivate           Boolean            @default(false)
+  avatar              String?
+  identifier          String?            @unique
+  agentConfig         Json?
   mediaUrl            String?
   viewCount           Int                @default(0)
   createdAt           DateTime           @default(now())
@@ -391,6 +394,7 @@ enum PromptType {
   AUDIO
   STRUCTURED
   SKILL
+  AGENT
 }
 
 enum StructuredFormat {

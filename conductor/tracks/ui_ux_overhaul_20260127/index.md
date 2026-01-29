@@ -1,4 +1,4 @@
-# Track the_gateway_20260127 Context
+# Track ui_ux_overhaul_20260127 Context
 
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)

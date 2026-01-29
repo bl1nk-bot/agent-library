@@ -4,9 +4,9 @@
 - [x] Task: Set up Typography and Theme Config
     - [x] Import Inter and JetBrains Mono fonts
     - [x] Update Tailwind config with Obsidian Black and Agent Accents
-- [ ] Task: Create Base Layout Component
-    - [ ] Implement 3-Column structural shell with Framer Motion
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
+- [x] Task: Create Base Layout Component
+    - [x] Implement 3-Column structural shell with Framer Motion
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Refined Gateway & Sync Flow
 - [ ] Task: Redesign Landing Page

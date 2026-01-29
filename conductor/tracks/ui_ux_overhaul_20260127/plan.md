@@ -9,9 +9,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Refined Gateway & Sync Flow
-- [ ] Task: Redesign Landing Page
-    - [ ] Implement "Synchronize Environment" button with scan animation
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Gateway' (Protocol in workflow.md)
+- [x] Task: Redesign Landing Page
+    - [x] Implement "Synchronize Environment" button with scan animation
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Gateway' (Protocol in workflow.md)
 
 ## Phase 3: The Command Deck (Panels)
 - [ ] Task: Implement Sidebar and Omni-Bar

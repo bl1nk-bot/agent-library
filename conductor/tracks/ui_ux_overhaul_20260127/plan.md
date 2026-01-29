@@ -21,6 +21,6 @@
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: The Deck' (Protocol in workflow.md)
 
 ## Phase 4: Polish & Micro-interactions
-- [ ] Task: Apply Final Animations and Refinements
-    - [ ] Add button micro-interactions and layout transitions
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Final Polish' (Protocol in workflow.md)
+- [x] Task: Apply Final Animations and Refinements
+    - [x] Add button micro-interactions and layout transitions
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Final Polish' (Protocol in workflow.md)

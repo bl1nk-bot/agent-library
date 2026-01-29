@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Arabic, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Noto_Sans_Arabic, Playfair_Display } from "next/font/google";
 import { headers } from "next/headers";
 import { getMessages, getLocale } from "next-intl/server";
 import { Providers } from "@/components/providers";
@@ -13,22 +13,13 @@ import { AppBanner } from "@/components/layout/app-banner";
 import { LocaleDetector } from "@/components/providers/locale-detector";
 import { getConfig } from "@/lib/config";
 import { isRtlLocale } from "@/lib/i18n/config";
+import { inter, jetbrainsMono } from "./fonts";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   variable: "--font-arabic",
   weight: ["400", "500", "600", "700"],
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
 });
 
 const playfairDisplay = Playfair_Display({
@@ -41,25 +32,20 @@ const playfairDisplay = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
   title: {
-    default: "prompts.chat - AI Prompts Community",
-    template: "%s | prompts.chat",
+    default: "AI Command Hub",
+    template: "%s | AI Command Hub",
   },
   description:
-    "Discover, collect, and share the best AI prompts for ChatGPT, Claude, Gemini, and more. Join the largest community of AI prompt engineers and creators.",
+    "Digital Luxury Interface for AI Agents.",
   keywords: [
-    "AI prompts",
-    "ChatGPT prompts",
-    "Claude prompts",
-    "prompt engineering",
-    "AI tools",
-    "prompt library",
-    "GPT prompts",
-    "AI assistant",
-    "prompt templates",
+    "AI",
+    "Agents",
+    "Command Hub",
+    "Digital Noir",
   ],
-  authors: [{ name: "prompts.chat community" }],
-  creator: "prompts.chat",
-  publisher: "prompts.chat",
+  authors: [{ name: "AI Command Hub Team" }],
+  creator: "AI Command Hub",
+  publisher: "AI Command Hub",
   icons: {
     icon: [
       { url: "/favicon/favicon.ico", sizes: "48x48" },
@@ -71,31 +57,31 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/site.webmanifest",
   other: {
-    "apple-mobile-web-app-title": "prompts.chat",
+    "apple-mobile-web-app-title": "AI Command Hub",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "prompts.chat",
-    title: "prompts.chat - AI Prompts Community",
+    siteName: "AI Command Hub",
+    title: "AI Command Hub",
     description:
-      "Discover, collect, and share the best AI prompts for ChatGPT, Claude, Gemini, and more. Join the largest community of AI prompt engineers.",
+      "Digital Luxury Interface for AI Agents.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "prompts.chat - AI Prompts Community",
+        alt: "AI Command Hub",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "prompts.chat - AI Prompts Community",
+    title: "AI Command Hub",
     description:
-      "Discover, collect, and share the best AI prompts for ChatGPT, Claude, Gemini, and more.",
+      "Digital Luxury Interface for AI Agents.",
     images: ["/og.png"],
-    creator: "@promptschat",
+    creator: "@aicommandhub",
   },
   robots: {
     index: true,
@@ -109,7 +95,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: process.env.NEXTAUTH_URL || "https://prompts.chat",
+    canonical: process.env.NEXTAUTH_URL || "https://agent.bl1nk.site",
   },
 };
 
@@ -175,15 +161,15 @@ export default async function RootLayout({
   } as React.CSSProperties;
 
   const fontClasses = isRtl 
-    ? `${inter.variable} ${notoSansArabic.variable} ${geistMono.variable} ${playfairDisplay.variable} font-arabic` 
-    : `${inter.variable} ${geistMono.variable} ${playfairDisplay.variable} font-sans`;
+    ? `${inter.variable} ${notoSansArabic.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-arabic` 
+    : `${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-sans`;
 
   return (
     <html lang={locale} dir={isRtl ? "rtl" : "ltr"} suppressHydrationWarning className={themeClasses} style={themeStyles}>
       <head>
         <WebsiteStructuredData />
       </head>
-      <body className={`${fontClasses} antialiased`}>
+      <body className={`${fontClasses} antialiased bg-[#050505] text-white selection:bg-cyan-500/30 selection:text-cyan-50`}>
         {process.env.GOOGLE_ANALYTICS_ID && (
           <Analytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
         )}
@@ -194,6 +180,7 @@ export default async function RootLayout({
             <>
               <LocaleDetector />
               <div className="relative min-h-screen flex flex-col">
+                {/* Temporary header/footer until we rebuild layout */}
                 <Header authProvider={config.auth.provider} allowRegistration={config.auth.allowRegistration} />
                 <main className="flex-1">{children}</main>
                 <Footer />

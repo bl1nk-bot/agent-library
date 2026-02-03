@@ -151,7 +151,7 @@ export default function BookHomePage() {
       <div className="mb-10 text-muted-foreground space-y-4">
         <p>
           Hi, I&apos;m <strong className="text-foreground">Fatih Kadir Akın</strong>, the curator of the popular{" "}
-          <a href="https://github.com/f/awesome-chatgpt-prompts" className="text-primary hover:underline">
+          <a href="https://github.com/bl1nk-bot/agent-library" className="text-primary hover:underline">
             Awesome ChatGPT Prompts
           </a>{" "}
           repository on GitHub and <strong className="text-foreground">prompts.chat</strong>.
@@ -243,7 +243,7 @@ export default function BookHomePage() {
       <div className="mt-12 pt-6 border-t text-sm text-muted-foreground">
         <p>
           Part of the{" "}
-          <a href="https://github.com/f/awesome-chatgpt-prompts" className="text-primary hover:underline">
+          <a href="https://github.com/bl1nk-bot/agent-library" className="text-primary hover:underline">
             Awesome ChatGPT Prompts
           </a>{" "}
           project. Licensed under CC0.

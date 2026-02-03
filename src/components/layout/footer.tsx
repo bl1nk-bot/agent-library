@@ -22,7 +22,7 @@ export function Footer() {
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           {!branding.useCloneBranding && (
             <>
-              <Link href="https://deepwiki.com/f/awesome-chatgpt-prompts" target="_blank" rel="noopener noreferrer" className="hover:text-foreground flex items-center gap-1" onClick={() => analyticsExternal.clickFooterLink("deepwiki")}>
+              <Link href="https://deepwiki.com/bl1nk-bot/agent-library" target="_blank" rel="noopener noreferrer" className="hover:text-foreground flex items-center gap-1" onClick={() => analyticsExternal.clickFooterLink("deepwiki")}>
                 <Image src={DeepWikiIcon} alt="" width={14} height={14} />
                 DeepWiki
               </Link>

@@ -10,7 +10,7 @@ Establish the foundational URL changes and logic updates.
 - [x] Task: Update Star Count Logic & Service [264e28d]
     - [ ] Write Tests: Verify `getGithubStars` fetches from `bl1nk-bot/agent-library`.
     - [ ] Implement: Update `src/lib/github.ts` with the new repository path.
-- [~] Task: Global Repository URL Replacement (Code & Manifests)
+- [x] Task: Global Repository URL Replacement (Code & Manifests) [47cedde]
     - [ ] Write Tests: Create a script/check to verify no legacy URLs exist in `package.json` or `docker/Dockerfile`.
     - [ ] Implement: Replace `f/awesome-chatgpt-prompts` with `bl1nk-bot/agent-library` in configuration and manifest files.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Logic & Core Configuration' (Protocol in workflow.md)

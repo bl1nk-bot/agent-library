@@ -18,7 +18,7 @@ export function TestimonialsSection({ t }: { t: (key: string) => string }) {
       role: "President & Co-Founder at OpenAI",
       date: "Dec 12, 2022",
       image: "/sponsors/gdb.jpg",
-      text: "Love the community explorations of ChatGPT, from capabilities (https://github.com/f/awesome-chatgpt-prompts) to limitations (...). No substitute for the collective power of the internet when it comes to plumbing the uncharted depths of a new deep learning model.",
+      text: "Love the community explorations of ChatGPT, from capabilities (https://github.com/bl1nk-bot/agent-library) to limitations (...). No substitute for the collective power of the internet when it comes to plumbing the uncharted depths of a new deep learning model.",
       href: "https://x.com/gdb/status/1602072566671110144"
     },
     {
@@ -26,7 +26,7 @@ export function TestimonialsSection({ t }: { t: (key: string) => string }) {
       role: "Co-Founder at OpenAI",
       date: "Dec 10, 2022",
       image: "/sponsors/woj.jpg",
-      text: "I love it! https://github.com/f/awesome-chatgpt-prompts",
+      text: "I love it! https://github.com/bl1nk-bot/agent-library",
       href: "https://x.com/woj_zaremba/status/1601362952841760769"
     },
     {

@@ -39,17 +39,17 @@ export function AchievementsSection({ t, githubStars }: AchievementsSectionProps
       text: <span>{t("achievements.referencedIn")} <strong>{t("achievements.githubBlog")}</strong></span>
     },
     {
-      href: "https://huggingface.co/datasets/fka/awesome-chatgpt-prompts",
+      href: "https://huggingface.co/datasets/fka/agent-library",
       icon: <Heart className="h-4 w-4 text-red-500" />,
       text: <span>{t("achievements.mostLikedDataset")}</span>
     },
     {
-      href: "https://github.com/f/awesome-chatgpt-prompts",
+      href: "https://github.com/bl1nk-bot/agent-library",
       icon: <Star className="h-4 w-4 text-yellow-500" />,
       text: <span><strong>{(githubStars / 1000).toFixed(0)}k</strong> {t("achievements.githubStars")}</span>
     },
     {
-      href: "https://github.com/f/awesome-chatgpt-prompts",
+      href: "https://github.com/bl1nk-bot/agent-library",
       icon: <Trophy className="h-4 w-4 text-purple-500" />,
       text: <span>{t("achievements.mostStarredRepo")}</span>
     },

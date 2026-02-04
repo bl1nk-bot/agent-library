@@ -185,7 +185,8 @@
       "audio": "Audio",
       "structured": "Structured",
       "document": "Document",
-      "skill": "Skill"
+      "skill": "Skill",
+      "agent": "Agent"
     },
     "inputType": "User Prompt",
     "outputType": "AI Response",

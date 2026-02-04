@@ -185,7 +185,8 @@
       "audio": "เสียง",
       "structured": "โครงสร้าง",
       "document": "เอกสาร",
-      "skill": "ทักษะ"
+      "skill": "ทักษะ",
+      "agent": "Agent"
     },
     "inputType": "ข้อมูลเข้า",
     "outputType": "ผลลัพธ์จาก AI",

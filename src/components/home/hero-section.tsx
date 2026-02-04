@@ -164,7 +164,7 @@ export function HeroSection({
             {!useCloneBranding && (
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                 <Link 
-                  href="https://github.com/f/awesome-chatgpt-prompts/stargazers" 
+                  href="https://github.com/bl1nk-bot/agent-library/stargazers" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"

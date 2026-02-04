@@ -1,7 +1,12 @@
 {
-  "name": "prompts.chat-v2",
-  "version": "0.1.0",
+  "name": "agent-library",
+  "version": "0.2.0",
   "private": true,
+  "homepage": "https://agent.bl1nk.site/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bl1nk-bot/agent-library.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",

@@ -69,9 +69,6 @@ export default withSentryConfig(withMDX(withNextIntl(nextConfig)), {
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
-  
-  // Disable Sentry in development
-  enabled: process.env.NODE_ENV === "production",
 
   // Disable Sentry during build for non-production environments
   disableLogger: process.env.NODE_ENV !== "production",

@@ -13,6 +13,19 @@
         ]
       }
     ],
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "pre-commit-readiness-check",
+            "type": "command",
+            "command": "if [[ \"{{args.command}}\" == *\"git commit\"* ]]; then .gemini/hooks/pre-commit-check.sh; fi",
+            "description": "Runs readiness checks (lint, test, rebrand sweep) before any git commit command."
+          }
+        ]
+      }
+    ],
     "disabled": []
   }
 }

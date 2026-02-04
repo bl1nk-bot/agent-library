@@ -4,8 +4,6 @@ import { getConfig } from "@/lib/config";
 import { getGithubStars } from "@/lib/github";
 import { HeroSection } from "@/components/home/hero-section";
 import { SponsorsSection } from "@/components/home/sponsors-section";
-import { AchievementsSection } from "@/components/home/achievements-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { DiscoveryPrompts } from "@/components/prompts/discovery-prompts";
 import { CtaSection } from "@/components/home/cta-section";
 
@@ -44,16 +42,6 @@ export default async function HomePage() {
           t={tHomepage}
           useCloneBranding={useCloneBranding}
         />
-      )}
-
-      {/* Achievements & Testimonials - only show if not using clone branding */}
-      {!useCloneBranding && (
-        <section className="container">
-          {config.homepage?.achievements?.enabled !== false && (
-            <AchievementsSection t={tHomepage} githubStars={githubStars} />
-          )}
-          <TestimonialsSection t={tHomepage} />
-        </section>
       )}
 
       {/* Featured & Latest Prompts Section */}

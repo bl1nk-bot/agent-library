@@ -20,7 +20,7 @@
           {
             "name": "pre-commit-readiness-check",
             "type": "command",
-            "command": "if [[ \"{{args.command}}\" == *\"git commit\"* ]]; then .gemini/hooks/pre-commit-check.sh; fi",
+            "command": "python3 .gemini/hooks/check-git-commit.py",
             "description": "Runs readiness checks (lint, test, rebrand sweep) before any git commit command."
           }
         ]

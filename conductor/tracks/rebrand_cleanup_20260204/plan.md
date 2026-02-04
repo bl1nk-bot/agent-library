@@ -37,10 +37,10 @@ Remove legacy social proof sections and update brand consistency.
     - [x] Implement: Update `src/components/seo/structured-data.tsx` and other metadata components.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: UI Cleanup & Legacy Removal' (Protocol in workflow.md) [70204cb]
 
-#### Phase 4: Final Verification sweep
+#### Phase 4: Final Verification sweep [checkpoint: c891c84]
 Ensure no traces remain.
 
-- [ ] Task: Global Legacy String Sweep
-    - [ ] Write Tests: Run a project-wide `grep` for "awesome-chatgpt-prompts" and "Fatih Kadir Akın".
-    - [ ] Implement: Fix any remaining stragglers found in the sweep.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Final Verification sweep' (Protocol in workflow.md)
+- [x] Task: Global Legacy String Sweep [c891c84]
+    - [x] Write Tests: Run a project-wide `grep` for "awesome-chatgpt-prompts" and "Fatih Kadir Akın".
+    - [x] Implement: Fix any remaining stragglers found in the sweep.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Final Verification sweep' (Protocol in workflow.md) [c891c84]

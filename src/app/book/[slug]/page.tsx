@@ -39,15 +39,15 @@ export async function generateMetadata({ params }: ChapterPageProps): Promise<Me
       chapter.part.toLowerCase(),
       "prompting techniques",
     ],
-    authors: [{ name: "Fatih Kadir Akın", url: "https://github.com/f" }],
+    authors: [{ name: "bl1nk Team", url: "https://github.com/f" }],
     openGraph: {
       title: `${chapter.title} - The Interactive Book of Prompting`,
       description,
-      url: `https://prompts.chat/book/${slug}`,
-      siteName: "prompts.chat",
+      url: `https://agent.bl1nk.site/book/${slug}`,
+      siteName: "agent.bl1nk.site",
       images: [
         {
-          url: "https://prompts.chat/book-cover-photo.jpg",
+          url: "https://agent.bl1nk.site/book-cover-photo.jpg",
           width: 1200,
           height: 630,
           alt: `${chapter.title} - Prompt Engineering Guide`,
@@ -60,10 +60,10 @@ export async function generateMetadata({ params }: ChapterPageProps): Promise<Me
       card: "summary_large_image",
       title: `${chapter.title} | Prompt Engineering`,
       description,
-      images: ["https://prompts.chat/book-cover-photo.jpg"],
+      images: ["https://agent.bl1nk.site/book-cover-photo.jpg"],
     },
     alternates: {
-      canonical: `https://prompts.chat/book/${slug}`,
+      canonical: `https://agent.bl1nk.site/book/${slug}`,
     },
     robots: {
       index: true,

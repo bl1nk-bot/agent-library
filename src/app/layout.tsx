@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "Command Hub",
     "Digital Noir",
   ],
-  authors: [{ name: "AI Command Hub Team" }],
+  authors: [{ name: "bl1nk Team" }],
   creator: "AI Command Hub",
   publisher: "AI Command Hub",
   icons: {

@@ -31,17 +31,17 @@ export const metadata: Metadata = {
     "Claude prompts",
     "AI communication",
   ],
-  authors: [{ name: "Fatih Kadir Akın", url: "https://github.com/f" }],
-  creator: "Fatih Kadir Akın",
-  publisher: "prompts.chat",
+  authors: [{ name: "bl1nk Team", url: "https://github.com/f" }],
+  creator: "bl1nk Team",
+  publisher: "agent.bl1nk.site",
   openGraph: {
     title: "The Interactive Book of Prompting",
     description: "Master AI prompt engineering with this free, interactive guide. Learn ChatGPT prompts, chain-of-thought reasoning, few-shot learning, and 25+ chapters of advanced techniques.",
-    url: "https://prompts.chat/book",
-    siteName: "prompts.chat",
+    url: "https://agent.bl1nk.site/book",
+    siteName: "agent.bl1nk.site",
     images: [
       {
-        url: "https://prompts.chat/book-cover-photo.jpg",
+        url: "https://agent.bl1nk.site/book-cover-photo.jpg",
         width: 1200,
         height: 630,
         alt: "The Interactive Book of Prompting - Free AI Prompt Engineering Guide",
@@ -54,11 +54,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Interactive Book of Prompting",
     description: "Master AI prompt engineering with this free, interactive guide. 25+ chapters with real examples.",
-    images: ["https://prompts.chat/book-cover-photo.jpg"],
-    creator: "@fkadev",
+    images: ["https://agent.bl1nk.site/book-cover-photo.jpg"],
+    creator: "@bl1nk_bot",
   },
   alternates: {
-    canonical: "https://prompts.chat/book",
+    canonical: "https://agent.bl1nk.site/book",
   },
   robots: {
     index: true,
@@ -82,16 +82,16 @@ const jsonLd = {
   description: "Master AI prompt engineering with this free, interactive guide. Learn ChatGPT prompts, chain-of-thought reasoning, few-shot learning, and advanced techniques.",
   author: {
     "@type": "Person",
-    name: "Fatih Kadir Akın",
+    name: "bl1nk Team",
     url: "https://github.com/f",
   },
   publisher: {
     "@type": "Organization",
-    name: "prompts.chat",
-    url: "https://prompts.chat",
+    name: "agent.bl1nk.site",
+    url: "https://agent.bl1nk.site",
   },
-  url: "https://prompts.chat/book",
-  image: "https://prompts.chat/book-cover-photo.jpg",
+  url: "https://agent.bl1nk.site/book",
+  image: "https://agent.bl1nk.site/book-cover-photo.jpg",
   inLanguage: "en",
   genre: ["Technology", "Education", "Artificial Intelligence"],
   about: {
@@ -138,7 +138,7 @@ export default function BookHomePage() {
       {/* Book Cover Header */}
       <div className="mb-10">
         <p className="text-sm text-muted-foreground mb-4">An Interactive Guide by</p>
-        <h2 className="text-lg font-medium mb-6">Fatih Kadir Akın</h2>
+        <h2 className="text-lg font-medium mb-6">bl1nk Team</h2>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
           The Interactive Book of Prompting
         </h1>
@@ -150,11 +150,11 @@ export default function BookHomePage() {
       {/* Author Introduction */}
       <div className="mb-10 text-muted-foreground space-y-4">
         <p>
-          Hi, I&apos;m <strong className="text-foreground">Fatih Kadir Akın</strong>, the curator of the popular{" "}
+          Hi, I&apos;m <strong className="text-foreground">bl1nk Team</strong>, the curator of the popular{" "}
           <a href="https://github.com/bl1nk-bot/agent-library" className="text-primary hover:underline">
-            Awesome ChatGPT Prompts
+            Agent Library
           </a>{" "}
-          repository on GitHub and <strong className="text-foreground">prompts.chat</strong>.
+          repository on GitHub and <strong className="text-foreground">agent.bl1nk.site</strong>.
         </p>
         <p>
           In this comprehensive and interactive guide, you&apos;ll discover expert strategies for crafting 
@@ -244,7 +244,7 @@ export default function BookHomePage() {
         <p>
           Part of the{" "}
           <a href="https://github.com/bl1nk-bot/agent-library" className="text-primary hover:underline">
-            Awesome ChatGPT Prompts
+            Agent Library
           </a>{" "}
           project. Licensed under CC0.
         </p>

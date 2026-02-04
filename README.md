@@ -1,119 +1,65 @@
-<h1 align="center">
-  <a href="https://prompts.chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://prompts.chat/logo-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://prompts.chat/logo.svg">
-      <img height="40" alt="prompts.chat" src="https://prompts.chat/logo.svg">
-    </picture>
-    <br>
-    prompts.chat
-  </a>
-</h1>
+# Agent Library 🤖
 
 <p align="center">
-  <strong>The world's largest open-source prompt library for AI</strong><br>
+  <strong>The world's most advanced open-source agent & prompt library</strong><br>
   <sub>Works with ChatGPT, Claude, Gemini, Llama, Mistral, and more</sub>
 </p>
 
 <p align="center">
-  <a href="https://prompts.chat"><img src="https://img.shields.io/badge/Website-prompts.chat-blue?style=flat-square" alt="Website"></a>
-  <a href="https://github.com/sindresorhus/awesome"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome"></a>
-  <a href="https://huggingface.co/datasets/fka/agent-library"><img src="https://img.shields.io/badge/🤗-Hugging_Face-yellow?style=flat-square" alt="Hugging Face"></a>
-  <a href="https://deepwiki.com/bl1nk-bot/agent-library"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+  <a href="https://agent.bl1nk.site"><img src="https://img.shields.io/badge/Website-agent.bl1nk.site-cyan?style=flat-square" alt="Website"></a>
+  <a href="https://github.com/bl1nk-bot/agent-library"><img src="https://img.shields.io/badge/GitHub-bl1nk--bot-black?style=flat-square&logo=github" alt="GitHub"></a>
+  <a href="https://github.com/bl1nk-bot/agent-library/stargazers"><img src="https://img.shields.io/github/stars/bl1nk-bot/agent-library?style=flat-square" alt="Stars"></a>
+  <a href="https://github.com/bl1nk-bot/agent-library/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-CC0_1.0-green?style=flat-square" alt="License"></a>
 </p>
 
 <p align="center">
-  <a href="https://prompts.chat/prompts">🌐 Browse Prompts</a> •
-  <a href="https://fka.gumroad.com/l/art-of-chatgpt-prompting">📖 Read the Book</a> •
-  <a href="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/PROMPTS.md">📄 View on GitHub</a> •
+  <a href="https://agent.bl1nk.site/prompts">🌐 Browse Library</a> •
+  <a href="https://agent.bl1nk.site/book">📖 Learning Guide</a> •
+  <a href="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/PROMPTS.md">📄 View Source</a> •
   <a href="#-self-hosting">🚀 Self-Host</a>
-</p>
-
-<p align="center">
-  <sub>
-    🏆 Featured in <a href="https://www.forbes.com/sites/tjmccue/2023/01/19/chatgpt-success-completely-depends-on-your-prompt/">Forbes</a> · 
-    🎓 Referenced by <a href="https://www.huit.harvard.edu/news/ai-prompts">Harvard</a>, <a href="https://etc.cuit.columbia.edu/news/columbia-prompt-library-effective-academic-ai-use">Columbia</a> · 
-    📄 <a href="https://scholar.google.com/citations?user=AZ0Dg8YAAAAJ&hl=en">40+ academic citations</a> · 
-    ❤️ <a href="https://huggingface.co/datasets/fka/agent-library">Most liked dataset</a> on Hugging Face<br>
-    ⭐ 143k+ GitHub stars · 
-    🏅 <a href="https://spotlights-feed.github.com/spotlights/prompts-chat/index/">GitHub Staff Pick</a> · 
-    🚀 First prompt library (Dec 2022)
-  </sub>
-</p>
-
-<p align="center">
-  <sub><strong>Loved by AI pioneers:</strong></sub><br>
-  <sub>
-    <a href="https://x.com/gdb/status/1602072566671110144"><strong>Greg Brockman</strong></a> (OpenAI Co-Founder) · 
-    <a href="https://x.com/woj_zaremba/status/1601362952841760769"><strong>Wojciech Zaremba</strong></a> (OpenAI Co-Founder) · 
-    <a href="https://x.com/clementdelangue/status/1830976369389642059"><strong>Clement Delangue</strong></a> (Hugging Face CEO) · 
-    <a href="https://x.com/ashtom/status/1887250944427237816"><strong>Thomas Dohmke</strong></a> (Former GitHub CEO)
-  </sub>
 </p>
 
 ---
 
 ## What is this?
 
-A curated collection of **prompt examples** for AI chat models. Originally created for ChatGPT, these prompts work great with any modern AI assistant.
+**Agent Library** is a curated, community-driven collection of high-performance instructions and workflows for AI Agents and Large Language Models. Built for the era of autonomous digital intelligence, it provides the building blocks for developers and enthusiasts to create specialized AI capabilities.
 
-**Note:** This repository is a fork of the original [Awesome ChatGPT Prompts](https://github.com/bl1nk-bot/agent-library) by Fatih Kadir Akın. Much of the data and structure originates from there.
-
-| Browse Prompts | Data Formats |
-|----------------|--------------|
-| [prompts.chat](https://prompts.chat/prompts) | [prompts.csv](prompts.csv) |
-| [PROMPTS.md](https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/PROMPTS.md) | [Hugging Face Dataset](https://huggingface.co/datasets/fka/agent-library) |
-
-**Want to contribute?** Add prompts at [prompts.chat/prompts/new](https://prompts.chat/prompts/new) — they sync here automatically.
+### Key Pillars
+- **Agent Skills:** Multi-file prompts that add specialized tools and logic to AI agents.
+- **Context Engineering:** Beyond simple chat—manage complex reasoning and data flows.
+- **Platform Neutral:** Designed to work across ChatGPT, Claude, Gemini, and local models.
+- **Enterprise Ready:** Fully self-hostable with built-in authentication and customization.
 
 ---
 
 ## 📖 The Interactive Book of Prompting
 
-Learn prompt engineering with our **free, interactive guide** — 25+ chapters covering everything from basics to advanced techniques like chain-of-thought reasoning, few-shot learning, and AI agents.
+Master the art of communicating with machines. Our free, interactive guide covers everything from basics to advanced techniques like:
+- **Chain-of-Thought** reasoning
+- **Multi-step Agent Workflows**
+- **Model Context Protocol (MCP)** integration
+- **Structured Output** optimization
 
-**[Start Reading →](https://fka.gumroad.com/l/art-of-chatgpt-prompting)**
-
----
-
-## 🎮 Prompting for Kids
-
-<p>
-  <a href="https://prompts.chat/kids">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://prompts.chat/promi-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://prompts.chat/promi.svg">
-      <img height="60" alt="Promi" src="https://prompts.chat/promi.svg" align="left">
-    </picture>
-  </a>
-</p>
-
-An interactive, game-based adventure to teach children (ages 8-14) how to communicate with AI through fun puzzles and stories.
-
-**[Start Playing →](https://prompts.chat/kids)**
-
-<br clear="left">
+**[Start Learning →](https://agent.bl1nk.site/book)**
 
 ---
 
 ## 🚀 Self-Hosting
 
-Deploy your own private prompt library with custom branding, themes, and authentication.
+Deploy your own private instance of the Agent Library for your team or organization.
 
-**Quick Start:**
-```bash
-npx prompts.chat new my-prompt-library
-cd my-prompt-library
-```
-
-**Manual Setup:**
+### Quick Start
 ```bash
 git clone https://github.com/bl1nk-bot/agent-library.git
 cd agent-library
 npm install && npm run setup
 ```
 
-The setup wizard configures branding, theme, authentication (GitHub/Google/Azure AD), and features.
+The interactive setup wizard will guide you through:
+- **Custom Branding** (Name, Logo, Theme)
+- **Authentication Providers** (GitHub, Google, Azure AD)
+- **Feature Toggles** (Private Prompts, AI Search, MCP Support)
 
 📖 **[Full Self-Hosting Guide](SELF-HOSTING.md)** • 🐳 **[Docker Guide](DOCKER.md)**
 
@@ -121,120 +67,31 @@ The setup wizard configures branding, theme, authentication (GitHub/Google/Azure
 
 ## 🔌 Integrations
 
-### CLI
-```bash
-npx prompts.chat
-```
-
-### Claude Code Plugin
-```
-/plugin marketplace add bl1nk-bot/agent-library
-/plugin install prompts.chat@prompts.chat
-```
-📖 [Plugin Documentation](CLAUDE-PLUGIN.md)
-
 ### MCP Server
-Use prompts.chat as an MCP server in your AI tools.
+Integrate this entire library directly into VS Code, Cursor, or Claude Desktop.
 
-**Remote (recommended):**
+**Configuration:**
 ```json
 {
   "mcpServers": {
-    "prompts.chat": {
-      "url": "https://prompts.chat/api/mcp"
+    "agent-library": {
+      "url": "https://agent.bl1nk.site/api/mcp"
     }
   }
 }
 ```
 
-**Local:**
-```json
-{
-  "mcpServers": {
-    "prompts.chat": {
-      "command": "npx",
-      "args": ["-y", "prompts.chat", "mcp"]
-    }
-  }
-}
-```
-
-📖 [MCP Documentation](https://prompts.chat/docs/api)
-
 ---
 
-## 💖 Sponsors
+## 👥 Community & Contributions
 
-<p align="center">
-  <!-- Clemta -->
-  <a href="https://clemta.com/?utm_source=prompts.chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/clemta-dark.webp">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/clemta.webp">
-      <img height="35" alt="Clemta" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/clemta.webp">
-    </picture>
-  </a>&nbsp;&nbsp;
-  <!-- Wiro (py-1) -->
-  <a href="https://wiro.ai/?utm_source=prompts.chat">
-    <img height="30" alt="Wiro" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/wiro.png">
-  </a>&nbsp;&nbsp;
-  <!-- Cognition -->
-  <a href="https://wind.surf/prompts-chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/cognition-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/cognition.svg">
-      <img height="35" alt="Cognition" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/cognition.svg">
-    </picture>
-  </a>&nbsp;&nbsp;
-  <!-- CodeRabbit (py-1) -->
-  <a href="https://coderabbit.link/fatih">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/coderabbit-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/coderabbit.svg">
-      <img height="30" alt="CodeRabbit" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/coderabbit.svg">
-    </picture>
-  </a>&nbsp;&nbsp;
-  <!-- Sentry (py-1) -->
-  <a href="https://sentry.io/?utm_source=prompts.chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/sentry-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/sentry.svg">
-      <img height="30" alt="Sentry" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/sentry.svg">
-    </picture>
-  </a>&nbsp;&nbsp;
-  <!-- MitteAI -->
-  <a href="https://mitte.ai/?utm_source=prompts.chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/mitte-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/mitte.svg">
-      <img height="35" alt="MitteAI" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/mitte.svg">
-    </picture>
-  </a>&nbsp;&nbsp;
-  <!-- Warp (py-2) -->
-  <a href="https://warp.dev/?utm_source=prompts.chat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/warp-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/warp.svg">
-      <img height="25" alt="Warp" src="https://raw.githubusercontent.com/bl1nk-bot/agent-library/main/public/sponsors/warp.svg">
-    </picture>
-  </a>
-</p>
-
-<p align="center">
-  <sub>Built with <a href="https://wind.surf/prompts-chat">Windsurf</a> and <a href="https://devin.ai">Devin</a></sub><br>
-  <a href="https://github.com/sponsors/f/sponsorships?sponsor=f&tier_id=529895"><strong>Become a Sponsor →</strong></a>
-</p>
-
----
-
-## 👥 Contributors
-
-<a href="https://github.com/bl1nk-bot/agent-library/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=bl1nk-bot/agent-library" />
-</a>
+We believe in open knowledge. Contributions are welcome through GitHub pull requests or via the platform's change request system.
 
 ---
 
 ## 📜 License
 
-**[CC0 1.0 Universal (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/)** — Copy, modify, distribute, and use freely. No attribution required.
+**[CC0 1.0 Universal (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/)** — This project belongs to everyone. Copy, modify, and use it freely without any restrictions.
+
+---
+<sub>Built with passion by **bl1nk Team**. Based on the open-source community's collective wisdom.</sub>

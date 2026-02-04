@@ -18,24 +18,24 @@ Establish the foundational URL changes and logic updates.
 #### Phase 2: Content & Documentation Rewrite
 Update all user-facing documentation and narrative content.
 
-- [ ] Task: Rewrite "Preface" and "History" MDX
-    - [ ] Write Tests: Verify MDX files render without legacy creator names.
-    - [ ] Implement: Rewrite `src/content/book/00a-preface.mdx` and `00b-history.mdx` for the new brand.
-- [ ] Task: Update README.md & SELF-HOSTING.md
-    - [ ] Write Tests: Verify all links in README/SELF-HOSTING point to `bl1nk-bot`.
-    - [ ] Implement: Update technical documentation with new repo links and installation instructions.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Content & Documentation Rewrite' (Protocol in workflow.md)
+- [x] Task: Rewrite "Preface" and "History" MDX
+    - [x] Write Tests: Verify MDX files render without legacy creator names.
+    - [x] Implement: Rewrite `src/content/book/00a-preface.mdx` and `00b-history.mdx` for the new brand.
+- [x] Task: Update README.md & SELF-HOSTING.md
+    - [x] Write Tests: Verify all links in README/SELF-HOSTING point to `bl1nk-bot`.
+    - [x] Implement: Update technical documentation with new repo links and installation instructions.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Content & Documentation Rewrite' (Protocol in workflow.md)
 
-#### Phase 3: UI Cleanup & Legacy Removal
+#### Phase 3: UI Cleanup & Legacy Removal [checkpoint: 70204cb]
 Remove legacy social proof sections and update brand consistency.
 
-- [ ] Task: Remove Legacy Testimonials and Achievements
-    - [ ] Write Tests: Verify `src/app/page.tsx` no longer imports or renders `TestimonialsSection` or `AchievementsSection` (if they are being deleted).
-    - [ ] Implement: Remove legacy sections from the homepage and delete the corresponding components/data if no longer needed.
-- [ ] Task: Update SEO & Structured Data
-    - [ ] Write Tests: Verify `StructuredData` component outputs the correct author and repo URL.
-    - [ ] Implement: Update `src/components/seo/structured-data.tsx` and other metadata components.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: UI Cleanup & Legacy Removal' (Protocol in workflow.md)
+- [x] Task: Remove Legacy Testimonials and Achievements [2901f10]
+    - [x] Write Tests: Verify `src/app/page.tsx` no longer imports or renders `TestimonialsSection` or `AchievementsSection` (if they are being deleted).
+    - [x] Implement: Remove legacy sections from the homepage and delete the corresponding components/data if no longer needed.
+- [x] Task: Update SEO & Structured Data [7ff8843]
+    - [x] Write Tests: Verify `StructuredData` component outputs the correct author and repo URL.
+    - [x] Implement: Update `src/components/seo/structured-data.tsx` and other metadata components.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: UI Cleanup & Legacy Removal' (Protocol in workflow.md) [70204cb]
 
 #### Phase 4: Final Verification sweep
 Ensure no traces remain.

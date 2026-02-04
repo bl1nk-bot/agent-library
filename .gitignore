@@ -55,3 +55,4 @@ archive
 !.gemini/
 !.gemini/**/
 !.gemini/**/.gitkeep
+conductor/

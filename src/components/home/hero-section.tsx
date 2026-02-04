@@ -71,27 +71,6 @@ export function HeroSection({
               <span className="text-xs text-muted-foreground uppercase tracking-wider">{t("clients")}</span>
               <div className="flex items-center gap-3">
                 <CliCommand />
-                {config.branding.appStoreUrl && (
-                  <Link
-                    href={config.branding.appStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 h-10 px-2.5 2xl:px-4 bg-zinc-900 dark:bg-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors border border-zinc-700 dark:border-zinc-600"
-                  >
-                    <AppStoreIcon className="text-zinc-100" />
-                    <span className="hidden 2xl:inline text-sm font-medium text-zinc-100 whitespace-nowrap">App Store</span>
-                  </Link>
-                )}
-                {config.branding.chromeExtensionUrl && (
-                  <ExtensionLink url={config.branding.chromeExtensionUrl} />
-                )}
-                <Link
-                  href="raycast://extensions/fka/prompts-chat?source=prompts.chat"
-                  className="inline-flex items-center justify-center gap-2 h-10 px-2.5 2xl:px-4 bg-zinc-900 dark:bg-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors border border-zinc-700 dark:border-zinc-600"
-                >
-                  <RaycastIcon className="text-zinc-100" />
-                  <span className="hidden 2xl:inline text-sm font-medium text-zinc-100 whitespace-nowrap">Raycast</span>
-                </Link>
               </div>
             </div>
           </div>
@@ -192,27 +171,6 @@ export function HeroSection({
               <span className="text-xs text-muted-foreground uppercase tracking-wider">{t("clients")}</span>
               <div className="flex flex-wrap items-center justify-center gap-2">
                 <CliCommand />
-                {config.branding.appStoreUrl && (
-                  <Link
-                    href={config.branding.appStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 h-10 px-2.5 md:px-4 bg-zinc-900 dark:bg-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors border border-zinc-700 dark:border-zinc-600"
-                  >
-                    <AppStoreIcon className="text-zinc-100" />
-                    <span className="hidden md:inline text-sm font-medium text-zinc-100 whitespace-nowrap">App Store</span>
-                  </Link>
-                )}
-                {config.branding.chromeExtensionUrl && (
-                  <ExtensionLink url={config.branding.chromeExtensionUrl} />
-                )}
-                <Link
-                  href="raycast://extensions/fka/prompts-chat?source=prompts.chat"
-                  className="inline-flex items-center justify-center gap-2 h-10 px-2.5 md:px-4 bg-zinc-900 dark:bg-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors border border-zinc-700 dark:border-zinc-600"
-                >
-                  <RaycastIcon className="text-zinc-100" />
-                  <span className="hidden md:inline text-sm font-medium text-zinc-100 whitespace-nowrap">Raycast</span>
-                </Link>
               </div>
             </div>
           )}

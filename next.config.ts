@@ -70,10 +70,6 @@ export default withSentryConfig(withMDX(withNextIntl(nextConfig)), {
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
 
-  // Disable Sentry during build for non-production environments
-  disableLogger: process.env.NODE_ENV !== "production",
-  hideSourceMaps: process.env.NODE_ENV !== "production",
-
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 

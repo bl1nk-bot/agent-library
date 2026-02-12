@@ -35,6 +35,7 @@ import {
   DEFAULT_SKILL_CONTENT,
   type SkillFile,
 } from "@/lib/skill-files";
+import { applyMonacoTheme, getMobileEditorOptions } from "@/lib/monaco-config";
 
 interface SkillEditorProps {
   value: string;
@@ -198,6 +199,8 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
+  const monacoRef = useRef<unknown>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Parse files from the serialized content
   const [files, setFiles] = useState<SkillFile[]>(() => parseSkillFiles(value));
@@ -212,6 +215,17 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
 
   // Expanded folders state
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Build tree structure from files
   const fileTree = useMemo(() => buildFileTree(files), [files]);
@@ -366,9 +380,22 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     }
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleEditorMount: OnMount = useCallback((editor) => {
+  const handleEditorMount: OnMount = useCallback((editor, monaco) => {
     editorRef.current = editor;
-  }, []);
+    monacoRef.current = monaco;
+    
+    // Apply enhanced theme
+    const theme = resolvedTheme === "dark" ? "dark" : "light";
+    applyMonacoTheme(monaco, theme);
+    
+    // Mobile-specific optimizations
+    if (window.innerWidth < 768) {
+      editor.updateOptions({
+        mouseWheelZoom: false,
+        fastScrollSensitivity: 2,
+      });
+    }
+  }, [resolvedTheme]);
 
   // File icon based on extension
   const getFileIcon = (filename: string) => {
@@ -380,63 +407,96 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   return (
     <div
       className={cn(
-        "flex border rounded-lg overflow-hidden bg-background",
+        "flex border rounded-lg overflow-hidden bg-background transition-opacity duration-180",
         className
       )}
-      style={{ height: "500px" }}
+      style={{ 
+        height: isMobile ? "600px" : "500px",
+        WebkitTouchCallout: 'none',
+      }}
     >
       {/* Sidebar - File Tree */}
-      <div className="w-56 border-r bg-muted/30 flex flex-col">
+      <div className={cn(
+        "border-r bg-muted/30 flex flex-col transition-all duration-180",
+        isMobile ? "w-12" : "w-56"
+      )}>
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between px-3 py-2 border-b bg-muted/50">
-          <div className="flex items-center gap-2 text-sm font-medium">
-            <FolderOpen className="h-4 w-4 text-primary" />
-            <span>{t("skillFiles")}</span>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6"
-            onClick={handleAddFile}
-            title={t("addFile")}
-          >
-            <FilePlus className="h-4 w-4" />
-          </Button>
+        <div className={cn(
+          "flex items-center justify-between px-3 py-2 border-b bg-muted/50 transition-all duration-180",
+          isMobile && !isSidebarOpen && "px-2"
+        )}>
+          {isMobile && !isSidebarOpen ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => setIsSidebarOpen(true)}
+              title={t("skillFiles")}
+            >
+              <FolderOpen className="h-4 w-4 text-primary" />
+            </Button>
+          ) : (
+            <>
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <FolderOpen className="h-4 w-4 text-primary" />
+                {!isMobile && <span>{t("skillFiles")}</span>}
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={handleAddFile}
+                title={t("addFile")}
+              >
+                <FilePlus className="h-4 w-4" />
+              </Button>
+            </>
+          )}
         </div>
 
         {/* File Tree */}
-        <div className="flex-1 overflow-y-auto p-2">
-          {fileTree.map((node) => (
-            <TreeNodeItem
-              key={node.path}
-              node={node}
-              depth={0}
-              activeFile={activeFile}
-              expandedFolders={expandedFolders}
-              onToggleFolder={toggleFolder}
-              onOpenFile={openFile}
-              onDeleteFile={handleDeleteFile}
-              t={t}
-            />
-          ))}
-        </div>
+        {(!isMobile || isSidebarOpen) && (
+          <div className="flex-1 overflow-y-auto p-2">
+            {fileTree.map((node) => (
+              <TreeNodeItem
+                key={node.path}
+                node={node}
+                depth={0}
+                activeFile={activeFile}
+                expandedFolders={expandedFolders}
+                onToggleFolder={toggleFolder}
+                onOpenFile={(path) => {
+                  openFile(path);
+                  if (isMobile) setIsSidebarOpen(false);
+                }}
+                onDeleteFile={handleDeleteFile}
+                t={t}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Sidebar Footer - File Count */}
-        <div className="px-3 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
-          {files.length} {files.length === 1 ? t("file") : t("files")}
-        </div>
+        {(!isMobile || isSidebarOpen) && (
+          <div className="px-3 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
+            {files.length} {files.length === 1 ? t("file") : t("files")}
+          </div>
+        )}
       </div>
 
       {/* Main Editor Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Tabs */}
-        <div className="flex items-center border-b bg-muted/30 overflow-x-auto">
+        <div className="flex items-center border-b bg-muted/30 overflow-x-auto scrollbar-thin">
           {openTabs.map((filename) => (
             <div
               key={filename}
               className={cn(
-                "flex items-center gap-1.5 px-3 py-2 border-r cursor-pointer text-xs font-mono transition-colors whitespace-nowrap",
+                "flex items-center gap-1.5 border-r cursor-pointer text-xs font-mono whitespace-nowrap",
+                "transition-all duration-120",
+                isMobile ? "px-2 py-2.5" : "px-3 py-2",
                 activeFile === filename
                   ? "bg-background border-b-2 border-b-primary -mb-px"
                   : "bg-muted/50 hover:bg-muted"
@@ -444,11 +504,14 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
               onClick={() => setActiveFile(filename)}
             >
               {getFileIcon(filename)}
-              <span className="max-w-[120px] truncate">{filename}</span>
+              <span className={cn(
+                "truncate",
+                isMobile ? "max-w-[80px]" : "max-w-[120px]"
+              )}>{filename}</span>
               {filename !== DEFAULT_SKILL_FILE && (
                 <button
                   onClick={(e) => closeTab(filename, e)}
-                  className="ml-1 p-0.5 hover:bg-muted rounded"
+                  className="ml-1 p-0.5 hover:bg-muted rounded transition-opacity duration-120"
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -465,27 +528,8 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
             value={activeFileData?.content || ""}
             onChange={handleEditorChange}
             onMount={handleEditorMount}
-            theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
-            options={{
-              minimap: { enabled: false },
-              fontSize: 12,
-              lineNumbers: "on",
-              scrollBeyondLastLine: false,
-              wordWrap: "on",
-              wrappingIndent: "indent",
-              automaticLayout: true,
-              tabSize: 2,
-              padding: { top: 8, bottom: 8 },
-              renderLineHighlight: "line",
-              overviewRulerBorder: false,
-              hideCursorInOverviewRuler: true,
-              scrollbar: {
-                vertical: "auto",
-                horizontal: "auto",
-                verticalScrollbarSize: 8,
-                horizontalScrollbarSize: 8,
-              },
-            }}
+            theme={resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light"}
+            options={getMobileEditorOptions(isMobile)}
           />
         </div>
       </div>

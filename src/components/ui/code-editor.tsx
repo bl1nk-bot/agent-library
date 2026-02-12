@@ -3,7 +3,9 @@
 import { useTheme } from "next-themes";
 import Editor, { type OnMount } from "@monaco-editor/react";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef, useEffect, memo, forwardRef, useImperativeHandle } from "react";
+import { useCallback, useRef, useEffect, memo, forwardRef, useImperativeHandle, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { applyMonacoTheme, getMobileEditorOptions } from "@/lib/monaco-config";
 
 export interface CodeEditorHandle {
   insertAtCursor: (text: string) => void;
@@ -31,19 +33,35 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
   readOnly = false,
 }, ref) {
   const { resolvedTheme } = useTheme();
+  const isMobile = useIsMobile();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
   const onChangeRef = useRef(onChange);
   const internalValueRef = useRef(value);
+  const [isEditorReady, setIsEditorReady] = useState(false);
   
   // Keep onChange ref updated without triggering re-renders
   useEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
 
-  const handleEditorMount: OnMount = useCallback((editor) => {
+  const handleEditorMount: OnMount = useCallback((editor, monaco) => {
     editorRef.current = editor;
-  }, []);
+    setIsEditorReady(true);
+    
+    // Apply enhanced theme
+    const theme = resolvedTheme === "dark" ? "dark" : "light";
+    applyMonacoTheme(monaco, theme);
+    
+    // Mobile-specific optimizations
+    if (isMobile) {
+      // Improve mobile touch handling
+      editor.updateOptions({
+        mouseWheelZoom: false,
+        fastScrollSensitivity: 2,
+      });
+    }
+  }, [isMobile, resolvedTheme]);
 
   useImperativeHandle(ref, () => ({
     insertAtCursor: (text: string) => {
@@ -96,14 +114,29 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
   // Only update editor value if it changed externally (not from typing)
   const displayValue = value || placeholder;
 
+  // Mobile-optimized editor options
+  const baseOptions = getMobileEditorOptions(isMobile);
+  const editorOptions = {
+    ...baseOptions,
+    readOnly: readOnly,
+    domReadOnly: readOnly,
+    renderLineHighlight: readOnly ? "none" : baseOptions.renderLineHighlight,
+  };
+
   return (
     <div
       dir="ltr"
       className={cn(
-        "border rounded-md overflow-hidden text-left",
+        "border rounded-md overflow-hidden text-left transition-opacity",
+        !isEditorReady && "opacity-0",
+        isEditorReady && "opacity-100 duration-180",
         className
       )}
-      style={{ minHeight }}
+      style={{ 
+        minHeight,
+        // Prevent iOS Safari zoom on focus
+        WebkitTouchCallout: 'none',
+      }}
     >
       <Editor
         height={minHeight}
@@ -111,29 +144,13 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
         value={displayValue}
         onChange={handleChange}
         onMount={handleEditorMount}
-        theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
-        options={{
-          minimap: { enabled: false },
-          fontSize: 11,
-          lineNumbers: "off",
-          scrollBeyondLastLine: false,
-          wordWrap: "on",
-          wrappingIndent: "indent",
-          automaticLayout: true,
-          tabSize: 2,
-          padding: { top: 8, bottom: 8 },
-          renderLineHighlight: readOnly ? "none" : "line",
-          overviewRulerBorder: false,
-          hideCursorInOverviewRuler: true,
-          readOnly: readOnly,
-          domReadOnly: readOnly,
-          scrollbar: {
-            vertical: "auto",
-            horizontal: "auto",
-            verticalScrollbarSize: 4,
-            horizontalScrollbarSize: 4,
-          },
-        }}
+        theme={resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light"}
+        options={editorOptions}
+        loading={
+          <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
+            Loading editor...
+          </div>
+        }
       />
     </div>
   );

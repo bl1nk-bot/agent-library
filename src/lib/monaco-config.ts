@@ -150,7 +150,7 @@ export function getMobileEditorOptions(isMobile: boolean) {
     letterSpacing: isMobile ? 0.2 : 0,
     
     // Line numbers
-    lineNumbers: isMobile ? "off" : "on",
+    lineNumbers: (isMobile ? "off" : "on") as "off" | "on",
     lineNumbersMinChars: isMobile ? 0 : 3,
     
     // Padding
@@ -161,8 +161,8 @@ export function getMobileEditorOptions(isMobile: boolean) {
     
     // Scrollbar
     scrollbar: {
-      vertical: "auto",
-      horizontal: "auto",
+      vertical: "auto" as const,
+      horizontal: "auto" as const,
       verticalScrollbarSize: isMobile ? 10 : 8,
       horizontalScrollbarSize: isMobile ? 10 : 8,
       useShadows: false,
@@ -173,29 +173,29 @@ export function getMobileEditorOptions(isMobile: boolean) {
       quickSuggestions: false,
       parameterHints: { enabled: false },
       suggestOnTriggerCharacters: false,
-      acceptSuggestionOnEnter: "off",
+      acceptSuggestionOnEnter: "off" as const,
       hover: { enabled: false },
       folding: false,
       glyphMargin: false,
       lineDecorationsWidth: 0,
-      renderLineHighlight: "line",
+      renderLineHighlight: "line" as const,
       mouseWheelZoom: false,
       fastScrollSensitivity: 2,
       
       // Smooth animations
-      cursorBlinking: "smooth",
-      cursorSmoothCaretAnimation: "on",
+      cursorBlinking: "smooth" as const,
+      cursorSmoothCaretAnimation: "on" as const,
       smoothScrolling: true,
     }),
     
     // Common settings
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
-    wordWrap: "on",
-    wrappingIndent: "indent",
+    wordWrap: "on" as const,
+    wrappingIndent: "indent" as const,
     automaticLayout: true,
     tabSize: 2,
-    renderLineHighlight: "line",
+    renderLineHighlight: "line" as const,
     overviewRulerBorder: false,
     hideCursorInOverviewRuler: true,
     
@@ -205,7 +205,7 @@ export function getMobileEditorOptions(isMobile: boolean) {
     },
     
     // Whitespace rendering
-    renderWhitespace: "selection",
+    renderWhitespace: "selection" as const,
   };
 }
 

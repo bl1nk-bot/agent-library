@@ -120,7 +120,7 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
     ...baseOptions,
     readOnly: readOnly,
     domReadOnly: readOnly,
-    renderLineHighlight: readOnly ? "none" : baseOptions.renderLineHighlight,
+    renderLineHighlight: (readOnly ? "none" : baseOptions.renderLineHighlight) as "none" | "line" | "all" | "gutter",
   };
 
   return (

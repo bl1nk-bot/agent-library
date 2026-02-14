@@ -3,8 +3,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import Editor, { type Monaco } from "@monaco-editor/react";
-import type { editor } from "monaco-editor";
+import Editor, { type Monaco, type OnMount } from "@monaco-editor/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -184,9 +183,9 @@ export function PromptTokenizer() {
   const [highlightTokens, setHighlightTokens] = useState(false);
   
   // Monaco editor refs
-  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
   const monacoRef = useRef<Monaco | null>(null);
-  const decorationsRef = useRef<editor.IEditorDecorationsCollection | null>(null);
+  const decorationsRef = useRef<ReturnType<NonNullable<Parameters<OnMount>[0]>['createDecorationsCollection']> | null>(null);
   
   // User-configurable settings
   const [contextWindow, setContextWindow] = useState(DEFAULT_CONTEXT_WINDOW);
@@ -243,7 +242,7 @@ export function PromptTokenizer() {
     if (!model) return;
     
     // Create decorations with alternating colors
-    const decorations: editor.IModelDeltaDecoration[] = tokens
+    const decorations = tokens
       .filter(token => !/^\s+$/.test(text.slice(token.start, token.end))) // Skip whitespace-only tokens
       .map((token, index) => {
         const startPos = model.getPositionAt(token.start);
@@ -265,7 +264,7 @@ export function PromptTokenizer() {
     decorationsRef.current = editor.createDecorationsCollection(decorations);
   }, [text, highlightTokens]);
 
-  const handleEditorMount = useCallback((editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
+  const handleEditorMount = useCallback<OnMount>((editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
     

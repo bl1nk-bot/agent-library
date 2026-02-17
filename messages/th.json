@@ -112,7 +112,7 @@
     "uploadSkill": "อัปโหลดทักษะ",
     "uploadSkillDescription": "อัปโหลด .zip, .skill",
     "addFromOfficial": "เพิ่มจากทางการ",
-    "addFromOfficialDescription": "ทักษะที่สร้างไว้ล่วงหน้าโดย Manus",
+    "addFromOfficialDescription": "ทักษะที่สร���างไว้ล่วงหน้าโดย Manus",
     "importFromGitHub": "นำเข้าจาก GitHub",
     "importFromGitHubDescription": "วางลิงก์ repository เพื่อเริ่มต้น",
     "skillsDescription": "ทักษะ Agent คือพรอมต์แบบหลายไฟล์ที่เพิ่มความสามารถเฉพาะทางให้ AI ประกอบด้วยคำสั่ง การตั้งค่า และไฟล์ประกอบ ใช้ได้กับ Claude, Cursor, Windsurf และอื่นๆ",
@@ -307,7 +307,7 @@
     "clickToUploadAudio": "คลิกเพื่ออัปโหลดไฟล์เสียง",
     "uploading": "กำลังอัปโหลด...",
     "maxFileSize": "ขนาดไฟล์สูงสุด: 4MB (JPEG, PNG, GIF, WebP)",
-    "maxVideoSize": "ขนาดไฟล์สูงสุด: 4MB (MP4)",
+    "maxVideoSize": "ขนาดไฟล์สูงส��ด: 4MB (MP4)",
     "maxAudioSize": "ขนาดไฟล์สูงสุด: 4MB (MP3, WAV, OGG)",
     "fileTooLarge": "ไฟล์ใหญ่เกินไป ขนาดสูงสุดคือ 4MB",
     "videoTooLarge": "วิดีโอใหญ่เกินไป ขนาดสูงสุดคือ 4MB",
@@ -376,7 +376,7 @@
     "previous": "ก่อนหน้า",
     "next": "ถัดไป",
     "mediaLoadError": "ไม่สามารถโหลดสื่อสำหรับพรอมต์นี้ได้ URL อาจไม่ถูกต้องหรือทรัพยากรไม่มีอยู่แล้ว",
-    "mediaUnavailable": "สื่อไม่พร้อมใช้งาน",
+    "mediaUnavailable": "สื่อไม่พร้อมใช��งาน",
     "variableWarningTitle": "ตรวจพบรูปแบบคล้ายตัวแปร",
     "variableWarningDescription": "เราพบข้อความที่ดูเหมือนตัวแปร ซึ่งสามารถแปลงเป็นตัวแปรแบบไดนามิกเพื่อให้ผู้ใช้ปรับแต่งค่าได้",
     "convertVariables": "แปลงทั้งหมด",
@@ -393,6 +393,32 @@
     "structuredFormatDetected": "ตรวจพบรูปแบบ {format}",
     "structuredFormatWarningDescription": "เนื้อหาพรอมต์ของคุณดูเหมือนข้อมูลโครงสร้าง แนะนำให้เปลี่ยนเป็นโหมดโครงสร้างเพื่อการแสดงผลและการตรวจสอบที่ดีขึ้น",
     "switchToStructured": "เปลี่ยนเป็น {format}"
+  },
+  "skills": {
+    "apiIntegrations": "การเชื่อมต่อ API",
+    "apiDescription": "จัดการ endpoints และการตั้งค่า API สำหรับทักษะนี้",
+    "addApi": "เพิ่ม API",
+    "addApiConfig": "เพิ่มการตั้งค่า API",
+    "noApiConfigs": "ยังไม่มีการตั้งค่า API",
+    "noApiConfigsDescription": "เพิ่มการเชื่อมต่อ API แรกของคุณเพื่อเริ่มต้น",
+    "editApiConfig": "แก้ไขการตั้งค่า API",
+    "newApiConfig": "การตั้งค่า API ใหม่",
+    "configureEndpoint": "กำหนดรายละเอียด endpoint API ของคุณ",
+    "testApi": "ทดสอบ API",
+    "testApiDescription": "ทดสอบ API ของคุณด้วยข้อมูลตัวอย่าง",
+    "requestBody": "เนื้อหาคำขอ (JSON)",
+    "response": "การตอบกลับ",
+    "curlCommand": "คำสั่ง cURL",
+    "copyResponse": "คัดลอกการตอบกลับ",
+    "name": "ชื่อ",
+    "method": "วิธีการ",
+    "baseUrl": "URL หลัก",
+    "description": "คำอธิบาย",
+    "documentation": "URL เอกสาร",
+    "headers": "Headers",
+    "addHeader": "เพิ่ม Header",
+    "queryParameters": "พารามิเตอร์ Query",
+    "addParameter": "เพิ่มพารามิเตอร์"
   },
   "changeRequests": {
     "title": "คำขอแก้ไข",
@@ -731,7 +757,7 @@
       "description": "นำเข้าพรอมต์จากไฟล์ prompts.csv ของ Awesome ChatGPT Prompts",
       "fileInfo": "นำเข้าจาก prompts.csv ของชุมชน Awesome ChatGPT Prompts",
       "csvFormat": "รูปแบบ: act, prompt, for_devs, type",
-      "importButton": "นำเข้าพรอมต์ชุมชน",
+      "importButton": "นำเข��าพรอมต์ชุมชน",
       "importing": "กำลังนำเข้า...",
       "success": "นำเข้า {count} พรอมต์สำเร็จ",
       "allSkipped": "พรอมต์ทั้งหมดมีอยู่แล้ว",
@@ -845,12 +871,12 @@
     "usernamePlaceholder": "ชื่อผู้ใช้",
     "profileUrl": "URL โปรไฟล์ของคุณ",
     "email": "อีเมล",
-    "emailCannotChange": "ไม่สามารถเปลี่ยนอีเมลได้",
+    "emailCannotChange": "ไม่สามารถเปลี่ยนอ��เมลได้",
     "bio": "ประวัติย่อ",
     "bioPlaceholder": "บอกเล่าเกี่ยวกับตัวคุณสั้นๆ...",
     "bioCharCount": "{count}/250",
     "customLinks": "ลิงก์",
-    "customLinksDescription": "เพิ่มลิงก์ไปยังโซเชียลมีเดียหรือเว็บไซต์ของคุณ",
+    "customLinksDescription": "เพิ่มลิงก์ไปยังโซเชียลมีเดียหรือเว็���ไซต์ของคุณ",
     "addLink": "เพิ่มลิงก์",
     "linkType": "ประเภท",
     "linkUrl": "URL",
@@ -1161,7 +1187,7 @@
     "reject": "ปฏิเสธ",
     "confirmMessage": "คุณแน่ใจหรือไม่? การวิเคราะห์ช่วยเราปรับปรุงแอปนี้ซึ่งเป็นโอเพนซอร์สทั้งหมด",
     "nevermind": "ไม่เป็นไร",
-    "confirmReject": "ใช่ ปฏิเสธ"
+    "confirmReject": "ใช่ ปฏิ���สธ"
   },
   "support": {
     "title": "ช่วยเหลือ",
@@ -1207,7 +1233,7 @@
     },
     "contact": {
       "title": "ต้องการความช่วยเหลือเพิ่มเติม?",
-      "description": "หากคุณไม่พบคำตอบสำหรับคำถามของคุณ กรอกแบบฟอร์มด้านล่างแล้วเราจะช่วยคุณบน GitHub",
+      "description": "หากคุณไม่พบคำตอบสำหรับคำถามของคุณ กรอกแบบฟอร์มด���านล่างแล้วเราจะช่วยคุณบน GitHub",
       "form": {
         "title": "หัวข้อปัญหา",
         "titlePlaceholder": "สรุปปัญหาหรือคำถามของคุณสั้นๆ",
@@ -1287,7 +1313,7 @@
       },
       "defineFormat": {
         "title": "กำหนดรูปแบบผลลัพธ์",
-        "description": "ระบุวิธีที่คุณต้องการให้โครงสร้างคำตอบเป็น: หัวข้อย่อย ย่อหน้า บล็อกโค้ด ตาราง ฯลฯ"
+        "description": "ระบุวิธีที่คุณต้องการให้โครงสร้างคำตอบเป็น: หัวข้อย่อย ย่อหน้า บล���อกโค้ด ตาราง ฯลฯ"
       },
       "setConstraints": {
         "title": "กำหนดข้อจำกัด",
@@ -1601,7 +1627,7 @@
         "description": "มอบบุคลิกให้ AI และดูมันมีชีวิตขึ้นมา"
       },
       "4_4_world_builder": {
-        "title": "ผู้สร้างโลก",
+        "title": "ผู้ส��้างโลก",
         "description": "สร้างโลกและสถานการณ์ที่จินตนาการ"
       },
       "5_1_perfect_prompt": {

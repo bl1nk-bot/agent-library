@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface LiquidMetalButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface LiquidMetalButtonProps extends React.ComponentProps<typeof Button> {
   label?: string
   viewMode?: "text" | "icon"
-  asChild?: boolean
 }
 
 export function LiquidMetalButton({

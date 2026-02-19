@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 import { analyticsAuth } from "@/lib/analytics";
 
 interface OAuthButtonProps {
@@ -54,19 +55,26 @@ export function OAuthButton({ provider, providerName }: OAuthButtonProps) {
   };
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      className="w-full h-10"
-      onClick={handleSignIn}
-      disabled={isLoading}
-    >
+    <div className="w-full flex justify-center py-1">
       {isLoading ? (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full h-8 text-sm"
+          onClick={handleSignIn}
+          disabled
+        >
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          {t("signInWith", { provider: providerName })}
+        </Button>
       ) : (
-        <span className="mr-2">{providerIcons[provider]}</span>
+        <LiquidMetalButton
+          label={t("signInWith", { provider: providerName })}
+          viewMode="text"
+          onClick={handleSignIn}
+          className="w-full"
+        />
       )}
-      {t("signInWith", { provider: providerName })}
-    </Button>
+    </div>
   );
 }

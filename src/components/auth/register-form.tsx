@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -163,10 +164,22 @@ export function RegisterForm() {
             )}
           />
         </div>
-        <Button type="submit" className="w-full h-8 text-sm" disabled={isLoading}>
-          {isLoading && <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />}
-          {t("register")}
-        </Button>
+        <div className="w-full flex justify-center">
+          {isLoading ? (
+            <Button className="w-full h-8 text-sm" disabled>
+              <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+              {t("register")}
+            </Button>
+          ) : (
+            <LiquidMetalButton
+              label={t("register")}
+              viewMode="text"
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-8 text-sm"
+            />
+          )}
+        </div>
       </form>
     </Form>
   );

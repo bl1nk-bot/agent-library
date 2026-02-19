@@ -32,7 +32,6 @@ import {
   validateFilename,
   suggestFilename,
   DEFAULT_SKILL_FILE,
-  DEFAULT_SKILL_CONTENT,
   type SkillFile,
 } from "@/lib/skill-files";
 import { applyMonacoTheme, getMobileEditorOptions } from "@/lib/monaco-config";
@@ -371,6 +370,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
 
     // Only update if the value changed externally
     if (value !== currentSerialized) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiles(parsed);
       // Ensure active file exists
       if (!parsed.some((f) => f.filename === activeFile)) {

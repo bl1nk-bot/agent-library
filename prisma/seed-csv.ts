@@ -173,7 +173,7 @@ async function main() {
         }
         authorId = user.id;
         userCache.set(contributor, authorId);
-      } catch (e) {
+      } catch (_e) {
         // Fallback to admin if user creation fails (e.g. duplicate email/username collision logic issues)
         authorId = admin.id;
       }
@@ -182,7 +182,7 @@ async function main() {
     }
 
     // 2. Handle Prompt
-    let slug = slugify(title);
+    const slug = slugify(title);
     
     // Ensure unique slug (simple append)
     // For bulk import, checking every slug is slow. 
@@ -233,7 +233,7 @@ async function main() {
 
         successCount++;
         if (successCount % 100 === 0) process.stdout.write(".");
-    } catch (e) {
+    } catch (_e) {
         // console.error(`Failed to create prompt ${title}:`, e);
         skippedCount++;
     }

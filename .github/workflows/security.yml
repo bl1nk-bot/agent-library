@@ -1,0 +1,35 @@
+name: Security & Linting
+
+on:
+  push:
+    branches: [main, master, v0/*]
+  pull_request:
+    branches: [main, master, v0/*]
+
+jobs:
+  security-check:
+    name: Security & Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run ESLint (including Security rules)
+        run: bun run lint
+
+      - name: Run Dependency Audit
+        # Bun currently doesn't have a direct 'audit' command like npm/pnpm. 
+        # We can skip this step or use a workaround if needed, 
+        # but for now let's focus on linting which covers code security.
+        # Alternatively, we can use 'npm audit' if package-lock.json exists, but we are switching to bun.
+        # We will comment this out until Bun supports audit or we add a specific tool.
+        # run: bun run audit 
+

@@ -1,21 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { apiConfigSchema } from "@/lib/schemas/api-config";
 import { z } from "zod";
-
-const apiConfigSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string().optional(),
-  baseUrl: z.string().url("Invalid URL"),
-  method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]),
-  headers: z.record(z.string()).optional(),
-  queryParams: z.record(z.string()).optional(),
-  bodySchema: z.any().optional(),
-  responseSchema: z.any().optional(),
-  authentication: z.any().optional(),
-  testEndpoint: z.string().optional(),
-  documentation: z.string().optional(),
-});
 
 /**
  * GET /api/prompts/[id]/api-config/[configId]

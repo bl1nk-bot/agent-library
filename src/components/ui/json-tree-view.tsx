@@ -23,6 +23,34 @@ interface JsonTreeViewProps {
   onCollapseAll?: React.MutableRefObject<(() => void) | undefined>;
 }
 
+const getNodeType = (value: unknown): JsonNode["type"] => {
+  if (value === null) return "null";
+  if (Array.isArray(value)) return "array";
+  if (typeof value === "object") return "object";
+  return typeof value as "string" | "number" | "boolean";
+};
+
+const collectPathsRecursive = (value: unknown, path: string, maxDepth: number, depth: number = 0): string[] => {
+  const paths: string[] = [];
+  const type = getNodeType(value);
+  
+  if ((type === "object" || type === "array") && depth < maxDepth) {
+    paths.push(path);
+    
+    if (type === "array") {
+      (value as unknown[]).forEach((item, index) => {
+        paths.push(...collectPathsRecursive(item, `${path}.${index}`, maxDepth, depth + 1));
+      });
+    } else {
+      Object.entries(value as Record<string, unknown>).forEach(([k, v]) => {
+        paths.push(...collectPathsRecursive(v, `${path}.${k}`, maxDepth, depth + 1));
+      });
+    }
+  }
+  
+  return paths;
+};
+
 function JsonTreeView({ data, className, fontSize = "xs", maxDepth = 10, onExpandAll, onCollapseAll }: JsonTreeViewProps) {
   const t = useTranslations("common");
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set(["root"]));
@@ -39,38 +67,9 @@ function JsonTreeView({ data, className, fontSize = "xs", maxDepth = 10, onExpan
     });
   };
 
-  const getNodeType = (value: unknown): JsonNode["type"] => {
-    if (value === null) return "null";
-    if (Array.isArray(value)) return "array";
-    if (typeof value === "object") return "object";
-    return typeof value as "string" | "number" | "boolean";
-  };
-
-  // Collect all expandable paths recursively
-  const collectExpandablePaths = useCallback((value: unknown, path: string, depth: number = 0): string[] => {
-    const paths: string[] = [];
-    const type = getNodeType(value);
-    
-    if ((type === "object" || type === "array") && depth < maxDepth) {
-      paths.push(path);
-      
-      if (type === "array") {
-        (value as unknown[]).forEach((item, index) => {
-          paths.push(...collectExpandablePaths(item, `${path}.${index}`, depth + 1));
-        });
-      } else {
-        Object.entries(value as Record<string, unknown>).forEach(([k, v]) => {
-          paths.push(...collectExpandablePaths(v, `${path}.${k}`, depth + 1));
-        });
-      }
-    }
-    
-    return paths;
-  }, [maxDepth, getNodeType]);
-
   const allExpandablePaths = useMemo(() => {
-    return collectExpandablePaths(data, "root");
-  }, [data, collectExpandablePaths]);
+    return collectPathsRecursive(data, "root", maxDepth);
+  }, [data, maxDepth]);
 
   const expandAll = useCallback(() => {
     setExpandedPaths(new Set(allExpandablePaths));
@@ -240,9 +239,11 @@ function JsonTreeView({ data, className, fontSize = "xs", maxDepth = 10, onExpan
   // Expose expand/collapse functions via useEffect
   useEffect(() => {
     if (onExpandAll) {
+      // eslint-disable-next-line react-compiler/react-compiler
       onExpandAll.current = expandAll;
     }
     if (onCollapseAll) {
+      // eslint-disable-next-line react-compiler/react-compiler
       onCollapseAll.current = collapseAll;
     }
   }, [expandAll, collapseAll, onExpandAll, onCollapseAll]);

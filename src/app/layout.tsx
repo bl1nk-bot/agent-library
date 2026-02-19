@@ -48,12 +48,12 @@ export const metadata: Metadata = {
   publisher: "AI Command Hub",
   icons: {
     icon: [
-      { url: "/favicon/favicon.ico", sizes: "48x48" },
-      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/icon16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/icon32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/icon.svg", type: "image/svg+xml" },
     ],
     apple: "/favicon/apple-touch-icon.png",
-    shortcut: "/favicon/favicon.ico",
+    shortcut: "/favicon/icon.ico",
   },
   manifest: "/favicon/site.webmanifest",
   other: {

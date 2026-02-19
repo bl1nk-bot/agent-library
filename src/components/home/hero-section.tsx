@@ -132,12 +132,9 @@ export function HeroSection({
                 </Button>
               )}
               {showRegisterButton && (
-                <Button variant="outline" size="lg" asChild>
-                  <Link href={isOAuth ? "/login" : "/register"}>
-                    <LogIn className="mr-1.5 h-4 w-4" />
-                    {isOAuth ? tNav("login") : tNav("register")}
-                  </Link>
-                </Button>
+                <Link href={isOAuth ? "/login" : "/register"} className="no-underline">
+                  <Button label={isOAuth ? tNav("login") : tNav("register")} viewMode="text" />
+                </Link>
               )}
             </div>
             {!useCloneBranding && (

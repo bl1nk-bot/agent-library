@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Schoolbell } from "next/font/google";
+import { Button } from "@/components/ui/button";
 
 const kidsFont = Schoolbell({
   subsets: ["latin"],
@@ -138,7 +139,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
 
   return (
     <header className="sticky top-[0px] z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className={`flex h-12 items-center gap-4 ${pathname === "/developers" ? "px-4" : "container"}`}>
+      <div className={`flex h-12 items-center gap-4 ${pathname === "/developers" ? "px-4" : "container"}`} suppressHydrationWarning>
         {/* Mobile menu */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
@@ -534,7 +535,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 gap-2 px-2">
+                <Button variant="ghost" className="relative h-8 gap-2 px-2" suppressHydrationWarning>
                   <Avatar className="h-6 w-6">
                     <AvatarImage src={user.image || undefined} alt={user.name || ""} />
                     <AvatarFallback className="text-xs">
@@ -607,7 +608,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" suppressHydrationWarning>
               {/* Language selector for non-logged in users */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -629,16 +630,16 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button variant="ghost" size="sm" className="h-8 text-xs" asChild>
-                <Link href="/login">{t("nav.login")}</Link>
-              </Button>
-              {authProvider === "credentials" && allowRegistration && (
-                <Button size="sm" className="h-8 text-xs" asChild>
-                  <Link href="/register">
-                    {t("nav.register")}
+              <div className="flex items-center gap-2">
+                <Link href="/login" className="no-underline">
+                  <Button label={t("nav.login")} viewMode="text" />
+                </Link>
+                {authProvider === "credentials" && allowRegistration && (
+                  <Link href="/register" className="no-underline">
+                    <Button label={t("nav.register")} viewMode="text" />
                   </Link>
-                </Button>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>

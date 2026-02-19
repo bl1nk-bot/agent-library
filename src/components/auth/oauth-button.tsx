@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 import { analyticsAuth } from "@/lib/analytics";
 
 interface OAuthButtonProps {
@@ -68,7 +67,7 @@ export function OAuthButton({ provider, providerName }: OAuthButtonProps) {
           {t("signInWith", { provider: providerName })}
         </Button>
       ) : (
-        <LiquidMetalButton
+        <Button
           label={t("signInWith", { provider: providerName })}
           viewMode="text"
           onClick={handleSignIn}

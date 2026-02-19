@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -104,15 +103,16 @@ export function LoginForm() {
               <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
               {t("login")}
             </Button>
-          ) : (
-            <LiquidMetalButton
-              label={t("login")}
-              viewMode="text"
-              type="submit"
-              disabled={isLoading}
-              className="w-full h-8 text-sm"
-            />
-          )}
+                      ) : (
+                        <Button
+                          label={t("login")}
+                          viewMode="text"
+                          type="submit"
+                          disabled={isLoading}
+                          className="w-full h-8 text-sm"
+                        />
+                      )}
+          
         </div>
       </form>
     </Form>

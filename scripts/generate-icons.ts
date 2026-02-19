@@ -9,11 +9,12 @@
  * - Extra: .svg export
  */
 
-import { existsSync, mkdirSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { join, dirname as pathDirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import sharp from 'sharp';
+import toIco from 'to-ico';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = pathDirname(filename);
@@ -34,13 +35,13 @@ const LINUX_SIZES = [16, 32, 48, 64, 128, 256, 512, 1024];
 /**
  * Create rounded squircle mask (Apple style)
  */
-function createRoundedRectSVG(width, height, radius) {
+function createRoundedRectSVG(width: number, height: number, radius: number): string {
   return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="white"/>
   </svg>`;
 }
 
-async function createRoundedSquircle(inputPath, outputPath, size = 1024, padding = 100) {
+async function createRoundedSquircle(inputPath: string, outputPath: string, size: number = 1024, padding: number = 100): Promise<void> {
   const contentSize = size - (padding * 2);
   const radius = Math.round(contentSize * 0.22);
   const maskSVG = createRoundedRectSVG(contentSize, contentSize, radius);
@@ -70,7 +71,7 @@ async function createRoundedSquircle(inputPath, outputPath, size = 1024, padding
 /**
  * Generate macOS .icns
  */
-async function generateMacIcon(source) {
+async function generateMacIcon(source: string): Promise<void> {
   // iconutil is macOS only
   const isMac = process.platform === 'darwin';
   
@@ -85,11 +86,11 @@ async function generateMacIcon(source) {
   for (const size of MAC_SIZES) {
     for (const scale of [1, 2]) {
       const actualSize = size * scale;
-      const filename = scale === 1 ? `icon_${size}x${size}.png` : `icon_${size}x${size}@${scale}x.png`;
+      const icnsFilename = scale === 1 ? `icon_${size}x${size}.png` : `icon_${size}x${size}@${scale}x.png`;
       await sharp(source)
         .resize(actualSize, actualSize)
         .png()
-        .toFile(join(ICONSETDIR, filename));
+        .toFile(join(ICONSETDIR, icnsFilename));
     }
   }
 
@@ -100,16 +101,30 @@ async function generateMacIcon(source) {
 /**
  * Generate Windows .ico
  */
-async function generateWindowsIcon(source) {
-  await sharp(source)
-    .resize(256, 256)
-    .toFile(OUTPUTICO);
+async function generateWindowsIcon(source: string): Promise<void> {
+  const buffers: Buffer[] = [];
+  
+  // Generate PNG buffers for each size
+  // Standard Windows sizes: 16, 32, 48, 256
+  const sizes = [16, 32, 48, 256];
+  
+  for (const size of sizes) {
+    const buffer = await sharp(source)
+      .resize(size, size)
+      .png()
+      .toBuffer();
+    buffers.push(buffer);
+  }
+
+  // Combine into ICO
+  const icoBuffer = await toIco(buffers);
+  writeFileSync(OUTPUTICO, icoBuffer);
 }
 
 /**
  * Generate Linux .png icons
  */
-async function generateLinuxIcons(source) {
+async function generateLinuxIcons(source: string): Promise<void> {
   for (const size of LINUX_SIZES) {
     await sharp(source)
       .resize(size, size)
@@ -121,15 +136,19 @@ async function generateLinuxIcons(source) {
 /**
  * Generate SVG (vector mask)
  */
-async function generateSVG(source) {
-  const svgMask = createRoundedRectSVG(1024, 1024, 220);
-  await sharp(source)
-    .resize(1024, 1024)
-    .composite([{ input: Buffer.from(svgMask), blend: 'dest-in' }])
-    .toFile(OUTPUTSVG);
+async function generateSVG(source: string): Promise<void> {
+  // Instead of using sharp to output SVG (which just wraps the raster image),
+  // we'll write a simple SVG wrapper that references the image or just output the mask shape itself if that was intended.
+  // However, based on the original code, it seemed to want to apply a mask.
+  // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape 
+  // that matches the icon style, which is often what is needed for simple vector assets.
+  
+  // Alternatively, if the intention was just to have an SVG file available:
+  const svgContent = createRoundedRectSVG(1024, 1024, 220);
+  writeFileSync(OUTPUTSVG, svgContent);
 }
 
-async function main() {
+async function main(): Promise<void> {
   console.log('🎨 Generating cross-platform icons...\n');
 
   if (!existsSync(INPUTICON)) {

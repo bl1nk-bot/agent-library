@@ -25,11 +25,11 @@ async function initSentry() {
       dsn: "https://9c2eb3b4441745efad28a908001c30bf@o4510673866063872.ingest.de.sentry.io/4510673871306832",
       enabled: process.env.NODE_ENV === "production",
       integrations: [Sentry.replayIntegration()],
-      tracesSampleRate: 1,
+      tracesSampleRate: 0.2,
       enableLogs: true,
       replaysSessionSampleRate: 0.1,
       replaysOnErrorSampleRate: 1.0,
-      sendDefaultPii: true,
+      sendDefaultPii: false,
       beforeSend(event) {
         const message = event.exception?.values?.[0]?.value || "";
         const type = event.exception?.values?.[0]?.type || "";

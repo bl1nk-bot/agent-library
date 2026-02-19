@@ -23,7 +23,7 @@ interface TestResult {
   statusText?: string;
   responseTime?: number;
   headers?: Record<string, string>;
-  data?: any;
+  data?: unknown;
   error?: string;
 }
 
@@ -75,7 +75,7 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
   };
 
   const copyResponse = () => {
-    if (result?.data) {
+    if (result && result.data !== undefined) {
       navigator.clipboard.writeText(JSON.stringify(result.data, null, 2));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -192,7 +192,7 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
                 )}
               </div>
             </div>
-            {result.data && (
+            {result.data !== undefined && (
               <Button
                 variant="outline"
                 size="sm"
@@ -218,7 +218,9 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
             ) : (
               <div className="space-y-2">
                 <pre className="p-4 bg-muted rounded-md overflow-x-auto text-xs font-mono max-h-96">
-                  {JSON.stringify(result.data, null, 2)}
+                  {typeof result.data === "string"
+                    ? result.data
+                    : JSON.stringify(result.data, null, 2)}
                 </pre>
               </div>
             )}

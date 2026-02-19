@@ -164,21 +164,22 @@ export function RegisterForm() {
           />
         </div>
         <div className="w-full flex justify-center">
-          {isLoading ? (
-            <Button className="w-full h-8 text-sm" disabled>
-              <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
-              {t("register")}
-            </Button>
-                      ) : (
-                        <Button
-                          label={t("register")}
-                          viewMode="text"
-                          type="submit"
-                          disabled={isLoading}
-                          className="w-full h-8 text-sm"
-                        />
-                      )}
-          
+          <Button asChild>
+            <button
+              className="w-full h-8 text-sm flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors disabled:opacity-50 disabled:pointer-events-none"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                  {t("register")}
+                </>
+              ) : (
+                t("register")
+              )}
+            </button>
+          </Button>
         </div>
       </form>
     </Form>

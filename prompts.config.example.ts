@@ -56,7 +56,7 @@ export default defineConfig({
     sponsors: {
       enabled: true,
       items: [
-        { name: "bl1nkos", logo: "/sponsors/acme.svg", url: "https:bl1nk.site" }
+        { name: "bl1nkos", logo: "/sponsors/acme.svg", url: "https://bl1nk.site" }
       ],
     },
   },

@@ -173,8 +173,9 @@ async function main() {
         }
         authorId = user.id;
         userCache.set(contributor, authorId);
-      } catch (_e) {
+      } catch (error) {
         // Fallback to admin if user creation fails (e.g. duplicate email/username collision logic issues)
+        console.warn(`Failed to create/find author "${contributor}" (email: ${email}). Falling back to admin.`, error);
         authorId = admin.id;
       }
     } else if (!authorId) {
@@ -233,8 +234,8 @@ async function main() {
 
         successCount++;
         if (successCount % 100 === 0) process.stdout.write(".");
-    } catch (_e) {
-        // console.error(`Failed to create prompt ${title}:`, e);
+    } catch (error) {
+        console.error(`Failed to create prompt "${title}" (slug: ${slug}).`, error);
         skippedCount++;
     }
   }

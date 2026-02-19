@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are currently being supported with security updates.
+The following versions of the project are currently supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,18 +11,14 @@ Use this section to tell people about which versions of your project are current
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a reported vulnerability, what to expect if the vulnerability is accepted or rejected, etc.
+If you discover a security vulnerability, please report it privately.
 
 **Do not report security vulnerabilities through public GitHub issues.**
 
-Please report vulnerability to [INSERT CONTACT METHOD HERE] (e.g., security@example.com).
-
-We prefer all communications to be in English.
+Please report vulnerabilities via email to **security@bl1nk.site**.
 
 ## Disclosure Policy
 
-*   We will investigate and respond to the report within a reasonable timeframe (e.g., 48 hours).
+*   We will investigate and respond to the report within 48 hours.
 *   We ask that you do not disclose the vulnerability publicly until we have had a chance to fix it.
 *   We will notify you when the vulnerability is fixed.

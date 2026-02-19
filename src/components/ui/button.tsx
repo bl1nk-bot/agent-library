@@ -8,7 +8,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-2 focus-visible:ring-offset-1",
   {
     variants: {
       variant: {
@@ -54,24 +54,23 @@ function Button({
   children,
   ...props
 }: ButtonProps) {
-  // If explicitly "text" or "icon" via viewMode, use it.
-  // Otherwise, infer from size.
-  const mode = viewMode || (size === "icon" || size === "icon-sm" || size === "icon-lg" ? "icon" : "text")
-  // If label is not provided, try to use children as label if it's a string
-  const displayLabel = label || (typeof children === 'string' ? children : "")
-
+  // --- START Hoisted Hooks and variables ---
   const [isHovered, setIsHovered] = useState(false)
+  const isHoveredRef = useRef(false)
   const [isPressed, setIsPressed] = useState(false)
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])
+  
   const shaderRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const shaderMount = useRef<any>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const rippleId = useRef(0)
 
-  // Use the dimensions from LiquidMetalButton, but maybe adjustable?
-  // User wanted "LiquidMetalButton" logic.
-  // We hardcode dimensions matching the user provided code for now to be safe.
+  // Compute mode and displayLabel unconditionally
+  const mode = viewMode || (size === "icon" || size === "icon-sm" || size === "icon-lg" ? "icon" : "text")
+  const displayLabel = label || (typeof children === 'string' ? children : "")
+
+  // Dynamic dimensions based on mode. 
   const dimensions = useMemo(() => {
     if (mode === "icon") {
       return {
@@ -82,15 +81,15 @@ function Button({
         shaderWidth: 46,
         shaderHeight: 46,
       }
-    } else {
-      return {
-        width: 142, // From user code
-        height: 46,
-        innerWidth: 138,
-        innerHeight: 42,
-        shaderWidth: 142,
-        shaderHeight: 46,
-      }
+    }
+    // For text mode, we rely on CSS sizing (auto width, variant height)
+    return {
+      width: undefined, 
+      height: undefined,
+      innerWidth: undefined,
+      innerHeight: undefined,
+      shaderWidth: undefined,
+      shaderHeight: undefined,
     }
   }, [mode])
 
@@ -169,11 +168,13 @@ function Button({
 
   const handleMouseEnter = () => {
     setIsHovered(true)
+    isHoveredRef.current = true
     shaderMount.current?.setSpeed?.(1)
   }
 
   const handleMouseLeave = () => {
     setIsHovered(false)
+    isHoveredRef.current = false
     setIsPressed(false)
     shaderMount.current?.setSpeed?.(0.6)
   }
@@ -182,7 +183,7 @@ function Button({
     if (shaderMount.current?.setSpeed) {
       shaderMount.current.setSpeed(2.4)
       setTimeout(() => {
-        if (isHovered) {
+        if (isHoveredRef.current) {
           shaderMount.current?.setSpeed?.(1)
         } else {
           shaderMount.current?.setSpeed?.(0.6)
@@ -204,28 +205,18 @@ function Button({
 
     onClick?.(e)
   }
+  // --- END Hoisted Hooks and variables ---
 
-  // If asChild is true, we cannot easily wrap the child with this complex DOM structure.
-  // The shader effect relies on multiple divs.
-  // We will fallback to standard rendering if asChild is true OR if variant is ghost/link/outline/secondary/destructive?
-  // The user said "replace the button". I should probably try to force it.
-  // But if asChild is used (e.g. for Tooltips or Links), wrapping it in divs might break layout.
-  // However, the shader button returns a div wrapper.
-  // If asChild is true, Slot expects to be the root.
-  // If we render <div ...><Slot ...></div>, the Slot is not the root.
-  
-  // Strategy:
-  // If asChild is true, we fallback to the original simple Button implementation to avoid breaking logic.
-  // But for everything else, we use the Liquid Metal implementation.
-  // Also, we respect "variant" if it's explicitly "ghost" or "link" maybe?
-  // No, user said "replace". I will try to use Liquid Metal for everything unless asChild is true.
+  // Compute classes using buttonVariants
+  const variantClasses = buttonVariants({ variant, size, className });
 
+  // Fallback to simple button if asChild is true
   if (asChild) {
     const Comp = Slot
     return (
       <Comp
         data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(variantClasses)}
         {...props}
       >
         {children}
@@ -234,51 +225,63 @@ function Button({
   }
 
   return (
-    <div className={cn("relative inline-block", className)}>
+    <div className={cn("relative inline-block perspective-1000", className)}>
       <div
+        className={cn(
+          "relative transform-style-3d transition-all duration-800",
+          variantClasses,
+          "border-0 overflow-hidden" 
+        )}
         style={{
-          perspective: "1000px",
-          perspectiveOrigin: "50% 50%",
+          width: dimensions.width ? `${dimensions.width}px` : undefined,
+          height: dimensions.height ? `${dimensions.height}px` : undefined,
+          transform: `translateZ(0px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
         }}
       >
-        <div
-          style={{
-            position: "relative",
-            width: `${dimensions.width}px`,
-            height: `${dimensions.height}px`,
-            transformStyle: "preserve-3d",
-            transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
-            transform: "none",
-          }}
-        >
+          {/* Inner Background Layer */}
           <div
             style={{
               position: "absolute",
               top: 0,
               left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-              transformStyle: "preserve-3d",
-              transition:
-                "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, gap 0.4s ease",
-              transform: "translateZ(20px)",
-              zIndex: 30,
-              pointerEvents: "none",
+              width: "100%",
+              height: "100%",
+              borderRadius: "var(--radius)",
+              background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
+              zIndex: 0,
+            }}
+          />
+
+          {/* Shader/Outer Layer */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              borderRadius: "var(--radius)",
+              zIndex: 1,
             }}
           >
+            <div
+              ref={shaderRef}
+              className="shader-container-exploded"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "var(--radius)",
+              }}
+            />
+          </div>
+
+          {/* Content Layer */}
+          <div className="relative z-10 flex items-center justify-center gap-2">
             {mode === "icon" ? (
-              // If children provided and it's not just a string label, render children.
-              // Otherwise render Sparkles default.
               React.Children.count(children) > 0 && typeof children !== 'string' ? (
                  <div style={{
                   color: "#666666",
                   filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
-                  transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
                   display: "flex", alignItems: "center", justifyContent: "center"
                 }}>
                   {children}
@@ -289,99 +292,22 @@ function Button({
                   style={{
                     color: "#666666",
                     filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
-                    transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                    transform: "scale(1)",
                   }}
                 />
               )
             ) : (
               <span
                 style={{
-                  fontSize: "14px",
+                  fontSize: "inherit",
                   color: "#666666",
-                  fontWeight: 400,
+                  fontWeight: "inherit",
                   textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
-                  transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
                   whiteSpace: "nowrap",
                 }}
               >
                 {displayLabel || children}
               </span>
             )}
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
-              transformStyle: "preserve-3d",
-              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
-              transform: `translateZ(10px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
-              zIndex: 20,
-            }}
-          >
-            <div
-              style={{
-                width: `${dimensions.innerWidth}px`,
-                height: `${dimensions.innerHeight}px`,
-                margin: "2px",
-                borderRadius: "100px",
-                background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
-                boxShadow: isPressed
-                  ? "inset 0px 2px 4px rgba(0, 0, 0, 0.4), inset 0px 1px 2px rgba(0, 0, 0, 0.3)"
-                  : "none",
-                transition:
-                  "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
-              transformStyle: "preserve-3d",
-              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
-              transform: `translateZ(0px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
-              zIndex: 10,
-            }}
-          >
-            <div
-              style={{
-                height: `${dimensions.height}px`,
-                width: `${dimensions.width}px`,
-                borderRadius: "100px",
-                boxShadow: isPressed
-                  ? "0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)"
-                  : isHovered
-                    ? "0px 0px 0px 1px rgba(0, 0, 0, 0.4), 0px 12px 6px 0px rgba(0, 0, 0, 0.05), 0px 8px 5px 0px rgba(0, 0, 0, 0.1), 0px 4px 4px 0px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)"
-                    : "0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 36px 14px 0px rgba(0, 0, 0, 0.02), 0px 20px 12px 0px rgba(0, 0, 0, 0.08), 0px 9px 9px 0px rgba(0, 0, 0, 0.12), 0px 2px 5px 0px rgba(0, 0, 0, 0.15)",
-                transition:
-                  "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
-                background: "rgb(0 0 0 / 0)",
-              }}
-            >
-              <div
-                ref={shaderRef}
-                className="shader-container-exploded"
-                style={{
-                  borderRadius: "100px",
-                  overflow: "hidden",
-                  position: "relative",
-                  width: `${dimensions.shaderWidth}px`,
-                  maxWidth: `${dimensions.shaderWidth}px`,
-                  height: `${dimensions.shaderHeight}px`,
-                  transition: "width 0.4s ease, height 0.4s ease",
-                }}
-              />
-            </div>
           </div>
 
           <button
@@ -391,23 +317,7 @@ function Button({
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => setIsPressed(true)}
             onMouseUp={() => setIsPressed(false)}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              outline: "none",
-              zIndex: 40,
-              transformStyle: "preserve-3d",
-              transform: "translateZ(25px)",
-              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
-              overflow: "hidden",
-              borderRadius: "100px",
-            }}
+            className="absolute inset-0 w-full h-full bg-transparent border-none cursor-pointer outline-none z-40"
             aria-label={displayLabel || (typeof children === 'string' ? children : undefined)}
             {...props}
           >
@@ -428,7 +338,6 @@ function Button({
               />
             ))}
           </button>
-        </div>
       </div>
     </div>
   )

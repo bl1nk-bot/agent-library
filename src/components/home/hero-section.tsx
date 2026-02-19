@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Star, Code, Lock, Building2, Github, LogIn, History } from "lucide-react";
+import { ArrowRight, Star, Code, Lock, Building2, Github, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroCategories } from "@/components/prompts/hero-categories";
 import { CliCommand } from "@/components/layout/cli-command";
@@ -132,9 +132,11 @@ export function HeroSection({
                 </Button>
               )}
               {showRegisterButton && (
-                <Link href={isOAuth ? "/login" : "/register"} className="no-underline">
-                  <Button label={isOAuth ? tNav("login") : tNav("register")} viewMode="text" />
-                </Link>
+                <Button asChild viewMode="text">
+                  <Link href={isOAuth ? "/login" : "/register"} className="no-underline">
+                    {isOAuth ? tNav("login") : tNav("register")}
+                  </Link>
+                </Button>
               )}
             </div>
             {!useCloneBranding && (

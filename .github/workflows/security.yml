@@ -17,7 +17,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: latest
+          bun-version: 1.2.4
 
       - name: Install dependencies
         run: bun install
@@ -26,10 +26,5 @@ jobs:
         run: bun run lint
 
       - name: Run Dependency Audit
-        # Bun currently doesn't have a direct 'audit' command like npm/pnpm. 
-        # We can skip this step or use a workaround if needed, 
-        # but for now let's focus on linting which covers code security.
-        # Alternatively, we can use 'npm audit' if package-lock.json exists, but we are switching to bun.
-        # We will comment this out until Bun supports audit or we add a specific tool.
-        # run: bun run audit 
+        run: echo "Dependency audit skipped" 
 

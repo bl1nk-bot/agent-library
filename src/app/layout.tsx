@@ -15,6 +15,7 @@ import { getConfig } from "@/lib/config";
 import { isRtlLocale } from "@/lib/i18n/config";
 import { inter, jetbrainsMono } from "./fonts";
 import "./globals.css";
+import { converter, parse } from "culori";
 
 const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
@@ -106,28 +107,17 @@ const radiusValues = {
   lg: "0.75rem",
 };
 
+const toOklch = converter("oklch");
+
 function hexToOklch(hex: string): string {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return "oklch(0.5 0.2 260)";
+  const color = parse(hex);
+  if (!color) return "oklch(0.5 0.2 260)";
   
-  const r = parseInt(result[1], 16) / 255;
-  const g = parseInt(result[2], 16) / 255;
-  const b = parseInt(result[3], 16) / 255;
+  const oklch = toOklch(color);
+  if (!oklch) return "oklch(0.5 0.2 260)";
   
-  const l = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  const c = (max - min) * 0.4;
-  
-  let h = 0;
-  if (max !== min) {
-    if (max === r) h = ((g - b) / (max - min)) * 60;
-    else if (max === g) h = (2 + (b - r) / (max - min)) * 60;
-    else h = (4 + (r - g) / (max - min)) * 60;
-  }
-  if (h < 0) h += 360;
-  
-  return `oklch(${(l * 0.8 + 0.2).toFixed(3)} ${c.toFixed(3)} ${h.toFixed(1)})`;
+  const h = oklch.h ?? 0;
+  return `oklch(${oklch.l.toFixed(3)} ${oklch.c.toFixed(3)} ${h.toFixed(1)})`;
 }
 
 export default async function RootLayout({

@@ -72,7 +72,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
       );
 
       if (response.ok) {
-        setConfigs(configs.filter((c) => c.id !== configId));
+        setConfigs((prev) => prev.filter((c) => c.id !== configId));
       }
     } catch (error) {
       console.error("[v0] Error deleting API config:", error);

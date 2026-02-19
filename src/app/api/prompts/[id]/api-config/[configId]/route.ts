@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { apiConfigSchema } from "@/lib/schemas/api-config";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 
 /**
  * GET /api/prompts/[id]/api-config/[configId]
@@ -13,7 +14,28 @@ export async function GET(
   { params }: { params: Promise<{ id: string; configId: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id, configId } = await params;
+
+    // Verify prompt exists and user is the author
+    const prompt = await db.prompt.findFirst({
+      where: {
+        id,
+        authorId: session.user.id,
+        deletedAt: null,
+      },
+    });
+
+    if (!prompt) {
+      return NextResponse.json(
+        { error: "Prompt not found or unauthorized" },
+        { status: 404 }
+      );
+    }
 
     const apiConfig = await db.apiConfig.findFirst({
       where: {
@@ -92,6 +114,12 @@ export async function PUT(
         { status: 400 }
       );
     }
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+      return NextResponse.json(
+        { error: "API configuration not found" },
+        { status: 404 }
+      );
+    }
 
     console.error("[v0] Error updating API config:", error);
     return NextResponse.json(
@@ -143,6 +171,12 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+      return NextResponse.json(
+        { error: "API configuration not found" },
+        { status: 404 }
+      );
+    }
     console.error("[v0] Error deleting API config:", error);
     return NextResponse.json(
       { error: "Failed to delete API configuration" },

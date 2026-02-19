@@ -12,10 +12,16 @@ export async function register() {
   }
 }
 
-export const onRequestError = async (...args: unknown[]) => {
+export const onRequestError = async (request: Request, error: Error) => {
   try {
     const Sentry = await import("@sentry/nextjs");
-    Sentry.captureRequestError(...(args as Parameters<typeof Sentry.captureRequestError>));
+    Sentry.captureRequestError(error, {
+      request: {
+        url: request.url,
+        method: request.method,
+        headers: request.headers as Record<string, string>,
+      },
+    });
   } catch {
     // Sentry not installed
   }

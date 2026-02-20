@@ -7,6 +7,7 @@ import { PixelRobot, PixelStar } from "./pixel-art";
 import { useLevelSlug, useSectionNavigation } from "@/components/kids/providers/level-context";
 import { getComponentState, saveComponentState, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the PromptVsMistake interactive element. */
 interface PromptVsMistakeProps {
   question: string;
   good: string;
@@ -15,12 +16,18 @@ interface PromptVsMistakeProps {
   promiMessage?: string;
 }
 
+/** Shape of the state persisted to localStorage for this component. */
 interface SavedState {
   selected: "good" | "bad" | null;
   showResult: boolean;
   order: string[];
 }
 
+/**
+ * Interactive selection challenge where the learner picks which of two prompts
+ * (good vs bad) the AI would prefer, with animated pixel-art feedback.
+ * Persists its selection state to localStorage.
+ */
 export function PromptVsMistake({
   question,
   good,
@@ -242,6 +249,7 @@ export function PromptVsMistake({
 }
 
 // Pixel art icons
+/** Pixel-art checkmark icon used to indicate a correct selection. */
 function PixelCheckIcon() {
   return (
     <svg viewBox="0 0 12 12" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
@@ -254,6 +262,7 @@ function PixelCheckIcon() {
   );
 }
 
+/** Pixel-art X icon used to indicate an incorrect selection. */
 function PixelXIcon() {
   return (
     <svg viewBox="0 0 12 12" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
@@ -269,6 +278,7 @@ function PixelXIcon() {
   );
 }
 
+/** Pixel-art refresh/retry icon button. */
 function PixelRefreshIcon() {
   return (
     <svg viewBox="0 0 16 16" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -288,6 +298,7 @@ function PixelRefreshIcon() {
   );
 }
 
+/** Pixel-art thinking/question-mark icon for the AI thought bubble. */
 function PixelThinkingIcon() {
   return (
     <svg viewBox="0 0 32 32" className="w-12 h-12" style={{ imageRendering: "pixelated" }}>

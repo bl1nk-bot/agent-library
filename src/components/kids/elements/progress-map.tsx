@@ -9,12 +9,12 @@ import { worlds, type Level, getAllLevels } from "@/lib/kids/levels";
 import { getProgress, isLevelUnlocked, type KidsProgress } from "@/lib/kids/progress";
 import { analyticsKids } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
-import { 
-  PixelTree, 
-  PixelBush, 
-  PixelCastle, 
-  PixelMountain, 
-  PixelFlower, 
+import {
+  PixelTree,
+  PixelBush,
+  PixelCastle,
+  PixelMountain,
+  PixelFlower,
   PixelStar,
   PixelRobot,
   PixelLevelNode,
@@ -23,9 +23,15 @@ import {
   PixelPond,
   PixelCar,
   PixelOldCar,
-  PixelVan 
+  PixelVan
 } from "./pixel-art";
 
+/**
+ * Full-screen horizontal-scrolling map that shows all available levels organised
+ * into worlds. Each level is rendered as a clickable pixel-art node whose state
+ * (locked / available / completed) is derived from the user's saved progress.
+ * A progress bar at the bottom displays the total number of completed levels.
+ */
 export function ProgressMap() {
   const t = useTranslations("kids");
   const [progress, setProgress] = useState<KidsProgress | null>(null);
@@ -62,8 +68,8 @@ export function ProgressMap() {
     <div className="relative h-full flex flex-col">
       {/* Scroll controls for desktop */}
       <div className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20">
-        <button 
-          onClick={scrollLeft} 
+        <button
+          onClick={scrollLeft}
           className="w-10 h-10 bg-[#FFD700] border-3 border-[#DAA520] flex items-center justify-center hover:bg-[#FFC000] transition-colors shadow-lg"
           style={{ clipPath: "polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))" }}
         >
@@ -71,8 +77,8 @@ export function ProgressMap() {
         </button>
       </div>
       <div className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20">
-        <button 
-          onClick={scrollRight} 
+        <button
+          onClick={scrollRight}
           className="w-10 h-10 bg-[#FFD700] border-3 border-[#DAA520] flex items-center justify-center hover:bg-[#FFC000] transition-colors shadow-lg"
           style={{ clipPath: "polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))" }}
         >
@@ -81,43 +87,43 @@ export function ProgressMap() {
       </div>
 
       {/* Horizontal scrolling map container */}
-      <div 
+      <div
         ref={scrollRef}
         className="flex-1 overflow-x-auto overflow-y-hidden scrollbar-hide flex justify-center"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div 
+        <div
           className="relative h-full min-h-[400px] min-w-full"
           style={{ width: `${mapWidth}px`, imageRendering: "pixelated" }}
         >
           {/* Sky is handled by kids layout - no additional background needed */}
-          
+
           {/* Pixel art ground layers - use full width (max of mapWidth or 100%) */}
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#8B5A2B]" style={{ minWidth: `${mapWidth}px` }} />
           <div className="absolute bottom-12 left-0 right-0 h-4 bg-[#228B22]" style={{ minWidth: `${mapWidth}px` }} />
           <div className="absolute bottom-16 left-0 right-0 h-2 bg-[#32CD32]" style={{ minWidth: `${mapWidth}px` }} />
-          
+
           {/* Road with dashed center line */}
-          <div 
-            className="absolute bottom-0 left-0 right-0 h-8 bg-[#4A4A4A]" 
+          <div
+            className="absolute bottom-0 left-0 right-0 h-8 bg-[#4A4A4A]"
             style={{ minWidth: `${mapWidth}px` }}
           >
             {/* Road edges */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#6B6B6B]" />
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#3A3A3A]" />
             {/* Dashed center line */}
-            <div 
+            <div
               className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1.5 bg-repeat-x"
-              style={{ 
+              style={{
                 backgroundImage: "repeating-linear-gradient(90deg, #FFD700 0px, #FFD700 20px, transparent 20px, transparent 40px)",
                 minWidth: `${mapWidth}px`,
               }}
             />
           </div>
-          
+
           {/* Pixel art path connecting all levels */}
-          <svg 
-            className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none z-0"
             style={{ width: `${mapWidth}px`, imageRendering: "pixelated" }}
             preserveAspectRatio="none"
             shapeRendering="crispEdges"
@@ -156,9 +162,9 @@ export function ProgressMap() {
                 className="absolute z-10 pointer-events-none"
                 style={{ left: `${pos.x - 50}px`, top: "12px" }}
               >
-                <div 
+                <div
                   className="px-4 py-2 bg-[#FFD700] border-3 border-[#DAA520] text-base font-bold text-[#8B4513] whitespace-nowrap"
-                  style={{ 
+                  style={{
                     clipPath: "polygon(4px 0%, calc(100% - 4px) 0%, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0% calc(100% - 4px), 0% 4px)",
                   }}
                 >
@@ -196,17 +202,17 @@ export function ProgressMap() {
           </div>
           {/* Pixel art progress bar */}
           <div className="h-6 bg-[#4A3728] border-2 border-[#8B4513] relative overflow-hidden">
-            <div 
+            <div
               className="h-full bg-[#22C55E] transition-all duration-500"
-              style={{ 
+              style={{
                 width: `${(getCompletedCount(progress, allLevels) / allLevels.length) * 100}%`,
               }}
             />
             {/* Pixel segments overlay */}
             <div className="absolute inset-0 flex">
               {Array.from({ length: allLevels.length }).map((_, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="flex-1 border-r border-[#2C1810] last:border-r-0"
                 />
               ))}
@@ -218,11 +224,19 @@ export function ProgressMap() {
   );
 }
 
+/**
+ * Generates a smooth SVG path string (using quadratic Bézier curves) through
+ * the supplied ordered list of `{x, y}` positions.
+ *
+ * @param positions - Array of coordinate objects representing path waypoints.
+ * @returns An SVG `d` attribute value string, or an empty string when the array
+ *   is empty.
+ */
 function generatePathD(positions: { x: number; y: number }[]): string {
   if (positions.length === 0) return "";
-  
+
   let d = `M ${positions[0].x} ${positions[0].y}`;
-  
+
   for (let i = 1; i < positions.length; i++) {
     const prev = positions[i - 1];
     const curr = positions[i];
@@ -231,16 +245,23 @@ function generatePathD(positions: { x: number; y: number }[]): string {
     d += ` Q ${midX} ${prev.y}, ${midX} ${(prev.y + curr.y) / 2}`;
     d += ` Q ${midX} ${curr.y}, ${curr.x} ${curr.y}`;
   }
-  
+
   return d;
 }
 
-// Generate pixelated path using straight line segments (stair-step pattern)
+/**
+ * Generates a pixelated (stair-step) SVG path string composed entirely of
+ * horizontal and vertical line segments, giving the path a retro pixel-art look.
+ *
+ * @param positions - Array of coordinate objects representing path waypoints.
+ * @returns An SVG `d` attribute value string, or an empty string when the array
+ *   is empty.
+ */
 function generatePixelPathD(positions: { x: number; y: number }[]): string {
   if (positions.length === 0) return "";
-  
+
   let d = `M ${positions[0].x} ${positions[0].y}`;
-  
+
   for (let i = 1; i < positions.length; i++) {
     const prev = positions[i - 1];
     const curr = positions[i];
@@ -250,19 +271,27 @@ function generatePixelPathD(positions: { x: number; y: number }[]): string {
     d += ` V ${curr.y}`; // Vertical to new Y
     d += ` H ${curr.x}`; // Horizontal to destination
   }
-  
+
   return d;
 }
 
+/**
+ * Renders all decorative elements placed across the progress map, including
+ * trees, bushes, flowers, mountains, lakes, a pixel-art castle, animated
+ * vehicles (cars and a van), and a draggable flying plane with a banner.
+ *
+ * @param mapWidth - Total pixel width of the map canvas, used to position and
+ *   pace animated elements proportionally.
+ */
 function MapDecorations({ mapWidth }: { mapWidth: number }) {
   const [planeY, setPlaneY] = useState(15); // percentage from top
   const [isDragging, setIsDragging] = useState(false);
   const planeRef = useRef<HTMLDivElement>(null);
-  
+
   // Handle plane dragging
   useEffect(() => {
     if (!isDragging) return;
-    
+
     const handleMove = (clientY: number) => {
       const container = planeRef.current?.parentElement;
       if (!container) return;
@@ -271,16 +300,16 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
       // Constrain between 8% and 35% from top
       setPlaneY(Math.max(8, Math.min(35, y)));
     };
-    
+
     const onMouseMove = (e: MouseEvent) => handleMove(e.clientY);
     const onTouchMove = (e: TouchEvent) => handleMove(e.touches[0].clientY);
     const onEnd = () => setIsDragging(false);
-    
+
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('touchmove', onTouchMove);
     document.addEventListener('mouseup', onEnd);
     document.addEventListener('touchend', onEnd);
-    
+
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('touchmove', onTouchMove);
@@ -288,23 +317,23 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
       document.removeEventListener('touchend', onEnd);
     };
   }, [isDragging]);
-  
+
   // Generate decorations along the map - using seeded positions for consistency
   const decorations = [];
   const spacing = 100;
-  
+
   for (let i = 0; i < Math.floor(mapWidth / spacing); i++) {
     const x = 50 + i * spacing;
     const type = i % 5;
     const yOffset = Math.sin(i * 0.8) * 10;
-    
+
     decorations.push(
-      <div 
+      <div
         key={`deco-${i}`}
         className="absolute pointer-events-none"
-        style={{ 
-          left: `${x + (i % 3) * 15}px`, 
-          bottom: `${50 + yOffset + (i % 4) * 5}px` 
+        style={{
+          left: `${x + (i % 3) * 15}px`,
+          bottom: `${50 + yOffset + (i % 4) * 5}px`
         }}
       >
         {type === 0 && <PixelTree />}
@@ -316,7 +345,7 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
     );
   }
 
-// Add lakes and ponds scattered on the ground
+  // Add lakes and ponds scattered on the ground
   const lakePositions = [
     { x: 210, type: 'lake' },
     { x: 1000, type: 'pond' },
@@ -324,11 +353,11 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
     { x: 2920, type: 'pond' },
     { x: 3680, type: 'lake' },
   ];
-  
+
   lakePositions.forEach((lake, i) => {
     if (lake.x < mapWidth - 100) {
       decorations.push(
-        <div 
+        <div
           key={`lake-${i}`}
           className="absolute pointer-events-none"
           style={{ left: `${lake.x}px`, bottom: "50px" }}
@@ -341,7 +370,7 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
 
   // Add castle at the end
   decorations.push(
-    <div 
+    <div
       key="castle"
       className="absolute pointer-events-none"
       style={{ left: `${mapWidth - 80}px`, bottom: "50px" }}
@@ -353,10 +382,10 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
   // Add cars on the road with hover traffic light
   // Car 1 - going left (top lane)
   decorations.push(
-    <div 
+    <div
       key="car1"
       className="absolute z-[2] group"
-      style={{ 
+      style={{
         bottom: "7px",
         transform: "scaleX(-1)", // Flip to face left
         animation: `driveLeft ${Math.max(10, mapWidth / 200)}s linear infinite`,
@@ -379,13 +408,13 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
       <PixelCar color="#E74C3C" />
     </div>
   );
-  
+
   // Van - going left (top lane, different timing)
   decorations.push(
-    <div 
+    <div
       key="van1"
       className="absolute z-[2] group"
-      style={{ 
+      style={{
         bottom: "0px",
         transform: "scaleX(-1)", // Flip to face left
         animation: `driveLeft ${Math.max(18, mapWidth / 70)}s linear infinite`,
@@ -411,13 +440,13 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
       </div>
     </div>
   );
-  
+
   // Car 2 - going right (bottom lane)
   decorations.push(
-    <div 
+    <div
       key="car2"
       className="absolute z-[1] group"
-      style={{ 
+      style={{
         bottom: "22px",
         animation: `driveRight ${Math.max(12, mapWidth / 90)}s linear infinite`,
         ["--map-width" as string]: `${mapWidth}px`,
@@ -444,11 +473,11 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
 
   // Add flying plane with banner - flies across full map width, draggable up/down
   decorations.push(
-    <div 
+    <div
       key="plane"
       ref={planeRef}
       className="absolute z-10 cursor-grab active:cursor-grabbing select-none"
-      style={{ 
+      style={{
         top: `${planeY}%`,
         animation: `flyPlaneMap ${Math.max(20, mapWidth / 50)}s linear infinite`,
         ["--map-width" as string]: `${mapWidth}px`,
@@ -463,19 +492,39 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
   return <>{decorations}</>;
 }
 
+/**
+ * Returns the number of levels the user has completed.
+ *
+ * @param progress - The user's current kids-mode progress object, or `null` if
+ *   progress has not yet loaded.
+ * @param levels - The full list of levels to count against.
+ * @returns Number of levels whose `completed` flag is `true` in `progress`.
+ */
 function getCompletedCount(progress: KidsProgress | null, levels: Level[]): number {
   if (!progress) return 0;
   return levels.filter(l => progress.levels[l.slug]?.completed).length;
 }
 
+/** Props for the {@link LevelNode} component. */
 interface LevelNodeProps {
+  /** The level data object to display. */
   level: Level;
+  /** Absolute pixel position `{x, y}` of the node on the map canvas. */
   position: { x: number; y: number };
+  /** The user's current progress snapshot, used to derive lock / completion state. */
   progress: KidsProgress | null;
+  /** Zero-based index of this level in the full levels list, used for staggered animations. */
   index: number;
+  /** Next-intl translation function pre-bound to the `"kids"` namespace. */
   t: ReturnType<typeof useTranslations>;
 }
 
+/**
+ * Renders a single level node on the progress map. Displays the level number,
+ * earned stars (if completed), and the level title. Locked levels are rendered
+ * as non-interactive divs; available and completed levels wrap the content in a
+ * `Link` that navigates to the level page.
+ */
 function LevelNode({ level, position, progress, index, t }: LevelNodeProps) {
   const [unlocked, setUnlocked] = useState(false);
   const levelProgress = progress?.levels[level.slug];
@@ -489,25 +538,25 @@ function LevelNode({ level, position, progress, index, t }: LevelNodeProps) {
   const state = !unlocked ? "locked" : isCompleted ? "completed" : "available";
 
   const nodeContent = (
-    <div 
+    <div
       className={cn(
         "absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300",
         "animate-in fade-in zoom-in",
         unlocked && !isCompleted && "hover:scale-110",
         isCompleted && "hover:scale-110",
       )}
-      style={{ 
-        left: `${position.x}px`, 
+      style={{
+        left: `${position.x}px`,
         top: `${position.y}%`,
         animationDelay: `${index * 100}ms`,
       }}
     >
       {/* Pixel art level node */}
-      <PixelLevelNode 
+      <PixelLevelNode
         state={state}
         levelNumber={`${level.world}.${level.levelNumber}`}
       />
-      
+
       {/* Stars for completed levels */}
       {isCompleted && (
         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex gap-0">
@@ -516,11 +565,11 @@ function LevelNode({ level, position, progress, index, t }: LevelNodeProps) {
           ))}
         </div>
       )}
-      
+
       {/* Level title label - pixel style */}
-      <div 
+      <div
         className="absolute top-full mt-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-2 text-base font-bold bg-amber-100 dark:bg-amber-900 border-2 border-amber-400"
-        style={{ 
+        style={{
           clipPath: "polygon(4px 0%, calc(100% - 4px) 0%, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0% calc(100% - 4px), 0% 4px)",
         }}
       >

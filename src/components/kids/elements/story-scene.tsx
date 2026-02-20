@@ -6,6 +6,7 @@ import { PixelRobot } from "./pixel-art";
 
 type PromiMood = "happy" | "thinking" | "excited" | "confused" | "celebrating";
 
+/** Data for a single story panel rendered inside StoryScene. */
 interface StoryPanel {
   character?: "promi" | "none";
   mood?: PromiMood;
@@ -13,11 +14,17 @@ interface StoryPanel {
   highlight?: boolean;
 }
 
+/** Props for the StoryScene multi-panel comic strip component. */
 interface StorySceneProps {
   panels: StoryPanel[];
   className?: string;
 }
 
+/**
+ * Multi-panel story strip rendered in a pixel-art bordered container.
+ * When more than one panel is provided the user can step through them with
+ * Back / Next buttons and dot indicators.
+ */
 export function StoryScene({ panels, className }: StorySceneProps) {
   const [currentPanel, setCurrentPanel] = useState(0);
   const panel = panels[currentPanel];
@@ -34,7 +41,7 @@ export function StoryScene({ panels, className }: StorySceneProps) {
               <PixelRobot className="w-12 h-16" mood={panel.mood} />
             </div>
           )}
-          <div 
+          <div
             className={cn(
               "flex-1 p-4 bg-white/80 border-2 border-[#D97706]",
               panel.highlight && "bg-[#FEF3C7]"
@@ -65,8 +72,8 @@ export function StoryScene({ panels, className }: StorySceneProps) {
                 onClick={() => setCurrentPanel(i)}
                 className={cn(
                   "w-3 h-3 border-2",
-                  i === currentPanel 
-                    ? "bg-[#22C55E] border-[#16A34A]" 
+                  i === currentPanel
+                    ? "bg-[#22C55E] border-[#16A34A]"
                     : "bg-[#4A3728] border-[#8B4513] hover:bg-[#5D4037]"
                 )}
                 style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
@@ -87,6 +94,7 @@ export function StoryScene({ panels, className }: StorySceneProps) {
   );
 }
 
+/** Props for a standalone Panel component. */
 interface SinglePanelProps {
   character?: "promi" | "none";
   mood?: PromiMood;
@@ -94,6 +102,7 @@ interface SinglePanelProps {
   highlight?: boolean;
 }
 
+/** Single story panel with an optional Promi robot character displayed alongside a speech bubble. */
 export function Panel({ character = "promi", mood = "happy", children, highlight }: SinglePanelProps) {
   return (
     <div className="my-6 pixel-panel">
@@ -104,7 +113,7 @@ export function Panel({ character = "promi", mood = "happy", children, highlight
               <PixelRobot className="w-12 h-16" mood={mood} />
             </div>
           )}
-          <div 
+          <div
             className={cn(
               "flex-1 p-4 bg-white/80 border-2 border-[#D97706]",
               highlight && "bg-[#FEF3C7]"

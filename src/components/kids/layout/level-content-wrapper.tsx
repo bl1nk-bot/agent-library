@@ -10,12 +10,18 @@ import { getLevelBySlug } from "@/lib/kids/levels";
 import { analyticsKids } from "@/lib/analytics";
 import { isSectionCompleted, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the LevelContentWrapper layout component. */
 interface LevelContentWrapperProps {
   children: ReactNode;
   levelSlug: string;
   levelNumber: string;
 }
 
+/**
+ * Layout wrapper for level content that adds section-by-section navigation with dot indicators,
+ * Previous / Next arrows, and a progress tracker. Integrates with LevelContext for section
+ * completion state and fires analytics events on navigation.
+ */
 export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelContentWrapperProps) {
   const t = useTranslations("kids");
   const setLevelSlug = useSetLevelSlug();
@@ -286,6 +292,7 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
 }
 
 // Pixel art icons
+/** Pixel-art left arrow used in the Previous navigation button. */
 function PixelArrowLeft() {
   return (
     <svg viewBox="0 0 12 12" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -297,6 +304,7 @@ function PixelArrowLeft() {
   );
 }
 
+/** Pixel-art right arrow used in the Next navigation button. */
 function PixelArrowRight() {
   return (
     <svg viewBox="0 0 12 12" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -308,6 +316,7 @@ function PixelArrowRight() {
   );
 }
 
+/** Pixel-art map icon used in the progress map navigation link. */
 function PixelMapIcon() {
   return (
     <svg viewBox="0 0 16 16" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -326,6 +335,7 @@ function PixelMapIcon() {
   );
 }
 
+/** Pixel-art padlock icon used to indicate a locked/inaccessible section. */
 function PixelLockIcon() {
   return (
     <svg viewBox="0 0 12 14" className="w-3 h-3.5" style={{ imageRendering: "pixelated" }}>

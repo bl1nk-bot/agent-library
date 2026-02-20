@@ -57,17 +57,21 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   // Load saved preferences
   useEffect(() => {
-    const savedEnabled = localStorage.getItem(MUSIC_ENABLED_KEY);
-    const savedVolume = localStorage.getItem(MUSIC_VOLUME_KEY);
+    const loadPreferences = () => {
+      const savedEnabled = localStorage.getItem(MUSIC_ENABLED_KEY);
+      const savedVolume = localStorage.getItem(MUSIC_VOLUME_KEY);
+
+      if (savedVolume) {
+        setVolume(parseFloat(savedVolume));
+      }
+
+      // Default to enabled if not set
+      if (savedEnabled === null || savedEnabled === "true") {
+        setIsPlaying(true);
+      }
+    };
     
-    if (savedVolume) {
-      setVolume(parseFloat(savedVolume));
-    }
-    
-    // Default to enabled if not set
-    if (savedEnabled === null || savedEnabled === "true") {
-      setIsPlaying(true);
-    }
+    loadPreferences();
   }, []);
 
   // Create and manage audio element

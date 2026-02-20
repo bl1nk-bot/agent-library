@@ -214,15 +214,15 @@ export function getMobileEditorOptions(isMobile: boolean) {
  * Apply custom theme to Monaco editor
  */
 export function applyMonacoTheme(
-  monaco: any,
+  monaco: unknown,
   theme: "dark" | "light"
 ): void {
   const themeConfig = theme === "dark" ? ENHANCED_DARK_THEME : ENHANCED_LIGHT_THEME;
   const themeName = theme === "dark" ? "enhanced-dark" : "enhanced-light";
-  
+
   try {
-    monaco.editor?.defineTheme?.(themeName, themeConfig);
-    monaco.editor?.setTheme?.(themeName);
+    (monaco as any).editor?.defineTheme?.(themeName, themeConfig);
+    (monaco as any).editor?.setTheme?.(themeName);
   } catch (error) {
     console.error("[v0] Failed to apply Monaco theme:", error);
   }

@@ -49,18 +49,20 @@ export function WordPredictor({
   const [submitted, setSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load saved state
+  // Load saved state on mount - wrap setState in microtask to avoid sync update in effect
   useEffect(() => {
-    if (!levelSlug) {
+    queueMicrotask(() => {
+      if (!levelSlug) {
+        setIsLoaded(true);
+        return;
+      }
+      const saved = getComponentState<SavedState>(levelSlug, componentId);
+      if (saved && typeof saved.submitted === "boolean") {
+        setSelectedAnswer(saved.selectedAnswer);
+        setSubmitted(saved.submitted);
+      }
       setIsLoaded(true);
-      return;
-    }
-    const saved = getComponentState<SavedState>(levelSlug, componentId);
-    if (saved && typeof saved.submitted === "boolean") {
-      setSelectedAnswer(saved.selectedAnswer);
-      setSubmitted(saved.submitted);
-    }
-    setIsLoaded(true);
+    });
   }, [levelSlug, componentId]);
 
   // Save state

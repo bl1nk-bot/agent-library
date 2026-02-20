@@ -46,15 +46,17 @@ export function LevelProvider({
   // Update if initialSlug changes
   useEffect(() => {
     if (initialSlug) {
-      setLevelSlug(initialSlug);
+      queueMicrotask(() => setLevelSlug(initialSlug));
     }
   }, [initialSlug]);
 
   // Reset section progress when level changes
   useEffect(() => {
-    setCurrentSection(0);
-    setCompletedSections(new Set());
-    setSectionsWithRequirements(new Set());
+    queueMicrotask(() => {
+      setCurrentSection(0);
+      setCompletedSections(new Set());
+      setSectionsWithRequirements(new Set());
+    });
   }, [levelSlug]);
 
   const markSectionComplete = useCallback((section: number) => {

@@ -28,10 +28,11 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     sectionRequiresCompletion,
   } = useSectionNavigation();
   
-  // Track section completion state from localStorage
+  // Track the highest section the user has visited
+  const [highestVisitedSection, setHighestVisitedSection] = useState(0);
   const [sectionCompletionState, setSectionCompletionState] = useState<Record<number, boolean>>({});
-  
-  // Check localStorage for section completion on mount and when section changes
+
+  // Check section completion on mount and when section changes
   const checkSectionCompletion = useCallback(() => {
     const newState: Record<number, boolean> = {};
     for (let i = 0; i < 20; i++) { // Check up to 20 sections
@@ -39,31 +40,31 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     }
     setSectionCompletionState(newState);
   }, [levelSlug]);
-  
+
   useEffect(() => {
     checkSectionCompletion();
     // Re-check periodically to catch component completions
     const interval = setInterval(checkSectionCompletion, 500);
     return () => clearInterval(interval);
   }, [checkSectionCompletion, currentSection]);
-  
+
   // Set the level slug in context when component mounts
   useEffect(() => {
     setLevelSlug(levelSlug);
-    
+
     // Track level view
     const level = getLevelBySlug(levelSlug);
     if (level) {
       analyticsKids.viewLevel(levelSlug, level.world);
     }
-    
+
     return () => setLevelSlug(""); // Clear when unmounting
   }, [levelSlug, setLevelSlug]);
 
   // Extract Section components from children
   const sections: ReactElement[] = [];
   let hasExplicitSections = false;
-  
+
   // First pass: check if there are explicit Section components
   Children.forEach(children, (child) => {
     if (isValidElement(child) && child.type === Section) {
@@ -104,14 +105,11 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
   const totalSections = sections.length;
   const isFirstSection = currentSection === 0;
   const isLastSection = currentSection === totalSections - 1;
-  
+
   // Check if current section is complete (from localStorage) OR doesn't require completion
   const currentSectionRequiresCompletion = sectionRequiresCompletion(currentSection);
   const isCurrentSectionComplete = !currentSectionRequiresCompletion || sectionCompletionState[currentSection] || false;
-  
-  // Track the highest section the user has visited
-  const [highestVisitedSection, setHighestVisitedSection] = useState(0);
-  
+
   // Update highest visited when current section changes
   useEffect(() => {
     setHighestVisitedSection(prev => Math.max(prev, currentSection));
@@ -155,10 +153,11 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
 
   // Reset to first section and visited state when level changes
   useEffect(() => {
+    if (sections.length === 0) return;
     setCurrentSection(0);
     setHighestVisitedSection(0);
     setSectionCompletionState({});
-  }, [levelSlug]);
+  }, [levelSlug, sections.length]);
 
   return (
     <div className="h-full flex flex-col">

@@ -18,9 +18,9 @@ export interface ApiConfig {
   method: string;
   headers?: Record<string, string>;
   queryParams?: Record<string, string>;
-  bodySchema?: any;
-  responseSchema?: any;
-  authentication?: any;
+  bodySchema?: unknown;
+  responseSchema?: unknown;
+  authentication?: unknown;
   testEndpoint?: string;
   documentation?: string;
   createdAt: string;

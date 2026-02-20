@@ -376,7 +376,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     if (value === prevValueRef.current) return;
 
     const parsed = parseSkillFiles(value);
-    setFiles(parsed);
+    queueMicrotask(() => setFiles(parsed));
     prevValueRef.current = value;
 
     // Ensure active file exists

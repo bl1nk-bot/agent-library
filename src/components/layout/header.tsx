@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Schoolbell } from "next/font/google";
+import { Button } from "@/components/ui/button";
 
 const kidsFont = Schoolbell({
   subsets: ["latin"],
@@ -55,7 +56,6 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -142,9 +142,11 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
         {/* Mobile menu */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" className="-ml-2 h-8 w-8">
-              <Menu className="h-4 w-4" />
-              <span className="sr-only">Toggle menu</span>
+            <Button asChild variant="ghost" size="icon" className="-ml-2 h-8 w-8">
+              <button>
+                <Menu className="h-4 w-4" />
+                <span className="sr-only">Toggle menu</span>
+              </button>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[280px] p-0">
@@ -396,9 +398,11 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           {/* Three-dot dropdown for Categories, Tags, Promptmasters on md screens */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="2xl:hidden h-8 w-8">
-                <MoreHorizontal className="h-4 w-4" />
-                <span className="sr-only">{t("nav.more")}</span>
+              <Button asChild variant="ghost" size="icon" className="2xl:hidden h-8 w-8">
+                <button>
+                  <MoreHorizontal className="h-4 w-4" />
+                  <span className="sr-only">{t("nav.more")}</span>
+                </button>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -516,25 +520,29 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
 
           {/* Theme toggle */}
           <Button
+            asChild
             variant="ghost"
             size="icon"
             className="h-8 w-8"
-            onClick={() => {
-              const newTheme = theme === "dark" ? "light" : "dark";
-              analyticsSettings.changeTheme(newTheme);
-              setTheme(newTheme);
-            }}
           >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
+            <button
+              onClick={() => {
+                const newTheme = theme === "dark" ? "light" : "dark";
+                analyticsSettings.changeTheme(newTheme);
+                setTheme(newTheme);
+              }}
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </button>
           </Button>
 
           {/* User menu or login */}
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 gap-2 px-2">
+                <Button variant="ghost" className="relative h-8 gap-2 px-2" suppressHydrationWarning>
                   <Avatar className="h-6 w-6">
                     <AvatarImage src={user.image || undefined} alt={user.name || ""} />
                     <AvatarFallback className="text-xs">
@@ -607,12 +615,14 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" suppressHydrationWarning>
               {/* Language selector for non-logged in users */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Globe className="h-4 w-4" />
+                  <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                    <button>
+                      <Globe className="h-4 w-4" />
+                    </button>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -629,16 +639,20 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button variant="ghost" size="sm" className="h-8 text-xs" asChild>
-                <Link href="/login">{t("nav.login")}</Link>
-              </Button>
-              {authProvider === "credentials" && allowRegistration && (
-                <Button size="sm" className="h-8 text-xs" asChild>
-                  <Link href="/register">
-                    {t("nav.register")}
+              <div className="flex items-center gap-2">
+                <Button asChild viewMode="text">
+                  <Link href="/login" className="no-underline">
+                    {t("nav.login")}
                   </Link>
                 </Button>
-              )}
+                {authProvider === "credentials" && allowRegistration && (
+                  <Button asChild viewMode="text">
+                    <Link href="/register" className="no-underline">
+                      {t("nav.register")}
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </div>
           )}
         </div>

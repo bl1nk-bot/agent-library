@@ -69,17 +69,134 @@ async function createRoundedSquircle(inputPath: string, outputPath: string, size
 }
 
 /**
+ * Detect whether the image has a transparent background.
+ * Samples corner pixels — if any corner is non-opaque, treats the image as transparent.
+ */
+async function hasTransparentBackground(inputPath: string): Promise<boolean> {
+  const { data, info } = await sharp(inputPath)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height, channels } = info;
+  const cornerOffsets = [
+    0,                                        // top-left
+    (width - 1) * channels,                   // top-right
+    (height - 1) * width * channels,          // bottom-left
+    ((height - 1) * width + width - 1) * channels, // bottom-right
+  ];
+
+  for (const offset of cornerOffsets) {
+    const alpha = data[offset + 3]; // alpha channel
+    if (alpha < 250) return true;   // any near-transparent corner → transparent bg
+  }
+  return false;
+}
+
+/**
+ * Prepare a transparent image: just resize to target size, preserving transparency.
+ */
+async function prepareTransparentSource(inputPath: string, outputPath: string, size: number = 1024): Promise<void> {
+  await sharp(inputPath)
+    .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png()
+    .toFile(outputPath);
+}
+
+/**
+ * Remove background using flood-fill from image corners.
+ * Detects background color from corners and makes all connected
+ * matching pixels (within tolerance) transparent.
+ *
+ * @param inputPath  - source image
+ * @param outputPath - output PNG with transparent background
+ * @param tolerance  - color distance threshold (0–441, default 30)
+ */
+async function removeBackground(inputPath: string, outputPath: string, tolerance: number = 30): Promise<void> {
+  const { data, info } = await sharp(inputPath)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height, channels } = info;
+  const pixels = new Uint8Array(data);
+
+  // ── Sample background color from corners ──────────────────────────────
+  // Prefer the first mostly-opaque corner as the reference bg color.
+  const cornerIdxs = [
+    0,
+    width - 1,
+    (height - 1) * width,
+    (height - 1) * width + width - 1,
+  ];
+
+  let bgR = 255, bgG = 255, bgB = 255;
+  for (const ci of cornerIdxs) {
+    const o = ci * channels;
+    if (pixels[o + 3] > 200) {
+      bgR = pixels[o];
+      bgG = pixels[o + 1];
+      bgB = pixels[o + 2];
+      break;
+    }
+  }
+
+  // ── Flood-fill (DFS stack — O(n) memory, O(n) time) ──────────────────
+  const visited = new Uint8Array(width * height); // 0 = unvisited
+  const stack: number[] = [];
+
+  // Seed from all four corners
+  for (const ci of cornerIdxs) {
+    if (!visited[ci]) {
+      visited[ci] = 1;
+      stack.push(ci);
+    }
+  }
+
+  while (stack.length > 0) {
+    const idx = stack.pop()!;
+    const o = idx * channels;
+
+    const r = pixels[o];
+    const g = pixels[o + 1];
+    const b = pixels[o + 2];
+    const a = pixels[o + 3];
+
+    // Euclidean color distance to detected background color
+    const dist = Math.sqrt((r - bgR) ** 2 + (g - bgG) ** 2 + (b - bgB) ** 2);
+
+    if (a > 0 && dist <= tolerance) {
+      pixels[o + 3] = 0; // make transparent
+
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+
+      if (x > 0 && !visited[idx - 1]) { visited[idx - 1] = 1; stack.push(idx - 1); }
+      if (x < width - 1 && !visited[idx + 1]) { visited[idx + 1] = 1; stack.push(idx + 1); }
+      if (y > 0 && !visited[idx - width]) { visited[idx - width] = 1; stack.push(idx - width); }
+      if (y < height - 1 && !visited[idx + width]) { visited[idx + width] = 1; stack.push(idx + width); }
+    }
+  }
+
+  await sharp(pixels, {
+    raw: { width, height, channels },
+  })
+    .png()
+    .toFile(outputPath);
+}
+
+/**
  * Generate macOS .icns
  */
 async function generateMacIcon(source: string): Promise<void> {
   // iconutil is macOS only
   const isMac = process.platform === 'darwin';
-  
+
   if (!isMac) {
     console.log(' ⊘ macOS: Skipping .icns generation (not on macOS)');
     return;
   }
-  
+
   if (existsSync(ICONSETDIR)) rmSync(ICONSETDIR, { recursive: true });
   mkdirSync(ICONSETDIR);
 
@@ -103,11 +220,11 @@ async function generateMacIcon(source: string): Promise<void> {
  */
 async function generateWindowsIcon(source: string): Promise<void> {
   const buffers: Buffer[] = [];
-  
+
   // Generate PNG buffers for each size
   // Standard Windows sizes: 16, 32, 48, 256
   const sizes = [16, 32, 48, 256];
-  
+
   for (const size of sizes) {
     const buffer = await sharp(source)
       .resize(size, size)
@@ -142,7 +259,7 @@ async function generateSVG(source: string): Promise<void> {
   // However, based on the original code, it seemed to want to apply a mask.
   // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape 
   // that matches the icon style, which is often what is needed for simple vector assets.
-  
+
   // Alternatively, if the intention was just to have an SVG file available:
   const svgContent = createRoundedRectSVG(1024, 1024, 220);
   writeFileSync(OUTPUTSVG, svgContent);
@@ -156,22 +273,34 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const roundedSource = join(BUILDDIR, 'source-rounded.png');
-  await createRoundedSquircle(INPUTICON, roundedSource);
+  const isTransparent = await hasTransparentBackground(INPUTICON);
 
-  await generateMacIcon(roundedSource);
+  const processedSource = join(BUILDDIR, 'source-processed.png');
+
+  if (isTransparent) {
+    console.log(' ℹ source: transparent background → resize only\n');
+    await prepareTransparentSource(INPUTICON, processedSource);
+  } else {
+    console.log(' ℹ source: opaque background → removing background (flood-fill)\n');
+    const bgRemoved = join(BUILDDIR, 'source-bg-removed.png');
+    await removeBackground(INPUTICON, bgRemoved);
+    await prepareTransparentSource(bgRemoved, processedSource);
+    rmSync(bgRemoved);
+  }
+
+  await generateMacIcon(processedSource);
   console.log(` ✓ macOS: ${OUTPUTICNS}`);
 
-  await generateWindowsIcon(roundedSource);
+  await generateWindowsIcon(processedSource);
   console.log(` ✓ Windows: ${OUTPUTICO}`);
 
-  await generateLinuxIcons(roundedSource);
+  await generateLinuxIcons(processedSource);
   console.log(` ✓ Linux: PNG sizes generated`);
 
-  await generateSVG(roundedSource);
+  await generateSVG(processedSource);
   console.log(` ✓ SVG: ${OUTPUTSVG}`);
 
-  rmSync(roundedSource);
+  rmSync(processedSource);
 
   console.log('\n✅ All icons generated successfully!');
 }

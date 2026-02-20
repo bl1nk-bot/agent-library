@@ -4,7 +4,12 @@ import createMDX from "@next/mdx";
 
 let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
 try {
-  withSentryConfig = require("@sentry/nextjs").withSentryConfig;
+  // Dynamic import for Sentry
+  import("@sentry/nextjs").then((sentry) => {
+    withSentryConfig = sentry.withSentryConfig;
+  }).catch(() => {
+    // Sentry not available
+  });
 } catch {
   // Sentry not available
 }

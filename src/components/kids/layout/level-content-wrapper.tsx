@@ -19,15 +19,15 @@ interface LevelContentWrapperProps {
 export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelContentWrapperProps) {
   const t = useTranslations("kids");
   const setLevelSlug = useSetLevelSlug();
-  const { 
-    currentSection, 
-    setCurrentSection, 
+  const {
+    currentSection,
+    setCurrentSection,
     completedSections,
     markSectionComplete,
     isSectionComplete,
     sectionRequiresCompletion,
   } = useSectionNavigation();
-  
+
   // Track the highest section the user has visited
   const [highestVisitedSection, setHighestVisitedSection] = useState(0);
   const [sectionCompletionState, setSectionCompletionState] = useState<Record<number, boolean>>({});
@@ -87,6 +87,18 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     });
   }
 
+  // Update highest visited when current section changes
+  useEffect(() => {
+    setHighestVisitedSection((prev: number) => Math.max(prev, currentSection));
+  }, [currentSection]);
+
+  // Reset to first section and visited state when level changes
+  useEffect(() => {
+    setCurrentSection(0);
+    setHighestVisitedSection(0);
+    setSectionCompletionState({});
+  }, [levelSlug]);
+
   // If no sections found, show coming soon
   if (sections.length === 0) {
     return (
@@ -110,11 +122,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
   const currentSectionRequiresCompletion = sectionRequiresCompletion(currentSection);
   const isCurrentSectionComplete = !currentSectionRequiresCompletion || sectionCompletionState[currentSection] || false;
 
-  // Update highest visited when current section changes
-  useEffect(() => {
-    setHighestVisitedSection(prev => Math.max(prev, currentSection));
-  }, [currentSection]);
-  
+
+
   // Can navigate to a section if it's:
   // 1. The current section
   // 2. A previously visited section (but NOT future sections)
@@ -137,13 +146,13 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
       setCurrentSection((prev) => prev - 1);
     }
   };
-  
+
   const handleDotClick = (targetSection: number) => {
     if (canNavigateToSection(targetSection)) {
       setCurrentSection(targetSection);
     }
   };
-  
+
   // Mark section as complete manually (for sections without interactive elements)
   const handleMarkComplete = () => {
     markSectionCompleted(levelSlug, currentSection);
@@ -151,20 +160,14 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     checkSectionCompletion();
   };
 
-  // Reset to first section and visited state when level changes
-  useEffect(() => {
-    if (sections.length === 0) return;
-    setCurrentSection(0);
-    setHighestVisitedSection(0);
-    setSectionCompletionState({});
-  }, [levelSlug, sections.length]);
+
 
   return (
     <div className="h-full flex flex-col">
       {/* Content area */}
       <div className="flex-1 min-h-0 overflow-y-auto flex items-center justify-center p-4">
         <div className="w-full max-w-2xl my-auto">
-          <div 
+          <div
             key={currentSection}
             className="animate-in fade-in slide-in-from-right-4 duration-300 prose max-w-none kids-prose-pixel"
           >
@@ -209,8 +212,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                       isCurrent
                         ? "bg-[#22C55E] border-[#16A34A]"
                         : isVisited && i < currentSection
-                        ? "bg-[#3B82F6] border-[#2563EB]"
-                        : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
+                          ? "bg-[#3B82F6] border-[#2563EB]"
+                          : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
                     )}
                     style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
                     aria-label={`Go to section ${i + 1}${!canNavigate ? ' (locked)' : ''}`}
@@ -226,8 +229,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                 disabled={!isCurrentSectionComplete}
                 className={cn(
                   "pixel-btn px-4 py-2 sm:px-6 sm:py-3 text-base sm:text-xl",
-                  isCurrentSectionComplete 
-                    ? "pixel-btn-green" 
+                  isCurrentSectionComplete
+                    ? "pixel-btn-green"
                     : "opacity-50 cursor-not-allowed bg-[#4A3728] border-[#8B4513]"
                 )}
                 title={!isCurrentSectionComplete ? t("navigation.completeFirst") : undefined}
@@ -267,8 +270,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                     isCurrent
                       ? "bg-[#22C55E] border-[#16A34A]"
                       : isVisited && i < currentSection
-                      ? "bg-[#3B82F6] border-[#2563EB]"
-                      : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
+                        ? "bg-[#3B82F6] border-[#2563EB]"
+                        : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
                   )}
                   style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
                   aria-label={`Go to section ${i + 1}${!canNavigate ? ' (locked)' : ''}`}

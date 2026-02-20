@@ -376,28 +376,34 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     if (value === prevValueRef.current) return;
 
     const parsed = parseSkillFiles(value);
-    queueMicrotask(() => setFiles(parsed));
     prevValueRef.current = value;
 
-    // Ensure active file exists
-    if (!parsed.some((f) => f.filename === activeFile)) {
-      setActiveFile(DEFAULT_SKILL_FILE);
-      setOpenTabs([DEFAULT_SKILL_FILE]);
-    }
+    // Check existence against the freshly-parsed result before scheduling
+    // updates, then apply all three state changes inside a single microtask so
+    // they are batched into one render (avoids a transient render where
+    // activeFile is reset but files is still the old value).
+    const activeExists = parsed.some((f) => f.filename === activeFile);
+    queueMicrotask(() => {
+      setFiles(parsed);
+      if (!activeExists) {
+        setActiveFile(DEFAULT_SKILL_FILE);
+        setOpenTabs([DEFAULT_SKILL_FILE]);
+      }
+    });
   }, [value, activeFile]);
 
   const handleEditorMount: OnMount = useCallback((editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    
+
     // Register both themes
     applyMonacoTheme(monaco, "dark");
     applyMonacoTheme(monaco, "light");
-    
+
     // Initial theme set
     const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
     monaco.editor.setTheme(theme);
-    
+
     // Mobile-specific optimizations
     if (window.innerWidth < 768) {
       editor.updateOptions({
@@ -410,8 +416,8 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   // React to theme changes
   useEffect(() => {
     if (monacoRef.current) {
-        const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
-        monacoRef.current.editor.setTheme(theme);
+      const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
+      monacoRef.current.editor.setTheme(theme);
     }
   }, [resolvedTheme]);
 
@@ -429,7 +435,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
         "flex border rounded-lg overflow-hidden bg-background transition-opacity duration-180",
         className
       )}
-      style={{ 
+      style={{
         height: isMobile ? "600px" : "500px",
         WebkitTouchCallout: 'none',
       }}

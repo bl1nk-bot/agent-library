@@ -112,7 +112,7 @@
     "uploadSkill": "อัปโหลดทักษะ",
     "uploadSkillDescription": "อัปโหลด .zip, .skill",
     "addFromOfficial": "เพิ่มจากทางการ",
-    "addFromOfficialDescription": "ทักษะที่สร���างไว้ล่วงหน้าโดย Manus",
+    "addFromOfficialDescription": "ทักษะที่สร้างไว้ล่วงหน้าโดย Manus",
     "importFromGitHub": "นำเข้าจาก GitHub",
     "importFromGitHubDescription": "วางลิงก์ repository เพื่อเริ่มต้น",
     "skillsDescription": "ทักษะ Agent คือพรอมต์แบบหลายไฟล์ที่เพิ่มความสามารถเฉพาะทางให้ AI ประกอบด้วยคำสั่ง การตั้งค่า และไฟล์ประกอบ ใช้ได้กับ Claude, Cursor, Windsurf และอื่นๆ",
@@ -196,7 +196,7 @@
       "skill": "ทักษะ",
       "agent": "Agent"
     },
-    "inputType": "ข้อมูลเข้��",
+    "inputType": "ข้อมูลเข้า",
     "outputType": "ผลลัพธ์จาก AI",
     "afterAiProcessing": "พรอมต์ของคุณจะสร้างอะไร?",
     "outputTypeDescription": "แสดงให้ชุมชนเห็นว่าพรอมต์นี้ทำงานอย่างไรเมื่อใช้กับเครื่องมือ AI คุณสามารถสร้างผลลัพธ์เองโดยใช้แอป AI ที่ชอบ",
@@ -307,7 +307,7 @@
     "clickToUploadAudio": "คลิกเพื่ออัปโหลดไฟล์เสียง",
     "uploading": "กำลังอัปโหลด...",
     "maxFileSize": "ขนาดไฟล์สูงสุด: 4MB (JPEG, PNG, GIF, WebP)",
-    "maxVideoSize": "ขนาดไฟล์สูงส��ด: 4MB (MP4)",
+    "maxVideoSize": "ขนาดไฟล์สูงสุด: 4MB (MP4)",
     "maxAudioSize": "ขนาดไฟล์สูงสุด: 4MB (MP3, WAV, OGG)",
     "fileTooLarge": "ไฟล์ใหญ่เกินไป ขนาดสูงสุดคือ 4MB",
     "videoTooLarge": "วิดีโอใหญ่เกินไป ขนาดสูงสุดคือ 4MB",
@@ -376,7 +376,7 @@
     "previous": "ก่อนหน้า",
     "next": "ถัดไป",
     "mediaLoadError": "ไม่สามารถโหลดสื่อสำหรับพรอมต์นี้ได้ URL อาจไม่ถูกต้องหรือทรัพยากรไม่มีอยู่แล้ว",
-    "mediaUnavailable": "สื่อไม่พร้อมใช��งาน",
+    "mediaUnavailable": "สื่อไม่พร้อมใช้งาน",
     "variableWarningTitle": "ตรวจพบรูปแบบคล้ายตัวแปร",
     "variableWarningDescription": "เราพบข้อความที่ดูเหมือนตัวแปร ซึ่งสามารถแปลงเป็นตัวแปรแบบไดนามิกเพื่อให้ผู้ใช้ปรับแต่งค่าได้",
     "convertVariables": "แปลงทั้งหมด",
@@ -384,12 +384,12 @@
     "supportedFormat": "รูปแบบที่รองรับ",
     "or": "หรือ",
     "detectedVariables": "ตัวแปร",
-    "clickToEdit": "คลิกเพ��่อแก้ไข",
+    "clickToEdit": "คลิกเพื่อแก้ไข",
     "translateToLanguage": "แปลเป็นภาษาของคุณ",
     "translated": "แปลเนื้อหาแล้ว",
     "translationFailed": "แปลไม่สำเร็จ",
     "alreadyTranslated": "แปลแล้ว",
-    "learnHowToWritePrompts": "เรียนรู้วิธีเขียนพรอ��ต์ที่มีประสิทธิภาพ →",
+    "learnHowToWritePrompts": "เรียนรู้วิธีเขียนพรอมต์ที่มีประสิทธิภาพ →",
     "structuredFormatDetected": "ตรวจพบรูปแบบ {format}",
     "structuredFormatWarningDescription": "เนื้อหาพรอมต์ของคุณดูเหมือนข้อมูลโครงสร้าง แนะนำให้เปลี่ยนเป็นโหมดโครงสร้างเพื่อการแสดงผลและการตรวจสอบที่ดีขึ้น",
     "switchToStructured": "เปลี่ยนเป็น {format}"
@@ -646,7 +646,7 @@
       "flag": "ติดธงผู้ใช้",
       "unflag": "เอาธงออก",
       "flagged": "ติดธงผู้ใช้แล้ว",
-      "unflagged": "เอาธงออกแล���ว",
+      "unflagged": "เอาธงออกแล้ว",
       "flagFailed": "อัปเดตสถานะธงไม่สำเร็จ",
       "editCredits": "แก้ไขเครดิต",
       "editCreditsTitle": "แก้ไขเครดิตการสร้าง",
@@ -757,7 +757,7 @@
       "description": "นำเข้าพรอมต์จากไฟล์ prompts.csv ของ Awesome ChatGPT Prompts",
       "fileInfo": "นำเข้าจาก prompts.csv ของชุมชน Awesome ChatGPT Prompts",
       "csvFormat": "รูปแบบ: act, prompt, for_devs, type",
-      "importButton": "นำเข��าพรอมต์ชุมชน",
+      "importButton": "นำเข้าพรอมต์ชุมชน",
       "importing": "กำลังนำเข้า...",
       "success": "นำเข้า {count} พรอมต์สำเร็จ",
       "allSkipped": "พรอมต์ทั้งหมดมีอยู่แล้ว",
@@ -767,7 +767,7 @@
       "total": "รวมใน CSV: {count}",
       "errors": "ข้อผิดพลาด:",
       "confirmTitle": "นำเข้าพรอมต์?",
-      "confirmDescription": "จะนำเข้าพรอมต์ทั้งหม���จาก prompts.csv พรอมต์ที่มีชื่อซ้ำกันจะถูกข้าม",
+      "confirmDescription": "จะนำเข้าพรอมต์ทั้งหมดจาก prompts.csv พรอมต์ที่มีชื่อซ้ำกันจะถูกข้าม",
       "cancel": "ยกเลิก",
       "confirm": "นำเข้า",
       "deleteButton": "ลบ",
@@ -876,7 +876,7 @@
     "bioPlaceholder": "บอกเล่าเกี่ยวกับตัวคุณสั้นๆ...",
     "bioCharCount": "{count}/250",
     "customLinks": "ลิงก์",
-    "customLinksDescription": "เพิ่มลิงก์ไปยังโซเชียลมีเดียหรือเว็���ไซต์ของคุณ",
+    "customLinksDescription": "เพิ่มลิงก์ไปยังโซเชียลมีเดียหรือเว็บไซต์ของคุณ",
     "addLink": "เพิ่มลิงก์",
     "linkType": "ประเภท",
     "linkUrl": "URL",
@@ -949,7 +949,7 @@
     "extension": "ส่วนขยาย",
     "setupPrivateServer": "ติดตั้งเซิร์ฟเวอร์ส่วนตัว",
     "beStargazer": "เป็นผู้ให้ดาวคนที่ {count} บน GitHub",
-    "ourHistory": "อ่านเพิ่มเติมเกี่ยวกับป���ะวัติของเรา",
+    "ourHistory": "อ่านเพิ่มเติมเกี่ยวกับประวัติของเรา",
     "browsePrompts": "ดูพรอมต์",
     "viewFeed": "ดูฟีด",
     "readyToStart": "พร้อมเริ่มต้นหรือยัง?",
@@ -1187,7 +1187,7 @@
     "reject": "ปฏิเสธ",
     "confirmMessage": "คุณแน่ใจหรือไม่? การวิเคราะห์ช่วยเราปรับปรุงแอปนี้ซึ่งเป็นโอเพนซอร์สทั้งหมด",
     "nevermind": "ไม่เป็นไร",
-    "confirmReject": "ใช่ ปฏิ���สธ"
+    "confirmReject": "ใช่ ปฏิเสธ"
   },
   "support": {
     "title": "ช่วยเหลือ",
@@ -1233,7 +1233,7 @@
     },
     "contact": {
       "title": "ต้องการความช่วยเหลือเพิ่มเติม?",
-      "description": "หากคุณไม่พบคำตอบสำหรับคำถามของคุณ กรอกแบบฟอร์มด���านล่างแล้วเราจะช่วยคุณบน GitHub",
+      "description": "หากคุณไม่พบคำตอบสำหรับคำถามของคุณ กรอกแบบฟอร์มด้านล่างแล้วเราจะช่วยคุณบน GitHub",
       "form": {
         "title": "หัวข้อปัญหา",
         "titlePlaceholder": "สรุปปัญหาหรือคำถามของคุณสั้นๆ",
@@ -1313,7 +1313,7 @@
       },
       "defineFormat": {
         "title": "กำหนดรูปแบบผลลัพธ์",
-        "description": "ระบุวิธีที่คุณต้องการให้โครงสร้างคำตอบเป็น: หัวข้อย่อย ย่อหน้า บล���อกโค้ด ตาราง ฯลฯ"
+        "description": "ระบุวิธีที่คุณต้องการให้โครงสร้างคำตอบเป็น: หัวข้อย่อย ย่อหน้า บล็อกโค้ด ตาราง ฯลฯ"
       },
       "setConstraints": {
         "title": "กำหนดข้อจำกัด",
@@ -1394,7 +1394,7 @@
     "random": "สุ่ม",
     "generateRandom": "สร้างตัวอย่างสุ่มด้วย AI",
     "loginToGenerate": "กรุณาเข้าสู่ระบบเพื่อสร้างตัวอย่าง",
-    "rateLimitExceeded": "กรุณารอ {seconds} วินาทีก่อนสร้���งใหม่",
+    "rateLimitExceeded": "กรุณารอ {seconds} วินาทีก่อนสร้างใหม่",
     "generateFailed": "สร้างตัวอย่างไม่สำเร็จ",
     "exampleGenerated": "สร้างตัวอย่างใหม่แล้ว!",
     "ignoreTypeErrors": "เพิกเฉย Type Errors"
@@ -1719,7 +1719,7 @@
       "retry": "เริ่มใหม่"
     },
     "stepByStep": {
-      "title": "คิดทีละขั้นต���น",
+      "title": "คิดทีละขั้นตอน",
       "problem": "ปัญหา:",
       "withoutMagic": "ไม่มีคำวิเศษ:",
       "addMagicWords": "เพิ่มคำวิเศษ!",

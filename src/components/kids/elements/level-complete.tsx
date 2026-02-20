@@ -9,14 +9,20 @@ import { getAdjacentLevels, getLevelBySlug } from "@/lib/kids/levels";
 import { analyticsKids } from "@/lib/analytics";
 import { PixelRobot, PixelStar } from "./pixel-art";
 
+/** Props for the LevelComplete celebration screen. */
 interface LevelCompleteProps {
   levelSlug: string;
   stars?: number;
   message?: string;
 }
 
-export function LevelComplete({ 
-  levelSlug, 
+/**
+ * Celebration panel shown when a learner finishes a level.
+ * Saves the star rating to progress storage (only upgrading, never downgrading),
+ * fires an analytics event, and offers navigation to the next level or the map.
+ */
+export function LevelComplete({
+  levelSlug,
   stars = 3,
   message = "You did it!"
 }: LevelCompleteProps) {
@@ -28,20 +34,20 @@ export function LevelComplete({
   useEffect(() => {
     const existingProgress = getLevelProgress(levelSlug);
     const existingStars = existingProgress?.stars || 0;
-    
+
     if (stars > existingStars) {
       completeLevel(levelSlug, stars);
       setShowConfetti(true);
-      
+
       // Track level completion
       const level = getLevelBySlug(levelSlug);
       if (level) {
         analyticsKids.completeLevel(levelSlug, level.world, stars);
       }
     }
-    
+
     setSavedStars(Math.max(stars, existingStars));
-    
+
     const timer = setTimeout(() => setShowConfetti(false), 3000);
     return () => clearTimeout(timer);
   }, [levelSlug, stars]);
@@ -74,7 +80,7 @@ export function LevelComplete({
           <div className="flex justify-center mb-4">
             <PixelRobot className="w-16 h-20 animate-bounce-slow" />
           </div>
-          
+
           <h2 className="text-4xl font-bold mb-3 text-[#2C1810] pixel-text-shadow">
             {t("levelComplete.title")}
           </h2>
@@ -100,7 +106,7 @@ export function LevelComplete({
         {/* Actions - pixel style */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center p-4 bg-[#4A3728] border-t-4 border-[#8B4513]">
           {next ? (
-            <Link 
+            <Link
               href={`/kids/level/${next.slug}`}
               className="pixel-btn pixel-btn-green px-8 py-3 text-xl text-center"
             >
@@ -110,15 +116,15 @@ export function LevelComplete({
               </span>
             </Link>
           ) : (
-            <Link 
+            <Link
               href="/kids/map"
               className="pixel-btn pixel-btn-green px-8 py-3 text-xl text-center"
             >
               {t("levelComplete.allDone")}
             </Link>
           )}
-          
-          <Link 
+
+          <Link
             href="/kids/map"
             className="pixel-btn pixel-btn-amber px-8 py-3 text-xl text-center"
           >

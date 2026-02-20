@@ -12,7 +12,11 @@ export function Analytics({ gaId }: AnalyticsProps) {
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    setHasConsent(getCookieConsent() === "accepted");
+    const checkConsent = () => {
+      setHasConsent(getCookieConsent() === "accepted");
+    };
+    
+    checkConsent();
   }, []);
 
   return (

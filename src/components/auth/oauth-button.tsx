@@ -54,19 +54,18 @@ export function OAuthButton({ provider, providerName }: OAuthButtonProps) {
   };
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      className="w-full h-10"
-      onClick={handleSignIn}
-      disabled={isLoading}
-    >
-      {isLoading ? (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      ) : (
-        <span className="mr-2">{providerIcons[provider]}</span>
-      )}
-      {t("signInWith", { provider: providerName })}
-    </Button>
+    <div className="w-full flex justify-center py-1">
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full h-8 text-sm"
+        onClick={handleSignIn}
+        disabled={isLoading}
+      >
+        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        <span className="mr-2 flex items-center justify-center">{providerIcons[provider]}</span>
+        {t("signInWith", { provider: providerName })}
+      </Button>
+    </div>
   );
 }

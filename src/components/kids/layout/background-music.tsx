@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useCallback, createContext, useContext } f
 const MUSIC_ENABLED_KEY = "kids-music-enabled";
 const MUSIC_VOLUME_KEY = "kids-music-volume";
 
-// Shared audio instance and context for cross-component communication
+/** Shared audio instance and context for cross-component communication. */
 interface MusicContextType {
   isPlaying: boolean;
   volume: number;
@@ -16,6 +16,7 @@ interface MusicContextType {
 
 const MusicContext = createContext<MusicContextType | null>(null);
 
+/** Hook to access the nearest MusicContext value; returns null when rendered outside a MusicProvider. */
 export function useMusicContext() {
   return useContext(MusicContext);
 }
@@ -48,7 +49,11 @@ function PixelSpeakerOff() {
   );
 }
 
-// Provider component that manages the audio element
+/**
+ * Context provider that creates and manages the background-music audio element.
+ * Persists play/pause state and volume to `localStorage` and respects the browser's
+ * autoplay policy by deferring playback until the first user interaction.
+ */
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -57,17 +62,21 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   // Load saved preferences
   useEffect(() => {
-    const savedEnabled = localStorage.getItem(MUSIC_ENABLED_KEY);
-    const savedVolume = localStorage.getItem(MUSIC_VOLUME_KEY);
-    
-    if (savedVolume) {
-      setVolume(parseFloat(savedVolume));
-    }
-    
-    // Default to enabled if not set
-    if (savedEnabled === null || savedEnabled === "true") {
-      setIsPlaying(true);
-    }
+    const loadPreferences = () => {
+      const savedEnabled = localStorage.getItem(MUSIC_ENABLED_KEY);
+      const savedVolume = localStorage.getItem(MUSIC_VOLUME_KEY);
+
+      if (savedVolume) {
+        setVolume(parseFloat(savedVolume));
+      }
+
+      // Default to enabled if not set
+      if (savedEnabled === null || savedEnabled === "true") {
+        setIsPlaying(true);
+      }
+    };
+
+    loadPreferences();
   }, []);
 
   // Create and manage audio element
@@ -78,7 +87,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       audio.volume = volume;
       audioRef.current = audio;
     }
-    
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -98,9 +107,9 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   // Handle play/pause
   useEffect(() => {
     localStorage.setItem(MUSIC_ENABLED_KEY, isPlaying.toString());
-    
+
     if (!audioRef.current) return;
-    
+
     if (isPlaying && hasInteracted) {
       audioRef.current.play().catch(() => {
         // Autoplay blocked, will retry on user interaction
@@ -115,7 +124,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     const handleInteraction = () => {
       setHasInteracted(true);
       if (isPlaying && audioRef.current) {
-        audioRef.current.play().catch(() => {});
+        audioRef.current.play().catch(() => { });
       }
     };
 
@@ -137,13 +146,14 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Pixel-art toggle button that plays or mutes the background music track. Works standalone (without a MusicProvider) by creating its own local audio element. */
 export function MusicButton() {
   const context = useMusicContext();
-  
+
   // Fallback for when not wrapped in provider
   const [localPlaying, setLocalPlaying] = useState(false);
   const localAudioRef = useRef<HTMLAudioElement | null>(null);
-  
+
   const isPlaying = context?.isPlaying ?? localPlaying;
   const setIsPlaying = context?.setIsPlaying ?? setLocalPlaying;
 
@@ -157,12 +167,12 @@ export function MusicButton() {
         localAudioRef.current.loop = true;
         localAudioRef.current.volume = 0.3;
       }
-      
+
       if (localPlaying) {
         localAudioRef.current.pause();
         setLocalPlaying(false);
       } else {
-        localAudioRef.current.play().catch(() => {});
+        localAudioRef.current.play().catch(() => { });
         setLocalPlaying(true);
       }
     }
@@ -180,24 +190,23 @@ export function MusicButton() {
   );
 }
 
-// Volume slider component for settings
+/** Volume slider and on/off toggle for the background music, designed for use inside the settings panel. Returns null when rendered outside a MusicProvider. */
 export function MusicVolumeSlider() {
   const context = useMusicContext();
-  
+
   if (!context) return null;
-  
+
   const { volume, setVolume, isPlaying, setIsPlaying } = context;
-  
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-colors ${
-            isPlaying 
-              ? "bg-[#22C55E] text-white" 
+          className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-colors ${isPlaying
+              ? "bg-[#22C55E] text-white"
               : "bg-gray-200 text-gray-600"
-          }`}
+            }`}
         >
           {isPlaying ? "🔊 On" : "🔇 Off"}
         </button>
@@ -215,7 +224,7 @@ export function MusicVolumeSlider() {
   );
 }
 
-// Legacy export for backwards compatibility
+/** @deprecated Use {@link MusicProvider} instead. Retained for backwards compatibility; renders nothing. */
 export function BackgroundMusic() {
   return null;
 }

@@ -21,9 +21,10 @@ const defaultProgress: KidsProgress = {
   totalStars: 0,
 };
 
+/** Retrieves the current kids progress from localStorage. Returns a default empty state when running server-side. */
 export function getProgress(): KidsProgress {
   if (typeof window === "undefined") return defaultProgress;
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return defaultProgress;
@@ -33,9 +34,10 @@ export function getProgress(): KidsProgress {
   }
 }
 
+/** Persists the given progress object to localStorage. */
 export function saveProgress(progress: KidsProgress): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
   } catch {
@@ -43,61 +45,67 @@ export function saveProgress(progress: KidsProgress): void {
   }
 }
 
+/** Marks a level as completed with the given star count, updates total stars, and advances currentLevel to the next level. */
 export function completeLevel(slug: string, stars: number): KidsProgress {
   const progress = getProgress();
   const previousStars = progress.levels[slug]?.stars || 0;
-  
+
   // Only update if new stars are higher
   const newStars = Math.max(previousStars, Math.min(3, Math.max(0, stars)));
   const starsDiff = newStars - previousStars;
-  
+
   progress.levels[slug] = {
     completed: true,
     stars: newStars,
     completedAt: new Date().toISOString(),
   };
-  
+
   progress.totalStars += starsDiff;
-  
+
   // Set next level as current
   const levels = getAllLevels();
   const currentIndex = levels.findIndex((l) => l.slug === slug);
   if (currentIndex < levels.length - 1) {
     progress.currentLevel = levels[currentIndex + 1].slug;
   }
-  
+
   saveProgress(progress);
   return progress;
 }
 
+/** Returns true if the level with the given slug is unlocked. The first level is always unlocked; subsequent levels require the previous level to be completed. */
 export function isLevelUnlocked(slug: string): boolean {
   const progress = getProgress();
   const levels = getAllLevels();
   const levelIndex = levels.findIndex((l) => l.slug === slug);
-  
+
   // First level is always unlocked
   if (levelIndex === 0) return true;
-  
+
   // Level is unlocked if previous level is completed
   const prevLevel = levels[levelIndex - 1];
   return progress.levels[prevLevel.slug]?.completed || false;
 }
 
+/** Returns the progress record for the given level slug, or undefined if not yet visited. */
 export function getLevelProgress(slug: string): LevelProgress | undefined {
   const progress = getProgress();
   return progress.levels[slug];
 }
 
+/** Removes all stored progress from localStorage. */
 export function resetProgress(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(STORAGE_KEY);
 }
 
+/** Returns the number of levels that have been fully completed. */
 export function getCompletedLevelsCount(): number {
   const progress = getProgress();
   return Object.values(progress.levels).filter((l) => l.completed).length;
 }
 
+/** Returns the total accumulated star count across all completed levels. */
 export function getTotalStars(): number {
   return getProgress().totalStars;
 }
@@ -111,9 +119,10 @@ interface ComponentState {
   };
 }
 
+/** Retrieves a previously saved component state for a specific level and component. Returns null when server-side or not found. */
 export function getComponentState<T>(levelSlug: string, componentId: string): T | null {
   if (typeof window === "undefined") return null;
-  
+
   try {
     const stored = localStorage.getItem(COMPONENT_STATE_KEY);
     if (!stored) return null;
@@ -124,31 +133,33 @@ export function getComponentState<T>(levelSlug: string, componentId: string): T 
   }
 }
 
+/** Saves arbitrary component state keyed by level slug and component ID, merging with any existing persisted state. */
 export function saveComponentState<T>(levelSlug: string, componentId: string, data: T): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     const stored = localStorage.getItem(COMPONENT_STATE_KEY);
     const state: ComponentState = stored ? JSON.parse(stored) : {};
-    
+
     if (!state[levelSlug]) {
       state[levelSlug] = {};
     }
     state[levelSlug][componentId] = data;
-    
+
     localStorage.setItem(COMPONENT_STATE_KEY, JSON.stringify(state));
   } catch {
     console.error("Failed to save component state");
   }
 }
 
+/** Clears all saved component states for the given level slug. */
 export function clearComponentState(levelSlug: string): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     const stored = localStorage.getItem(COMPONENT_STATE_KEY);
     if (!stored) return;
-    
+
     const state: ComponentState = JSON.parse(stored);
     delete state[levelSlug];
     localStorage.setItem(COMPONENT_STATE_KEY, JSON.stringify(state));
@@ -157,9 +168,10 @@ export function clearComponentState(levelSlug: string): void {
   }
 }
 
+/** Clears all kids progress and component state from localStorage. */
 export function clearAllProgress(): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(COMPONENT_STATE_KEY);
@@ -177,9 +189,10 @@ interface SectionCompletionState {
   };
 }
 
+/** Returns true if the given section index within a level has been marked as completed. */
 export function isSectionCompleted(levelSlug: string, sectionIndex: number): boolean {
   if (typeof window === "undefined") return false;
-  
+
   try {
     const stored = localStorage.getItem(SECTION_COMPLETION_KEY);
     if (!stored) return false;
@@ -190,31 +203,33 @@ export function isSectionCompleted(levelSlug: string, sectionIndex: number): boo
   }
 }
 
+/** Marks the given section index within a level as completed in localStorage. */
 export function markSectionCompleted(levelSlug: string, sectionIndex: number): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     const stored = localStorage.getItem(SECTION_COMPLETION_KEY);
     const state: SectionCompletionState = stored ? JSON.parse(stored) : {};
-    
+
     if (!state[levelSlug]) {
       state[levelSlug] = {};
     }
     state[levelSlug][sectionIndex] = true;
-    
+
     localStorage.setItem(SECTION_COMPLETION_KEY, JSON.stringify(state));
   } catch {
     console.error("Failed to mark section completed");
   }
 }
 
+/** Clears all section completion records for the given level slug. */
 export function clearSectionCompletion(levelSlug: string): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     const stored = localStorage.getItem(SECTION_COMPLETION_KEY);
     if (!stored) return;
-    
+
     const state: SectionCompletionState = JSON.parse(stored);
     delete state[levelSlug];
     localStorage.setItem(SECTION_COMPLETION_KEY, JSON.stringify(state));
@@ -224,17 +239,18 @@ export function clearSectionCompletion(levelSlug: string): void {
 }
 
 // Check if any interactive component in a level+section is completed
+/** Returns true if any saved component state in the given level has a `completed: true` property, optionally filtered by a component ID prefix. */
 export function hasCompletedInteraction(levelSlug: string, componentIdPrefix?: string): boolean {
   if (typeof window === "undefined") return false;
-  
+
   try {
     const stored = localStorage.getItem(COMPONENT_STATE_KEY);
     if (!stored) return false;
-    
+
     const state = JSON.parse(stored) as ComponentState;
     const levelState = state[levelSlug];
     if (!levelState) return false;
-    
+
     // Check if any component has completed state
     for (const [componentId, data] of Object.entries(levelState)) {
       if (componentIdPrefix && !componentId.includes(componentIdPrefix)) continue;

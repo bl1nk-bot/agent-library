@@ -6,7 +6,7 @@ const useCloneBranding = true;
 export default defineConfig({
   // Branding - your organization's identity
   branding: {
-    name: "agents-library",
+    name: "bl1nk",
     logo: "/logo.svg",
     logoDark: "/logo.svg",
     favicon: "/logo.svg",
@@ -15,8 +15,8 @@ export default defineConfig({
 
   // Theme - design system configuration
   theme: {
-    radius: "sm",
-    variant: "brutal",
+    radius: "md",
+    variant: "flat",
     density: "default",
     colors: {
       primary: "#6366f1",
@@ -54,10 +54,8 @@ export default defineConfig({
       enabled: false, // Disabled for private clones
     },
     sponsors: {
-      enabled: true,
-      items: [
-        { name: "bl1nkos", logo: "/sponsors/acme.svg", url: "https:bl1nk.site" }
-      ],
+      enabled: false,
+      items: [],
     },
   },
 });

@@ -316,7 +316,7 @@ export function RunPromptButton({
       if (url.startsWith("http://") || url.startsWith("https://")) {
         window.open(url, "_blank");
       } else {
-        window.location.href = url;
+        window.location.assign(url);
       }
       analyticsPrompt.run(promptId, platform.name);
     }

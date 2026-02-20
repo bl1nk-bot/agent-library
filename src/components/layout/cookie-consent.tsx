@@ -20,7 +20,11 @@ export function CookieConsentBanner() {
   const [confirmReject, setConfirmReject] = useState(false);
 
   useEffect(() => {
-    setConsent(getCookieConsent());
+    const loadConsent = () => {
+      setConsent(getCookieConsent());
+    };
+    
+    loadConsent();
   }, []);
 
   const handleAccept = () => {

@@ -7,6 +7,7 @@ import { PixelRobot, PixelStar } from "./pixel-art";
 import { useLevelSlug, useSectionNavigation } from "@/components/kids/providers/level-context";
 import { getComponentState, saveComponentState, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the PromptVsMistake interactive element. */
 interface PromptVsMistakeProps {
   question: string;
   good: string;
@@ -15,12 +16,18 @@ interface PromptVsMistakeProps {
   promiMessage?: string;
 }
 
+/** Shape of the state persisted to localStorage for this component. */
 interface SavedState {
   selected: "good" | "bad" | null;
   showResult: boolean;
   order: string[];
 }
 
+/**
+ * Interactive selection challenge where the learner picks which of two prompts
+ * (good vs bad) the AI would prefer, with animated pixel-art feedback.
+ * Persists its selection state to localStorage.
+ */
 export function PromptVsMistake({
   question,
   good,
@@ -32,12 +39,12 @@ export function PromptVsMistake({
   const levelSlug = useLevelSlug();
   const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
   }, [currentSection, registerSectionRequirement]);
-  
+
   const [selected, setSelected] = useState<"good" | "bad" | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [order, setOrder] = useState<string[]>([]);
@@ -46,13 +53,13 @@ export function PromptVsMistake({
   // Load saved state on mount
   useEffect(() => {
     const randomOrder = Math.random() > 0.5 ? ["good", "bad"] : ["bad", "good"];
-    
+
     if (!levelSlug) {
       setOrder(randomOrder);
       setIsLoaded(true);
       return;
     }
-    
+
     const saved = getComponentState<SavedState>(levelSlug, componentId);
     if (saved && saved.order && saved.order.length > 0) {
       setSelected(saved.selected);
@@ -67,7 +74,7 @@ export function PromptVsMistake({
   // Save state when it changes
   useEffect(() => {
     if (!levelSlug || !isLoaded || order.length === 0) return;
-    
+
     saveComponentState<SavedState>(levelSlug, componentId, {
       selected,
       showResult,
@@ -89,7 +96,7 @@ export function PromptVsMistake({
     setSelected(null);
     setShowResult(false);
   };
-  
+
   // Don't render until loaded to prevent hydration mismatch
   if (!isLoaded) return null;
 
@@ -113,7 +120,7 @@ export function PromptVsMistake({
         </div>
         <div className="flex-1 relative">
           {/* Speech bubble */}
-          <div 
+          <div
             className="bg-white p-2 shadow-md border-2 border-[#8B4513] relative ml-2"
             style={{ clipPath: pixelClipPath }}
           >
@@ -131,7 +138,7 @@ export function PromptVsMistake({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {options.map(({ type, text }, index) => {
           const isGood = type === "good";
-          
+
           return (
             <button
               key={type}
@@ -150,7 +157,7 @@ export function PromptVsMistake({
                 showResult && isGood && "bg-gradient-to-br from-[#4ADE80] to-[#16A34A]",
                 showResult && !isGood && "bg-gradient-to-br from-[#FB7185] to-[#E11D48]"
               )}>
-                <div 
+                <div
                   className={cn(
                     "bg-white p-2 transition-colors h-full flex flex-col",
                     showResult && isGood && "bg-[#F0FDF4]",
@@ -160,7 +167,7 @@ export function PromptVsMistake({
                 >
                   {/* Option label */}
                   <div className="flex items-center gap-1 mb-1">
-                    <span 
+                    <span
                       className={cn(
                         "w-6 h-6 flex items-center justify-center text-sm font-bold text-white",
                         !showResult && "bg-[#F59E0B]",
@@ -180,14 +187,14 @@ export function PromptVsMistake({
                       </span>
                     )}
                   </div>
-                  
+
                   {/* Prompt text */}
-                  <div 
+                  <div
                     className="bg-[#FEF3C7] p-1.5 border border-[#F59E0B]/30 flex-1 flex items-center"
                     style={{ clipPath: smallPixelClipPath }}
                   >
                     <p className="text-sm text-[#2C1810] m-0 whitespace-pre-wrap leading-tight">
-                      "{text}"
+                      &quot;{text}&quot;
                     </p>
                   </div>
                 </div>
@@ -199,10 +206,10 @@ export function PromptVsMistake({
 
       {/* Result feedback */}
       {showResult && (
-        <div 
+        <div
           className={cn(
             "mt-3 p-3 text-center animate-in fade-in zoom-in-95 duration-300",
-            isCorrect 
+            isCorrect
               ? "bg-gradient-to-br from-[#BBF7D0] to-[#86EFAC] border-2 border-[#22C55E]"
               : "bg-gradient-to-br from-[#FEF08A] to-[#FDE047] border-2 border-[#F59E0B]"
           )}
@@ -217,7 +224,7 @@ export function PromptVsMistake({
             <p className="text-sm text-[#5D4037] m-0 mt-2">{explanation}</p>
           )}
           {promiMessage && (
-            <div 
+            <div
               className="flex items-center justify-center gap-2 mt-3 bg-white/60 p-2"
               style={{ clipPath: smallPixelClipPath }}
             >
@@ -226,8 +233,8 @@ export function PromptVsMistake({
             </div>
           )}
           {!isCorrect && (
-            <button 
-              onClick={handleReset} 
+            <button
+              onClick={handleReset}
               className="mt-3 inline-flex items-center gap-1 px-4 py-2 bg-[#8B4513] hover:bg-[#A0522D] text-white text-sm font-bold transition-colors"
               style={{ clipPath: smallPixelClipPath }}
             >
@@ -242,6 +249,7 @@ export function PromptVsMistake({
 }
 
 // Pixel art icons
+/** Pixel-art checkmark icon used to indicate a correct selection. */
 function PixelCheckIcon() {
   return (
     <svg viewBox="0 0 12 12" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
@@ -254,6 +262,7 @@ function PixelCheckIcon() {
   );
 }
 
+/** Pixel-art X icon used to indicate an incorrect selection. */
 function PixelXIcon() {
   return (
     <svg viewBox="0 0 12 12" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
@@ -269,6 +278,7 @@ function PixelXIcon() {
   );
 }
 
+/** Pixel-art refresh/retry icon button. */
 function PixelRefreshIcon() {
   return (
     <svg viewBox="0 0 16 16" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -288,6 +298,7 @@ function PixelRefreshIcon() {
   );
 }
 
+/** Pixel-art thinking/question-mark icon for the AI thought bubble. */
 function PixelThinkingIcon() {
   return (
     <svg viewBox="0 0 32 32" className="w-12 h-12" style={{ imageRendering: "pixelated" }}>

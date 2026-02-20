@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
 import { formatDistanceToNow } from "@/lib/date";
-import { Clock, Edit, History, GitPullRequest, Check, X, Users, ImageIcon, Video, FileText, Shield, Trash2, Cpu, Terminal, Wrench } from "lucide-react";
+import { Clock, Edit, History, GitPullRequest, Check, X, Users, ImageIcon, Video, FileText, Shield, Trash2, Cpu, Terminal, Wrench, Code2 } from "lucide-react";
 import { AnimatedDate } from "@/components/ui/animated-date";
 import { ShareDropdown } from "@/components/prompts/share-dropdown";
 import { auth } from "@/lib/auth";
@@ -29,6 +29,7 @@ import { CommentSection } from "@/components/comments";
 import { PromptFlowSection } from "@/components/prompts/prompt-flow-section";
 import { RelatedPrompts } from "@/components/prompts/related-prompts";
 import { AddToCollectionButton } from "@/components/prompts/add-to-collection-button";
+import { ApiConfigManager } from "@/components/skills/api-config-manager";
 import { getConfig } from "@/lib/config";
 import { StructuredData } from "@/components/seo/structured-data";
 import { AI_MODELS } from "@/lib/works-best-with";
@@ -477,6 +478,12 @@ export default async function PromptPage({ params }: PromptPageProps) {
           <div className="flex items-center justify-between">
             <TabsList>
               <TabsTrigger value="content">{t("promptContent")}</TabsTrigger>
+              {prompt.type === "SKILL" && (
+                <TabsTrigger value="api" className="gap-1">
+                  <Code2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">API</span>
+                </TabsTrigger>
+              )}
               <TabsTrigger value="versions" className="gap-1">
                 <History className="h-4 w-4" />
                 {t("versions")}
@@ -672,9 +679,15 @@ export default async function PromptPage({ params }: PromptPageProps) {
               locale={locale}
             />
           )}
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="versions" className="mt-0">
+          {prompt.type === "SKILL" && (
+            <TabsContent value="api" className="mt-0 space-y-6">
+              <ApiConfigManager promptId={prompt.id} isOwner={isOwner} />
+            </TabsContent>
+          )}
+
+          <TabsContent value="versions" className="mt-0">
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-base font-semibold">{t("versionHistory")}</h3>

@@ -132,6 +132,7 @@ model Prompt {
   collectedBy         Collection[]
   bestWithModels      String[]           // Model slugs this prompt works best with (max 3), e.g. ["gpt-4o", "claude-3-5-sonnet"]
   bestWithMCP         Json?              // MCP configs array, e.g. [{command: "npx -y @mcp/server", tools: ["tool1"]}]
+  apiConfigs          ApiConfig[]
 
   @@index([authorId])
   @@index([categoryId])
@@ -442,4 +443,26 @@ enum DelistReason {
   NOT_LLM_INSTRUCTION
   MANUAL
   UNUSUAL_ACTIVITY
+}
+
+model ApiConfig {
+  id              String   @id @default(cuid())
+  promptId        String
+  name            String
+  description     String?
+  baseUrl         String
+  method          String   @default("GET")
+  headers         Json?
+  queryParams     Json?
+  bodySchema      Json?
+  responseSchema  Json?
+  authentication  Json?
+  testEndpoint    String?
+  documentation   String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  prompt          Prompt   @relation(fields: [promptId], references: [id], onDelete: Cascade)
+
+  @@index([promptId])
+  @@map("api_configs")
 }

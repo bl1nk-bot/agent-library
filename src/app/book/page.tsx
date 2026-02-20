@@ -229,11 +229,11 @@ export default function BookHomePage() {
               An interactive, game-based adventure to teach children (ages 8-14) how to communicate with AI through fun puzzles and stories.
             </p>
             <Button asChild className="bg-green-500 hover:bg-green-600 text-white">
-              <a href="/kids">
+              <Link href="/kids">
                 <Gamepad2 className="mr-2 h-4 w-4" />
                 Start Playing
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

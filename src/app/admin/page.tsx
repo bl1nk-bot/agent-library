@@ -188,14 +188,14 @@ export default async function AdminPage() {
           reports: t("tabs.reports"),
         }}
         pendingReportsCount={reports.filter(r => r.status === "PENDING").length}
-        children={{
+        content={{
           users: <UsersTable />,
           categories: <CategoriesTable categories={categories} />,
           tags: <TagsTable tags={tags} />,
           webhooks: <WebhooksTable webhooks={webhooks} />,
           prompts: (
-            <PromptsManagement 
-              aiSearchEnabled={aiSearchEnabled} 
+            <PromptsManagement
+              aiSearchEnabled={aiSearchEnabled}
               promptsWithoutEmbeddings={promptsWithoutEmbeddings}
               totalPublicPrompts={totalPublicPrompts}
               promptsWithoutSlugs={promptsWithoutSlugs}

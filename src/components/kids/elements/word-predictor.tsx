@@ -6,22 +6,33 @@ import { cn } from "@/lib/utils";
 import { useLevelSlug, useSectionNavigation } from "@/components/kids/providers/level-context";
 import { getComponentState, saveComponentState, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the WordPredictor interactive element. */
 interface WordPredictorProps {
   title?: string;
   instruction?: string;
+  /** Sentence containing `___` as the blank placeholder. */
   sentence: string;
+  /** Answer choices displayed as buttons. */
   options: string[];
+  /** The option string that counts as the correct answer. */
   correctAnswer: string;
+  /** Shown after submission to explain the correct answer. */
   explanation: string;
   aiThinking?: string;
   successMessage?: string;
 }
 
+/** Shape of the state persisted to localStorage for this component. */
 interface SavedState {
   selectedAnswer: string | null;
   submitted: boolean;
 }
 
+/**
+ * Interactive fill-in-the-blank component that shows a sentence with a blank
+ * and lets the learner select the word the AI would predict.
+ * Persists its state to localStorage so progress survives page reloads.
+ */
 export function WordPredictor({
   title,
   instruction,
@@ -36,7 +47,7 @@ export function WordPredictor({
   const levelSlug = useLevelSlug();
   const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
@@ -49,18 +60,20 @@ export function WordPredictor({
   const [submitted, setSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load saved state
+  // Load saved state on mount - wrap setState in microtask to avoid sync update in effect
   useEffect(() => {
-    if (!levelSlug) {
+    queueMicrotask(() => {
+      if (!levelSlug) {
+        setIsLoaded(true);
+        return;
+      }
+      const saved = getComponentState<SavedState>(levelSlug, componentId);
+      if (saved && typeof saved.submitted === "boolean") {
+        setSelectedAnswer(saved.selectedAnswer);
+        setSubmitted(saved.submitted);
+      }
       setIsLoaded(true);
-      return;
-    }
-    const saved = getComponentState<SavedState>(levelSlug, componentId);
-    if (saved && typeof saved.submitted === "boolean") {
-      setSelectedAnswer(saved.selectedAnswer);
-      setSubmitted(saved.submitted);
-    }
-    setIsLoaded(true);
+    });
   }, [levelSlug, componentId]);
 
   // Save state
@@ -189,7 +202,7 @@ export function WordPredictor({
 
       {/* Result */}
       {submitted && (
-        <div 
+        <div
           className={cn(
             "p-4 border-2 mb-4 animate-in fade-in zoom-in-95 duration-300",
             isCorrect ? "bg-green-100 border-green-500" : "bg-orange-100 border-orange-400"

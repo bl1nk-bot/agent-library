@@ -53,7 +53,7 @@ Deploy your own private instance of the Agent Library for your team or organizat
 ```bash
 git clone https://github.com/bl1nk-bot/agent-library.git
 cd agent-library
-npm install && npm run setup
+bun install && bun run setup
 ```
 
 The interactive setup wizard will guide you through:

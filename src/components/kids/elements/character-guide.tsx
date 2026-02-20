@@ -25,14 +25,15 @@ const sizeClasses = {
   lg: "w-28 h-28 text-5xl",
 };
 
-export function PromiCharacter({ 
-  mood = "happy", 
+/** Animated pixel-art Promi robot character rendered with an emoji overlay to express mood. */
+export function PromiCharacter({
+  mood = "happy",
   size = "md",
   className,
-  animate = true 
+  animate = true
 }: PromiCharacterProps) {
   return (
-    <div 
+    <div
       className={cn(
         "relative flex items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 border-4 border-primary/30",
         sizeClasses[size],
@@ -60,13 +61,14 @@ interface SpeechBubbleProps {
   className?: string;
 }
 
-export function SpeechBubble({ 
-  children, 
+/** Speech bubble container with a directional tail (left, right, or bottom). */
+export function SpeechBubble({
+  children,
   direction = "right",
-  className 
+  className
 }: SpeechBubbleProps) {
   return (
-    <div 
+    <div
       className={cn(
         "relative p-4 bg-white dark:bg-card rounded-2xl shadow-lg border-2 border-primary/20",
         className
@@ -74,7 +76,7 @@ export function SpeechBubble({
     >
       {children}
       {/* Speech bubble tail */}
-      <div 
+      <div
         className={cn(
           "absolute w-4 h-4 bg-white dark:bg-card border-2 border-primary/20 rotate-45",
           direction === "left" && "-left-2 top-1/2 -translate-y-1/2 border-r-0 border-t-0",
@@ -92,10 +94,11 @@ interface PromiWithMessageProps {
   promiPosition?: "left" | "right";
 }
 
-export function PromiWithMessage({ 
-  message, 
+/** Promi character displayed alongside a speech bubble with a configurable message and mood. */
+export function PromiWithMessage({
+  message,
   mood = "happy",
-  promiPosition = "left" 
+  promiPosition = "left"
 }: PromiWithMessageProps) {
   return (
     <div className={cn(
@@ -103,7 +106,7 @@ export function PromiWithMessage({
       promiPosition === "right" && "flex-row-reverse"
     )}>
       <PromiCharacter mood={mood} size="md" />
-      <SpeechBubble 
+      <SpeechBubble
         direction={promiPosition === "left" ? "left" : "right"}
         className="flex-1"
       >

@@ -26,8 +26,12 @@ interface StorySceneProps {
  * Back / Next buttons and dot indicators.
  */
 export function StoryScene({ panels, className }: StorySceneProps) {
-  const [currentPanel, setCurrentPanel] = useState(0);
-  const panel = panels[currentPanel];
+  export function StoryScene({ panels, className }: StorySceneProps) {
+    const [currentPanel, setCurrentPanel] = useState(0);
+
+    if (panels.length === 0) return null;
+
+    const panel = panels[currentPanel];
   const isFirst = currentPanel === 0;
   const isLast = currentPanel === panels.length - 1;
 

@@ -96,6 +96,7 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [hoveredNode, setHoveredNode] = useState<FlowGraphNode | null>(null);
   const [nodePos, setNodePos] = useState({ x: 0, y: 0, width: 0 });
+  const [tooltipPos, setTooltipPos] = useState({ left: 0, top: 0 });
   const isOverTooltipRef = useRef(false);
   const isOverNodeRef = useRef(false);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -144,6 +145,39 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
     isOverTooltipRef.current = false;
     scheduleHide();
   }, [scheduleHide]);
+
+  useEffect(() => {
+    if (!hoveredNode || !containerRef.current) return;
+
+    const tooltipWidth = 320;
+    const tooltipHeight = 280;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const containerWidth = containerRef.current.clientWidth;
+
+    let leftPos = nodePos.x + nodePos.width / 2 - 5;
+    if (leftPos + tooltipWidth > containerWidth) {
+      leftPos = nodePos.x - nodePos.width / 2 - tooltipWidth + 5;
+    }
+    if (leftPos < 0) leftPos = 10;
+
+    let topPos = nodePos.y - tooltipHeight / 2;
+
+    const viewportHeight = window.innerHeight;
+    const absoluteTop = containerRect.top + topPos;
+    const margin = 60;
+
+    if (absoluteTop + tooltipHeight > viewportHeight - margin) {
+      topPos = viewportHeight - containerRect.top - tooltipHeight - margin;
+    }
+    if (absoluteTop < margin) {
+      topPos = margin - containerRect.top;
+    }
+
+    if (topPos < 10) topPos = 10;
+    if (leftPos < 10) leftPos = 10;
+
+    setTooltipPos({ left: leftPos, top: topPos });
+  }, [hoveredNode, nodePos]);
 
   useEffect(() => {
     if (!svgRef.current || nodes.length === 0) return;
@@ -346,52 +380,13 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
   return (
     <div ref={containerRef} className="relative">
       <svg ref={svgRef} className="w-full" />
-      {hoveredNode && (() => {
-          // Calculate position with viewport awareness
-          const tooltipWidth = 320;
-          const tooltipHeight = 280;
-          const containerRect = containerRef.current?.getBoundingClientRect();
-          const containerWidth = containerRef.current?.clientWidth || 600;
-          
-          // Calculate left position - overlap slightly with node for easier hover transition
-          let leftPos = nodePos.x + nodePos.width / 2 - 5;
-          // Check if it overflows right edge of container
-          if (leftPos + tooltipWidth > containerWidth) {
-            leftPos = nodePos.x - nodePos.width / 2 - tooltipWidth + 5;
-          }
-          // Ensure not negative
-          if (leftPos < 0) leftPos = 10;
-          
-          // Calculate top position - check against viewport
-          let topPos = nodePos.y - tooltipHeight / 2;
-          
-          if (containerRect) {
-            const viewportHeight = window.innerHeight;
-            const absoluteTop = containerRect.top + topPos;
-            const margin = 60; // Keep tooltip well inside viewport
-            
-            // If tooltip would go below viewport, push it up
-            if (absoluteTop + tooltipHeight > viewportHeight - margin) {
-              topPos = viewportHeight - containerRect.top - tooltipHeight - margin;
-            }
-            // If tooltip would go above viewport, push it down
-            if (absoluteTop < margin) {
-              topPos = margin - containerRect.top;
-            }
-          }
-          
-          // Also clamp to container bounds
-          if (topPos < 10) topPos = 10;
-          // Ensure left is valid
-          if (leftPos < 10) leftPos = 10;
-          
-          return (
+      {hoveredNode && (
             <div 
               ref={tooltipRef}
               className="absolute z-[100] w-80 p-3 rounded-lg border bg-card shadow-xl"
               style={{ 
-                left: leftPos, 
-                top: topPos,
+                left: tooltipPos.left,
+                top: tooltipPos.top,
                 pointerEvents: 'auto',
               }}
               onMouseEnter={handleTooltipEnter}
@@ -437,8 +432,7 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
                 )}
               </div>
             </div>
-          );
-        })()}
+          )}
     </div>
   );
 }

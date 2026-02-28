@@ -55,7 +55,7 @@ function Button({
   ...props
 }: ButtonProps) {
   // --- START Hoisted Hooks and variables ---
-  const [isHovered, setIsHovered] = useState(false)
+  const [, setIsHovered] = useState(false)
   const isHoveredRef = useRef(false)
   const [isPressed, setIsPressed] = useState(false)
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])

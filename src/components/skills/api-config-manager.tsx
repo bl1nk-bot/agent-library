@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Plus, Trash2, Edit, Play, Code, BookOpen } from "lucide-react";
 import { toast } from "sonner";
@@ -34,7 +34,7 @@ interface ApiConfigManagerProps {
 }
 
 export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
-  const t = useTranslations("skills");
+
   const [configs, setConfigs] = useState<ApiConfig[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedConfig, setSelectedConfig] = useState<ApiConfig | null>(null);
@@ -44,9 +44,9 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
 
   useEffect(() => {
     fetchConfigs();
-  }, [promptId]);
+  }, [promptId, fetchConfigs]);
 
-  const fetchConfigs = async () => {
+  const fetchConfigs = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch(`/api/prompts/${promptId}/api-config`);
@@ -62,7 +62,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [promptId]);
 
   const handleDelete = async (configId: string) => {
     if (!confirm("Are you sure you want to delete this API configuration?")) {

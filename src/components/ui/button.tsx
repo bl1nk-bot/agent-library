@@ -4,11 +4,12 @@ import * as React from "react"
 import { useState, useRef, useEffect, useMemo } from "react"
 import { Sparkles } from "lucide-react"
 import { Slot } from "@radix-ui/react-slot"
+import type { ShaderMount as ShaderMountType } from "@paper-design/shaders"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
   {
     variants: {
       variant: {
@@ -43,6 +44,64 @@ interface ButtonProps
   viewMode?: "text" | "icon"
 }
 
+class ShaderManager {
+  private mount: ShaderMountType | null = null;
+  private currentParent: HTMLDivElement | null = null;
+  private loading = false;
+
+  async attach(parent: HTMLDivElement) {
+    if (this.loading) return;
+    if (!this.mount) {
+      this.loading = true;
+      try {
+        const { liquidMetalFragmentShader, ShaderMount } = await import("@paper-design/shaders");
+        this.mount = new (ShaderMount as any)(
+          parent,
+          liquidMetalFragmentShader,
+          {
+            u_repetition: 4,
+            u_softness: 0.5,
+            u_shiftRed: 0.3,
+            u_shiftBlue: 0.3,
+            u_distortion: 0,
+            u_contour: 0,
+            u_angle: 45,
+            u_scale: 8,
+            u_shape: 1,
+            u_offsetX: 0.1,
+            u_offsetY: -0.1,
+          },
+          undefined,
+          0.6
+        );
+        this.currentParent = parent;
+      } catch (e) {
+        console.error("Failed to load shader", e);
+      } finally {
+        this.loading = false;
+      }
+      return;
+    }
+
+    if (this.currentParent !== parent) {
+      this.currentParent = parent;
+      const mount = this.mount as any;
+      const canvas = mount.getCanvas?.() || mount.canvas;
+      if (canvas && parent) {
+        parent.appendChild(canvas);
+      }
+    }
+  }
+
+  setSpeed(speed: number) {
+    if (this.mount) {
+      (this.mount as any).setSpeed?.(speed);
+    }
+  }
+}
+
+const shaderManager = new ShaderManager();
+
 function Button({
   className,
   variant,
@@ -54,15 +113,23 @@ function Button({
   children,
   ...props
 }: ButtonProps) {
+  const isPrimary = variant === "default" || !variant;
+  const isExploded = isPrimary && !asChild;
+
+  // Accessibility check
+  useEffect(() => {
+    if (!props["aria-label"] && !children && !label) {
+      console.warn("Button should have an aria-label, label prop, or children for accessibility.");
+    }
+  }, [props, children, label]);
+
   // --- START Hoisted Hooks and variables ---
-  const [, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const isHoveredRef = useRef(false)
   const [isPressed, setIsPressed] = useState(false)
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])
 
   const shaderRef = useRef<HTMLDivElement>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const shaderMount = useRef<any>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const rippleId = useRef(0)
 
@@ -73,13 +140,17 @@ function Button({
   // Dynamic dimensions based on mode.
   const dimensions = useMemo(() => {
     if (mode === "icon") {
+      let dim = 46;
+      if (size === "icon-sm") dim = 40;
+      if (size === "icon-lg") dim = 52;
+
       return {
-        width: 46,
-        height: 46,
-        innerWidth: 42,
-        innerHeight: 42,
-        shaderWidth: 46,
-        shaderHeight: 46,
+        width: dim,
+        height: dim,
+        innerWidth: dim - 4,
+        innerHeight: dim - 4,
+        shaderWidth: dim,
+        shaderHeight: dim,
       }
     }
     // For text mode, we rely on CSS sizing (auto width, variant height)
@@ -91,18 +162,9 @@ function Button({
       shaderWidth: undefined,
       shaderHeight: undefined,
     }
-  }, [mode])
+  }, [mode, size])
 
   useEffect(() => {
-    // Only load shader for primary (default) variant
-    if (variant && variant !== "default") {
-      if (shaderMount.current?.destroy) {
-        shaderMount.current.destroy()
-        shaderMount.current = null
-      }
-      return
-    }
-
     const styleId = "shader-canvas-style-exploded"
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style")
@@ -130,72 +192,32 @@ function Button({
       `
       document.head.appendChild(style)
     }
-
-    const loadShader = async () => {
-      try {
-        const { liquidMetalFragmentShader, ShaderMount } = await import("@paper-design/shaders")
-
-        if (shaderRef.current) {
-          if (shaderMount.current?.destroy) {
-            shaderMount.current.destroy()
-          }
-
-          shaderMount.current = new ShaderMount(
-            shaderRef.current,
-            liquidMetalFragmentShader,
-            {
-              u_repetition: 4,
-              u_softness: 0.5,
-              u_shiftRed: 0.3,
-              u_shiftBlue: 0.3,
-              u_distortion: 0,
-              u_contour: 0,
-              u_angle: 45,
-              u_scale: 8,
-              u_shape: 1,
-              u_offsetX: 0.1,
-              u_offsetY: -0.1,
-            },
-            undefined,
-            0.6,
-          )
-        }
-      } catch (error) {
-        console.error("[v0] Failed to load shader:", error)
-      }
-    }
-
-    loadShader()
-
-    return () => {
-      if (shaderMount.current?.destroy) {
-        shaderMount.current.destroy()
-        shaderMount.current = null
-      }
-    }
-  }, [dimensions.width, dimensions.height, variant])
+  }, [])
 
   const handleMouseEnter = () => {
     setIsHovered(true)
     isHoveredRef.current = true
-    shaderMount.current?.setSpeed?.(1)
+    if (isPrimary && shaderRef.current) {
+      shaderManager.attach(shaderRef.current);
+      shaderManager.setSpeed(1);
+    }
   }
 
   const handleMouseLeave = () => {
     setIsHovered(false)
     isHoveredRef.current = false
     setIsPressed(false)
-    shaderMount.current?.setSpeed?.(0.6)
+    if (isPrimary) shaderManager.setSpeed(0.6);
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (shaderMount.current?.setSpeed) {
-      shaderMount.current.setSpeed(2.4)
+    if (isPrimary) {
+      shaderManager.setSpeed(2.4)
       setTimeout(() => {
         if (isHoveredRef.current) {
-          shaderMount.current?.setSpeed?.(1)
+          shaderManager.setSpeed(1)
         } else {
-          shaderMount.current?.setSpeed?.(0.6)
+          shaderManager.setSpeed(0.6)
         }
       }, 300)
     }
@@ -216,19 +238,23 @@ function Button({
   }
   // --- END Hoisted Hooks and variables ---
 
-  // Compute classes using buttonVariants
+  // Compute classes using buttonVariants - do NOT pass className here to avoid duplication
   const variantClasses = buttonVariants({ variant, size });
 
-  // Fallback to simple button if asChild is true
-  if (asChild) {
-    const Comp = Slot
+  // Fallback to simple button if asChild is true or not primary variant
+  if (asChild || !isExploded) {
+    const Comp = asChild ? Slot : "button"
     return (
       <Comp
         data-slot="button"
-        className={cn(variantClasses, className)}
+        className={cn(
+          buttonVariants({ variant, size }),
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          className
+        )}
         {...props}
       >
-        {children}
+        {children || displayLabel}
       </Comp>
     )
   }
@@ -239,7 +265,8 @@ function Button({
         className={cn(
           "relative transform-style-3d transition-all duration-800",
           variantClasses,
-          "border-0 overflow-hidden"
+          "border-0 overflow-hidden",
+          props.disabled && "opacity-50"
         )}
         style={{
           width: dimensions.width ? `${dimensions.width}px` : undefined,
@@ -271,7 +298,6 @@ function Button({
               height: "100%",
               borderRadius: "var(--radius)",
               zIndex: 1,
-              opacity: props.disabled ? 0.3 : 1,
             }}
           >
             <div
@@ -286,7 +312,7 @@ function Button({
           </div>
 
           {/* Content Layer */}
-          <div className="relative z-10 flex items-center justify-center gap-2 pointer-events-none">
+          <div className="relative z-10 flex items-center justify-center gap-2">
             {mode === "icon" ? (
               React.Children.count(children) > 0 && typeof children !== 'string' ? (
                  <div style={{
@@ -309,9 +335,9 @@ function Button({
               <span
                 style={{
                   fontSize: "inherit",
-                  color: props.disabled ? "#999999" : "#666666",
+                  color: "#666666",
                   fontWeight: "inherit",
-                  textShadow: props.disabled ? "none" : "0px 1px 2px rgba(0, 0, 0, 0.5)",
+                  textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -328,7 +354,9 @@ function Button({
             onMouseDown={() => setIsPressed(true)}
             onMouseUp={() => setIsPressed(false)}
             className={cn(
-              "absolute inset-0 w-full h-full bg-transparent border-none cursor-pointer z-40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed"
+              "absolute inset-0 w-full h-full bg-transparent border-none z-40",
+              "cursor-pointer disabled:cursor-not-allowed outline-none",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             )}
             aria-label={displayLabel || (typeof children === 'string' ? children : undefined)}
             {...props}

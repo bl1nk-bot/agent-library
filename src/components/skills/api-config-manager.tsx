@@ -62,25 +62,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
 
   useEffect(() => {
     fetchConfigs();
-  }, [fetchConfigs]);
-
-  const fetchConfigs = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`/api/prompts/${promptId}/api-config`);
-      if (response.ok) {
-        const data = await response.json();
-        setConfigs(data);
-      } else {
-        toast.error("Failed to fetch API configurations");
-      }
-    } catch (error) {
-      console.error("[v0] Error fetching API configs:", error);
-      toast.error("An error occurred while fetching API configurations");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [promptId]);
+  }, [promptId, fetchConfigs]);
 
   const handleDelete = async (configId: string) => {
     if (!confirm("Are you sure you want to delete this API configuration?")) {

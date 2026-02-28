@@ -102,7 +102,8 @@ describe("CopyButton", () => {
 
     // After copy, the Check icon should be rendered with green color
     const button = screen.getByRole("button");
-    const svg = button.parentElement?.querySelector("svg");
+    const container = button.parentElement;
+    const svg = container?.querySelector("svg");
     expect(svg).toHaveClass("text-green-500");
   });
 
@@ -129,7 +130,8 @@ describe("CopyButton", () => {
 
     // Should not have the green check icon
     const button = screen.getByRole("button");
-    const svg = button.parentElement?.querySelector("svg");
+    const container = button.parentElement;
+    const svg = container?.querySelector("svg");
     expect(svg).not.toHaveClass("text-green-500");
   });
 

@@ -42,9 +42,27 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
   const [showTester, setShowTester] = useState(false);
   const [editingConfig, setEditingConfig] = useState<ApiConfig | null>(null);
 
+  const fetchConfigs = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/prompts/${promptId}/api-config`);
+      if (response.ok) {
+        const data = await response.json();
+        setConfigs(data);
+      } else {
+        toast.error("Failed to fetch API configurations");
+      }
+    } catch (error) {
+      console.error("[v0] Error fetching API configs:", error);
+      toast.error("An error occurred while fetching API configurations");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [promptId]);
+
   useEffect(() => {
     fetchConfigs();
-  }, [promptId, fetchConfigs]);
+  }, [fetchConfigs]);
 
   const fetchConfigs = useCallback(async () => {
     try {

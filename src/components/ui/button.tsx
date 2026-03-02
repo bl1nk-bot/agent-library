@@ -116,12 +116,14 @@ function Button({
   const isPrimary = variant === "default" || !variant;
   const isExploded = isPrimary && !asChild;
 
+  const ariaLabelProp = props["aria-label"];
+
   // Accessibility check
   useEffect(() => {
-    if (!props["aria-label"] && !children && !label) {
+    if (!ariaLabelProp && !children && !label) {
       console.warn("Button should have an aria-label, label prop, or children for accessibility.");
     }
-  }, [props, children, label]);
+  }, [ariaLabelProp, children, label]);
 
   // --- START Hoisted Hooks and variables ---
   const [isHovered, setIsHovered] = useState(false)

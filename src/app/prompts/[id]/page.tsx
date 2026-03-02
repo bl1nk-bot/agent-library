@@ -479,8 +479,8 @@ export default async function PromptPage({ params }: PromptPageProps) {
             <TabsList>
               <TabsTrigger value="content">{t("promptContent")}</TabsTrigger>
               {prompt.type === "SKILL" && (
-                <TabsTrigger value="api" className="gap-1">
-                  <Code2 className="h-4 w-4" />
+                <TabsTrigger value="api" className="gap-1" aria-label="API">
+                  <Code2 className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">API</span>
                 </TabsTrigger>
               )}

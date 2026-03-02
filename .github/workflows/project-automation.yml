@@ -1,0 +1,19 @@
+name: Project Automation
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    name: Add to Project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          # คุณต้องตั้งค่า PROJECT_URL ใน Repository Secrets หรือ Variables
+          # ตัวอย่าง: https://github.com/users/bl1nk-bot/projects/1
+          project-url: ${{ vars.PROJECT_URL }}
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}

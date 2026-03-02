@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChevronsDown, ChevronsUp } from "lucide-react";
-import { JsonTreeViewWrapper } from "./json-tree-view";
+import { JsonTreeViewWrapper, type JsonTreeViewHandle } from "./json-tree-view";
 
 interface CodeViewProps {
   content: string;
@@ -22,8 +22,7 @@ type ViewMode = "code" | "tree";
 export function CodeView({ content, language = "json", className, maxLines, fontSize = "xs", wordWrap = false, preview = false }: CodeViewProps) {
   const t = useTranslations("common");
   const [viewMode, setViewMode] = useState<ViewMode>("code");
-  const expandAllRef = useRef<(() => void) | undefined>(undefined);
-  const collapseAllRef = useRef<(() => void) | undefined>(undefined);
+  const treeViewRef = useRef<JsonTreeViewHandle>(null);
   
   const isJson = language === "json";
   const showToggle = isJson && !maxLines; // Only show toggle for JSON when not truncated
@@ -44,11 +43,11 @@ export function CodeView({ content, language = "json", className, maxLines, font
   const hasMore = maxLines && lines.length > maxLines;
 
   const handleExpandAll = () => {
-    expandAllRef.current?.();
+    treeViewRef.current?.expandAll();
   };
 
   const handleCollapseAll = () => {
-    collapseAllRef.current?.();
+    treeViewRef.current?.collapseAll();
   };
 
   return (
@@ -105,8 +104,7 @@ export function CodeView({ content, language = "json", className, maxLines, font
           content={content} 
           className={className} 
           fontSize={fontSize}
-          onExpandAll={expandAllRef}
-          onCollapseAll={collapseAllRef}
+          ref={treeViewRef}
         />
       ) : (
         <pre suppressHydrationWarning className={cn("font-mono bg-muted rounded p-2", preview ? "overflow-hidden" : "overflow-y-auto max-h-[500px]", {

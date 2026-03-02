@@ -352,7 +352,7 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
           const tooltipHeight = 280;
           const containerRect = containerRef.current?.getBoundingClientRect();
           const containerWidth = containerRef.current?.clientWidth || 600;
-          
+
           // Calculate left position - overlap slightly with node for easier hover transition
           let leftPos = nodePos.x + nodePos.width / 2 - 5;
           // Check if it overflows right edge of container
@@ -361,15 +361,15 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
           }
           // Ensure not negative
           if (leftPos < 0) leftPos = 10;
-          
+
           // Calculate top position - check against viewport
           let topPos = nodePos.y - tooltipHeight / 2;
-          
+
           if (containerRect) {
             const viewportHeight = window.innerHeight;
             const absoluteTop = containerRect.top + topPos;
             const margin = 60; // Keep tooltip well inside viewport
-            
+
             // If tooltip would go below viewport, push it up
             if (absoluteTop + tooltipHeight > viewportHeight - margin) {
               topPos = viewportHeight - containerRect.top - tooltipHeight - margin;
@@ -379,18 +379,18 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
               topPos = margin - containerRect.top;
             }
           }
-          
+
           // Also clamp to container bounds
           if (topPos < 10) topPos = 10;
           // Ensure left is valid
           if (leftPos < 10) leftPos = 10;
-          
+
           return (
             <div 
               ref={tooltipRef}
               className="absolute z-[100] w-80 p-3 rounded-lg border bg-card shadow-xl"
               style={{ 
-                left: leftPos, 
+                left: leftPos,
                 top: topPos,
                 pointerEvents: 'auto',
               }}

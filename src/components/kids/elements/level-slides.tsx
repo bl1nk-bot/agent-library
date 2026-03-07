@@ -7,19 +7,27 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
+/** Props for a single slide section inside LevelSlides. */
 interface SectionProps {
   children: ReactNode;
 }
 
+/** Marker component used as a direct child of {@link LevelSlides} to delimit individual slides. */
 export function Section({ children }: SectionProps) {
   return <>{children}</>;
 }
 
+/** Props for the LevelSlides slideshow container. */
 interface LevelSlidesProps {
   children: ReactNode;
   levelSlug: string;
 }
 
+/**
+ * Slide-based content container for a level. Extracts {@link Section} children into discrete
+ * slides and renders Previous / Next navigation with dot indicators at the bottom.
+ * Falls back to wrapping all content in a single slide when no Section children are found.
+ */
 export function LevelSlides({ children, levelSlug }: LevelSlidesProps) {
   const t = useTranslations("kids");
   const [currentSection, setCurrentSection] = useState(0);
@@ -58,7 +66,7 @@ export function LevelSlides({ children, levelSlug }: LevelSlidesProps) {
       {/* Content area */}
       <div className="flex-1 overflow-hidden flex items-center justify-center p-4">
         <div className="w-full max-w-2xl h-full flex flex-col justify-center">
-          <div 
+          <div
             key={currentSection}
             className="animate-in fade-in slide-in-from-right-4 duration-300 prose max-w-none kids-prose"
           >
@@ -96,8 +104,8 @@ export function LevelSlides({ children, levelSlug }: LevelSlidesProps) {
                   i === currentSection
                     ? "bg-primary w-8"
                     : i < currentSection
-                    ? "bg-primary/50"
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      ? "bg-primary/50"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                 )}
                 aria-label={`Go to section ${i + 1}`}
               />

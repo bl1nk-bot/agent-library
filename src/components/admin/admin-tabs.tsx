@@ -17,7 +17,7 @@ interface AdminTabsProps {
     reports: string;
   };
   pendingReportsCount: number;
-  children: {
+  content: {
     users: React.ReactNode;
     categories: React.ReactNode;
     tags: React.ReactNode;
@@ -27,7 +27,7 @@ interface AdminTabsProps {
   };
 }
 
-export function AdminTabs({ translations, pendingReportsCount, children }: AdminTabsProps) {
+export function AdminTabs({ translations, pendingReportsCount, content }: AdminTabsProps) {
   const [activeTab, setActiveTab] = useState<TabValue>("users");
   const [mounted, setMounted] = useState(false);
 
@@ -92,12 +92,12 @@ export function AdminTabs({ translations, pendingReportsCount, children }: Admin
         </TabsList>
       </div>
 
-      <TabsContent value="users">{children.users}</TabsContent>
-      <TabsContent value="categories">{children.categories}</TabsContent>
-      <TabsContent value="tags">{children.tags}</TabsContent>
-      <TabsContent value="webhooks">{children.webhooks}</TabsContent>
-      <TabsContent value="prompts">{children.prompts}</TabsContent>
-      <TabsContent value="reports">{children.reports}</TabsContent>
+      <TabsContent value="users">{content.users}</TabsContent>
+      <TabsContent value="categories">{content.categories}</TabsContent>
+      <TabsContent value="tags">{content.tags}</TabsContent>
+      <TabsContent value="webhooks">{content.webhooks}</TabsContent>
+      <TabsContent value="prompts">{content.prompts}</TabsContent>
+      <TabsContent value="reports">{content.reports}</TabsContent>
     </Tabs>
   );
 }

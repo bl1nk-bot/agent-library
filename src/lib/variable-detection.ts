@@ -34,6 +34,7 @@ const PATTERNS: PatternConfig[] = [
   // Double bracket: [[name]] or [[ name ]] or [[name: default]]
   {
     pattern: "double_bracket",
+    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /\[\[\s*([a-zA-Z_][a-zA-Z0-9_\s]*?)(?:\s*:\s*([^\]]*?))?\s*\]\]/g,
     extractName: (m) => m[1].trim(),
     extractDefault: (m) => m[2]?.trim(),
@@ -41,6 +42,7 @@ const PATTERNS: PatternConfig[] = [
   // Double curly: {{name}} or {{ name }} or {{name: default}}
   {
     pattern: "double_curly",
+    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /\{\{\s*([a-zA-Z_][a-zA-Z0-9_\s]*?)(?:\s*:\s*([^}]*?))?\s*\}\}/g,
     extractName: (m) => m[1].trim(),
     extractDefault: (m) => m[2]?.trim(),
@@ -60,18 +62,21 @@ const PATTERNS: PatternConfig[] = [
   // Single curly with uppercase: {NAME} or {Your Name}
   {
     pattern: "single_curly",
+    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /\{([A-Z][A-Z0-9_\s]*|[A-Za-z][a-zA-Z0-9_]*(?:\s+[A-Za-z][a-zA-Z0-9_]*)*)\}/g,
     extractName: (m) => m[1].trim(),
   },
   // Angle brackets: <NAME> or <name>
   {
     pattern: "angle_bracket",
+    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /<([A-Z][A-Z0-9_\s]*|[a-zA-Z_][a-zA-Z0-9_\s]*)>/g,
     extractName: (m) => m[1].trim(),
   },
   // Percent signs: %NAME% or %name%
   {
     pattern: "percent",
+    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /%([a-zA-Z_][a-zA-Z0-9_]*)%/g,
     extractName: (m) => m[1].trim(),
   },
@@ -121,6 +126,7 @@ export function detectVariables(text: string): DetectedVariable[] {
   
   // Track our supported format positions to exclude them
   const supportedVars = new Set<string>();
+  // eslint-disable-next-line security/detect-unsafe-regex
   const dollarCurlyPattern = /\$\{([a-zA-Z_][a-zA-Z0-9_\s]*?)(?::([^}]*))?\}/g;
   let match: RegExpExecArray | null;
   

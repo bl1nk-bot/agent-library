@@ -10,28 +10,35 @@ import { getLevelBySlug } from "@/lib/kids/levels";
 import { analyticsKids } from "@/lib/analytics";
 import { isSectionCompleted, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the LevelContentWrapper layout component. */
 interface LevelContentWrapperProps {
   children: ReactNode;
   levelSlug: string;
   levelNumber: string;
 }
 
+/**
+ * Layout wrapper for level content that adds section-by-section navigation with dot indicators,
+ * Previous / Next arrows, and a progress tracker. Integrates with LevelContext for section
+ * completion state and fires analytics events on navigation.
+ */
 export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelContentWrapperProps) {
   const t = useTranslations("kids");
   const setLevelSlug = useSetLevelSlug();
-  const { 
-    currentSection, 
-    setCurrentSection, 
+  const {
+    currentSection,
+    setCurrentSection,
     completedSections,
     markSectionComplete,
     isSectionComplete,
     sectionRequiresCompletion,
   } = useSectionNavigation();
-  
-  // Track section completion state from localStorage
+
+  // Track the highest section the user has visited
+  const [highestVisitedSection, setHighestVisitedSection] = useState(0);
   const [sectionCompletionState, setSectionCompletionState] = useState<Record<number, boolean>>({});
-  
-  // Check localStorage for section completion on mount and when section changes
+
+  // Check section completion on mount and when section changes
   const checkSectionCompletion = useCallback(() => {
     const newState: Record<number, boolean> = {};
     for (let i = 0; i < 20; i++) { // Check up to 20 sections
@@ -39,31 +46,31 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     }
     setSectionCompletionState(newState);
   }, [levelSlug]);
-  
+
   useEffect(() => {
     checkSectionCompletion();
     // Re-check periodically to catch component completions
     const interval = setInterval(checkSectionCompletion, 500);
     return () => clearInterval(interval);
   }, [checkSectionCompletion, currentSection]);
-  
+
   // Set the level slug in context when component mounts
   useEffect(() => {
     setLevelSlug(levelSlug);
-    
+
     // Track level view
     const level = getLevelBySlug(levelSlug);
     if (level) {
       analyticsKids.viewLevel(levelSlug, level.world);
     }
-    
+
     return () => setLevelSlug(""); // Clear when unmounting
   }, [levelSlug, setLevelSlug]);
 
   // Extract Section components from children
   const sections: ReactElement[] = [];
   let hasExplicitSections = false;
-  
+
   // First pass: check if there are explicit Section components
   Children.forEach(children, (child) => {
     if (isValidElement(child) && child.type === Section) {
@@ -86,6 +93,18 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     });
   }
 
+  // Update highest visited when current section changes
+  useEffect(() => {
+    setHighestVisitedSection((prev: number) => Math.max(prev, currentSection));
+  }, [currentSection]);
+
+  // Reset to first section and visited state when level changes
+  useEffect(() => {
+    setCurrentSection(0);
+    setHighestVisitedSection(0);
+    setSectionCompletionState({});
+  }, [levelSlug]);
+
   // If no sections found, show coming soon
   if (sections.length === 0) {
     return (
@@ -104,19 +123,13 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
   const totalSections = sections.length;
   const isFirstSection = currentSection === 0;
   const isLastSection = currentSection === totalSections - 1;
-  
+
   // Check if current section is complete (from localStorage) OR doesn't require completion
   const currentSectionRequiresCompletion = sectionRequiresCompletion(currentSection);
   const isCurrentSectionComplete = !currentSectionRequiresCompletion || sectionCompletionState[currentSection] || false;
-  
-  // Track the highest section the user has visited
-  const [highestVisitedSection, setHighestVisitedSection] = useState(0);
-  
-  // Update highest visited when current section changes
-  useEffect(() => {
-    setHighestVisitedSection(prev => Math.max(prev, currentSection));
-  }, [currentSection]);
-  
+
+
+
   // Can navigate to a section if it's:
   // 1. The current section
   // 2. A previously visited section (but NOT future sections)
@@ -139,13 +152,13 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
       setCurrentSection((prev) => prev - 1);
     }
   };
-  
+
   const handleDotClick = (targetSection: number) => {
     if (canNavigateToSection(targetSection)) {
       setCurrentSection(targetSection);
     }
   };
-  
+
   // Mark section as complete manually (for sections without interactive elements)
   const handleMarkComplete = () => {
     markSectionCompleted(levelSlug, currentSection);
@@ -153,19 +166,14 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
     checkSectionCompletion();
   };
 
-  // Reset to first section and visited state when level changes
-  useEffect(() => {
-    setCurrentSection(0);
-    setHighestVisitedSection(0);
-    setSectionCompletionState({});
-  }, [levelSlug]);
+
 
   return (
     <div className="h-full flex flex-col">
       {/* Content area */}
       <div className="flex-1 min-h-0 overflow-y-auto flex items-center justify-center p-4">
         <div className="w-full max-w-2xl my-auto">
-          <div 
+          <div
             key={currentSection}
             className="animate-in fade-in slide-in-from-right-4 duration-300 prose max-w-none kids-prose-pixel"
           >
@@ -210,8 +218,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                       isCurrent
                         ? "bg-[#22C55E] border-[#16A34A]"
                         : isVisited && i < currentSection
-                        ? "bg-[#3B82F6] border-[#2563EB]"
-                        : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
+                          ? "bg-[#3B82F6] border-[#2563EB]"
+                          : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
                     )}
                     style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
                     aria-label={`Go to section ${i + 1}${!canNavigate ? ' (locked)' : ''}`}
@@ -227,8 +235,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                 disabled={!isCurrentSectionComplete}
                 className={cn(
                   "pixel-btn px-4 py-2 sm:px-6 sm:py-3 text-base sm:text-xl",
-                  isCurrentSectionComplete 
-                    ? "pixel-btn-green" 
+                  isCurrentSectionComplete
+                    ? "pixel-btn-green"
                     : "opacity-50 cursor-not-allowed bg-[#4A3728] border-[#8B4513]"
                 )}
                 title={!isCurrentSectionComplete ? t("navigation.completeFirst") : undefined}
@@ -268,8 +276,8 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
                     isCurrent
                       ? "bg-[#22C55E] border-[#16A34A]"
                       : isVisited && i < currentSection
-                      ? "bg-[#3B82F6] border-[#2563EB]"
-                      : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
+                        ? "bg-[#3B82F6] border-[#2563EB]"
+                        : "bg-[#2C1810] border-[#4A3728] opacity-50 cursor-not-allowed"
                   )}
                   style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
                   aria-label={`Go to section ${i + 1}${!canNavigate ? ' (locked)' : ''}`}
@@ -284,6 +292,7 @@ export function LevelContentWrapper({ children, levelSlug, levelNumber }: LevelC
 }
 
 // Pixel art icons
+/** Pixel-art left arrow used in the Previous navigation button. */
 function PixelArrowLeft() {
   return (
     <svg viewBox="0 0 12 12" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -295,6 +304,7 @@ function PixelArrowLeft() {
   );
 }
 
+/** Pixel-art right arrow used in the Next navigation button. */
 function PixelArrowRight() {
   return (
     <svg viewBox="0 0 12 12" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -306,6 +316,7 @@ function PixelArrowRight() {
   );
 }
 
+/** Pixel-art map icon used in the progress map navigation link. */
 function PixelMapIcon() {
   return (
     <svg viewBox="0 0 16 16" className="w-4 h-4" style={{ imageRendering: "pixelated" }}>
@@ -324,6 +335,7 @@ function PixelMapIcon() {
   );
 }
 
+/** Pixel-art padlock icon used to indicate a locked/inaccessible section. */
 function PixelLockIcon() {
   return (
     <svg viewBox="0 0 12 14" className="w-3 h-3.5" style={{ imageRendering: "pixelated" }}>

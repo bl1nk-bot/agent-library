@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 
+/** Context shape for level navigation and section completion tracking. */
 interface LevelContextType {
   levelSlug: string;
   setLevelSlug: (slug: string) => void;
@@ -19,42 +20,49 @@ interface LevelContextType {
 
 const LevelContext = createContext<LevelContextType>({
   levelSlug: "",
-  setLevelSlug: () => {},
+  setLevelSlug: () => { },
   currentSection: 0,
-  setCurrentSection: () => {},
+  setCurrentSection: () => { },
   completedSections: new Set(),
-  markSectionComplete: () => {},
+  markSectionComplete: () => { },
   isSectionComplete: () => false,
-  resetSectionProgress: () => {},
+  resetSectionProgress: () => { },
   sectionsWithRequirements: new Set(),
-  registerSectionRequirement: () => {},
+  registerSectionRequirement: () => { },
   sectionRequiresCompletion: () => false,
 });
 
-export function LevelProvider({ 
-  children, 
+/**
+ * Context provider for a single level's navigation state.
+ * Tracks the current section index, completed sections, and sections
+ * that have interactive requirements before the user can proceed.
+ */
+export function LevelProvider({
+  children,
   levelSlug: initialSlug = ""
-}: { 
-  children: ReactNode; 
+}: {
+  children: ReactNode;
   levelSlug?: string;
 }) {
   const [levelSlug, setLevelSlug] = useState(initialSlug);
   const [currentSection, setCurrentSection] = useState(0);
   const [completedSections, setCompletedSections] = useState<Set<number>>(new Set());
   const [sectionsWithRequirements, setSectionsWithRequirements] = useState<Set<number>>(new Set());
-  
+
   // Update if initialSlug changes
   useEffect(() => {
     if (initialSlug) {
-      setLevelSlug(initialSlug);
+      queueMicrotask(() => setLevelSlug(initialSlug));
     }
   }, [initialSlug]);
 
   // Reset section progress when level changes
   useEffect(() => {
-    setCurrentSection(0);
-    setCompletedSections(new Set());
-    setSectionsWithRequirements(new Set());
+    queueMicrotask(() => {
+      setCurrentSection(0);
+      setCompletedSections(new Set());
+      setSectionsWithRequirements(new Set());
+    });
   }, [levelSlug]);
 
   const markSectionComplete = useCallback((section: number) => {
@@ -89,8 +97,8 @@ export function LevelProvider({
   }, [sectionsWithRequirements]);
 
   return (
-    <LevelContext.Provider value={{ 
-      levelSlug, 
+    <LevelContext.Provider value={{
+      levelSlug,
       setLevelSlug,
       currentSection,
       setCurrentSection,
@@ -107,16 +115,19 @@ export function LevelProvider({
   );
 }
 
+/** Returns the current level's slug from context. */
 export function useLevelSlug(): string {
   const context = useContext(LevelContext);
   return context.levelSlug;
 }
 
+/** Returns the setter for the current level slug from context. */
 export function useSetLevelSlug(): (slug: string) => void {
   const context = useContext(LevelContext);
   return context.setLevelSlug;
 }
 
+/** Returns navigation helpers (current section, mark-complete, requirements) from the level context. */
 export function useSectionNavigation() {
   const context = useContext(LevelContext);
   return {

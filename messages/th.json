@@ -107,6 +107,14 @@
     "title": "พรอมต์",
     "create": "สร้างพรอมต์",
     "createSkill": "สร้างทักษะ",
+    "importSkill": "นำเข้าทักษะ",
+    "importSkillDescription": "เลือกวิธีที่คุณต้องการนำเข้าทักษะของคุณ",
+    "uploadSkill": "อัปโหลดทักษะ",
+    "uploadSkillDescription": "อัปโหลด .zip, .skill",
+    "addFromOfficial": "เพิ่มจากทางการ",
+    "addFromOfficialDescription": "ทักษะที่สร้างไว้ล่วงหน้าโดย Manus",
+    "importFromGitHub": "นำเข้าจาก GitHub",
+    "importFromGitHubDescription": "วางลิงก์ repository เพื่อเริ่มต้น",
     "skillsDescription": "ทักษะ Agent คือพรอมต์แบบหลายไฟล์ที่เพิ่มความสามารถเฉพาะทางให้ AI ประกอบด้วยคำสั่ง การตั้งค่า และไฟล์ประกอบ ใช้ได้กับ Claude, Cursor, Windsurf และอื่นๆ",
     "createInfo": "แพลตฟอร์มนี้ไม่ได้รันหรือประมวลผลพรอมต์ — เป็นห้องสมุดชุมชนสำหรับแบ่งปันและค้นหาพรอมต์ AI สร้างพรอมต์ของคุณที่นี่เพื่อให้ผู้อื่นนำไปใช้ในเครื่องมือ AI ที่ชอบ เช่น ChatGPT, Claude, Gemini ได้ ชุมชนยังสามารถแสดงความคิดเห็นและแนะนำการปรับปรุงได้",
     "hfDataStudio": {
@@ -385,6 +393,32 @@
     "structuredFormatDetected": "ตรวจพบรูปแบบ {format}",
     "structuredFormatWarningDescription": "เนื้อหาพรอมต์ของคุณดูเหมือนข้อมูลโครงสร้าง แนะนำให้เปลี่ยนเป็นโหมดโครงสร้างเพื่อการแสดงผลและการตรวจสอบที่ดีขึ้น",
     "switchToStructured": "เปลี่ยนเป็น {format}"
+  },
+  "skills": {
+    "apiIntegrations": "การเชื่อมต่อ API",
+    "apiDescription": "จัดการ endpoints และการตั้งค่า API สำหรับทักษะนี้",
+    "addApi": "เพิ่ม API",
+    "addApiConfig": "เพิ่มการตั้งค่า API",
+    "noApiConfigs": "ยังไม่มีการตั้งค่า API",
+    "noApiConfigsDescription": "เพิ่มการเชื่อมต่อ API แรกของคุณเพื่อเริ่มต้น",
+    "editApiConfig": "แก้ไขการตั้งค่า API",
+    "newApiConfig": "การตั้งค่า API ใหม่",
+    "configureEndpoint": "กำหนดรายละเอียด endpoint API ของคุณ",
+    "testApi": "ทดสอบ API",
+    "testApiDescription": "ทดสอบ API ของคุณด้วยข้อมูลตัวอย่าง",
+    "requestBody": "เนื้อหาคำขอ (JSON)",
+    "response": "การตอบกลับ",
+    "curlCommand": "คำสั่ง cURL",
+    "copyResponse": "คัดลอกการตอบกลับ",
+    "name": "ชื่อ",
+    "method": "วิธีการ",
+    "baseUrl": "URL หลัก",
+    "description": "คำอธิบาย",
+    "documentation": "URL เอกสาร",
+    "headers": "Headers",
+    "addHeader": "เพิ่ม Header",
+    "queryParameters": "พารามิเตอร์ Query",
+    "addParameter": "เพิ่มพารามิเตอร์"
   },
   "changeRequests": {
     "title": "คำขอแก้ไข",
@@ -837,7 +871,7 @@
     "usernamePlaceholder": "ชื่อผู้ใช้",
     "profileUrl": "URL โปรไฟล์ของคุณ",
     "email": "อีเมล",
-    "emailCannotChange": "ไม่สามารถเปลี่ยนอีเมลได้",
+    "emailCannotChange": "ไม่สามารถเปลี่ยนอ��เมลได้",
     "bio": "ประวัติย่อ",
     "bioPlaceholder": "บอกเล่าเกี่ยวกับตัวคุณสั้นๆ...",
     "bioCharCount": "{count}/250",
@@ -1099,7 +1133,7 @@
     "deleteCommentDescription": "การกระทำนี้ไม่สามารถย้อนกลับได้ ความคิดเห็นและการตอบกลับทั้งหมดจะถูกลบถาวร",
     "deleting": "กำลังลบ...",
     "showReplies": "แสดง {count} การตอบกลับ",
-    "hideReplies": "ซ่อนการตอบกลับ"
+    "hideReplies": "ซ่อนการตอบกลั��"
   },
   "report": {
     "report": "รายงาน",
@@ -1245,7 +1279,7 @@
     "fullFlow": "เวิร์กโฟลว์สมบูรณ์",
     "searchPrompt": "ค้นหาพรอมต์",
     "searchPlaceholder": "ค้นหาจากชื่อ...",
-    "selectedPrompt": "พรอมต์ที่เลือก",
+    "selectedPrompt": "พรอมต์ท��่เลือก",
     "connectionLabel": "ป้ายกำกับการเชื่อมต่อ",
     "labelPlaceholder": "เช่น เฟรมแรก, ขั้นตอนถัดไป, หลังประมวลผล...",
     "labelHint": "อธิบายเงื่อนไขหรือการเปลี่ยนผ่านระหว่างพรอมต์",
@@ -1408,7 +1442,7 @@
       "analysis": "การวิเคราะห์โทเคน",
       "tokens": "โทเคน",
       "contextUsage": "การใช้ Context Window",
-      "nearLimit": "ใกล้ถึงขีดจำกัด context!",
+      "nearLimit": "ใกล้ถึงขีดจำ��ัด context!",
       "estimatedCost": "ราคาโดยประมาณ",
       "textStats": "สถิติข้อความ",
       "saved": "บันทึกการวิเคราะห์ลงประวัติแล้ว",
@@ -1593,7 +1627,7 @@
         "description": "มอบบุคลิกให้ AI และดูมันมีชีวิตขึ้นมา"
       },
       "4_4_world_builder": {
-        "title": "ผู้สร้างโลก",
+        "title": "ผู้ส��้างโลก",
         "description": "สร้างโลกและสถานการณ์ที่จินตนาการ"
       },
       "5_1_perfect_prompt": {

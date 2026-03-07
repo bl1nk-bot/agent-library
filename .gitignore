@@ -56,3 +56,6 @@ archive
 !.gemini/**/
 !.gemini/**/.gitkeep
 conductor/
+
+logs/**/
+logs/

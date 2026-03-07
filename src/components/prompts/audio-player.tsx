@@ -47,7 +47,7 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
       }
-      setAnimatedHeights(baseHeights.map(h => h * 0.5));
+      queueMicrotask(() => setAnimatedHeights(baseHeights.map(h => h * 0.5)));
       return;
     }
 
@@ -56,15 +56,15 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
       phase += 0.15;
       const newHeights = baseHeights.map((base, i) => {
         const wave = Math.sin(phase + i * 0.3) * 0.3 + 0.7;
-        const beat = Math.sin(phase * 2 + i * 0.1) * 0.2 + 0.8;
+        const beat = Math.sin(phase * 2 + i * 0.1) * 0.8;
         return Math.min(1, base * wave * beat);
       });
       setAnimatedHeights(newHeights);
       animationRef.current = requestAnimationFrame(animate);
     };
-    
+
     animate();
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);

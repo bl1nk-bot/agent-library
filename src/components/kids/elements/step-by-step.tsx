@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useLevelSlug, useSectionNavigation } from "@/components/kids/providers/level-context";
 import { getComponentState, saveComponentState, markSectionCompleted } from "@/lib/kids/progress";
 
+/** Props for the StepByStep interactive reasoning exercise. */
 interface StepByStepProps {
   title?: string;
   problem: string;
@@ -16,12 +17,19 @@ interface StepByStepProps {
   successMessage?: string;
 }
 
+/** Persisted localStorage state for StepByStep. */
 interface SavedState {
   magicWordsAdded: boolean;
   revealedSteps: number;
   completed: boolean;
 }
 
+/**
+ * Interactive exercise that shows a learner how adding "magic words"
+ * (chain-of-thought cues like "Let's think step by step") causes an AI to
+ * reason through a problem one step at a time rather than giving a shallow answer.
+ * Progress is persisted to localStorage and section-completion is reported to LevelContext.
+ */
 export function StepByStep({
   title,
   problem,
@@ -35,12 +43,12 @@ export function StepByStep({
   const levelSlug = useLevelSlug();
   const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
   }, [currentSection, registerSectionRequirement]);
-  
+
   const displayTitle = title || t("title");
 
   const [magicWordsAdded, setMagicWordsAdded] = useState(false);

@@ -262,18 +262,22 @@ export const worlds: World[] = [
   },
 ];
 
+/** Returns a flat array of all levels across all worlds. */
 export function getAllLevels(): Level[] {
   return worlds.flatMap((world) => world.levels);
 }
 
+/** Returns the level matching the given slug, or undefined if not found. */
 export function getLevelBySlug(slug: string): Level | undefined {
   return getAllLevels().find((level) => level.slug === slug);
 }
 
+/** Returns the world with the given number, or undefined if not found. */
 export function getWorldByNumber(worldNumber: number): World | undefined {
   return worlds.find((world) => world.number === worldNumber);
 }
 
+/** Returns the previous and next levels relative to the level with the given slug. */
 export function getAdjacentLevels(slug: string): { prev?: Level; next?: Level } {
   const levels = getAllLevels();
   const index = levels.findIndex((level) => level.slug === slug);
@@ -283,10 +287,12 @@ export function getAdjacentLevels(slug: string): { prev?: Level; next?: Level } 
   };
 }
 
+/** Returns the zero-based index of the level with the given slug in the flat level list. */
 export function getLevelIndex(slug: string): number {
   return getAllLevels().findIndex((level) => level.slug === slug);
 }
 
+/** Returns the total number of levels across all worlds. */
 export function getTotalLevels(): number {
   return getAllLevels().length;
 }

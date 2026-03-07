@@ -347,98 +347,106 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
     <div ref={containerRef} className="relative">
       <svg ref={svgRef} className="w-full" />
       {hoveredNode && (() => {
-          // Calculate position with viewport awareness
-          const tooltipWidth = 320;
-          const tooltipHeight = 280;
-          const containerRect = containerRef.current?.getBoundingClientRect();
-          const containerWidth = containerRef.current?.clientWidth || 600;
-          
-          // Calculate left position - overlap slightly with node for easier hover transition
-          let leftPos = nodePos.x + nodePos.width / 2 - 5;
-          // Check if it overflows right edge of container
-          if (leftPos + tooltipWidth > containerWidth) {
-            leftPos = nodePos.x - nodePos.width / 2 - tooltipWidth + 5;
+        // Calculate position with viewport awareness
+        const tooltipWidth = 320;
+        const tooltipHeight = 280;
+        const containerRect = containerRef.current?.getBoundingClientRect();
+        const containerWidth = containerRef.current?.clientWidth || 600;
+
+        // Calculate left position - overlap slightly with node for easier hover transition
+        let leftPos = nodePos.x + nodePos.width / 2 - 5;
+        // Check if it overflows right edge of container
+        if (leftPos + tooltipWidth > containerWidth) {
+          leftPos = nodePos.x - nodePos.width / 2 - tooltipWidth + 5;
+        }
+        // Ensure not negative
+        if (leftPos < 0) leftPos = 10;
+
+        // Calculate top position - check against viewport
+        let topPos = nodePos.y - tooltipHeight / 2;
+
+        if (containerRect) {
+          const viewportHeight = window.innerHeight;
+          const absoluteTop = containerRect.top + topPos;
+          const margin = 60; // Keep tooltip well inside viewport
+
+          // If tooltip would go below viewport, push it up
+          if (absoluteTop + tooltipHeight > viewportHeight - margin) {
+            topPos = viewportHeight - containerRect.top - tooltipHeight - margin;
           }
-          // Ensure not negative
-          if (leftPos < 0) leftPos = 10;
-          
-          // Calculate top position - check against viewport
-          let topPos = nodePos.y - tooltipHeight / 2;
-          
-          if (containerRect) {
-            const viewportHeight = window.innerHeight;
-            const absoluteTop = containerRect.top + topPos;
-            const margin = 60; // Keep tooltip well inside viewport
-            
-            // If tooltip would go below viewport, push it up
-            if (absoluteTop + tooltipHeight > viewportHeight - margin) {
-              topPos = viewportHeight - containerRect.top - tooltipHeight - margin;
-            }
-            // If tooltip would go above viewport, push it down
-            if (absoluteTop < margin) {
-              topPos = margin - containerRect.top;
-            }
+          // If tooltip would go above viewport, push it down
+          if (absoluteTop < margin) {
+            topPos = margin - containerRect.top;
           }
-          
-          // Also clamp to container bounds
-          if (topPos < 10) topPos = 10;
-          // Ensure left is valid
-          if (leftPos < 10) leftPos = 10;
-          
-          return (
-            <div 
-              ref={tooltipRef}
-              className="absolute z-[100] w-80 p-3 rounded-lg border bg-card shadow-xl"
-              style={{ 
-                left: leftPos, 
-                top: topPos,
-                pointerEvents: 'auto',
-              }}
-              onMouseEnter={handleTooltipEnter}
-              onMouseLeave={handleTooltipLeave}
-            >
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  {hoveredNode.authorAvatar ? (
-                    <img 
-                      src={hoveredNode.authorAvatar} 
-                      alt={hoveredNode.authorUsername}
-                      className="w-5 h-5 rounded-full"
-                    />
-                  ) : (
-                    <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-[10px] font-medium">
-                      {hoveredNode.authorUsername.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                  <span className="text-xs text-muted-foreground">@{hoveredNode.authorUsername}</span>
-                  <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                    {hoveredNode.type}
-                  </span>
-                </div>
-                <h4 className="font-semibold text-sm">{hoveredNode.title}</h4>
-                {hoveredNode.description && (
-                  <p className="text-xs text-muted-foreground">{hoveredNode.description}</p>
+        }
+
+        // Also clamp to container bounds
+        if (topPos < 10) topPos = 10;
+        // Ensure left is valid
+        if (leftPos < 10) leftPos = 10;
+
+        const tooltipContent = (
+          <div
+            ref={tooltipRef}
+            className="absolute z-[100] w-80 p-3 rounded-lg border bg-card shadow-xl"
+            style={{
+              left: leftPos,
+              top: topPos,
+              pointerEvents: 'auto',
+            }}
+            onMouseEnter={handleTooltipEnter}
+            onMouseLeave={handleTooltipLeave}
+          >
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                {hoveredNode.authorAvatar ? (
+                  <img
+                    src={hoveredNode.authorAvatar}
+                    alt={hoveredNode.authorUsername}
+                    className="w-5 h-5 rounded-full"
+                  />
+                ) : (
+                  <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-[10px] font-medium">
+                    {hoveredNode.authorUsername.charAt(0).toUpperCase()}
+                  </div>
                 )}
-                <div className="text-xs text-muted-foreground bg-muted p-2 rounded font-mono whitespace-pre-wrap max-h-48 overflow-y-auto">
-                  {hoveredNode.content}
-                </div>
-                {/* Delete button for owner or admin */}
-                {onNodeDelete && (currentUserId === hoveredNode.authorId || isAdmin) && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onNodeDelete(hoveredNode);
-                    }}
-                    className="w-full mt-2 px-3 py-1.5 text-xs text-destructive hover:bg-destructive/10 rounded border border-destructive/20 transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                    Remove from flow
-                  </button>
-                )}
+                <span className="text-xs text-muted-foreground">@{hoveredNode.authorUsername}</span>
+                <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                  {hoveredNode.type}
+                </span>
               </div>
+              <h4 className="font-semibold text-sm">{hoveredNode.title}</h4>
+              {hoveredNode.description && (
+                <p className="text-xs text-muted-foreground">{hoveredNode.description}</p>
+              )}
+              <div className="text-xs text-muted-foreground bg-muted p-2 rounded font-mono whitespace-pre-wrap max-h-48 overflow-y-auto">
+                {hoveredNode.content}
+              </div>
+              {/* Delete button for owner or admin */}
+              {onNodeDelete && (currentUserId === hoveredNode.authorId || isAdmin) && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNodeDelete(hoveredNode);
+                  }}
+                  className="w-full mt-2 px-3 py-1.5 text-xs text-destructive hover:bg-destructive/10 rounded border border-destructive/20 transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <Trash2 className="w-3 h-3" />
+                  Remove from flow
+                </button>
+              )}
             </div>
-          );
-        })()}
+          </div>
+        );
+
+        // Use state to track rendered tooltip
+        const [renderedTooltip, setRenderedTooltip] = useState(tooltipContent);
+        useEffect(() => {
+          setRenderedTooltip(tooltipContent);
+        }, [tooltipContent]);
+
+        return renderedTooltip;
+      })()}
     </div>
   );
 }

@@ -13,6 +13,8 @@ import {
   ChevronDown,
   Folder,
   FolderOpen,
+  FileText,
+  Code,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,7 +34,6 @@ import {
   validateFilename,
   suggestFilename,
   DEFAULT_SKILL_FILE,
-  DEFAULT_SKILL_CONTENT,
   type SkillFile,
 } from "@/lib/skill-files";
 import { applyMonacoTheme, getMobileEditorOptions } from "@/lib/monaco-config";
@@ -199,13 +200,17 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
-  const monacoRef = useRef<unknown>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const monacoRef = useRef<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   // Parse files from the serialized content
   const [files, setFiles] = useState<SkillFile[]>(() => parseSkillFiles(value));
   const [activeFile, setActiveFile] = useState<string>(DEFAULT_SKILL_FILE);
   const [openTabs, setOpenTabs] = useState<string[]>([DEFAULT_SKILL_FILE]);
+
+  // Ref to track the last value we processed, to avoid loops and stale closures
+  const prevValueRef = useRef(value);
 
   // Dialog states
   const [showNewFileDialog, setShowNewFileDialog] = useState(false);
@@ -280,6 +285,8 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const updateFiles = useCallback(
     (newFiles: SkillFile[]) => {
       setFiles(newFiles);
+      const serialized = serializeSkillFiles(newFiles);
+      prevValueRef.current = serialized;
       debouncedOnChange(newFiles);
     },
     [debouncedOnChange]
@@ -366,28 +373,37 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
 
   // Re-parse when external value changes significantly
   useEffect(() => {
-    const parsed = parseSkillFiles(value);
-    const currentSerialized = serializeSkillFiles(files);
+    if (value === prevValueRef.current) return;
 
-    // Only update if the value changed externally
-    if (value !== currentSerialized) {
+    const parsed = parseSkillFiles(value);
+    prevValueRef.current = value;
+
+    // Check existence against the freshly-parsed result before scheduling
+    // updates, then apply all three state changes inside a single microtask so
+    // they are batched into one render (avoids a transient render where
+    // activeFile is reset but files is still the old value).
+    const activeExists = parsed.some((f) => f.filename === activeFile);
+    queueMicrotask(() => {
       setFiles(parsed);
-      // Ensure active file exists
-      if (!parsed.some((f) => f.filename === activeFile)) {
+      if (!activeExists) {
         setActiveFile(DEFAULT_SKILL_FILE);
         setOpenTabs([DEFAULT_SKILL_FILE]);
       }
-    }
-  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+    });
+  }, [value, activeFile]);
 
   const handleEditorMount: OnMount = useCallback((editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    
-    // Apply enhanced theme
-    const theme = resolvedTheme === "dark" ? "dark" : "light";
-    applyMonacoTheme(monaco, theme);
-    
+
+    // Register both themes
+    applyMonacoTheme(monaco, "dark");
+    applyMonacoTheme(monaco, "light");
+
+    // Initial theme set
+    const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
+    monaco.editor.setTheme(theme);
+
     // Mobile-specific optimizations
     if (window.innerWidth < 768) {
       editor.updateOptions({
@@ -397,10 +413,19 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     }
   }, [resolvedTheme]);
 
+  // React to theme changes
+  useEffect(() => {
+    if (monacoRef.current) {
+      const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
+      monacoRef.current.editor.setTheme(theme);
+    }
+  }, [resolvedTheme]);
+
   // File icon based on extension
   const getFileIcon = (filename: string) => {
     const ext = filename.split(".").pop()?.toLowerCase();
-    // Could add more specific icons here
+    if (ext === 'md') return <FileText className="h-4 w-4 text-muted-foreground" />;
+    if (ext === 'json' || ext === 'js' || ext === 'ts') return <Code className="h-4 w-4 text-muted-foreground" />;
     return <File className="h-4 w-4 text-muted-foreground" />;
   };
 
@@ -410,7 +435,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
         "flex border rounded-lg overflow-hidden bg-background transition-opacity duration-180",
         className
       )}
-      style={{ 
+      style={{
         height: isMobile ? "600px" : "500px",
         WebkitTouchCallout: 'none',
       }}
@@ -418,7 +443,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
       {/* Sidebar - File Tree */}
       <div className={cn(
         "border-r bg-muted/30 flex flex-col transition-all duration-180",
-        isMobile ? "w-12" : "w-56"
+        isMobile ? (isSidebarOpen ? "w-56" : "w-12") : "w-56"
       )}>
         {/* Sidebar Header */}
         <div className={cn(

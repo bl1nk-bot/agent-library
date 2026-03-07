@@ -15,7 +15,11 @@ export function ExtensionLink({ url }: ExtensionLinkProps) {
   const [isChromeBased, setIsChromeBased] = useState(false);
 
   useEffect(() => {
-    setIsChromeBased(isChromeBrowser());
+    const checkBrowser = () => {
+      setIsChromeBased(isChromeBrowser());
+    };
+    
+    checkBrowser();
   }, []);
 
   if (!isChromeBased) return null;

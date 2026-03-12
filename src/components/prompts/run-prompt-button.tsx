@@ -285,7 +285,8 @@ export function RunPromptButton({
         const url = buildUrl(pendingPlatform.id, pendingPlatform.baseUrl, finalContent, title, description);
         // Only open in new tab for http/https URLs
         if (url.startsWith("http://") || url.startsWith("https://")) {
-          window.open(url, "_blank");
+          const w = window.open(url, "_blank", "noopener,noreferrer");
+          if (w) w.opener = null;
         } else {
           window.location.href = url;
         }
@@ -314,7 +315,8 @@ export function RunPromptButton({
       const url = buildUrl(platform.id, baseUrl, content, title, description);
       // Only open in new tab for http/https URLs
       if (url.startsWith("http://") || url.startsWith("https://")) {
-        window.open(url, "_blank");
+        const w = window.open(url, "_blank", "noopener,noreferrer");
+        if (w) w.opener = null;
       } else {
         window.location.href = url;
       }
@@ -324,7 +326,8 @@ export function RunPromptButton({
 
   const handleOpenPlatform = () => {
     if (pendingPlatform) {
-      window.open(pendingPlatform.baseUrl, "_blank");
+      const w = window.open(pendingPlatform.baseUrl, "_blank", "noopener,noreferrer");
+      if (w) w.opener = null;
       setDialogOpen(false);
       setPendingPlatform(null);
     }

@@ -37,13 +37,15 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
   const [showAiInput, setShowAiInput] = useState(false);
 
   const handleOpenDataset = () => {
-    window.open(HF_DATASET_URL, "_blank");
+    const w = window.open(HF_DATASET_URL, "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
   };
 
   const handleRun = () => {
     const encodedSql = encodeURIComponent(sql);
     const url = `${HF_DATASET_URL}?views[]=train&sql=${encodedSql}`;
-    window.open(url, "_blank");
+    const w = window.open(url, "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
   };
 
   const handleGenerateSQL = async () => {

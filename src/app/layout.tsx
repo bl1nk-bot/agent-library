@@ -15,7 +15,6 @@ import { getConfig } from "@/lib/config";
 import { isRtlLocale } from "@/lib/i18n/config";
 import { inter, jetbrainsMono } from "./fonts";
 import "./globals.css";
-import { converter, parse } from "culori";
 
 const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
@@ -107,17 +106,48 @@ const radiusValues = {
   lg: "0.75rem",
 };
 
-const toOklch = converter("oklch");
-
+/** Convert a hex color to OKLCH without external dependencies. */
 function hexToOklch(hex: string): string {
-  const color = parse(hex);
-  if (!color) return "oklch(0.5 0.2 260)";
-  
-  const oklch = toOklch(color);
-  if (!oklch) return "oklch(0.5 0.2 260)";
-  
-  const h = oklch.h ?? 0;
-  return `oklch(${oklch.l.toFixed(3)} ${oklch.c.toFixed(3)} ${h.toFixed(1)})`;
+  const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!rgb) return "oklch(0.5 0.2 260)";
+
+  // Linearize sRGB
+  const linearize = (v: number) => {
+    const s = v / 255;
+    return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  };
+  const r = linearize(parseInt(rgb[1], 16));
+  const g = linearize(parseInt(rgb[2], 16));
+  const b = linearize(parseInt(rgb[3], 16));
+
+  // sRGB → XYZ D65
+  const x = 0.4124564 * r + 0.3575761 * g + 0.1804375 * b;
+  const y = 0.2126729 * r + 0.7151522 * g + 0.0721750 * b;
+  const z = 0.0193339 * r + 0.1191920 * g + 0.9503041 * b;
+
+  // XYZ → OKLab
+  const cbrt = (v: number) => Math.cbrt(v);
+  const l_ = cbrt(0.8189330101 * x + 0.3618667424 * y - 0.1288597137 * z);
+  const m_ = cbrt(0.0329845436 * x + 0.9293118715 * y + 0.0361456387 * z);
+  const s_ = cbrt(0.0482003018 * x + 0.2643662691 * y + 0.6338517070 * z);
+  const L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_;
+  const a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_;
+  const bLab = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_;
+
+  // OKLab → OKLCH
+  const C = Math.sqrt(a * a + bLab * bLab);
+  const h = (Math.atan2(bLab, a) * 180) / Math.PI;
+  const hue = h < 0 ? h + 360 : h;
+
+  return `oklch(${L.toFixed(3)} ${C.toFixed(3)} ${hue.toFixed(1)})`;
+}
+
+function hexLightness(hex: string): number {
+  const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!rgb) return 0.5;
+  return 0.2126 * (parseInt(rgb[1], 16) / 255)
+       + 0.7152 * (parseInt(rgb[2], 16) / 255)
+       + 0.0722 * (parseInt(rgb[3], 16) / 255);
 }
 
 export default async function RootLayout({
@@ -138,10 +168,7 @@ export default async function RootLayout({
   // Calculate theme values server-side
   const themeClasses = `theme-${config.theme.variant} density-${config.theme.density}`;
   const primaryOklch = hexToOklch(config.theme.colors.primary);
-  const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(config.theme.colors.primary);
-  const lightness = rgb 
-    ? 0.2126 * (parseInt(rgb[1], 16) / 255) + 0.7152 * (parseInt(rgb[2], 16) / 255) + 0.0722 * (parseInt(rgb[3], 16) / 255)
-    : 0.5;
+  const lightness = hexLightness(config.theme.colors.primary);
   const foreground = lightness > 0.5 ? "oklch(0.2 0 0)" : "oklch(0.98 0 0)";
   
   const themeStyles = {

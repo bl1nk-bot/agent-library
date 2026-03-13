@@ -97,10 +97,23 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full h-8 text-sm" disabled={isLoading}>
-          {isLoading && <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />}
-          {t("login")}
-        </Button>
+        <div className="w-full flex justify-center">
+          {isLoading ? (
+            <Button className="w-full h-8 text-sm" disabled>
+              <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+              {t("login")}
+            </Button>
+                      ) : (
+                        <Button
+                          label={t("login")}
+                          viewMode="text"
+                          type="submit"
+                          disabled={isLoading}
+                          className="w-full h-8 text-sm"
+                        />
+                      )}
+          
+        </div>
       </form>
     </Form>
   );

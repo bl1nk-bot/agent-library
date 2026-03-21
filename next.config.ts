@@ -3,13 +3,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 import createMDX from "@next/mdx";
 
 let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
+let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
 try {
-  // Dynamic import for Sentry
-  import("@sentry/nextjs").then((sentry) => {
-    withSentryConfig = sentry.withSentryConfig;
-  }).catch(() => {
-    // Sentry not available
-  });
+  // eslint-disable-next-line `@typescript-eslint/no-require-imports`
+  withSentryConfig = require("@sentry/nextjs").withSentryConfig;
 } catch {
   // Sentry not available
 }

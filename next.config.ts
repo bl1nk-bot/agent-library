@@ -4,6 +4,7 @@ import createMDX from "@next/mdx";
 
 let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   withSentryConfig = require("@sentry/nextjs").withSentryConfig;
 } catch {
   // Sentry not available

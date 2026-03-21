@@ -51,7 +51,7 @@ export const ENHANCED_DARK_THEME: MonacoThemeConfig = {
     { token: "variable", foreground: "e6edf3" },
     { token: "variable.parameter", foreground: "ffa657" },
     
-    // Properties - GitHub cyan
+    // Properties - GitHub green
     { token: "property", foreground: "7ee787" },
     
     // Markdown specific

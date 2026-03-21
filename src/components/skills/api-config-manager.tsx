@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Plus, Trash2, Edit, Play, Code, BookOpen } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +34,7 @@ interface ApiConfigManagerProps {
 }
 
 export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
-  const t = useTranslations("skills");
+
   const [configs, setConfigs] = useState<ApiConfig[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedConfig, setSelectedConfig] = useState<ApiConfig | null>(null);
@@ -41,24 +42,27 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
   const [showTester, setShowTester] = useState(false);
   const [editingConfig, setEditingConfig] = useState<ApiConfig | null>(null);
 
-  useEffect(() => {
-    fetchConfigs();
-  }, [promptId]);
-
-  const fetchConfigs = async () => {
+  const fetchConfigs = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch(`/api/prompts/${promptId}/api-config`);
       if (response.ok) {
         const data = await response.json();
         setConfigs(data);
+      } else {
+        toast.error("Failed to fetch API configurations");
       }
     } catch (error) {
       console.error("[v0] Error fetching API configs:", error);
+      toast.error("An error occurred while fetching API configurations");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [promptId]);
+
+  useEffect(() => {
+    fetchConfigs();
+  }, [promptId, fetchConfigs]);
 
   const handleDelete = async (configId: string) => {
     if (!confirm("Are you sure you want to delete this API configuration?")) {
@@ -73,9 +77,13 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
 
       if (response.ok) {
         setConfigs((prev) => prev.filter((c) => c.id !== configId));
+        toast.success("API configuration deleted successfully");
+      } else {
+        toast.error("Failed to delete API configuration");
       }
     } catch (error) {
       console.error("[v0] Error deleting API config:", error);
+      toast.error("An error occurred while deleting the API configuration");
     }
   };
 
@@ -97,9 +105,13 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
         await fetchConfigs();
         setShowForm(false);
         setEditingConfig(null);
+        toast.success(editingConfig ? "API configuration updated" : "API configuration added");
+      } else {
+        toast.error("Failed to save API configuration");
       }
     } catch (error) {
       console.error("[v0] Error saving API config:", error);
+      toast.error("An error occurred while saving the API configuration");
     }
   };
 
@@ -241,7 +253,10 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.open(config.documentation, "_blank")}
+                    onClick={() => {
+                      const w = window.open(config.documentation, "_blank", "noopener,noreferrer");
+                      if (w) w.opener = null;
+                    }}
                     className="h-8 transition-all duration-120"
                   >
                     <BookOpen className="h-3.5 w-3.5" />

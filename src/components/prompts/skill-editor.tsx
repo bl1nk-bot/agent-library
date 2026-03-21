@@ -393,7 +393,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     // Register both themes
     applyMonacoTheme(monaco, "dark");
     applyMonacoTheme(monaco, "light");
-    
+
     // Initial theme set
     const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
     monaco.editor.setTheme(theme);

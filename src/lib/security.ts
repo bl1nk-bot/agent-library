@@ -12,7 +12,7 @@ function isPrivateIP(ip: string): boolean {
   // 127.0.0.0/8     -> 127.x.x.x (Loopback)
   // 169.254.0.0/16  -> 169.254.x.x (Link-local)
   // 0.0.0.0/8       -> 0.x.x.x (Current network)
-  
+
   if (ip === '::1') return true; // IPv6 loopback
   if (ip.startsWith('fe80:')) return true; // IPv6 link-local
   if (ip.startsWith('fc') || ip.startsWith('fd')) return true; // IPv6 private unique local
@@ -48,7 +48,7 @@ export async function validateUrl(url: string): Promise<void> {
 
   // Resolve hostname
   const hostname = parsedUrl.hostname;
-  
+
   // Skip DNS lookup if hostname is an IP literal and check directly
   if (isIP(hostname)) {
       if (isPrivateIP(hostname)) {

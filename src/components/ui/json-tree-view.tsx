@@ -33,10 +33,10 @@ const getNodeType = (value: unknown): JsonNode["type"] => {
 
 const collectPathsRecursive = (value: unknown, path: string, maxDepth: number, depth: number = 0, acc: string[] = []): string[] => {
   const type = getNodeType(value);
-  
+
   if ((type === "object" || type === "array") && depth < maxDepth) {
     acc.push(path);
-    
+
     if (type === "array") {
       (value as unknown[]).forEach((item, index) => {
         collectPathsRecursive(item, `${path}.${index}`, maxDepth, depth + 1, acc);
@@ -47,7 +47,7 @@ const collectPathsRecursive = (value: unknown, path: string, maxDepth: number, d
       });
     }
   }
-  
+
   return acc;
 };
 
@@ -259,7 +259,7 @@ const JsonTreeView = forwardRef<JsonTreeViewHandle, JsonTreeViewProps>(({ data, 
 
 JsonTreeView.displayName = "JsonTreeView";
 
-export const JsonTreeViewWrapper = forwardRef<JsonTreeViewHandle, { 
+export const JsonTreeViewWrapper = forwardRef<JsonTreeViewHandle, {
   content: string; 
   className?: string; 
   fontSize?: "xs" | "sm" | "base";

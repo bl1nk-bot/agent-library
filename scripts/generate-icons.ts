@@ -74,12 +74,12 @@ async function createRoundedSquircle(inputPath: string, outputPath: string, size
 async function generateMacIcon(source: string): Promise<void> {
   // iconutil is macOS only
   const isMac = process.platform === 'darwin';
-  
+
   if (!isMac) {
     console.log(' ⊘ macOS: Skipping .icns generation (not on macOS)');
     return;
   }
-  
+
   if (existsSync(ICONSETDIR)) rmSync(ICONSETDIR, { recursive: true });
   mkdirSync(ICONSETDIR);
 
@@ -103,11 +103,11 @@ async function generateMacIcon(source: string): Promise<void> {
  */
 async function generateWindowsIcon(source: string): Promise<void> {
   const buffers: Buffer[] = [];
-  
+
   // Generate PNG buffers for each size
   // Standard Windows sizes: 16, 32, 48, 256
   const sizes = [16, 32, 48, 256];
-  
+
   for (const size of sizes) {
     const buffer = await sharp(source)
       .resize(size, size)
@@ -140,9 +140,9 @@ async function generateSVG(source: string): Promise<void> {
   // Instead of using sharp to output SVG (which just wraps the raster image),
   // we'll write a simple SVG wrapper that references the image or just output the mask shape itself if that was intended.
   // However, based on the original code, it seemed to want to apply a mask.
-  // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape 
+  // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape
   // that matches the icon style, which is often what is needed for simple vector assets.
-  
+
   // Alternatively, if the intention was just to have an SVG file available:
   const svgContent = createRoundedRectSVG(1024, 1024, 220);
   writeFileSync(OUTPUTSVG, svgContent);

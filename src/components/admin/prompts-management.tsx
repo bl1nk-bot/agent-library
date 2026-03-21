@@ -300,7 +300,8 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
   const handleExport = () => {
     // Direct link to public prompts.csv endpoint
-    window.open("/prompts.csv", "_blank");
+    const w = window.open("/prompts.csv", "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
     toast.success(t("prompts.exportSuccess"));
   };
 

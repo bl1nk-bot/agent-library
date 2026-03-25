@@ -1,0 +1,34 @@
+{
+  "name": "bl1nk-core-integration",
+  "description": "MCP server integration for bl1nk-core to access prompts.chat functionality",
+  "jsonrpc": {
+    "url": "https://prompts.chat/api/mcp",
+    "protocol": "mcp-jsonrpc-2.0",
+    "authentication": {
+      "method": "bearer-token",
+      "token_header": "PROMPTS_API_KEY",
+      "registration_url": "https://prompts.chat/settings/api",
+      "documentation": "https://prompts.chat/docs/api"
+    }
+  },
+  "mcp": {
+    "servers": {
+      "prompts-chat": {
+        "url": "https://prompts.chat/api/mcp",
+        "description": "Access to bl1nk prompts library"
+      }
+    }
+  },
+  "tools": [
+    "search_prompts",
+    "get_prompt",
+    "save_prompt",
+    "improve_prompt",
+    "search_skills",
+    "get_skill"
+  ],
+  "prompts": {
+    "available": "All public prompts in the bl1nk library",
+    "usage": "Available via MCP prompts/list and prompts/get"
+  }
+}

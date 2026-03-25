@@ -1,0 +1,14 @@
+{
+  "mcp": {
+    "servers": {
+      "bl1nk-prompts": {
+        "type": "http",
+        "url": "https://prompts.chat/api/mcp",
+        "description": "MCP server for bl1nk prompts library - search and manage AI prompts and skills"
+      }
+    }
+  },
+  "agent": {
+    "prompts-library": "bl1nk"
+  }
+}

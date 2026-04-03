@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && bun exec next build",
+    "build": "prisma generate --no-engine && bun exec next build",
     "db:deploy": "prisma migrate deploy",
     "start": "next start",
     "lint": "eslint",
@@ -22,7 +22,7 @@
     "db:setup": "prisma generate && prisma migrate dev && prisma db seed",
     "setup": "node scripts/setup.js",
     "generate:examples": "npx tsx scripts/generate-examples.ts",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate --no-engine",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

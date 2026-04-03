@@ -22,7 +22,7 @@
     "db:setup": "prisma generate && prisma migrate dev && prisma db seed",
     "setup": "node scripts/setup.js",
     "generate:examples": "npx tsx scripts/generate-examples.ts",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate --no-engine",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

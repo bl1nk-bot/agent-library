@@ -10,6 +10,9 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   engine: "classic",
+  generate: {
+    skipEngine: process.env.NODE_ENV === "production",
+  },
   datasource: {
     url: process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
   },

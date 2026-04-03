@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && bun exec next build",
+    "build": "prisma generate --no-engine && bun exec next build",
     "db:deploy": "prisma migrate deploy",
     "start": "next start",
     "lint": "eslint",

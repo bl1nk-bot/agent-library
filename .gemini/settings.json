@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "name": "auto-list-directory",
+            "type": "command",
+            "command": "python .gemini/hooks/auto-list-directory.py",
+            "description": "Automatically lists files in the current directory when the session starts."
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "pre-commit-readiness-check",
+            "type": "command",
+            "command": "python3 .gemini/hooks/check-git-commit.py",
+            "description": "Runs readiness checks (lint, test, rebrand sweep) before any git commit command."
+          }
+        ]
+      }
+    ],
+    "disabled": []
+  },
+  "mcpServers": {
+    "excalidraw": {
+      "command": "node",
+      "args": [
+        "/home/billl/dev/tool/excalidraw-mcp/dist/index.js",
+        "--stdio"
+      ]
+    }
+  }
+}

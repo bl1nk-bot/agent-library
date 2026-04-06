@@ -4,7 +4,7 @@ import { InitializeButton } from "@/components/ui/initialize-button";
 describe("InitializeButton Component", () => {
   it("renders with correct text", () => {
     render(<InitializeButton />);
-    expect(screen.getByRole("button")).toHaveTextContent(/INITIALIZE DECK/i);
+    expect(screen.getByRole("button")).toHaveTextContent(/SYNCHRONIZE ENVIRONMENT/i);
   });
 
   it("calls onClick when clicked", () => {

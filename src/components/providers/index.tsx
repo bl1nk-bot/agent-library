@@ -34,7 +34,11 @@ interface ProvidersProps {
 export function Providers({ children, locale, messages, theme, branding }: ProvidersProps) {
   return (
     <SessionProvider>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider 
+        locale={locale} 
+        messages={messages}
+        timeZone="Asia/Bangkok"
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

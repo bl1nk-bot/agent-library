@@ -7,7 +7,7 @@
 
 FROM node:24-bookworm-slim
 
-LABEL org.opencontainers.image.source="https://github.com/f/awesome-chatgpt-prompts"
+LABEL org.opencontainers.image.source="https://github.com/bl1nk-bot/agent-library"
 LABEL org.opencontainers.image.description="prompts.chat - Self-hosted AI prompt library"
 LABEL org.opencontainers.image.licenses="MIT"
 
@@ -38,7 +38,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 ENV DATABASE_URL="postgresql://prompts:prompts@localhost:5432/prompts?schema=public"
-ENV REPO_URL="https://github.com/f/awesome-chatgpt-prompts.git"
+ENV REPO_URL="https://github.com/bl1nk-bot/agent-library.git"
 
 EXPOSE 3000
 

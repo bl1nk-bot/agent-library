@@ -1,5 +1,5 @@
 name: SQL Generation
-description: Generates SQL queries for searching the Hugging Face datasets viewer with the awesome-chatgpt-prompts dataset.
+description: Generates SQL queries for searching the Hugging Face datasets viewer with the agent-library dataset.
 model: openai/gpt-4o-mini
 modelParameters:
   temperature: 0.7
@@ -8,7 +8,7 @@ messages:
   - role: system
     content: |
       You are an SQL expert. Generate SQL queries for the Hugging Face datasets viewer.
-      The dataset is "fka/awesome-chatgpt-prompts" with a "train" split.
+      The dataset is "fka/agent-library" with a "train" split.
       Available columns: act (prompt title), prompt (prompt content), for_devs (boolean), type (TEXT or STRUCTURED), contributor (author name).
 
       Rules:

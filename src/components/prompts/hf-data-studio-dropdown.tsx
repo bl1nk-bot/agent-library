@@ -22,7 +22,7 @@ import SQL_EXAMPLES from "@/data/sql-examples.json";
 
 const DEFAULT_SQL = SQL_EXAMPLES[0].sql;
 
-const HF_DATASET_URL = "https://huggingface.co/datasets/fka/awesome-chatgpt-prompts/viewer";
+const HF_DATASET_URL = "https://huggingface.co/datasets/fka/agent-library/viewer";
 
 interface HFDataStudioDropdownProps {
   aiGenerationEnabled?: boolean;
@@ -37,13 +37,15 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
   const [showAiInput, setShowAiInput] = useState(false);
 
   const handleOpenDataset = () => {
-    window.open(HF_DATASET_URL, "_blank");
+    const w = window.open(HF_DATASET_URL, "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
   };
 
   const handleRun = () => {
     const encodedSql = encodeURIComponent(sql);
     const url = `${HF_DATASET_URL}?views[]=train&sql=${encodedSql}`;
-    window.open(url, "_blank");
+    const w = window.open(url, "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
   };
 
   const handleGenerateSQL = async () => {

@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "Command Hub",
     "Digital Noir",
   ],
-  authors: [{ name: "AI Command Hub Team" }],
+  authors: [{ name: "bl1nk Team" }],
   creator: "AI Command Hub",
   publisher: "AI Command Hub",
   icons: {
@@ -109,11 +109,11 @@ const radiusValues = {
 function hexToOklch(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) return "oklch(0.5 0.2 260)";
-  
+
   const r = parseInt(result[1], 16) / 255;
   const g = parseInt(result[2], 16) / 255;
   const b = parseInt(result[3], 16) / 255;
-  
+
   const l = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);

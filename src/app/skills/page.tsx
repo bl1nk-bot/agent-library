@@ -2,9 +2,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { unstable_cache } from "next/cache";
-import { Plus } from "lucide-react";
+import { Plus, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { InfinitePromptList } from "@/components/prompts/infinite-prompt-list";
+import { SkillImportButton } from "@/components/prompts/skill-import-button";
 import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
@@ -138,12 +139,15 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
           <h1 className="text-lg font-semibold">{tNav("skills")}</h1>
           <span className="text-xs text-muted-foreground">{tSearch("found", { count: total })}</span>
         </div>
-        <Button size="sm" className="h-8 text-xs w-full sm:w-auto" asChild>
-          <Link href="/prompts/new?type=SKILL">
-            <Plus className="h-3.5 w-3.5 mr-1" />
-            {t("createSkill")}
-          </Link>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <SkillImportButton />
+          <Button size="sm" className="h-8 text-xs w-full sm:w-auto" asChild>
+            <Link href="/prompts/new?type=SKILL">
+              <Plus className="h-3.5 w-3.5 mr-1" />
+              {t("createSkill")}
+            </Link>
+          </Button>
+        </div>
       </div>
       
       <p className="text-sm text-muted-foreground mb-6">

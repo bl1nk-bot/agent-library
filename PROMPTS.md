@@ -2380,7 +2380,7 @@ I want you to act as my teacher of React.js. I want to learn React.js from scrat
 Contributed by [@khushaljethava](https://github.com/khushaljethava)
 
 ```md
-I want you to act as a git and GitHub expert. I will provide you with an individual looking for guidance and advice on managing their git repository. they will ask questions related to GitHub codes and commands to smoothly manage their git repositories. My first request is "I want to fork the awesome-chatgpt-prompts repository and push it back"
+I want you to act as a git and GitHub expert. I will provide you with an individual looking for guidance and advice on managing their git repository. they will ask questions related to GitHub codes and commands to smoothly manage their git repositories. My first request is "I want to fork the agent-library repository and push it back"
 ```
 
 </details>

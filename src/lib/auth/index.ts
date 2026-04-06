@@ -235,9 +235,7 @@ declare module "next-auth" {
       locale: string;
     };
   }
-}
 
-declare module "@auth/core/jwt" {
   interface JWT {
     id: string;
     role: string;

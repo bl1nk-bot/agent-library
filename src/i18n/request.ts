@@ -68,7 +68,7 @@ export default getRequestConfig(async () => {
   return {
     locale,
     messages,
-    timeZone: "UTC",
+    timeZone: "Asia/Bangkok",
     // Handle missing messages gracefully in production
     onError(error) {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {

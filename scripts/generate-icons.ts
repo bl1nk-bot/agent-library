@@ -257,7 +257,7 @@ async function generateSVG(source: string): Promise<void> {
   // Instead of using sharp to output SVG (which just wraps the raster image),
   // we'll write a simple SVG wrapper that references the image or just output the mask shape itself if that was intended.
   // However, based on the original code, it seemed to want to apply a mask.
-  // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape 
+  // Since we can't easily vectorize a PNG with sharp, we will output the rounded rect SVG shape
   // that matches the icon style, which is often what is needed for simple vector assets.
 
   // Alternatively, if the intention was just to have an SVG file available:

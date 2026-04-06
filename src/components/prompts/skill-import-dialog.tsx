@@ -62,7 +62,7 @@ export function SkillImportDialog({
       // to: https://raw.githubusercontent.com/user/repo/main/skill.md
       const url = githubUrl.trim();
       const match = url.match(/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)/);
-      
+
       if (!match) {
         throw new Error("Invalid GitHub URL format");
       }
@@ -75,7 +75,7 @@ export function SkillImportDialog({
 
       const content = await response.text();
       const filename = path.split("/").pop() || "skill.md";
-      
+
       onImport(content, filename);
       onOpenChange(false);
       setSelectedMethod(null);

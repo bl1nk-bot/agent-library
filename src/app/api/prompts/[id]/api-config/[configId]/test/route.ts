@@ -145,7 +145,7 @@ export async function POST(
           chunksAll.set(chunk, position);
           position += chunk.length;
         }
-        
+
         const text = new TextDecoder().decode(chunksAll);
 
         if (contentType?.includes("application/json")) {

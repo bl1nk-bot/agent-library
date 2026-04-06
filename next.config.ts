@@ -3,14 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 import createMDX from "@next/mdx";
 
 let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
-let withSentryConfig: ((config: NextConfig, options: Record<string, unknown>) => NextConfig) | null = null;
-try {
 try {
   // eslint-disable-next-line `@typescript-eslint/no-require-imports`
   withSentryConfig = require("@sentry/nextjs").withSentryConfig;
-} catch {
-  // Sentry not available
-}
 } catch {
   // Sentry not available
 }
@@ -20,7 +15,7 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
 
-const nextConfig: NextConfig = {
+const baseNextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   // Configure webpack for raw imports
@@ -71,20 +66,30 @@ const nextConfig: NextConfig = {
   },
 };
 
-const baseConfig = withMDX(withNextIntl(nextConfig));
+const configWithPlugins = withMDX(withNextIntl(baseNextConfig));
 
-export default withSentryConfig
-  ? withSentryConfig(baseConfig, {
-      org: "promptschat",
-      project: "prompts-chat",
-      silent: !process.env.CI,
-      widenClientFileUpload: true,
-      tunnelRoute: "/monitoring",
-      webpack: {
-        automaticVercelMonitors: true,
-        treeshake: {
-          removeDebugLogging: true,
-        },
+let finalConfig: NextConfig;
+
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { withSentryConfig } = require("@sentry/nextjs");
+
+  finalConfig = withSentryConfig(configWithPlugins, {
+    org: "promptschat",
+    project: "prompts-chat",
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+    tunnelRoute: "/monitoring",
+    webpack: {
+      automaticVercelMonitors: true,
+      treeshake: {
+        removeDebugLogging: true,
       },
-    })
-  : baseConfig;
+    },
+  });
+} catch {
+  // Sentry not available, use config without Sentry
+  finalConfig = configWithPlugins;
+}
+
+export default finalConfig;

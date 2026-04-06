@@ -26,5 +26,4 @@ jobs:
         run: bun run lint
 
       - name: Run Dependency Audit
-        run: echo "Dependency audit skipped" 
-
+        run: echo "Dependency audit skipped"

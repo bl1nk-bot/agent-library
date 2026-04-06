@@ -87,6 +87,58 @@ Integrate this entire library directly into VS Code, Cursor, or Claude Desktop.
 
 We believe in open knowledge. Contributions are welcome through GitHub pull requests or via the platform's change request system.
 
+### Development
+
+This project uses:
+- **Next.js 16** with App Router
+- **TypeScript 5** (strict mode)
+- **Prisma ORM** for database management
+- **NextAuth.js v5** for authentication
+- **Tailwind CSS 4** for styling
+- **Vitest** for testing
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+For more information, see [AGENTS.md](AGENTS.md) for development guidelines.
+
+### Development
+
+This project uses:
+- **Next.js 16** with App Router
+- **TypeScript 5** (strict mode)
+- **Prisma ORM** for database management
+- **NextAuth.js v5** for authentication
+- **Tailwind CSS 4** for styling
+- **Vitest** for testing
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+For more information, see [AGENTS.md](AGENTS.md) for development guidelines.
+
 ---
 
 ## 📜 License

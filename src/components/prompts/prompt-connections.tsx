@@ -385,11 +385,11 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
         // Ensure left is valid
         if (leftPos < 10) leftPos = 10;
 
-        const tooltipContent = (
-          <div
+        return (
+          <div 
             ref={tooltipRef}
             className="absolute z-[100] w-80 p-3 rounded-lg border bg-card shadow-xl"
-            style={{
+            style={{ 
               left: leftPos,
               top: topPos,
               pointerEvents: 'auto',
@@ -400,8 +400,8 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 {hoveredNode.authorAvatar ? (
-                  <img
-                    src={hoveredNode.authorAvatar}
+                  <img 
+                    src={hoveredNode.authorAvatar} 
                     alt={hoveredNode.authorUsername}
                     className="w-5 h-5 rounded-full"
                   />
@@ -422,7 +422,6 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
               <div className="text-xs text-muted-foreground bg-muted p-2 rounded font-mono whitespace-pre-wrap max-h-48 overflow-y-auto">
                 {hoveredNode.content}
               </div>
-              {/* Delete button for owner or admin */}
               {onNodeDelete && (currentUserId === hoveredNode.authorId || isAdmin) && (
                 <button
                   onClick={(e) => {
@@ -438,14 +437,6 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
             </div>
           </div>
         );
-
-        // Use state to track rendered tooltip
-        const [renderedTooltip, setRenderedTooltip] = useState(tooltipContent);
-        useEffect(() => {
-          setRenderedTooltip(tooltipContent);
-        }, [tooltipContent]);
-
-        return renderedTooltip;
       })()}
     </div>
   );

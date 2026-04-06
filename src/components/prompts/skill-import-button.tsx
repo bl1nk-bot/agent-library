@@ -18,12 +18,12 @@ export function SkillImportButton() {
       imported: "true",
       filename: filename,
     });
-    
+
     // Store content in sessionStorage for the create page to pick up
     if (typeof window !== "undefined") {
       sessionStorage.setItem("importedSkillContent", content);
     }
-    
+
     router.push(`/prompts/new?${params.toString()}`);
   };
 
@@ -38,7 +38,7 @@ export function SkillImportButton() {
         <Upload className="h-3.5 w-3.5 mr-1" />
         Import Skill
       </Button>
-      
+
       <SkillImportDialog
         open={open}
         onOpenChange={setOpen}

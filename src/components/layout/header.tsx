@@ -121,6 +121,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
   const [isChromeBased, setIsChromeBased] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsChromeBased(isChromeBrowser());
   }, []);
 
@@ -255,7 +256,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                     </Link>
                   )}
                   {!branding.useCloneBranding && (
-                    <a 
+                    <Link
                       href="/kids" 
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium hover:bg-accent transition-colors ${kidsFont.className}`}
@@ -264,7 +265,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                       <span className="font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
                         {t("nav.forKids")}
                       </span>
-                    </a>
+                    </Link>
                   )}
                 </div>
               </nav>
@@ -431,12 +432,12 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <a href="/kids" className={kidsFont.className}>
+                    <Link href="/kids" className={kidsFont.className}>
                       <MiniPromi className="mr-2 h-4 w-4" />
                       <span className="font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
                         {t("nav.forKids")}
                       </span>
-                    </a>
+                    </Link>
                   </DropdownMenuItem>
                 </>
               )}
@@ -467,7 +468,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
 
           {/* For Kids link */}
           {!branding.useCloneBranding && (
-            <a 
+            <Link
               href="/kids" 
               className={`hidden 2xl:flex items-center gap-1 px-2 py-1 rounded-md hover:bg-accent transition-colors ${kidsFont.className}`}
             >
@@ -475,7 +476,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               <span className="text-sm font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
                 {t("nav.forKids")}
               </span>
-            </a>
+            </Link>
           )}
 
           {/* Developers link */}

@@ -214,6 +214,7 @@ export function getMobileEditorOptions(isMobile: boolean) {
  * Apply custom theme to Monaco editor
  */
 export function applyMonacoTheme(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   monaco: any,
   theme: "dark" | "light"
 ): void {

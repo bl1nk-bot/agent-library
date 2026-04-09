@@ -288,7 +288,7 @@ export function RunPromptButton({
           const w = window.open(url, "_blank", "noopener,noreferrer");
           if (w) w.opener = null;
         } else {
-          window.location.href = url;
+          window.location.assign(url);
         }
         setPendingPlatform(null);
       }
@@ -318,7 +318,7 @@ export function RunPromptButton({
         const w = window.open(url, "_blank", "noopener,noreferrer");
         if (w) w.opener = null;
       } else {
-        window.location.href = url;
+        window.location.assign(url);
       }
       analyticsPrompt.run(promptId, platform.name);
     }

@@ -47,6 +47,7 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
       }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setAnimatedHeights(baseHeights.map(h => h * 0.5));
       return;
     }

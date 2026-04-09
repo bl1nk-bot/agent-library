@@ -267,6 +267,7 @@ export function RunPromptButton({
     setVariableDialogOpen(true);
   }, [unfilledVariables]);
 
+
   const handleVariableSubmit = useCallback(() => {
     if (onVariablesFilled) {
       onVariablesFilled(variableValues);
@@ -294,6 +295,7 @@ export function RunPromptButton({
       }
       analyticsPrompt.run(promptId, pendingPlatform.name);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableValues, onVariablesFilled, pendingPlatform, getContentWithVariables, content, promptId]);
 
   const handleRun = (platform: Platform, baseUrl: string) => {

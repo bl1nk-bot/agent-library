@@ -214,7 +214,7 @@ export function getMobileEditorOptions(isMobile: boolean) {
  * Apply custom theme to Monaco editor
  */
 export function applyMonacoTheme(
-  monaco: any,
+  monaco: typeof import('monaco-editor'),
   theme: "dark" | "light"
 ): void {
   const themeConfig = theme === "dark" ? ENHANCED_DARK_THEME : ENHANCED_LIGHT_THEME;

@@ -294,6 +294,7 @@ export function RunPromptButton({
       }
       analyticsPrompt.run(promptId, pendingPlatform.name);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableValues, onVariablesFilled, pendingPlatform, getContentWithVariables, content, promptId]);
 
   const handleRun = (platform: Platform, baseUrl: string) => {
@@ -318,7 +319,7 @@ export function RunPromptButton({
         const w = window.open(url, "_blank", "noopener,noreferrer");
         if (w) w.opener = null;
       } else {
-        window.location.href = url;
+        window.location.assign(url);
       }
       analyticsPrompt.run(promptId, platform.name);
     }

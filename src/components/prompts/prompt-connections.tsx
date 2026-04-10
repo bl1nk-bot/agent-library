@@ -96,8 +96,6 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [hoveredNode, setHoveredNode] = useState<FlowGraphNode | null>(null);
   const [nodePos, setNodePos] = useState({ x: 0, y: 0, width: 0 });
-  const [containerRect, setContainerRect] = useState<DOMRect | undefined>();
-  const [containerWidth, setContainerWidth] = useState<number>(600);
   const isOverTooltipRef = useRef(false);
   const isOverNodeRef = useRef(false);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -123,10 +121,6 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
     if (hideTimeoutRef.current) {
       clearTimeout(hideTimeoutRef.current);
       hideTimeoutRef.current = null;
-    }
-    if (containerRef.current) {
-      setContainerRect(containerRef.current.getBoundingClientRect());
-      setContainerWidth(containerRef.current.clientWidth);
     }
     isOverNodeRef.current = true;
     setHoveredNode(node);
@@ -356,6 +350,8 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
           // Calculate position with viewport awareness
           const tooltipWidth = 320;
           const tooltipHeight = 280;
+          const containerRect = containerRef.current?.getBoundingClientRect();
+          const containerWidth = containerRef.current?.clientWidth || 600;
 
           // Calculate left position - overlap slightly with node for easier hover transition
           let leftPos = nodePos.x + nodePos.width / 2 - 5;

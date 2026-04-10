@@ -376,7 +376,6 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     if (value === prevValueRef.current) return;
 
     const parsed = parseSkillFiles(value);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFiles(parsed);
     prevValueRef.current = value;
 

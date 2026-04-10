@@ -55,7 +55,6 @@ class ShaderManager {
       this.loading = true;
       try {
         const { liquidMetalFragmentShader, ShaderMount } = await import("@paper-design/shaders");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.mount = new (ShaderMount as any)(
           parent,
           liquidMetalFragmentShader,
@@ -86,7 +85,6 @@ class ShaderManager {
 
     if (this.currentParent !== parent) {
       this.currentParent = parent;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mount = this.mount as any;
       const canvas = mount.getCanvas?.() || mount.canvas;
       if (canvas && parent) {
@@ -97,7 +95,6 @@ class ShaderManager {
 
   setSpeed(speed: number) {
     if (this.mount) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.mount as any).setSpeed?.(speed);
     }
   }

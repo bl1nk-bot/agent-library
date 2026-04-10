@@ -982,6 +982,7 @@
   },
   "notifications": {
     "title": "Notifications",
+    "unreadCount": "{count} unread notifications",
     "pendingChangeRequests": "Pending change requests",
     "noNotifications": "No notifications",
     "markAllRead": "Mark all read",

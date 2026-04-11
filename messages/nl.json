@@ -951,7 +951,8 @@
     "noNotifications": "Geen meldingen",
     "markAllRead": "Alles als gelezen markeren",
     "commentedOnPrompt": "reageerde op je prompt",
-    "repliedToComment": "antwoordde op je reactie"
+    "repliedToComment": "antwoordde op je reactie",
+    "unreadCount": "{count} unread notifications"
   },
   "promptmasters": {
     "title": "Promptmasters",

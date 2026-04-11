@@ -951,7 +951,8 @@
     "noNotifications": "Bildirim yok",
     "markAllRead": "Tümünü okundu işaretle",
     "commentedOnPrompt": "promptunuza yorum yaptı",
-    "repliedToComment": "yorumunuza yanıt verdi"
+    "repliedToComment": "yorumunuza yanıt verdi",
+    "unreadCount": "{count} unread notifications"
   },
   "comments": {
     "comments": "Yorumlar",
@@ -1518,32 +1519,99 @@
       "locked": "Kilidini açmak için önceki seviyeyi tamamla"
     },
     "worlds": {
-      "1": { "title": "Başlangıç Köyü" },
-      "2": { "title": "Netlik Kalesi" },
-      "3": { "title": "Bağlam Mağaraları" },
-      "4": { "title": "Yaratıcılık Kanyonu" },
-      "5": { "title": "Usta Dağı" }
+      "1": {
+        "title": "Başlangıç Köyü"
+      },
+      "2": {
+        "title": "Netlik Kalesi"
+      },
+      "3": {
+        "title": "Bağlam Mağaraları"
+      },
+      "4": {
+        "title": "Yaratıcılık Kanyonu"
+      },
+      "5": {
+        "title": "Usta Dağı"
+      }
     },
     "levels": {
-      "1_1_meet_promi": { "title": "Promi ile Tanış!", "description": "Robot arkadaşınla tanış ve yapay zekanın ne olduğunu öğren" },
-      "1_2_first_words": { "title": "Promi'in İlk Sözleri", "description": "İlk promptunu yazarak Promi'in anlamasına yardım et" },
-      "1_3_being_clear": { "title": "Net Olmak", "description": "Net talimatların neden daha iyi çalıştığını öğren" },
-      "2_1_missing_details": { "title": "Eksik Detaylar", "description": "Detayların neden önemli olduğunu keşfet" },
-      "2_2_who_and_what": { "title": "Kim ve Ne", "description": "Promptlarına karakter ve nesne ekle" },
-      "2_3_when_and_where": { "title": "Ne Zaman ve Nerede", "description": "Promptlarına zaman ve yer eklemeyi öğren" },
-      "2_4_detail_detective": { "title": "Detay Dedektifi", "description": "Doğru detayları ekleme ustası ol" },
-      "3_1_setting_the_scene": { "title": "Sahneyi Hazırlamak", "description": "Arka plan bilgisinin yapay zekaya nasıl yardımcı olduğunu öğren" },
-      "3_2_show_dont_tell": { "title": "Göster, Anlatma", "description": "Örnekler kullanarak tam olarak ne istediğini göster" },
-      "3_3_format_finder": { "title": "Format Bulucu", "description": "Liste, hikaye, şiir ve daha fazlasını iste!" },
-      "3_4_context_champion": { "title": "Bağlam Şampiyonu", "description": "Tüm bağlam tekniklerini bir profesyonel gibi birleştir" },
-      "4_1_pretend_time": { "title": "Hayal Zamanı!", "description": "Rol yapma promptlarını öğren" },
-      "4_2_story_starters": { "title": "Hikaye Başlatıcılar", "description": "Yapay zeka ile harika hikayeler oluştur" },
-      "4_3_character_creator": { "title": "Karakter Yaratıcı", "description": "Yapay zekaya kişilik ver" },
-      "4_4_world_builder": { "title": "Dünya Oluşturucu", "description": "Hayal gücüyle dolu dünyalar yarat" },
-      "5_1_perfect_prompt": { "title": "Mükemmel Prompt", "description": "Netlik, detay ve bağlamı birleştir" },
-      "5_2_fix_it_up": { "title": "Düzelt!", "description": "Zayıf promptları bul ve geliştir" },
-      "5_3_prompt_remix": { "title": "Prompt Remix", "description": "Farklı sonuçlar için promptları yeniden yaz" },
-      "5_4_graduation_day": { "title": "Mezuniyet Günü", "description": "Son mücadele - Prompt Ustası ol!" }
+      "1_1_meet_promi": {
+        "title": "Promi ile Tanış!",
+        "description": "Robot arkadaşınla tanış ve yapay zekanın ne olduğunu öğren"
+      },
+      "1_2_first_words": {
+        "title": "Promi'in İlk Sözleri",
+        "description": "İlk promptunu yazarak Promi'in anlamasına yardım et"
+      },
+      "1_3_being_clear": {
+        "title": "Net Olmak",
+        "description": "Net talimatların neden daha iyi çalıştığını öğren"
+      },
+      "2_1_missing_details": {
+        "title": "Eksik Detaylar",
+        "description": "Detayların neden önemli olduğunu keşfet"
+      },
+      "2_2_who_and_what": {
+        "title": "Kim ve Ne",
+        "description": "Promptlarına karakter ve nesne ekle"
+      },
+      "2_3_when_and_where": {
+        "title": "Ne Zaman ve Nerede",
+        "description": "Promptlarına zaman ve yer eklemeyi öğren"
+      },
+      "2_4_detail_detective": {
+        "title": "Detay Dedektifi",
+        "description": "Doğru detayları ekleme ustası ol"
+      },
+      "3_1_setting_the_scene": {
+        "title": "Sahneyi Hazırlamak",
+        "description": "Arka plan bilgisinin yapay zekaya nasıl yardımcı olduğunu öğren"
+      },
+      "3_2_show_dont_tell": {
+        "title": "Göster, Anlatma",
+        "description": "Örnekler kullanarak tam olarak ne istediğini göster"
+      },
+      "3_3_format_finder": {
+        "title": "Format Bulucu",
+        "description": "Liste, hikaye, şiir ve daha fazlasını iste!"
+      },
+      "3_4_context_champion": {
+        "title": "Bağlam Şampiyonu",
+        "description": "Tüm bağlam tekniklerini bir profesyonel gibi birleştir"
+      },
+      "4_1_pretend_time": {
+        "title": "Hayal Zamanı!",
+        "description": "Rol yapma promptlarını öğren"
+      },
+      "4_2_story_starters": {
+        "title": "Hikaye Başlatıcılar",
+        "description": "Yapay zeka ile harika hikayeler oluştur"
+      },
+      "4_3_character_creator": {
+        "title": "Karakter Yaratıcı",
+        "description": "Yapay zekaya kişilik ver"
+      },
+      "4_4_world_builder": {
+        "title": "Dünya Oluşturucu",
+        "description": "Hayal gücüyle dolu dünyalar yarat"
+      },
+      "5_1_perfect_prompt": {
+        "title": "Mükemmel Prompt",
+        "description": "Netlik, detay ve bağlamı birleştir"
+      },
+      "5_2_fix_it_up": {
+        "title": "Düzelt!",
+        "description": "Zayıf promptları bul ve geliştir"
+      },
+      "5_3_prompt_remix": {
+        "title": "Prompt Remix",
+        "description": "Farklı sonuçlar için promptları yeniden yaz"
+      },
+      "5_4_graduation_day": {
+        "title": "Mezuniyet Günü",
+        "description": "Son mücadele - Prompt Ustası ol!"
+      }
     },
     "level": {
       "backToMap": "Haritaya Dön",

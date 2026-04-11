@@ -97,9 +97,9 @@ export function NotificationBell() {
 
   if (totalCount === 0) {
     return (
-      <Button variant="ghost" size="icon" className="h-8 w-8 relative" asChild>
-        <Link href={`/@${session.user.username}`}>
-          <Bell className="h-4 w-4" />
+      <Button variant="ghost" size="icon" className="h-8 w-8 relative" asChild aria-label={t("title")}>
+        <Link href={`/@${session.user.username}`} aria-label={t("title")}>
+          <Bell className="h-4 w-4" aria-hidden="true" />
         </Link>
       </Button>
     );
@@ -108,8 +108,8 @@ export function NotificationBell() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-8 w-8 relative">
-          <Bell className="h-4 w-4" />
+        <Button variant="ghost" size="icon" className="h-8 w-8 relative" aria-label={t("unreadCount", { count: totalCount })}>
+          <Bell className="h-4 w-4" aria-hidden="true" />
           <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-red-500 text-white text-[10px] font-medium flex items-center justify-center">
             {totalCount > 9 ? "9+" : totalCount}
           </span>

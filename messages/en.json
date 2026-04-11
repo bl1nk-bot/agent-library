@@ -986,7 +986,8 @@
     "noNotifications": "No notifications",
     "markAllRead": "Mark all read",
     "commentedOnPrompt": "commented on your prompt",
-    "repliedToComment": "replied to your comment"
+    "repliedToComment": "replied to your comment",
+    "unreadCount": "{count} unread notifications"
   },
   "promptmasters": {
     "title": "Promptmasters",

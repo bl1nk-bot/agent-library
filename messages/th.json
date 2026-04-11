@@ -986,7 +986,8 @@
     "noNotifications": "ไม่มีการแจ้งเตือน",
     "markAllRead": "อ่านทั้งหมด",
     "commentedOnPrompt": "แสดงความคิดเห็นบนพรอมต์ของคุณ",
-    "repliedToComment": "ตอบกลับความคิดเห็นของคุณ"
+    "repliedToComment": "ตอบกลับความคิดเห็นของคุณ",
+    "unreadCount": "{count} unread notifications"
   },
   "promptmasters": {
     "title": "ปรมาจารย์พรอมต์",

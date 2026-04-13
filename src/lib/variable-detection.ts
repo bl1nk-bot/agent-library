@@ -69,14 +69,12 @@ const PATTERNS: PatternConfig[] = [
   // Angle brackets: <NAME> or <name>
   {
     pattern: "angle_bracket",
-    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /<([A-Z][A-Z0-9_\s]*|[a-zA-Z_][a-zA-Z0-9_\s]*)>/g,
     extractName: (m) => m[1].trim(),
   },
   // Percent signs: %NAME% or %name%
   {
     pattern: "percent",
-    // eslint-disable-next-line security/detect-unsafe-regex
     regex: /%([a-zA-Z_][a-zA-Z0-9_]*)%/g,
     extractName: (m) => m[1].trim(),
   },

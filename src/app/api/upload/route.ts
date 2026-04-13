@@ -81,7 +81,8 @@ export async function POST(request: NextRequest) {
 
     // Generate filename
     const timestamp = Date.now();
-    const randomId = Math.random().toString(36).substring(2, 8);
+    // 🛡️ Sentinel: Use crypto.randomUUID() instead of Math.random() for cryptographically secure random identifiers
+    const randomId = crypto.randomUUID().split('-')[0];
     
     let uploadBuffer: Buffer;
     let filename: string;

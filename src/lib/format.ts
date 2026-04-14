@@ -48,10 +48,10 @@ export function toYaml(obj: unknown, indent = 0): string {
     if (obj.length === 0) return '[]';
     return obj.map(item => {
       if (typeof item === 'object' && item !== null) {
-        const inner = toYaml(item, indent + 1);
-        const lines = inner.split('\n');
-        return `${spaces}- ${lines[0]}\n${lines.slice(1).map(l => spaces + '  ' + l).join('\n')}`.trim();
+        return `${spaces}-\n${toYaml(item, indent + 1)}`;
       }
+      return `${spaces}- ${toYaml(item, indent)}`;
+    }).join('\n');
       return `${spaces}- ${toYaml(item, indent)}`;
     }).join('\n');
   }

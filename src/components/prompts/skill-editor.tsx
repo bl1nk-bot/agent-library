@@ -376,6 +376,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     if (value === prevValueRef.current) return;
 
     const parsed = parseSkillFiles(value);
+
     setFiles(parsed);
     prevValueRef.current = value;
 

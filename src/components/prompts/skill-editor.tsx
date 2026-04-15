@@ -200,7 +200,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const monacoRef = useRef<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -373,18 +373,21 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
 
   // Re-parse when external value changes significantly
   useEffect(() => {
-    if (value === prevValueRef.current) return;
+    const syncFiles = () => {
+      if (value === prevValueRef.current) return;
 
-    const parsed = parseSkillFiles(value);
+      const parsed = parseSkillFiles(value);
 
-    setFiles(parsed);
-    prevValueRef.current = value;
+      setFiles(parsed);
+      prevValueRef.current = value;
 
-    // Ensure active file exists
-    if (!parsed.some((f) => f.filename === activeFile)) {
-      setActiveFile(DEFAULT_SKILL_FILE);
-      setOpenTabs([DEFAULT_SKILL_FILE]);
-    }
+      // Ensure active file exists
+      if (!parsed.some((f) => f.filename === activeFile)) {
+        setActiveFile(DEFAULT_SKILL_FILE);
+        setOpenTabs([DEFAULT_SKILL_FILE]);
+      }
+    };
+    syncFiles();
   }, [value, activeFile]);
 
   const handleEditorMount: OnMount = useCallback((editor, monaco) => {

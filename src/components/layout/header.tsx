@@ -121,7 +121,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
   const [isChromeBased, setIsChromeBased] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setIsChromeBased(isChromeBrowser());
   }, []);
 

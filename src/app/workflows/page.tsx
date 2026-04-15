@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 // Query for workflows list (cached)
 function getCachedWorkflows(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   orderBy: any,
   perPage: number,
   searchQuery?: string
@@ -96,7 +96,7 @@ function getCachedWorkflows(
       ]);
 
       return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         workflows: workflowsRaw.map((p: any) => ({
           ...p,
           voteCount: p._count.votes,
@@ -127,7 +127,7 @@ export default async function WorkflowsPage({ searchParams }: WorkflowsPageProps
   const perPage = 24;
 
   // Build order by clause
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   let orderBy: any = { createdAt: "desc" };
   if (params.sort === "oldest") {
     orderBy = { createdAt: "asc" };

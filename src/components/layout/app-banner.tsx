@@ -48,13 +48,16 @@ export function AppBanner() {
   const hideViaQuery = searchParams?.has("no-app-banner");
 
   useEffect(() => {
-    const dismissed = localStorage.getItem(STORAGE_KEY);
-    const isAppleUser = isAppleDevice();
-    setIsApple(isAppleUser);
-    
-    if (isAppleUser && !dismissed) {
-      setIsVisible(true);
-    }
+    const checkState = () => {
+      const dismissed = localStorage.getItem(STORAGE_KEY);
+      const isAppleUser = isAppleDevice();
+      setIsApple(isAppleUser);
+
+      if (isAppleUser && !dismissed) {
+        setIsVisible(true);
+      }
+    };
+    checkState();
   }, []);
 
   const handleDismiss = () => {

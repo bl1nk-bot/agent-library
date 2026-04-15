@@ -70,7 +70,7 @@ const getTags = unstable_cache(
 // Query for prompts list (cached)
 function getCachedPrompts(
   where: Record<string, unknown>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   orderBy: any,
   perPage: number
 ) {
@@ -129,7 +129,7 @@ function getCachedPrompts(
       ]);
 
       return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         prompts: promptsRaw.map((p: any) => ({
           ...p,
           voteCount: p._count.votes,
@@ -166,7 +166,7 @@ export default async function PromptsPage({ searchParams }: PromptsPageProps) {
   const aiGenerationAvailable = await isAIGenerationEnabled();
   const useAISearch = aiSearchAvailable && params.ai === "1" && params.q;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   let prompts: any[] = [];
   let total = 0;
 
@@ -239,7 +239,7 @@ export default async function PromptsPage({ searchParams }: PromptsPageProps) {
     
     // Build order by clause
     const isUpvoteSort = params.sort === "upvotes";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     let orderBy: any = { createdAt: "desc" };
     if (params.sort === "oldest") {
       orderBy = { createdAt: "asc" };

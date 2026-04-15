@@ -309,7 +309,7 @@ export default function BrandAssetsPage() {
               downloadUrl="/logo-animated.svg"
               filename="logo-animated.svg"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img src="/logo-animated.svg" alt="Logo animated" className="h-20 w-auto" />
             </AssetCard>
 
@@ -321,7 +321,7 @@ export default function BrandAssetsPage() {
               downloadUrl="/promi-animated.svg"
               filename="promi-animated.svg"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img src="/promi-animated.svg" alt="Promi animated" className="h-20 w-auto" />
             </AssetCard>
           </div>

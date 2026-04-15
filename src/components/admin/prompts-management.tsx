@@ -153,7 +153,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
   useEffect(() => {
     fetchPrompts(currentPage, searchQuery, promptFilter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [currentPage, promptFilter, fetchPrompts]);
 
   const handleSearch = () => {

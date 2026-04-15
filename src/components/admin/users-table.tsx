@@ -114,7 +114,7 @@ export function UsersTable() {
 
   useEffect(() => {
     fetchUsers(currentPage, searchQuery, userFilter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [currentPage, userFilter, fetchUsers]);
 
   const handleSearch = () => {

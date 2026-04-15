@@ -1,0 +1,156 @@
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.1","pnpm":"10.30.3"})
+
+> agent-library@0.2.0 dev /app
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Experiments (use with caution):
+  · clientTraceMetadata
+  · serverActions
+
+✓ Starting...
+✓ Ready in 2.5s
+○ Compiling / ...
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:5331:262)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:547:9)
+    at process.processTimers (node:internal/timers:521:7)
+prisma:error
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2181:135
+
+  2178 const today = new Date();
+  2179 today.setHours(0, 0, 0, 0);
+  2180 const [featuredPromptsRaw, todaysMostUpvotedRaw, latestPromptsRaw, recentlyUpdatedRaw, mostContributedRaw] = await Promise.all([
+→ 2181     __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+prisma:error
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2195:135
+
+  2192     include: promptInclude
+  2193 }),
+  2194 // Today's most upvoted - prompts with votes from today, ordered by vote count
+→ 2195 __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+prisma:error
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2216:135
+
+  2213     take: limit,
+  2214     include: promptInclude
+  2215 }),
+→ 2216 __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+prisma:error
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2228:135
+
+  2225     take: limit,
+  2226     include: promptInclude
+  2227 }),
+→ 2228 __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+prisma:error
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2240:135
+
+  2237     take: limit,
+  2238     include: promptInclude
+  2239 }),
+→ 2240 __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+⨯ Error [PrismaClientInitializationError]:
+Invalid `{imported module ./src/lib/db.ts}["db"].prompt.findMany()` invocation in
+/app/.next/dev/server/chunks/ssr/[root-of-the-server]__0c865072._.js:2181:135
+
+  2178 const today = new Date();
+  2179 today.setHours(0, 0, 0, 0);
+  2180 const [featuredPromptsRaw, todaysMostUpvotedRaw, latestPromptsRaw, recentlyUpdatedRaw, mostContributedRaw] = await Promise.all([
+→ 2181     {imported module ./src/lib/db.ts}["db"].prompt.findMany(
+error: Environment variable not found: DATABASE_URL.
+    at <unknown> (src/components/prompts/discovery-prompts.tsx:51:15)
+    at async DiscoveryPrompts (src/components/prompts/discovery-prompts.tsx:50:112)
+  49 |
+  50 |   const [featuredPromptsRaw, todaysMostUpvotedRaw, latestPromptsRaw, recentlyUpdatedRaw, mostContributedRaw] = await Promise.all([
+> 51 |     db.prompt.findMany({
+     |               ^
+  52 |       where: {
+  53 |         isPrivate: false,
+  54 |         isUnlisted: false, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined,
+  digest: '1970760089'
+}
+ GET / 500 in 24.8s (compile: 21.9s, proxy.ts: 264ms, render: 2.6s)
+○ Compiling /api/auth/[...nextauth] ...
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:5331:264)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async AppRouteRouteModule.do (/app/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_babel-plugin-react-compiler@1.0_2235c1b60cb07e4c65d98606c74eae08/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37866)
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:5331:262)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:547:9)
+    at process.processTimers (node:internal/timers:521:7)
+Error: MISSING_MESSAGE: Could not resolve `feed.discover` in messages for locale `en`.
+    at Header (src/components/layout/header.tsx:239:22)
+  237 |                     className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+  238 |                   >
+> 239 |                     {t("feed.discover")}
+      |                      ^
+  240 |                   </Link>
+  241 |                   <Link
+  242 |                     href="/promptmasters"  {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Could not resolve `feed.discover` in messages for locale `en`.'
+}
+Error: MISSING_MESSAGE: Could not resolve `nav.login` in messages for locale `en`.
+    at Header (src/components/layout/header.tsx:647:22)
+  645 |                 <Button asChild viewMode="text">
+  646 |                   <Link href="/login" className="no-underline">
+> 647 |                     {t("nav.login")}
+      |                      ^
+  648 |                   </Link>
+  649 |                 </Button>
+  650 |                 {authProvider === "credentials" && allowRegistration && ( {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Could not resolve `nav.login` in messages for locale `en`.'
+}
+Error: MISSING_MESSAGE: Could not resolve `nav.register` in messages for locale `en`.
+    at Header (src/components/layout/header.tsx:653:24)
+  651 |                   <Button asChild viewMode="text">
+  652 |                     <Link href="/register" className="no-underline">
+> 653 |                       {t("nav.register")}
+      |                        ^
+  654 |                     </Link>
+  655 |                   </Button>
+  656 |                 )} {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Could not resolve `nav.register` in messages for locale `en`.'
+}
+ GET /test-page 200 in 2.7s (compile: 2.1s, proxy.ts: 78ms, render: 514ms)
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/ssr/691c0_@auth_core_ef405912._.js:5331:262)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:547:9)
+    at process.processTimers (node:internal/timers:521:7)
+ GET /logo.svg 200 in 524ms (compile: 177ms, render: 346ms)
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:5331:264)
+    at async AppRouteRouteModule.do (/app/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_babel-plugin-react-compiler@1.0_2235c1b60cb07e4c65d98606c74eae08/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37866)
+ GET /api/auth/session 500 in 277ms (compile: 254ms, proxy.ts: 13ms, render: 10ms)
+[31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+    at assertConfig (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:514:16)
+    at Auth (/app/.next/dev/server/chunks/691c0_@auth_core_80946750._.js:5331:264)
+    at async AppRouteRouteModule.do (/app/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_babel-plugin-react-compiler@1.0_2235c1b60cb07e4c65d98606c74eae08/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37866)
+ GET /api/auth/session 500 in 125ms (compile: 57ms, proxy.ts: 44ms, render: 25ms)

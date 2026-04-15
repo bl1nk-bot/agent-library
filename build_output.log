@@ -1,0 +1,27 @@
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.1","pnpm":"10.30.3"})
+
+> agent-library@0.2.0 build /app
+> prisma generate --no-engine && bun exec next build
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (v6.19.2, engine=none) to ./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client in 461ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Experiments (use with caution):
+  · clientTraceMetadata
+  · serverActions
+
+✓ Starting...
+✓ Ready in 3.3s
+ ELIFECYCLE  Command failed.
+[?25h

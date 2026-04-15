@@ -622,7 +622,8 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                     <button>
-                      <Globe className="h-4 w-4" />
+                      <Globe className="h-4 w-4" aria-hidden="true" />
+                      <span className="sr-only">{t("settings.language")}</span>
                     </button>
                   </Button>
                 </DropdownMenuTrigger>

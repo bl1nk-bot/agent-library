@@ -1,0 +1,1278 @@
+ WARN  Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.1","pnpm":"10.30.3"})
+
+> agent-library@0.2.0 lint /app
+> eslint
+
+
+/app/prisma/reset-admin.ts
+  11:9  warning  'admin' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/prisma/seed-bill-admin.ts
+  13:9  warning  'user' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/prisma/seed-csv.ts
+   27:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  142:19  warning  Generic Object Injection Sink               security/detect-object-injection
+  143:21  warning  Generic Object Injection Sink               security/detect-object-injection
+  144:38  warning  Generic Object Injection Sink               security/detect-object-injection
+  145:49  warning  Generic Object Injection Sink               security/detect-object-injection
+  210:28  warning  Generic Object Injection Sink               security/detect-object-injection
+
+/app/scripts/analyze-csv-skips.ts
+  23:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  73:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  76:19  warning  Generic Object Injection Sink               security/detect-object-injection
+  77:21  warning  Generic Object Injection Sink               security/detect-object-injection
+
+/app/scripts/check-translations.js
+  20:16  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  20:41  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  20:77  warning  Function Call Object Injection Sink                                        security/detect-object-injection
+  21:38  warning  Function Call Object Injection Sink                                        security/detect-object-injection
+  29:50  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  41:35  warning  Found readFileSync from package "fs" with non literal argument at index 0  security/detect-non-literal-fs-filename
+  48:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+
+/app/scripts/docker-setup.js
+  40:10  warning  Generic Object Injection Sink               security/detect-object-injection
+  44:15  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  50:15  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/scripts/find-unused-translations.js
+    6:9   warning  'execSync' is assigned a value but never used                              @typescript-eslint/no-unused-vars
+   19:16  warning  Generic Object Injection Sink                                              security/detect-object-injection
+   19:41  warning  Generic Object Injection Sink                                              security/detect-object-injection
+   19:77  warning  Function Call Object Injection Sink                                        security/detect-object-injection
+   20:38  warning  Function Call Object Injection Sink                                        security/detect-object-injection
+   33:16  warning  Found readdirSync from package "fs" with non literal argument at index 0   security/detect-non-literal-fs-filename
+   37:18  warning  Found statSync from package "fs" with non literal argument at index 0      security/detect-non-literal-fs-filename
+   54:23  warning  Found readFileSync from package "fs" with non literal argument at index 0  security/detect-non-literal-fs-filename
+   58:7   warning  'componentsContent' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+   76:22  warning  Unsafe Regular Expression                                                  security/detect-unsafe-regex
+   81:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+   82:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+   84:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+   85:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  125:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  126:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  129:10  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  130:7   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  145:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  146:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  147:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  148:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  149:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  151:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  152:5   warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  181:28  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  182:25  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  221:31  warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  226:22  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  227:29  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  228:40  warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  247:37  warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+  291:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  292:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  294:3   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  301:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  302:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  304:3   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  311:8   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  312:5   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  314:3   warning  Generic Object Injection Sink                                              security/detect-object-injection
+  329:59  warning  Generic Object Injection Sink                                              security/detect-object-injection
+  346:59  warning  Generic Object Injection Sink                                              security/detect-object-injection
+
+/app/scripts/generate-icons.ts
+   32:7   warning  'WIN_SIZES' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  139:28  warning  'source' is defined but never used              @typescript-eslint/no-unused-vars
+
+/app/scripts/import-agents.ts
+   1:24  warning  'PromptType' is defined but never used                                     @typescript-eslint/no-unused-vars
+  19:25  warning  Found readdir from package "fs" with non literal argument at index 0       security/detect-non-literal-fs-filename
+  54:23  warning  Found readFileSync from package "fs" with non literal argument at index 0  security/detect-non-literal-fs-filename
+
+/app/scripts/remove-duplicates.ts
+   23:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+   98:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  101:19  warning  Generic Object Injection Sink               security/detect-object-injection
+
+/app/scripts/seed-skills.ts
+   64:19  warning  Found readdirSync from package "fs" with non literal argument at index 0   security/detect-non-literal-fs-filename
+   77:25  warning  Found readFileSync from package "fs" with non literal argument at index 0  security/detect-non-literal-fs-filename
+   79:16  warning  'e' is defined but never used                                              @typescript-eslint/no-unused-vars
+  247:10  warning  Found existsSync from package "fs" with non literal argument at index 0    security/detect-non-literal-fs-filename
+
+/app/scripts/setup.js
+   14:19  warning  'spawn' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  540:14  warning  'err' is defined but never used             @typescript-eslint/no-unused-vars
+
+/app/src/__tests__/api/leaderboard.test.ts
+  21:24  error  The `Function` type accepts any function-like value.
+Prefer explicitly defining any function parameters and return type  @typescript-eslint/no-unsafe-function-type
+
+/app/src/__tests__/api/search.test.ts
+  172:11  warning  'data' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/__tests__/app/deck/page.test.tsx
+  6:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/app/src/__tests__/app/gateway/transitions.test.tsx
+  1:18  warning  'screen' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/__tests__/components/copy-button.test.tsx
+  12:12  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/__tests__/components/layout/command-layout.test.tsx
+   7:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   8:48  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  10:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/app/src/__tests__/lib/webhook.test.ts
+  55:33  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/__tests__/rebrand-sweep.test.ts
+  1:24  warning  'expect' is defined but never used        @typescript-eslint/no-unused-vars
+  9:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  9:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/app/src/__tests__/style/theme.test.tsx
+   1:8   warning  'resolveConfig' is defined but never used                @typescript-eslint/no-unused-vars
+   2:8   warning  'tailwindConfig' is defined but never used               @typescript-eslint/no-unused-vars
+  11:10  warning  'render' is defined but never used                       @typescript-eslint/no-unused-vars
+  11:18  warning  'screen' is defined but never used                       @typescript-eslint/no-unused-vars
+  15:7   warning  'ThemeTestComponent' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/[username]/opengraph-image.tsx
+  160:13  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+/app/src/app/about/page.tsx
+  6:10  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/admin/page.tsx
+  191:9  error  Do not pass children as props. Instead, nest children between the opening and closing tags  react/no-children-prop
+
+/app/src/app/api/admin/embeddings/route.ts
+  40:18  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/api/admin/import-prompts/route.ts
+   33:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  103:28  warning  'request' is defined but never used         @typescript-eslint/no-unused-vars
+  266:30  warning  'request' is defined but never used         @typescript-eslint/no-unused-vars
+
+/app/src/app/api/admin/related-prompts/route.ts
+  59:26  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/app/api/admin/slugs/route.ts
+  46:26  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/app/api/book/demo/route.ts
+  221:19  warning  Generic Object Injection Sink  security/detect-object-injection
+  321:52  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/app/api/prompt-builder/generate-example/route.ts
+  66:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  79:29  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/app/api/prompts/[id]/api-config/[configId]/test/route.ts
+  97:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/app/src/app/api/prompts/[id]/raw/route.ts
+  42:22  warning  Unsafe Regular Expression  security/detect-unsafe-regex
+
+/app/src/app/api/prompts/[id]/route.ts
+  102:24  warning  '_embedding' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/api/prompts/route.ts
+  410:50   warning  '_e' is defined but never used   @typescript-eslint/no-unused-vars
+  410:65   warning  '_p' is defined but never used   @typescript-eslint/no-unused-vars
+  410:81   warning  '_u' is defined but never used   @typescript-eslint/no-unused-vars
+  410:97   warning  '_ua' is defined but never used  @typescript-eslint/no-unused-vars
+  410:113  warning  '_d' is defined but never used   @typescript-eslint/no-unused-vars
+
+/app/src/app/book/[slug]/page.tsx
+  96:15  error  Component definition is missing display name  react/display-name
+
+/app/src/app/book/page.tsx
+  233:15  error  Do not use an `<a>` element to navigate to `/kids/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+/app/src/app/brand/page.tsx
+  133:29  warning  'name' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/developers/page.tsx
+  32:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/app/developers/page.tsx:32:5
+  30 |
+  31 |   useEffect(() => {
+> 32 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |
+  34 |     // Check mobile
+  35 |     const checkMobile = () => {  react-hooks/set-state-in-effect
+
+/app/src/app/embed/page.tsx
+   24:20  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   security/detect-object-injection
+  120:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/app/embed/page.tsx:120:5
+  118 |       dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  119 |     }
+> 120 |     setIsDark(dark);
+      |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  121 |
+  122 |     // Set dark class on html element for portals (dropdowns, modals)
+  123 |     if (dark) {  react-hooks/set-state-in-effect
+  158:47  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                security/detect-object-injection
+  236:20  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. This value was memoized in source but not in compilation output.
+
+/app/src/app/embed/page.tsx:236:20
+  234 |   const allContextPills = [...config.context, ...Array.from(selectedFiles)];
+  235 |
+> 236 |   const fileTree = useMemo(() => buildFileTree(config.filetree), [config.filetree]);
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Could not preserve existing memoization
+  237 |
+  238 |   const renderTreeNode = (node: TreeNode, depth: number = 0): React.ReactNode => {
+  239 |     const isSelected = selectedFiles.has(node.path);                                                                                                                                                                                                                                                                                    react-hooks/preserve-manual-memoization
+  236:67  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. This dependency may be mutated later, which could cause the value to change unexpectedly.
+
+/app/src/app/embed/page.tsx:236:67
+  234 |   const allContextPills = [...config.context, ...Array.from(selectedFiles)];
+  235 |
+> 236 |   const fileTree = useMemo(() => buildFileTree(config.filetree), [config.filetree]);
+      |                                                                   ^^^^^^ This dependency may be modified later
+  237 |
+  238 |   const renderTreeNode = (node: TreeNode, depth: number = 0): React.ReactNode => {
+  239 |     const isSelected = selectedFiles.has(node.path);                                                                                                                                                                                                                                                                        react-hooks/preserve-manual-memoization
+  344:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @next/next/no-img-element
+  593:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @next/next/no-img-element
+
+/app/src/app/gateway/page.tsx
+  16:9  warning  The 'configMessages' array makes the dependencies of useEffect Hook (at line 44) change on every render. To fix this, wrap the initialization of 'configMessages' in its own useMemo() Hook  react-hooks/exhaustive-deps
+
+/app/src/app/kids/map/page.tsx
+  11:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/layout.tsx
+  12:10  warning  'AppBanner' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/prompts/[id]/edit/page.tsx
+  33:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/prompts/[id]/opengraph-image.tsx
+  304:19  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+  343:13  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+/app/src/app/prompts/[id]/page.tsx
+  8:10  warning  'ShareDropdown' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/app/skills/page.tsx
+  5:16  warning  'Upload' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/admin/admin-tabs.tsx
+  42:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/admin/admin-tabs.tsx:42:5
+  40 |
+  41 |   useEffect(() => {
+> 42 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  43 |     updateTabFromHash();
+  44 |     window.addEventListener("hashchange", updateTabFromHash);
+  45 |     return () => {  react-hooks/set-state-in-effect
+
+/app/src/components/admin/users-table.tsx
+  75:9  warning  'tCommon' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/admin/webhooks-table.tsx
+  68:5  warning  Generic Object Injection Sink  security/detect-object-injection
+  68:5  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/auth/auth-content.tsx
+  37:29  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/auth/oauth-button.tsx
+  66:66  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/book/elements/ai-demos.tsx
+   25:60   warning  Generic Object Injection Sink                                    security/detect-object-injection
+   39:20   warning  Variable Assigned to Object Injection Sink                       security/detect-object-injection
+   81:80   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+   81:96   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+   99:94   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+   99:110  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  128:45   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  128:51   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  128:57   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  128:64   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/app/src/components/book/elements/chain-demos.tsx
+    5:65   warning  'ArrowRight' is defined but never used                           @typescript-eslint/no-unused-vars
+    5:77   warning  'ArrowDown' is defined but never used                            @typescript-eslint/no-unused-vars
+  229:120  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  229:138  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/app/src/components/book/elements/chain-error-demo.tsx
+  5:65  warning  'ArrowRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/book/elements/chain.tsx
+  110:32  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/book/elements/challenge.tsx
+   63:6   warning  React Hook useEffect has a missing dependency: 'handleSubmit'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  152:67  warning  Function Call Object Injection Sink                                                                              security/detect-object-injection
+  184:19  warning  Generic Object Injection Sink                                                                                    security/detect-object-injection
+  185:19  warning  Generic Object Injection Sink                                                                                    security/detect-object-injection
+  188:20  warning  Generic Object Injection Sink                                                                                    security/detect-object-injection
+  190:24  warning  Generic Object Injection Sink                                                                                    security/detect-object-injection
+
+/app/src/components/book/elements/context-demos.tsx
+   87:20  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+   92:59  warning  Generic Object Injection Sink               security/detect-object-injection
+  163:29  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/book/elements/demos.tsx
+   15:9    warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   19:58   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   20:18   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   24:42   warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               security/detect-object-injection
+   25:19   warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               security/detect-object-injection
+   30:58   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   30:104  warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               security/detect-object-injection
+   31:18   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   56:9    warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   57:17   warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               security/detect-object-injection
+  106:16   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  106:29   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  106:32   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  106:51   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  204:83   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  285:71   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  285:102  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  391:16   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  397:16   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  508:66   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  508:77   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  519:49   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  519:66   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  630:12   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  641:12   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  712:28   warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        security/detect-object-injection
+  754:7    error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/book/elements/demos.tsx:754:7
+  752 |       timer = setTimeout(() => setStep(s => s + 1), 2500);
+  753 |     } else if (step >= iterations.length - 1) {
+> 754 |       setIsPlaying(false);
+      |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  755 |     }
+  756 |     return () => clearTimeout(timer);
+  757 |   }, [isPlaying, step, iterations.length]);  react-hooks/set-state-in-effect
+
+/app/src/components/book/elements/diff-view.tsx
+   3:10  warning  'cn' is defined but never used       @typescript-eslint/no-unused-vars
+  29:9   warning  Generic Object Injection Sink        security/detect-object-injection
+  29:9   warning  Generic Object Injection Sink        security/detect-object-injection
+  31:9   warning  Generic Object Injection Sink        security/detect-object-injection
+  31:9   warning  Generic Object Injection Sink        security/detect-object-injection
+  31:29  warning  Function Call Object Injection Sink  security/detect-object-injection
+  31:43  warning  Generic Object Injection Sink        security/detect-object-injection
+  45:37  warning  Generic Object Injection Sink        security/detect-object-injection
+  45:53  warning  Generic Object Injection Sink        security/detect-object-injection
+
+/app/src/components/book/elements/exercises.tsx
+   74:18   warning  Generic Object Injection Sink                                    security/detect-object-injection
+   75:14   warning  Generic Object Injection Sink                                    security/detect-object-injection
+  167:101  warning  Generic Object Injection Sink                                    security/detect-object-injection
+  174:22   warning  Generic Object Injection Sink                                    security/detect-object-injection
+  184:48   warning  Generic Object Injection Sink                                    security/detect-object-injection
+  190:77   warning  Generic Object Injection Sink                                    security/detect-object-injection
+  522:52   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+/app/src/components/book/elements/frameworks.tsx
+  46:18  warning  Variable Assigned to Object Injection Sink        security/detect-object-injection
+  50:32  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/components/book/elements/lists.tsx
+   23:7   warning  Generic Object Injection Sink  security/detect-object-injection
+   23:22  warning  Generic Object Injection Sink  security/detect-object-injection
+   51:15  warning  Generic Object Injection Sink  security/detect-object-injection
+   56:15  warning  Generic Object Injection Sink  security/detect-object-injection
+   60:16  warning  Generic Object Injection Sink  security/detect-object-injection
+   64:15  warning  Generic Object Injection Sink  security/detect-object-injection
+  153:24  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/book/elements/media-demos.tsx
+   32:34  warning  Generic Object Injection Sink               security/detect-object-injection
+   32:58  warning  Generic Object Injection Sink               security/detect-object-injection
+   64:28  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+   69:20  warning  Generic Object Injection Sink               security/detect-object-injection
+   75:25  warning  Generic Object Injection Sink               security/detect-object-injection
+  220:28  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  221:29  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  232:25  warning  Generic Object Injection Sink               security/detect-object-injection
+
+/app/src/components/book/elements/navigation.tsx
+  48:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  49:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/book/elements/prompt.tsx
+   36:26  warning  Generic Object Injection Sink        security/detect-object-injection
+  101:22  warning  Generic Object Injection Sink        security/detect-object-injection
+  112:52  warning  Function Call Object Injection Sink  security/detect-object-injection
+  117:12  warning  Generic Object Injection Sink        security/detect-object-injection
+
+/app/src/components/book/elements/security.tsx
+  50:20  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/book/elements/token-prediction.tsx
+   34:35  warning  Generic Object Injection Sink               security/detect-object-injection
+   42:24  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  189:5   warning  Potential timing attack, left side: true    security/detect-possible-timing-attacks
+
+/app/src/components/book/elements/ui.tsx
+   69:17  warning  Variable Assigned to Object Injection Sink        security/detect-object-injection
+  183:17  warning  Unsafe Regular Expression                         security/detect-unsafe-regex
+  204:21  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/components/chat/chat-card.tsx
+  5:25  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/comments/comment-item.tsx
+  106:12  warning  '_replies' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/comments/comment-section.tsx
+  51:6  warning  React Hook useEffect has a missing dependency: 'fetchComments'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/app/src/components/developers/embed-designer.tsx
+   20:10  warning  'Copy' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  112:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/developers/embed-designer.tsx:112:9
+  110 |       try {
+  111 |         const parsed = JSON.parse(saved);
+> 112 |         setConfig({ ...defaultConfig, ...parsed });
+      |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  113 |         if (!MODELS.find(m => m.value === parsed.model)) {
+  114 |           setCustomModel(parsed.model);
+  115 |         }  react-hooks/set-state-in-effect
+
+/app/src/components/developers/prompt-tokenizer.tsx
+  137:19  warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           security/detect-object-injection
+  139:45  warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           security/detect-object-injection
+  147:24  warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           security/detect-object-injection
+  155:43  warning  Function Call Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           security/detect-object-injection
+  214:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/developers/prompt-tokenizer.tsx:214:5
+  212 |   // Load history and settings on mount
+  213 |   useEffect(() => {
+> 214 |     setHistory(loadHistory());
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  215 |     const settings = loadSettings();
+  216 |     setContextWindow(settings.contextWindow);
+  217 |     setInputPrice(settings.inputPrice);  react-hooks/set-state-in-effect
+
+/app/src/components/home/cta-section.tsx
+  6:11  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/app/src/components/home/hero-section.tsx
+   7:10  warning  'ExtensionLink' is defined but never used  @typescript-eslint/no-unused-vars
+   9:10  warning  'AppStoreIcon' is defined but never used   @typescript-eslint/no-unused-vars
+   9:24  warning  'RaycastIcon' is defined but never used    @typescript-eslint/no-unused-vars
+  13:11  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  14:12  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  15:29  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+/app/src/components/home/sponsors-section.tsx
+  1:8   warning  'Image' is defined but never used              @typescript-eslint/no-unused-vars
+  2:10  warning  'HeartHandshake' is defined but never used     @typescript-eslint/no-unused-vars
+  3:23  warning  'BecomeSponsorLink' is defined but never used  @typescript-eslint/no-unused-vars
+  3:42  warning  'BuiltWithLink' is defined but never used      @typescript-eslint/no-unused-vars
+  6:10  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+/app/src/components/ide/api-details-popup.tsx
+  29:28  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/ide/examples/audio.ts
+  64:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/app/src/components/ide/examples/chat.ts
+  24:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/app/src/components/ide/examples/default.ts
+  18:7  warning  'translatePrompt' is assigned a value but never used            @typescript-eslint/no-unused-vars
+  20:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/app/src/components/ide/examples/image.ts
+  80:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/app/src/components/ide/examples/video.ts
+  72:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/app/src/components/ide/prompt-ide.tsx
+   68:10  warning  'isRunning' is assigned a value but never used                                                                                           @typescript-eslint/no-unused-vars
+  126:29  warning  Variable Assigned to Object Injection Sink                                                                                               security/detect-object-injection
+  317:6   warning  React Hook useCallback has missing dependencies: 'formatOutput' and 'session?.user'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  376:6   warning  React Hook useEffect has a missing dependency: 'runCode'. Either include it or remove the dependency array                               react-hooks/exhaustive-deps
+  411:13  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  411:39  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  412:23  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  422:13  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  604:24  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  817:42  warning  'monaco' is defined but never used                                                                                                       @typescript-eslint/no-unused-vars
+  832:27  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  832:53  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  833:37  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+  843:27  warning  Generic Object Injection Sink                                                                                                            security/detect-object-injection
+
+/app/src/components/kids/elements/character-guide.tsx
+  38:9   warning  Function Call Object Injection Sink  security/detect-object-injection
+  49:14  warning  Generic Object Injection Sink        security/detect-object-injection
+
+/app/src/components/kids/elements/drag-drop-prompt.tsx
+   53:9   warning  'itemRefs' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   62:10  warning  Generic Object Injection Sink                  security/detect-object-injection
+   62:22  warning  Generic Object Injection Sink                  security/detect-object-injection
+   62:37  warning  Generic Object Injection Sink                  security/detect-object-injection
+   62:49  warning  Generic Object Injection Sink                  security/detect-object-injection
+  187:72  warning  Generic Object Injection Sink                  security/detect-object-injection
+  194:30  warning  Generic Object Injection Sink                  security/detect-object-injection
+  194:53  warning  Generic Object Injection Sink                  security/detect-object-injection
+  202:6   warning  Generic Object Injection Sink                  security/detect-object-injection
+  202:77  warning  Generic Object Injection Sink                  security/detect-object-injection
+  251:62  warning  Generic Object Injection Sink                  security/detect-object-injection
+  252:60  warning  Generic Object Injection Sink                  security/detect-object-injection
+  303:51  warning  Generic Object Injection Sink                  security/detect-object-injection
+  354:36  warning  Generic Object Injection Sink                  security/detect-object-injection
+
+/app/src/components/kids/elements/example-matcher.tsx
+  58:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/example-matcher.tsx:58:7
+  56 |   useEffect(() => {
+  57 |     if (!levelSlug) {
+> 58 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  59 |       return;
+  60 |     }
+  61 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+
+/app/src/components/kids/elements/level-complete.tsx
+  34:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/level-complete.tsx:34:7
+  32 |     if (stars > existingStars) {
+  33 |       completeLevel(levelSlug, stars);
+> 34 |       setShowConfetti(true);
+     |       ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |
+  36 |       // Track level completion
+  37 |       const level = getLevelBySlug(levelSlug);  react-hooks/set-state-in-effect
+
+/app/src/components/kids/elements/level-slides.tsx
+  23:41  warning  'levelSlug' is defined but never used  @typescript-eslint/no-unused-vars
+  65:14  warning  Generic Object Injection Sink          security/detect-object-injection
+
+/app/src/components/kids/elements/magic-words.tsx
+   68:10  warning  Generic Object Injection Sink               security/detect-object-injection
+   68:20  warning  Generic Object Injection Sink               security/detect-object-injection
+   68:33  warning  Generic Object Injection Sink               security/detect-object-injection
+   68:43  warning  Generic Object Injection Sink               security/detect-object-injection
+  131:13  warning  Generic Object Injection Sink               security/detect-object-injection
+  132:18  warning  Generic Object Injection Sink               security/detect-object-injection
+  135:7   warning  Generic Object Injection Sink               security/detect-object-injection
+  150:13  warning  Generic Object Injection Sink               security/detect-object-injection
+  151:18  warning  Generic Object Injection Sink               security/detect-object-injection
+  163:12  warning  Generic Object Injection Sink               security/detect-object-injection
+  191:23  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  195:28  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/kids/elements/pixel-art.tsx
+  223:22  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  224:19  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/kids/elements/progress-map.tsx
+   11:10  warning  'Button' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   19:3   warning  'PixelRobot' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   36:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/progress-map.tsx:36:5
+  34 |
+  35 |   useEffect(() => {
+> 36 |     setProgress(getProgress());
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  37 |     analyticsKids.viewMap();
+  38 |   }, []);
+  39 |                                                                                               react-hooks/set-state-in-effect
+  152:25  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              security/detect-object-injection
+  176:25  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           security/detect-object-injection
+  221:10  warning  'generatePathD' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  228:18  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              security/detect-object-injection
+  246:18  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              security/detect-object-injection
+  486:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/progress-map.tsx:486:5
+  484 |
+  485 |   useEffect(() => {
+> 486 |     setUnlocked(isLevelUnlocked(level.slug));
+      |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  487 |   }, [level.slug, progress]);
+  488 |
+  489 |   const state = !unlocked ? "locked" : isCompleted ? "completed" : "available";  react-hooks/set-state-in-effect
+
+/app/src/components/kids/elements/prompt-doctor.tsx
+   54:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/prompt-doctor.tsx:54:7
+  52 |   useEffect(() => {
+  53 |     if (!levelSlug) {
+> 54 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  55 |       return;
+  56 |     }
+  57 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+  101:9   warning  'currentPrompt' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  164:11  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react/no-unescaped-entities
+  164:32  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react/no-unescaped-entities
+
+/app/src/components/kids/elements/prompt-lab.tsx
+   56:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/prompt-lab.tsx:56:7
+  54 |   useEffect(() => {
+  55 |     if (!levelSlug) {
+> 56 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  57 |       return;
+  58 |     }
+  59 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+  104:12  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   security/detect-object-injection
+  112:12  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   security/detect-object-injection
+  143:11  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  143:32  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  163:50  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+  163:73  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react/no-unescaped-entities
+
+/app/src/components/kids/elements/prompt-parts.tsx
+   57:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/prompt-parts.tsx:57:7
+  55 |   useEffect(() => {
+  56 |     if (!levelSlug) {
+> 57 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  58 |       return;
+  59 |     }
+  60 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+   81:51  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   81:90  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+   82:53  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  114:22  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        security/detect-object-injection
+  116:25  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  119:47  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  140:30  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        security/detect-object-injection
+  141:39  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     security/detect-object-injection
+  173:30  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        security/detect-object-injection
+
+/app/src/components/kids/elements/prompt-vs-mistake.tsx
+   51:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/prompt-vs-mistake.tsx:51:7
+  49 |
+  50 |     if (!levelSlug) {
+> 51 |       setOrder(randomOrder);
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  52 |       setIsLoaded(true);
+  53 |       return;
+  54 |     }  react-hooks/set-state-in-effect
+  190:23  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          react/no-unescaped-entities
+  190:30  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          react/no-unescaped-entities
+  291:10  warning  'PixelThinkingIcon' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+/app/src/components/kids/elements/step-by-step.tsx
+   54:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/step-by-step.tsx:54:7
+  52 |   useEffect(() => {
+  53 |     if (!levelSlug) {
+> 54 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  55 |       return;
+  56 |     }
+  57 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+  138:60  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  138:73  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  150:47  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  150:60  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+
+/app/src/components/kids/elements/story-scene.tsx
+  23:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/kids/elements/word-predictor.tsx
+  55:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/elements/word-predictor.tsx:55:7
+  53 |   useEffect(() => {
+  54 |     if (!levelSlug) {
+> 55 |       setIsLoaded(true);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |       return;
+  57 |     }
+  58 |     const saved = getComponentState<SavedState>(levelSlug, componentId);  react-hooks/set-state-in-effect
+
+/app/src/components/kids/layout/background-music.tsx
+   64:7  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/layout/background-music.tsx:64:7
+  62 |
+  63 |     if (savedVolume) {
+> 64 |       setVolume(parseFloat(savedVolume));
+     |       ^^^^^^^^^ Avoid calling setState() directly within an effect
+  65 |     }
+  66 |
+  67 |     // Default to enabled if not set  react-hooks/set-state-in-effect
+   88:6  warning  React Hook useEffect has a missing dependency: 'volume'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  148:9  warning  'setIsPlaying' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+
+/app/src/components/kids/layout/kids-header.tsx
+   27:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/layout/kids-header.tsx:27:5
+  25 |
+  26 |   useEffect(() => {
+> 27 |     setStars(getTotalStars());
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  28 |     setCompleted(getCompletedLevelsCount());
+  29 |   }, []);
+  30 |  react-hooks/set-state-in-effect
+   48:9   error  Do not use an `<a>` element to navigate to `/kids/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @next/next/no-html-link-for-pages
+   81:13  error  Do not use an `<a>` element to navigate to `/kids/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @next/next/no-html-link-for-pages
+   94:13  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-html-link-for-pages
+   94:13  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-html-link-for-pages
+  126:19  error  Do not use an `<a>` element to navigate to `/kids/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @next/next/no-html-link-for-pages
+  142:19  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-html-link-for-pages
+  142:19  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-html-link-for-pages
+
+/app/src/components/kids/layout/level-content-wrapper.tsx
+   19:60  warning  'levelNumber' is defined but never used                                                                                                                                                      @typescript-eslint/no-unused-vars
+   25:5   warning  'completedSections' is assigned a value but never used                                                                                                                                       @typescript-eslint/no-unused-vars
+   27:5   warning  'isSectionComplete' is assigned a value but never used                                                                                                                                       @typescript-eslint/no-unused-vars
+   38:7   warning  Generic Object Injection Sink                                                                                                                                                                security/detect-object-injection
+  110:73  warning  Generic Object Injection Sink                                                                                                                                                                security/detect-object-injection
+  113:61  error    React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?   react-hooks/rules-of-hooks
+  116:3   error    React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+  150:9   warning  'handleMarkComplete' is assigned a value but never used                                                                                                                                      @typescript-eslint/no-unused-vars
+  157:3   error    React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+  161:6   warning  React Hook useEffect has a missing dependency: 'setCurrentSection'. Either include it or remove the dependency array                                                                         react-hooks/exhaustive-deps
+  172:14  warning  Generic Object Injection Sink                                                                                                                                                                security/detect-object-injection
+
+/app/src/components/kids/providers/level-context.tsx
+  49:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/providers/level-context.tsx:49:7
+  47 |   useEffect(() => {
+  48 |     if (initialSlug) {
+> 49 |       setLevelSlug(initialSlug);
+     |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |     }
+  51 |   }, [initialSlug]);
+  52 |                                                                                               react-hooks/set-state-in-effect
+  55:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/kids/providers/level-context.tsx:55:5
+  53 |   // Reset section progress when level changes
+  54 |   useEffect(() => {
+> 55 |     setCurrentSection(0);
+     |     ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |     setCompletedSections(new Set());
+  57 |     setSectionsWithRequirements(new Set());
+  58 |   }, [levelSlug]);  react-hooks/set-state-in-effect
+
+/app/src/components/layout/analytics.tsx
+  12:10  warning  'hasConsent' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  15:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/layout/analytics.tsx:15:5
+  13 |
+  14 |   useEffect(() => {
+> 15 |     setHasConsent(getCookieConsent() === "accepted");
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  16 |   }, []);
+  17 |
+  18 |   return (  react-hooks/set-state-in-effect
+
+/app/src/components/layout/app-banner.tsx
+  53:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/layout/app-banner.tsx:53:5
+  51 |     const dismissed = localStorage.getItem(STORAGE_KEY);
+  52 |     const isAppleUser = isAppleDevice();
+> 53 |     setIsApple(isAppleUser);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |     if (isAppleUser && !dismissed) {
+  56 |       setIsVisible(true);  react-hooks/set-state-in-effect
+
+/app/src/components/layout/context-panel.tsx
+  4:10  warning  'Pin' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/layout/cookie-consent.tsx
+  23:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/layout/cookie-consent.tsx:23:5
+  21 |
+  22 |   useEffect(() => {
+> 23 |     setConsent(getCookieConsent());
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |   }, []);
+  25 |
+  26 |   const handleAccept = () => {  react-hooks/set-state-in-effect
+
+/app/src/components/layout/header.tsx
+  110:9  warning  'isOAuth' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/layout/omni-bar.tsx
+  4:10  warning  'cn' is defined but never used                       @typescript-eslint/no-unused-vars
+  5:10  warning  'Command' is defined but never used                  @typescript-eslint/no-unused-vars
+  9:23  warning  'setActiveAgent' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/layout/sidebar.tsx
+  5:40  warning  'Cpu' is defined but never used       @typescript-eslint/no-unused-vars
+  5:55  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/mcp/mcp-config-tabs.tsx
+  235:14  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/mcp/mcp-server-popup.tsx
+  24:7  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  29:7  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/prompts/hero-categories.tsx
+   92:6   warning  Generic Object Injection Sink  security/detect-object-injection
+   92:19  warning  Generic Object Injection Sink  security/detect-object-injection
+   92:35  warning  Generic Object Injection Sink  security/detect-object-injection
+   92:48  warning  Generic Object Injection Sink  security/detect-object-injection
+  139:13  warning  Generic Object Injection Sink  security/detect-object-injection
+  142:13  warning  Generic Object Injection Sink  security/detect-object-injection
+  160:22  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/hero-prompt-input.tsx
+  51:27  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/infinite-prompt-list.tsx
+  56:9  warning  '_searchParams' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/prompts/interactive-prompt-content.tsx
+   44:17  warning  Unsafe Regular Expression      security/detect-unsafe-regex
+  191:11  warning  Generic Object Injection Sink  security/detect-object-injection
+  453:26  warning  Generic Object Injection Sink  security/detect-object-injection
+  477:19  warning  Unsafe Regular Expression      security/detect-unsafe-regex
+  488:28  warning  Generic Object Injection Sink  security/detect-object-injection
+  563:24  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/media-generator.tsx
+   26:15  warning  'WebSocketHandler' is defined but never used                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   76:25  warning  Unsafe Regular Expression                                                                                                                                                                                                                                                                security/detect-unsafe-regex
+  437:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/prompts/prompt-builder.tsx
+    5:41  warning  'ChevronRight' is defined but never used                                                                                                     @typescript-eslint/no-unused-vars
+  123:6   warning  React Hook useEffect has missing dependencies: 'isLoading' and 'sendMessageWithContent'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+/app/src/components/prompts/prompt-card.tsx
+    5:8   warning  'Image' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+    7:10  warning  'formatDistanceToNow' is defined but never used                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   84:9   warning  'locale' is assigned a value but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   97:10  warning  'isVisible' is assigned a value but never used                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  193:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/prompts/prompt-connections.tsx
+  178:27  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  182:28  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                               security/detect-object-injection
+  184:26  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  185:9   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  185:33  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  186:9   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  187:13  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  196:7   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  196:28  warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  197:7   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  218:9   warning  Generic Object Injection Sink                                                                                                                                                                                                                                                            security/detect-object-injection
+  404:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/prompts/prompt-form.tsx
+    9:41  warning  'Play' is defined but never used                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   24:3   warning  'parseSkillFiles' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   25:3   warning  'serializeSkillFiles' is defined but never used                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   26:3   warning  'getLanguageFromFilename' is defined but never used                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   27:3   warning  'validateFilename' is defined but never used                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   28:3   warning  'suggestFilename' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   32:3   warning  'DEFAULT_SKILL_FILE' is defined but never used                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+   33:3   warning  'DEFAULT_SKILL_CONTENT' is defined but never used                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   34:8   warning  'SkillFile' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   39:3   warning  'FormDescription' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   64:47  warning  'PromptMCPConfig' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  189:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  268:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/app/src/components/prompts/related-prompts.tsx
+  3:10  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/prompts/skill-diff-viewer.tsx
+   3:42  warning  'useEffect' is defined but never used       @typescript-eslint/no-unused-vars
+  75:20  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/skill-editor.tsx
+   64:20  warning  Variable Assigned to Object Injection Sink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         security/detect-object-injection
+  380:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/app/src/components/prompts/skill-editor.tsx:380:5
+  378 |     const parsed = parseSkillFiles(value);
+  379 |
+> 380 |     setFiles(parsed);
+      |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  381 |     prevValueRef.current = value;
+  382 |
+  383 |     // Ensure active file exists  react-hooks/set-state-in-effect
+
+/app/src/components/prompts/skill-import-dialog.tsx
+  5:34  warning  'X' is defined but never used       @typescript-eslint/no-unused-vars
+  5:37  warning  'Upload' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/prompts/skill-viewer.tsx
+  54:20  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/structured-format-warning.tsx
+  5:10  warning  'AlertTriangle' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/prompts/translate-button.tsx
+  55:30  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/prompts/variable-fill-modal.tsx
+   37:17  warning  Unsafe Regular Expression      security/detect-unsafe-regex
+   82:7   warning  Generic Object Injection Sink  security/detect-object-injection
+  131:24  warning  Generic Object Injection Sink  security/detect-object-injection
+  156:10  warning  Unsafe Regular Expression      security/detect-unsafe-regex
+  163:17  warning  Unsafe Regular Expression      security/detect-unsafe-regex
+
+/app/src/components/prompts/variable-hint.tsx
+  13:29  warning  Unsafe Regular Expression                         security/detect-unsafe-regex
+  42:5   warning  'v' is defined but never used                     @typescript-eslint/no-unused-vars
+  53:23  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+  68:23  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+  85:5   warning  'v' is defined but never used                     @typescript-eslint/no-unused-vars
+
+/app/src/components/prompts/widget-card.tsx
+  21:10  warning  'copied' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/providers/theme-styles.tsx
+  13:29  warning  '_props' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/seo/structured-data.tsx
+  195:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/components/settings/profile-form.tsx
+  124:5   warning  Generic Object Injection Sink  security/detect-object-injection
+  124:27  warning  Generic Object Injection Sink  security/detect-object-injection
+  132:6   warning  Generic Object Injection Sink  security/detect-object-injection
+  132:22  warning  Generic Object Injection Sink  security/detect-object-injection
+  132:44  warning  Generic Object Injection Sink  security/detect-object-injection
+  132:63  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/skills/api-config-form.tsx
+   63:22  warning  Generic Object Injection Sink  security/detect-object-injection
+   70:22  warning  Generic Object Injection Sink  security/detect-object-injection
+  208:21  warning  Generic Object Injection Sink  security/detect-object-injection
+  218:21  warning  Generic Object Injection Sink  security/detect-object-injection
+  263:21  warning  Generic Object Injection Sink  security/detect-object-injection
+  273:21  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/skills/api-config-manager.tsx
+    4:10  warning  'useTranslations' is defined but never used  @typescript-eslint/no-unused-vars
+  126:12  warning  Generic Object Injection Sink                security/detect-object-injection
+
+/app/src/components/skills/api-tester.tsx
+  31:9   warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  46:18  warning  'e' is defined but never used           @typescript-eslint/no-unused-vars
+
+/app/src/components/ui/button.tsx
+  132:10  warning  'isHovered' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/ui/code-view.tsx
+  169:14  warning  Unsafe Regular Expression  security/detect-unsafe-regex
+
+/app/src/components/ui/diff-view.tsx
+   53:9   warning  Generic Object Injection Sink               security/detect-object-injection
+   53:9   warning  Generic Object Injection Sink               security/detect-object-injection
+   55:9   warning  Generic Object Injection Sink               security/detect-object-injection
+   55:9   warning  Generic Object Injection Sink               security/detect-object-injection
+   55:29  warning  Function Call Object Injection Sink         security/detect-object-injection
+   55:43  warning  Generic Object Injection Sink               security/detect-object-injection
+   70:37  warning  Generic Object Injection Sink               security/detect-object-injection
+   70:53  warning  Generic Object Injection Sink               security/detect-object-injection
+   81:18  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+   93:59  warning  'mode' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  151:38  warning  'language' is defined but never used        @typescript-eslint/no-unused-vars
+
+/app/src/components/ui/json-tree-view.tsx
+  115:58  warning  'isLast' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/components/ui/masonry.tsx
+  82:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  88:7   warning  Generic Object Injection Sink               security/detect-object-injection
+
+/app/src/components/ui/status-feed.tsx
+  25:46  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/components/user/activity-chart.tsx
+  94:23  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/i18n/request.ts
+  53:7  warning  'detectedFromBrowser' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/app/src/lib/ai/embeddings.ts
+  138:20  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  167:19  warning  Generic Object Injection Sink               security/detect-object-injection
+  167:26  warning  Generic Object Injection Sink               security/detect-object-injection
+  168:14  warning  Generic Object Injection Sink               security/detect-object-injection
+  168:21  warning  Generic Object Injection Sink               security/detect-object-injection
+  169:14  warning  Generic Object Injection Sink               security/detect-object-injection
+  169:21  warning  Generic Object Injection Sink               security/detect-object-injection
+  290:47  warning  '_count' is defined but never used          @typescript-eslint/no-unused-vars
+  290:55  warning  'embedding' is defined but never used       @typescript-eslint/no-unused-vars
+
+/app/src/lib/ai/improve-prompt.ts
+  50:19  warning  Generic Object Injection Sink  security/detect-object-injection
+  50:26  warning  Generic Object Injection Sink  security/detect-object-injection
+  51:14  warning  Generic Object Injection Sink  security/detect-object-injection
+  51:21  warning  Generic Object Injection Sink  security/detect-object-injection
+  52:14  warning  Generic Object Injection Sink  security/detect-object-injection
+  52:21  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/lib/ai/load-prompt.ts
+  37:19  warning  Found readFileSync from package "fs" with non literal argument at index 0  security/detect-non-literal-fs-filename
+  68:29  warning  Found non-literal argument to RegExp Constructor                           security/detect-non-literal-regexp
+
+/app/src/lib/ai/prompt-builder-tools.ts
+  414:16  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/lib/auth/index.ts
+  6:15  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/lib/config/index.ts
+  104:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+  110:17  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/lib/date.ts
+  14:10  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/lib/i18n/client.ts
+  22:39  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/lib/kids/progress.ts
+   48:25  warning  Generic Object Injection Sink               security/detect-object-injection
+   54:3   warning  Generic Object Injection Sink               security/detect-object-injection
+   88:10  warning  Generic Object Injection Sink               security/detect-object-injection
+  121:13  warning  Generic Object Injection Sink               security/detect-object-injection
+  121:13  warning  Generic Object Injection Sink               security/detect-object-injection
+  134:10  warning  Generic Object Injection Sink               security/detect-object-injection
+  135:7   warning  Generic Object Injection Sink               security/detect-object-injection
+  137:5   warning  Generic Object Injection Sink               security/detect-object-injection
+  137:5   warning  Generic Object Injection Sink               security/detect-object-injection
+  153:12  warning  Generic Object Injection Sink               security/detect-object-injection
+  187:12  warning  Generic Object Injection Sink               security/detect-object-injection
+  187:12  warning  Generic Object Injection Sink               security/detect-object-injection
+  200:10  warning  Generic Object Injection Sink               security/detect-object-injection
+  201:7   warning  Generic Object Injection Sink               security/detect-object-injection
+  203:5   warning  Generic Object Injection Sink               security/detect-object-injection
+  203:5   warning  Generic Object Injection Sink               security/detect-object-injection
+  219:12  warning  Generic Object Injection Sink               security/detect-object-injection
+  235:24  warning  Variable Assigned to Object Injection Sink  security/detect-object-injection
+
+/app/src/lib/plugins/media-generators/fal.ts
+  184:19  warning  '_event' is defined but never used      @typescript-eslint/no-unused-vars
+  184:41  warning  '_callbacks' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/lib/plugins/storage/url.ts
+  15:16  warning  'file' is defined but never used  @typescript-eslint/no-unused-vars
+
+/app/src/lib/skill-files.ts
+   73:22  warning  Variable Assigned to Object Injection Sink        security/detect-object-injection
+  193:10  warning  Generic Object Injection Sink                     security/detect-object-injection
+  293:29  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+  379:24  warning  Generic Object Injection Sink                     security/detect-object-injection
+  395:3   warning  Generic Object Injection Sink                     security/detect-object-injection
+  395:32  warning  Generic Object Injection Sink                     security/detect-object-injection
+
+/app/src/lib/utils.ts
+  27:30  warning  Generic Object Injection Sink  security/detect-object-injection
+
+/app/src/lib/variable-detection.ts
+   53:12  warning  Unsafe Regular Expression                         security/detect-unsafe-regex
+   59:12  warning  Unsafe Regular Expression                         security/detect-unsafe-regex
+  110:9   warning  Generic Object Injection Sink                     security/detect-object-injection
+  141:19  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/lib/webhook.ts
+  179:22  warning  'c' is assigned a value but never used            @typescript-eslint/no-unused-vars
+  256:29  warning  Found non-literal argument to RegExp Constructor  security/detect-non-literal-regexp
+
+/app/src/pages/api/mcp.ts
+   14:68  warning  'DEFAULT_SKILL_CONTENT' is defined but never used  @typescript-eslint/no-unused-vars
+   66:17  warning  Unsafe Regular Expression                          security/detect-unsafe-regex
+  238:9   warning  Found non-literal argument to RegExp Constructor   security/detect-non-literal-regexp
+  450:19  warning  Found non-literal argument to RegExp Constructor   security/detect-non-literal-regexp
+  989:9   warning  Generic Object Injection Sink                      security/detect-object-injection
+
+✖ 566 problems (85 errors, 481 warnings)
+
+ ELIFECYCLE  Command failed with exit code 1.

@@ -1,4 +1,4 @@
-## 2025-02-14 - Fix insecure random number generation for file identifiers
-**Vulnerability:** Weak random number generation (`Math.random()`) was being used to generate random IDs for file names during uploads and in storage plugins. This can lead to predictable file names and potential collisions or unauthorized access if file keys are meant to be unguessable.
-**Learning:** Even for non-critical identifiers like file names, it is important to use cryptographically secure random number generators to ensure uniqueness and prevent predictability, especially in multi-tenant environments or when file URLs are public. `Math.random()` should be avoided for any security-sensitive or globally unique identifier generation.
-**Prevention:** Use Node's built-in `crypto` module (e.g., `crypto.randomUUID()`) to generate secure random identifiers instead of `Math.random()`.
+## 2026-04-16 - [XSS via JSON-LD Structured Data]
+**Vulnerability:** JSON-LD structured data serialized with `JSON.stringify` directly into `<script>` tags can be exploited for XSS if user-controlled input contains unescaped `<` characters.
+**Learning:** `JSON.stringify` alone does not escape HTML characters. Malicious user input (e.g. in prompt descriptions) could cause early script termination (e.g. `</script><script>alert(1)</script>`).
+**Prevention:** Use the `safeJsonLd` utility function which serializes the data and escapes `<` characters as `\u003c` to safely prevent script tag termination.

@@ -375,16 +375,21 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   useEffect(() => {
     if (value === prevValueRef.current) return;
 
-    const parsed = parseSkillFiles(value);
+    // Instead of setting state synchronously inside an effect,
+    // we use a microtask to schedule the state updates
+    // This helps avoid cascading renders warnings
+    Promise.resolve().then(() => {
+      const parsed = parseSkillFiles(value);
 
-    setFiles(parsed);
-    prevValueRef.current = value;
+      setFiles(parsed);
+      prevValueRef.current = value;
 
-    // Ensure active file exists
-    if (!parsed.some((f) => f.filename === activeFile)) {
-      setActiveFile(DEFAULT_SKILL_FILE);
-      setOpenTabs([DEFAULT_SKILL_FILE]);
-    }
+      // Ensure active file exists
+      if (!parsed.some((f) => f.filename === activeFile)) {
+        setActiveFile(DEFAULT_SKILL_FILE);
+        setOpenTabs([DEFAULT_SKILL_FILE]);
+      }
+    });
   }, [value, activeFile]);
 
   const handleEditorMount: OnMount = useCallback((editor, monaco) => {

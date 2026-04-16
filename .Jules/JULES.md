@@ -1,2 +1,0 @@
-# JULES Standard
-JULES initialized.

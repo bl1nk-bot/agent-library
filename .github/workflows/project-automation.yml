@@ -10,7 +10,6 @@ jobs:
   add-to-project:
     name: Add to Project
     runs-on: ubuntu-latest
-    if: vars.PROJECT_URL != ''
     steps:
       - uses: actions/add-to-project@v1.0.2
         with:

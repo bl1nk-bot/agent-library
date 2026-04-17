@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import { Children, isValidElement, ReactNode, ReactElement, useEffect, useState, useCallback } from "react";

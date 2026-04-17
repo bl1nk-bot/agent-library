@@ -3,7 +3,7 @@
  */
 export function toYaml(obj: unknown, indent = 0): string {
   const spaces = '  '.repeat(indent);
-  
+
   if (obj === null || obj === undefined) return 'null';
   if (typeof obj === 'string') {
     if (obj.includes('\n')) {
@@ -12,7 +12,7 @@ export function toYaml(obj: unknown, indent = 0): string {
     return obj.includes(':') || obj.includes('#') ? `"${obj.replace(/"/g, '\\"')}"` : obj;
   }
   if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
-  
+
   if (Array.isArray(obj)) {
     if (obj.length === 0) return '[]';
     return obj.map(item => {
@@ -24,7 +24,7 @@ export function toYaml(obj: unknown, indent = 0): string {
       return `${spaces}- ${toYaml(item, indent)}`;
     }).join('\n');
   }
-  
+
   if (typeof obj === 'object') {
     const entries = Object.entries(obj).filter(([, v]) => v !== undefined);
     if (entries.length === 0) return '{}';
@@ -38,6 +38,6 @@ export function toYaml(obj: unknown, indent = 0): string {
       return `${spaces}${key}: ${toYaml(value, indent)}`;
     }).join('\n');
   }
-  
+
   return String(obj);
 }

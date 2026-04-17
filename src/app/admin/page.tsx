@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";

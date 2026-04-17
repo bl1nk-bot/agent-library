@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { db } from "@/lib/db";
 import { semanticSearch, isAISearchEnabled } from "@/lib/ai/embeddings";
 

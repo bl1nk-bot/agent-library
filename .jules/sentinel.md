@@ -1,4 +1,0 @@
-## 2025-02-14 - Fix insecure random number generation for file identifiers
-**Vulnerability:** Weak random number generation (`Math.random()`) was being used to generate random IDs for file names during uploads and in storage plugins. This can lead to predictable file names and potential collisions or unauthorized access if file keys are meant to be unguessable.
-**Learning:** Even for non-critical identifiers like file names, it is important to use cryptographically secure random number generators to ensure uniqueness and prevent predictability, especially in multi-tenant environments or when file URLs are public. `Math.random()` should be avoided for any security-sensitive or globally unique identifier generation.
-**Prevention:** Use Node's built-in `crypto` module (e.g., `crypto.randomUUID()`) to generate secure random identifiers instead of `Math.random()`.

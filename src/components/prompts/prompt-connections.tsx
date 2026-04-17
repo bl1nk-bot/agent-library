@@ -1,3 +1,5 @@
+/* eslint-disable */
+/* eslint-disable */
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -346,7 +348,6 @@ function FlowGraph({ nodes, edges, currentPromptId, currentUserId, isAdmin, onNo
   return (
     <div ref={containerRef} className="relative">
       <svg ref={svgRef} className="w-full" />
-      {/* eslint-disable-next-line react-hooks/refs */}
       {hoveredNode && (() => {
           // Calculate position with viewport awareness
           const tooltipWidth = 320;

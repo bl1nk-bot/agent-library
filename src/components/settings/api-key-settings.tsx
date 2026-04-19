@@ -7,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -139,20 +145,42 @@ export function ApiKeySettings({
                 <code className="flex-1 bg-muted px-3 py-2 rounded-md text-sm font-mono overflow-hidden text-ellipsis">
                   {showKey ? apiKey : maskedKey}
                 </code>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setShowKey(!showKey)}
-                >
-                  {showKey ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </Button>
-                <Button variant="outline" size="icon" onClick={copyToClipboard}>
-                  <Copy className="h-4 w-4" />
-                </Button>
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setShowKey(!showKey)}
+                        aria-label={showKey ? t("hideApiKey") : t("showApiKey")}
+                      >
+                        {showKey ? (
+                          <EyeOff className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Eye className="h-4 w-4" aria-hidden="true" />
+                        )}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{showKey ? t("hideApiKey") : t("showApiKey")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={copyToClipboard}
+                        aria-label={t("copyApiKey")}
+                      >
+                        <Copy className="h-4 w-4" aria-hidden="true" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t("copyApiKey")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               <p className="text-xs text-muted-foreground">{t("keyWarning")}</p>
             </div>

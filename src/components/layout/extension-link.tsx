@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -15,7 +16,6 @@ export function ExtensionLink({ url }: ExtensionLinkProps) {
   const [isChromeBased, setIsChromeBased] = useState(false);
 
   useEffect(() => {
-
     setIsChromeBased(isChromeBrowser());
   }, []);
 

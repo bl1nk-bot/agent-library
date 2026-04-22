@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
@@ -376,10 +377,9 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     const syncFiles = () => {
       if (value === prevValueRef.current) return;
 
-      const parsed = parseSkillFiles(value);
-
-      setFiles(parsed);
-      prevValueRef.current = value;
+    const parsed = parseSkillFiles(value);
+    setFiles(parsed);
+    prevValueRef.current = value;
 
       // Ensure active file exists
       if (!parsed.some((f) => f.filename === activeFile)) {

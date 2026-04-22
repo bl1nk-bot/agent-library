@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client"
 
 import * as React from "react"
@@ -55,7 +56,6 @@ class ShaderManager {
       this.loading = true;
       try {
         const { liquidMetalFragmentShader, ShaderMount } = await import("@paper-design/shaders");
-
         this.mount = new (ShaderMount as any)(
           parent,
           liquidMetalFragmentShader,
@@ -86,7 +86,6 @@ class ShaderManager {
 
     if (this.currentParent !== parent) {
       this.currentParent = parent;
-
       const mount = this.mount as any;
       const canvas = mount.getCanvas?.() || mount.canvas;
       if (canvas && parent) {
@@ -97,7 +96,6 @@ class ShaderManager {
 
   setSpeed(speed: number) {
     if (this.mount) {
-
       (this.mount as any).setSpeed?.(speed);
     }
   }

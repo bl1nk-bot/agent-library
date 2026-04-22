@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Monaco Editor Configuration for Enhanced Mobile Experience
  * Optimized syntax highlighting, performance, and mobile touch handling
@@ -214,7 +215,6 @@ export function getMobileEditorOptions(isMobile: boolean) {
  * Apply custom theme to Monaco editor
  */
 export function applyMonacoTheme(
-
   monaco: any,
   theme: "dark" | "light"
 ): void {

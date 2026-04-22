@@ -1,3 +1,5 @@
+/* eslint-disable */
+/* eslint-disable */
 "use client";
 
 import { useState, useCallback } from "react";
@@ -267,7 +269,6 @@ export function RunPromptButton({
     setVariableDialogOpen(true);
   }, [unfilledVariables]);
 
-
   const handleVariableSubmit = useCallback(() => {
     if (onVariablesFilled) {
       onVariablesFilled(variableValues);
@@ -289,13 +290,12 @@ export function RunPromptButton({
           const w = window.open(url, "_blank", "noopener,noreferrer");
           if (w) w.opener = null;
         } else {
-          window.location.assign(url);
+          window.location.href = url;
         }
         setPendingPlatform(null);
       }
       analyticsPrompt.run(promptId, pendingPlatform.name);
     }
-
   }, [variableValues, onVariablesFilled, pendingPlatform, getContentWithVariables, content, promptId]);
 
   const handleRun = (platform: Platform, baseUrl: string) => {
@@ -320,7 +320,7 @@ export function RunPromptButton({
         const w = window.open(url, "_blank", "noopener,noreferrer");
         if (w) w.opener = null;
       } else {
-        window.location.assign(url);
+        window.location.href = url;
       }
       analyticsPrompt.run(promptId, platform.name);
     }

@@ -1,0 +1,16 @@
+{
+  "integration": "kilocode",
+  "version": "0.7.5.dev0",
+  "installed_at": "2026-04-22T03:55:35.965626+00:00",
+  "files": {
+    ".kilocode/workflows/speckit.analyze.md": "699032fdd49afe31d23c7191f3fe7bcb1d14b081fbc94c2287e6ba3a57574fda",
+    ".kilocode/workflows/speckit.checklist.md": "d7d691689fe45427c868dcf18ade4df500f0c742a6c91923fefba405d6466dde",
+    ".kilocode/workflows/speckit.clarify.md": "0cc766dcc5cab233ccdf3bc4cfb5759a6d7d1e13e29f611083046f818f5812bb",
+    ".kilocode/workflows/speckit.constitution.md": "58d35eb026f56bb7364d91b8b0382d5dd1249ded6c1449a2b69546693afb85f7",
+    ".kilocode/workflows/speckit.implement.md": "83628415c86ba487b3a083c7a2c0f016c9073abd02c1c7f4a30cff949b6602c0",
+    ".kilocode/workflows/speckit.plan.md": "88c8ab3e242ada0935c22e9f0b8667c207e8b8cbabe357d0ca0b1c2b6d402f04",
+    ".kilocode/workflows/speckit.specify.md": "5bbb5270836cc9a3286ce3ed96a500f3d383a54abb06aa11b01a2d2f76dbf39b",
+    ".kilocode/workflows/speckit.tasks.md": "a58886f29f75e1a14840007772ddd954742aafb3e03d9d1231bee033e6c1626b",
+    ".kilocode/workflows/speckit.taskstoissues.md": "e84794f7a839126defb364ca815352c5c2b2d20db2d6da399fa53e4ddbb7b3ee"
+  }
+}

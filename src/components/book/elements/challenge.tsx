@@ -215,8 +215,9 @@ export function PromptChallenge({
         {isStarted && !result && (
           <>
             <div>
-              <label className="text-sm font-medium mb-1 block">Your Prompt:</label>
+              <label htmlFor="challenge-prompt-input" className="text-sm font-medium mb-1 block">Your Prompt:</label>
               <textarea
+                id="challenge-prompt-input"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Write your prompt here..."

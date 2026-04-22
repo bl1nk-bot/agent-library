@@ -450,9 +450,10 @@ export function EmbedDesigner() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1.5">
-                  <Label className="text-xs">Light Color</Label>
+                  <Label htmlFor="embed-light-color" className="text-xs">Light Color</Label>
                   <div className="flex gap-1">
                     <input
+                      id="embed-light-color"
                       type="color"
                       value={config.lightColor}
                       onChange={e => { updateConfig({ lightColor: e.target.value }); setPreviewKey(k => k + 1); }}
@@ -467,9 +468,10 @@ export function EmbedDesigner() {
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-xs">Dark Color</Label>
+                  <Label htmlFor="embed-dark-color" className="text-xs">Dark Color</Label>
                   <div className="flex gap-1">
                     <input
+                      id="embed-dark-color"
                       type="color"
                       value={config.darkColor}
                       onChange={e => { updateConfig({ darkColor: e.target.value }); setPreviewKey(k => k + 1); }}
@@ -487,10 +489,11 @@ export function EmbedDesigner() {
 
               <div className="space-y-1.5">
                 <div className="flex justify-between">
-                  <Label className="text-xs">Height</Label>
+                  <Label htmlFor="embed-height" className="text-xs">Height</Label>
                   <span className="text-xs text-muted-foreground">{config.height}px</span>
                 </div>
                 <input
+                  id="embed-height"
                   type="range"
                   value={config.height}
                   onChange={e => updateConfig({ height: parseInt(e.target.value) })}

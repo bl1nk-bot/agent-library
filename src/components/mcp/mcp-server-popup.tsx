@@ -204,12 +204,13 @@ export function McpServerPopup({
             </button>
             
             {filtersOpen && (
-              <div className="space-y-2 mt-2">
+                <div className="space-y-2 mt-2">
                 {/* Users */}
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium">{t("users")}</label>
+                  <label htmlFor="mcp-users-input" className="text-[11px] font-medium">{t("users")}</label>
                   <div className="flex gap-1">
                     <Input
+                      id="mcp-users-input"
                       value={userInput}
                       onChange={(e) => setUserInput(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && addUser()}
@@ -236,9 +237,10 @@ export function McpServerPopup({
 
                 {/* Categories */}
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium">{t("categories")}</label>
+                  <label htmlFor="mcp-categories-input" className="text-[11px] font-medium">{t("categories")}</label>
                   <div className="flex gap-1">
                     <Input
+                      id="mcp-categories-input"
                       value={categoryInput}
                       onChange={(e) => setCategoryInput(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && addCategory()}
@@ -265,9 +267,10 @@ export function McpServerPopup({
 
                 {/* Tags */}
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium">{t("tags")}</label>
+                  <label htmlFor="mcp-tags-input" className="text-[11px] font-medium">{t("tags")}</label>
                   <div className="flex gap-1">
                     <Input
+                      id="mcp-tags-input"
                       value={tagInput}
                       onChange={(e) => setTagInput(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && addTag()}

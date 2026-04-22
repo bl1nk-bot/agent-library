@@ -186,7 +186,7 @@ function MediaField({ form, t, promptType, promptContent }: MediaFieldProps) {
                     ) : isAudioType ? (
                       <audio src={mediaUrl} controls className="w-full max-w-md" />
                     ) : (
-                      <img src={mediaUrl} alt="Preview" className="max-h-40 rounded-md border" />
+                      <img src={mediaUrl} alt="Media preview" className="max-h-40 rounded-md border" />
                     )}
                     <Button
                       type="button"
@@ -267,7 +267,7 @@ function MediaField({ form, t, promptType, promptContent }: MediaFieldProps) {
                   ) : (
                     <img
                       src={mediaUrl}
-                      alt="Preview"
+                      alt="Media preview"
                       className="max-h-40 rounded-md border"
                     />
                   )}

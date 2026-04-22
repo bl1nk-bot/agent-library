@@ -93,8 +93,9 @@ export function ImprovePromptDemo() {
       <div className="space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="flex-1 space-y-2">
-            <label className="text-sm font-medium">Your Prompt</label>
+            <label htmlFor="improve-prompt-input" className="text-sm font-medium">Your Prompt</label>
             <Textarea
+              id="improve-prompt-input"
               placeholder="Enter a prompt to improve... e.g., 'write a blog post about AI'"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -106,9 +107,9 @@ export function ImprovePromptDemo() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Output Type</label>
+            <label htmlFor="improve-output-type" className="text-sm font-medium">Output Type</label>
             <Select value={outputType} onValueChange={(v) => setOutputType(v as OutputType)}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger id="improve-output-type" className="w-[140px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -122,9 +123,9 @@ export function ImprovePromptDemo() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Output Format</label>
+            <label htmlFor="improve-output-format" className="text-sm font-medium">Output Format</label>
             <Select value={outputFormat} onValueChange={(v) => setOutputFormat(v as OutputFormat)}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger id="improve-output-format" className="w-[140px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

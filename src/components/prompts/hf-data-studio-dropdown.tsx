@@ -133,6 +133,7 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
             {aiGenerationEnabled && showAiInput && (
               <div className="flex rounded-md focus-within:ring-1 focus-within:ring-ring focus-within:border-foreground/30">
                 <input
+                  id="hf-sql-prompt"
                   placeholder={t("aiPlaceholder")}
                   value={aiPrompt}
                   onChange={(e) => setAiPrompt(e.target.value)}

@@ -44,7 +44,7 @@ export function toYaml(obj: unknown, indent = 0): string {
       if (typeof item === 'object' && item !== null) {
         const inner = toYaml(item, indent + 1);
         const lines = inner.split('\n');
-        return `${spaces}- ${lines[0]}\n${lines.slice(1).map(l => spaces + '  ' + l).join('\n')}`.trim();
+        return `${spaces}- ${lines[0]}\n${lines.slice(1).map(l => spaces + '  ' + l).join('\n')}`.replace(/\s+$/, '');
       }
       return `${spaces}- ${toYaml(item, indent)}`;
     }).join('\n');

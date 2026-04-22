@@ -14,10 +14,9 @@ export function OmniBar() {
       {/* Agent Switcher */}
       <button 
         data-testid="agent-switcher"
-        aria-label="Switch AI agent"
         className="flex items-center gap-2 px-3 py-2 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/5 text-xs font-mono text-agent-cyan uppercase tracking-wider"
       >
-        <Sparkles size={12} aria-hidden="true" />
+        <Sparkles size={12} />
         {activeAgent}
       </button>
 
@@ -41,8 +40,8 @@ export function OmniBar() {
         <span>CMDS</span>
       </div>
       
-      <button aria-label="Execute command" className="p-2 rounded bg-agent-cyan/10 text-agent-cyan hover:bg-agent-cyan/20 transition-colors">
-        <Zap size={16} aria-hidden="true" />
+      <button className="p-2 rounded bg-agent-cyan/10 text-agent-cyan hover:bg-agent-cyan/20 transition-colors">
+        <Zap size={16} />
       </button>
     </div>
   );

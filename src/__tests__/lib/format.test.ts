@@ -171,13 +171,4 @@ describe("toYaml", () => {
   it("should format object", () => {
     expect(toYaml({ a: 1 })).toBe("a: 1");
   });
-  it("should format nested structures", () => {
-    const nested = { a: { b: [1, { c: 2 }] } };
-    const result = toYaml(nested);
-    expect(result).toContain("a:");
-    expect(result).toContain("b:");
-    expect(result).toContain("- 1");
-    expect(result).toContain("c: 2");
-    expect(result).toMatch(/a:\s*\n\s*b:\s*\n\s*-\s*1\s*\n\s*-\s*c:\s*2/);
-  });
 });

@@ -77,9 +77,8 @@ export function TokenizerDemo() {
       </div>
       <div className="p-4 space-y-4">
         <div>
-          <label htmlFor="tokenizer-input" className="text-sm text-muted-foreground mb-1 block">Enter text:</label>
+          <label className="text-sm text-muted-foreground mb-1 block">Enter text:</label>
           <input
-            id="tokenizer-input"
             type="text"
             value={input}
             onChange={(e) => handleInputChange(e.target.value)}
@@ -164,12 +163,11 @@ export function ContextWindowDemo() {
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="prompt-length-slider" className="text-sm flex justify-between mb-1">
+            <label className="text-sm flex justify-between mb-1">
               <span>Your Prompt</span>
               <span className="text-blue-600 dark:text-blue-400 font-mono">{promptLength.toLocaleString()} tokens</span>
             </label>
             <input
-              id="prompt-length-slider"
               type="range"
               min="100"
               max="6000"
@@ -179,12 +177,11 @@ export function ContextWindowDemo() {
             />
           </div>
           <div>
-            <label htmlFor="response-length-slider" className="text-sm flex justify-between mb-1">
+            <label className="text-sm flex justify-between mb-1">
               <span>AI Response</span>
               <span className="text-green-600 dark:text-green-400 font-mono">{responseLength.toLocaleString()} tokens</span>
             </label>
             <input
-              id="response-length-slider"
               type="range"
               min="100"
               max="4000"
@@ -892,11 +889,10 @@ export function CostCalculatorDemo() {
       <div className="grid gap-4 md:grid-cols-2">
         {/* Input Tokens */}
         <div>
-          <label htmlFor="api-cost-input-tokens" className="text-xs text-muted-foreground block mb-1.5">
+          <label className="text-xs text-muted-foreground block mb-1.5">
             Input Tokens (per request)
           </label>
           <input
-            id="api-cost-input-tokens"
             type="number"
             value={inputTokens}
             onChange={(e) => setInputTokens(Math.max(0, parseInt(e.target.value) || 0))}
@@ -906,11 +902,10 @@ export function CostCalculatorDemo() {
 
         {/* Input Price */}
         <div>
-          <label htmlFor="api-cost-input-price" className="text-xs text-muted-foreground block mb-1.5">
+          <label className="text-xs text-muted-foreground block mb-1.5">
             Input Price ($ per 1M tokens)
           </label>
           <input
-            id="api-cost-input-price"
             type="number"
             step="0.01"
             value={inputPrice}
@@ -921,11 +916,10 @@ export function CostCalculatorDemo() {
 
         {/* Output Tokens */}
         <div>
-          <label htmlFor="api-cost-output-tokens" className="text-xs text-muted-foreground block mb-1.5">
+          <label className="text-xs text-muted-foreground block mb-1.5">
             Output Tokens (per request)
           </label>
           <input
-            id="api-cost-output-tokens"
             type="number"
             value={outputTokens}
             onChange={(e) => setOutputTokens(Math.max(0, parseInt(e.target.value) || 0))}
@@ -935,7 +929,7 @@ export function CostCalculatorDemo() {
 
         {/* Output Price */}
         <div>
-          <label htmlFor="api-cost-output-price" className="text-xs text-muted-foreground block mb-1.5">
+          <label className="text-xs text-muted-foreground block mb-1.5">
             Output Price ($ per 1M tokens)
           </label>
           <input
@@ -949,11 +943,10 @@ export function CostCalculatorDemo() {
 
         {/* Requests per Day */}
         <div className="md:col-span-2">
-          <label htmlFor="api-cost-requests-per-day" className="text-xs text-muted-foreground block mb-1.5">
+          <label className="text-xs text-muted-foreground block mb-1.5">
             Requests per Day
           </label>
           <input
-            id="api-cost-requests-per-day"
             type="number"
             value={requestsPerDay}
             onChange={(e) => setRequestsPerDay(Math.max(0, parseInt(e.target.value) || 0))}

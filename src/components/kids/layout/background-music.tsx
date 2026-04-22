@@ -193,7 +193,6 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          aria-label={isPlaying ? "Mute music" : "Play music"}
           className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-colors ${
             isPlaying 
               ? "bg-[#22C55E] text-white" 

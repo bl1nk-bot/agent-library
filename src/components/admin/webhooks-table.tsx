@@ -343,16 +343,14 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
       </div>
 
       <div className="grid gap-2">
-        <Label htmlFor="webhook-events">{t("events")}</Label>
+        <Label>{t("events")}</Label>
         <div className="flex flex-wrap gap-3">
           {EVENTS.map((event) => (
             <label
               key={event.value}
-              htmlFor={`webhook-event-${event.value}`}
               className="flex items-center gap-2 cursor-pointer"
             >
               <input
-                id={`webhook-event-${event.value}`}
                 type="checkbox"
                 checked={formData.events.includes(event.value)}
                 onChange={(e) => {

@@ -129,7 +129,6 @@ export function SkillImportDialog({
                   key={method.id}
                   onClick={method.action}
                   disabled={isLoading}
-                  aria-label={method.title}
                   className={cn(
                     "group relative flex items-center gap-4 p-4 rounded-lg border-2 transition-all duration-180",
                     "bg-muted/30 border-border hover:border-primary/50 hover:bg-muted/50",
@@ -138,7 +137,7 @@ export function SkillImportDialog({
                   )}
                 >
                   <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-lg bg-background border transition-colors duration-180 group-hover:border-primary/50">
-                    <method.icon aria-hidden="true" className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground group-hover:text-primary transition-colors duration-180" />
+                    <method.icon className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground group-hover:text-primary transition-colors duration-180" />
                   </div>
                   <div className="flex-1 text-left">
                     <div className="font-medium text-sm sm:text-base mb-0.5">

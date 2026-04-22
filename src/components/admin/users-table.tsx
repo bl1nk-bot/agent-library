@@ -519,9 +519,8 @@ export function UsersTable() {
           </AlertDialogHeader>
           <div className="py-4">
             <div className="space-y-2">
-              <label htmlFor="credits-daily-limit" className="text-sm font-medium">{t("dailyLimit")}</label>
+              <label className="text-sm font-medium">{t("dailyLimit")}</label>
               <Input
-                id="credits-daily-limit"
                 type="number"
                 min="0"
                 value={newCreditLimit}

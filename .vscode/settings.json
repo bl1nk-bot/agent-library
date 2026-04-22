@@ -1,9 +1,1 @@
-{
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "npm.packageManager": "bun",
-  "eslint.validate": ["typescript", "typescriptreact"],
-  "editor.formatOnSave": true,
-  "files.associations": {
-    "*.json": "jsonc"
-  }
-}
+{}

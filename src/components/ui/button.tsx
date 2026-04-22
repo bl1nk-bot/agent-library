@@ -348,7 +348,6 @@ function Button({
             )}
           </div>
 
-          {/* accessibility-fix: issue-2 */}
           <button
             ref={buttonRef}
             onClick={handleClick}
@@ -364,7 +363,6 @@ function Button({
             aria-label={displayLabel || (typeof children === 'string' ? children : undefined)}
             {...props}
           >
-          {/* /accessibility-fix */}
             {ripples.map((ripple) => (
               <span
                 key={ripple.id}

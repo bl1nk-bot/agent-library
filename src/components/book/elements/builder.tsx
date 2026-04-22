@@ -370,9 +370,8 @@ export function PromptAnalyzer({
 
       <div className="p-4 space-y-4">
         <div>
-          <label htmlFor="prompt-builder-input" className="text-sm font-medium mb-1 block">Your Prompt</label>
+          <label className="text-sm font-medium mb-1 block">Your Prompt</label>
           <textarea
-            id="prompt-builder-input"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Paste or write your prompt here..."

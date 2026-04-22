@@ -34,7 +34,7 @@ export function toYaml(obj: unknown, indent = 0): string {
     if (obj.includes('\n')) {
       return `|\n${obj.split('\n').map(line => spaces + '  ' + line).join('\n')}`;
     }
-    return obj.includes(':') || obj.includes('#') ? `"${obj.replace(/"/g, '\\"')}"` : obj;
+    return obj.includes(':') || obj.includes('#') ? `"${obj.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"` : obj;
   }
   if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
 
@@ -44,7 +44,7 @@ export function toYaml(obj: unknown, indent = 0): string {
       if (typeof item === 'object' && item !== null) {
         const inner = toYaml(item, indent + 1);
         const lines = inner.split('\n');
-        return `${spaces}- ${lines[0]}\n${lines.slice(1).map(l => spaces + '  ' + l).join('\n')}`.replace(/\s+$/, '');
+        return `${spaces}- ${lines[0]}\n${lines.slice(1).map(l => spaces + '  ' + l).join('\n')}`.trim();
       }
       return `${spaces}- ${toYaml(item, indent)}`;
     }).join('\n');

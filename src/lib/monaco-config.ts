@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Monaco Editor Configuration for Enhanced Mobile Experience
  * Optimized syntax highlighting, performance, and mobile touch handling

@@ -34,7 +34,16 @@ export function toYaml(obj: unknown, indent = 0): string {
     if (obj.includes('\n')) {
       return `|\n${obj.split('\n').map(line => spaces + '  ' + line).join('\n')}`;
     }
-    return obj.includes(':') || obj.includes('#') ? `"${obj.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"` : obj;
+    const needsQuoting =
+      obj === '' ||
+      /^(~|null|true|false|yes|no|on|off)$/i.test(obj) ||
+      /^-?(\d+(\.\d+)?|\.\d+)([eE][-+]?\d+)?$/.test(obj) ||
+      /^[-?:,\[\]{}#&*!|>'"%@`]/.test(obj) ||
+      /[:#]/.test(obj) ||
+      /\s$/.test(obj);
+    return needsQuoting
+      ? `"${obj.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
+      : obj;
   }
   if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
 

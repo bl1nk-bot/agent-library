@@ -35,7 +35,7 @@ import { TYPE_OPTIONS } from "@/data/method-options";
 // Import separated components
 import { ApiDocsSidebar } from "./api-docs-sidebar";
 import { ApiDetailsPopup } from "./api-details-popup";
-import { toYaml } from "./utils";
+import { toYaml } from "@/lib/format";
 import { type OutputFormat } from "./types";
 
 import { useRouter } from "next/navigation";

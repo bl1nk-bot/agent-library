@@ -2,6 +2,16 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.formatOnSave": true
@@ -12,10 +22,21 @@
   "files.associations": {
     "*.agent.md": "chatagent",
     "*.instructions.md": "instructions",
-    "*.prompt.md": "prompt"
+    "*.prompt.md": "prompt",
+    "*.collection.yml": "yaml"
   },
   "yaml.schemas": {
     "./.schemas/collection.schema.json": "*.collection.yml",
-    "./.schemas/tools.schema.json": "website/data/tools.yml",
+    "./.schemas/tools.schema.json": "website/data/tools.yml"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ],
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true,
+    "**/coverage": true
   }
 }

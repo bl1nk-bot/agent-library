@@ -952,7 +952,7 @@
     "markAllRead": "Σήμανση όλων ως αναγνωσμένα",
     "commentedOnPrompt": "σχολίασε το prompt σας",
     "repliedToComment": "απάντησε στο σχόλιό σας",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count, plural, one {# μη αναγνωσμένη ειδοποίηση} other {# μη αναγνωσμένες ειδοποιήσεις}}"
   },
   "comments": {
     "comments": "Σχόλια",

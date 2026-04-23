@@ -69,9 +69,7 @@ async function createPlugin() {
     }
 
     if (!/^[a-z0-9-]+$/.test(pluginId)) {
-      console.error(
-        "❌ Plugin ID must contain only lowercase letters, numbers, and hyphens"
-      );
+      console.error("❌ Plugin ID must contain only lowercase letters, numbers, and hyphens");
       process.exit(1);
     }
 
@@ -79,9 +77,7 @@ async function createPlugin() {
 
     // Check if plugin already exists
     if (fs.existsSync(pluginDir)) {
-      console.log(
-        `⚠️  Plugin ${pluginId} already exists at ${pluginDir}`
-      );
+      console.log(`⚠️  Plugin ${pluginId} already exists at ${pluginDir}`);
       console.log("💡 Please edit that plugin instead or choose a different ID.");
       process.exit(1);
     }
@@ -92,18 +88,14 @@ async function createPlugin() {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-    let displayName = await prompt(
-      `Display name (default: ${defaultDisplayName}): `
-    );
+    let displayName = await prompt(`Display name (default: ${defaultDisplayName}): `);
     if (!displayName.trim()) {
       displayName = defaultDisplayName;
     }
 
     // Get description
     const defaultDescription = `A plugin for ${displayName.toLowerCase()}.`;
-    let description = await prompt(
-      `Description (default: ${defaultDescription}): `
-    );
+    let description = await prompt(`Description (default: ${defaultDescription}): `);
     if (!description.trim()) {
       description = defaultDescription;
     }
@@ -112,9 +104,7 @@ async function createPlugin() {
     let keywords = [];
     let keywordInput = parsed.keywords;
     if (!keywordInput) {
-      keywordInput = await prompt(
-        "Keywords (comma-separated, or press Enter for defaults): "
-      );
+      keywordInput = await prompt("Keywords (comma-separated, or press Enter for defaults): ");
     }
 
     if (keywordInput && keywordInput.toString().trim()) {

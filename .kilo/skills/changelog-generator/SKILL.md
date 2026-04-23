@@ -8,7 +8,7 @@ description: >-
 metadata:
   category: development
   source:
-    repository: 'https://github.com/ComposioHQ/awesome-claude-skills'
+    repository: "https://github.com/ComposioHQ/awesome-claude-skills"
     path: changelog-generator
 ---
 
@@ -62,7 +62,7 @@ Create a changelog for all commits between March 1 and March 15
 ### With Custom Guidelines
 
 ```
-Create a changelog for commits since v2.4.0, using my changelog 
+Create a changelog for commits since v2.4.0, using my changelog
 guidelines from CHANGELOG_STYLE.md
 ```
 
@@ -71,15 +71,16 @@ guidelines from CHANGELOG_STYLE.md
 **User**: "Create a changelog for commits from the past 7 days"
 
 **Output**:
+
 ```markdown
 # Updates - Week of March 10, 2024
 
 ## ✨ New Features
 
-- **Team Workspaces**: Create separate workspaces for different 
+- **Team Workspaces**: Create separate workspaces for different
   projects. Invite team members and keep everything organized.
 
-- **Keyboard Shortcuts**: Press ? to see all available shortcuts. 
+- **Keyboard Shortcuts**: Press ? to see all available shortcuts.
   Navigate faster without touching your mouse.
 
 ## 🔧 Improvements
@@ -110,4 +111,3 @@ guidelines from CHANGELOG_STYLE.md
 - Writing app store update descriptions
 - Generating email updates for users
 - Creating social media announcement posts
-

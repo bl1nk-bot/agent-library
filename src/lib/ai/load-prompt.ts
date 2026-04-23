@@ -36,10 +36,10 @@ export function loadPrompt(relativePath: string): PromptFile {
   const absolutePath = join(process.cwd(), relativePath);
   const content = readFileSync(absolutePath, "utf-8");
   const prompt = parse(content) as PromptFile;
-  
+
   // Cache the result
   promptCache.set(relativePath, prompt);
-  
+
   return prompt;
 }
 
@@ -59,10 +59,7 @@ export function getSystemPrompt(prompt: PromptFile): string {
  * @param variables - Object containing variable values
  * @returns The interpolated string
  */
-export function interpolatePrompt(
-  template: string,
-  variables: Record<string, string>
-): string {
+export function interpolatePrompt(template: string, variables: Record<string, string>): string {
   let result = template;
   for (const [key, value] of Object.entries(variables)) {
     result = result.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), value);

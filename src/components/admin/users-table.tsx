@@ -4,7 +4,21 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { formatDistanceToNow } from "@/lib/date";
-import { MoreHorizontal, Shield, User, Trash2, BadgeCheck, Search, Loader2, ChevronLeft, ChevronRight, Filter, Flag, AlertTriangle, Sparkles } from "lucide-react";
+import {
+  MoreHorizontal,
+  Shield,
+  User,
+  Trash2,
+  BadgeCheck,
+  Search,
+  Loader2,
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+  Flag,
+  AlertTriangle,
+  Sparkles,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -114,7 +128,6 @@ export function UsersTable() {
 
   useEffect(() => {
     fetchUsers(currentPage, searchQuery, userFilter);
-     
   }, [currentPage, userFilter, fetchUsers]);
 
   const handleSearch = () => {
@@ -233,15 +246,15 @@ export function UsersTable() {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold">{t("title")}</h3>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <Select value={userFilter} onValueChange={handleFilterChange}>
             <SelectTrigger className="w-full sm:w-[140px]">
-              <Filter className="h-4 w-4 mr-2" />
+              <Filter className="mr-2 h-4 w-4" />
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -255,38 +268,42 @@ export function UsersTable() {
           </Select>
           <div className="flex gap-2">
             <div className="relative flex-1 sm:flex-none">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <Input
                 placeholder={t("searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="pl-9 w-full sm:w-[200px]"
+                className="w-full pl-9 sm:w-[200px]"
               />
             </div>
             <Button size="icon" variant="outline" onClick={handleSearch} disabled={loadingUsers}>
-              {loadingUsers ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+              {loadingUsers ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Search className="h-4 w-4" />
+              )}
             </Button>
           </div>
         </div>
       </div>
 
       {loadingUsers && users.length === 0 ? (
-        <div className="flex items-center justify-center py-12 border rounded-md">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <div className="flex items-center justify-center rounded-md border py-12">
+          <Loader2 className="text-muted-foreground h-8 w-8 animate-spin" />
         </div>
       ) : users.length === 0 ? (
-        <div className="text-center py-12 border rounded-md text-muted-foreground">
+        <div className="text-muted-foreground rounded-md border py-12 text-center">
           {t("noUsers")}
         </div>
       ) : (
         <>
           {/* Mobile Card View */}
-          <div className="block sm:hidden space-y-3">
+          <div className="block space-y-3 sm:hidden">
             {users.map((user) => (
-              <div key={user.id} className="rounded-lg border bg-card p-4 space-y-3">
+              <div key={user.id} className="bg-card space-y-3 rounded-lg border p-4">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex min-w-0 items-center gap-3">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={user.avatar || undefined} />
                       <AvatarFallback>
@@ -294,12 +311,16 @@ export function UsersTable() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0">
-                      <div className="font-medium flex items-center gap-1 truncate">
+                      <div className="flex items-center gap-1 truncate font-medium">
                         {user.name || user.username}
-                        {user.verified && <BadgeCheck className="h-4 w-4 text-blue-500 flex-shrink-0" />}
-                        {user.flagged && <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0" />}
+                        {user.verified && (
+                          <BadgeCheck className="h-4 w-4 flex-shrink-0 text-blue-500" />
+                        )}
+                        {user.flagged && (
+                          <AlertTriangle className="h-4 w-4 flex-shrink-0 text-amber-500" />
+                        )}
                       </div>
-                      <div className="text-xs text-muted-foreground">@{user.username}</div>
+                      <div className="text-muted-foreground text-xs">@{user.username}</div>
                     </div>
                   </div>
                   <DropdownMenu>
@@ -311,25 +332,25 @@ export function UsersTable() {
                     <DropdownMenuContent align="end">
                       {user.role === "USER" ? (
                         <DropdownMenuItem onClick={() => handleRoleChange(user.id, "ADMIN")}>
-                          <Shield className="h-4 w-4 mr-2" />
+                          <Shield className="mr-2 h-4 w-4" />
                           {t("makeAdmin")}
                         </DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem onClick={() => handleRoleChange(user.id, "USER")}>
-                          <User className="h-4 w-4 mr-2" />
+                          <User className="mr-2 h-4 w-4" />
                           {t("removeAdmin")}
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem onClick={() => handleVerifyToggle(user.id, !user.verified)}>
-                        <BadgeCheck className="h-4 w-4 mr-2" />
+                        <BadgeCheck className="mr-2 h-4 w-4" />
                         {user.verified ? t("unverify") : t("verify")}
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleFlagToggle(user.id, !user.flagged)}>
-                        <Flag className="h-4 w-4 mr-2" />
+                        <Flag className="mr-2 h-4 w-4" />
                         {user.flagged ? t("unflag") : t("flag")}
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleEditCredits(user)}>
-                        <Sparkles className="h-4 w-4 mr-2" />
+                        <Sparkles className="mr-2 h-4 w-4" />
                         {t("editCredits")}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
@@ -337,7 +358,7 @@ export function UsersTable() {
                         className="text-destructive"
                         onClick={() => setDeleteUserId(user.id)}
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />
+                        <Trash2 className="mr-2 h-4 w-4" />
                         {t("delete")}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -345,13 +366,22 @@ export function UsersTable() {
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground truncate">{user.email}</span>
-                  <Badge variant={user.role === "ADMIN" ? "default" : "secondary"} className="flex-shrink-0">
-                    {user.role === "ADMIN" ? <Shield className="h-3 w-3 mr-1" /> : <User className="h-3 w-3 mr-1" />}
+                  <Badge
+                    variant={user.role === "ADMIN" ? "default" : "secondary"}
+                    className="flex-shrink-0"
+                  >
+                    {user.role === "ADMIN" ? (
+                      <Shield className="mr-1 h-3 w-3" />
+                    ) : (
+                      <User className="mr-1 h-3 w-3" />
+                    )}
                     {user.role}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{user._count.prompts} {t("prompts").toLowerCase()}</span>
+                <div className="text-muted-foreground flex items-center justify-between text-xs">
+                  <span>
+                    {user._count.prompts} {t("prompts").toLowerCase()}
+                  </span>
                   <span>{formatDistanceToNow(new Date(user.createdAt), locale)}</span>
                 </div>
               </div>
@@ -359,102 +389,110 @@ export function UsersTable() {
           </div>
 
           {/* Desktop Table View */}
-          <div className="hidden sm:block rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t("user")}</TableHead>
-              <TableHead>{t("email")}</TableHead>
-              <TableHead>{t("role")}</TableHead>
-              <TableHead className="text-center">{t("prompts")}</TableHead>
-              <TableHead>{t("joined")}</TableHead>
-              <TableHead className="w-[50px]"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.avatar || undefined} />
-                      <AvatarFallback>
-                        {user.name?.charAt(0) || user.username.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="font-medium flex items-center gap-1">
-                        {user.name || user.username}
-                        {user.verified && <BadgeCheck className="h-4 w-4 text-blue-500" />}
-                        {user.flagged && <AlertTriangle className="h-4 w-4 text-amber-500" />}
+          <div className="hidden rounded-md border sm:block">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t("user")}</TableHead>
+                  <TableHead>{t("email")}</TableHead>
+                  <TableHead>{t("role")}</TableHead>
+                  <TableHead className="text-center">{t("prompts")}</TableHead>
+                  <TableHead>{t("joined")}</TableHead>
+                  <TableHead className="w-[50px]"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={user.avatar || undefined} />
+                          <AvatarFallback>
+                            {user.name?.charAt(0) || user.username.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="flex items-center gap-1 font-medium">
+                            {user.name || user.username}
+                            {user.verified && <BadgeCheck className="h-4 w-4 text-blue-500" />}
+                            {user.flagged && <AlertTriangle className="h-4 w-4 text-amber-500" />}
+                          </div>
+                          <div className="text-muted-foreground text-xs">@{user.username}</div>
+                        </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">@{user.username}</div>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-sm">{user.email}</TableCell>
-                <TableCell>
-                  <Badge variant={user.role === "ADMIN" ? "default" : "secondary"}>
-                    {user.role === "ADMIN" ? <Shield className="h-3 w-3 mr-1" /> : <User className="h-3 w-3 mr-1" />}
-                    {user.role}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-center">{user._count.prompts}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">
-                  {formatDistanceToNow(new Date(user.createdAt), locale)}
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      {user.role === "USER" ? (
-                        <DropdownMenuItem onClick={() => handleRoleChange(user.id, "ADMIN")}>
-                          <Shield className="h-4 w-4 mr-2" />
-                          {t("makeAdmin")}
-                        </DropdownMenuItem>
-                      ) : (
-                        <DropdownMenuItem onClick={() => handleRoleChange(user.id, "USER")}>
-                          <User className="h-4 w-4 mr-2" />
-                          {t("removeAdmin")}
-                        </DropdownMenuItem>
-                      )}
-                      <DropdownMenuItem onClick={() => handleVerifyToggle(user.id, !user.verified)}>
-                        <BadgeCheck className="h-4 w-4 mr-2" />
-                        {user.verified ? t("unverify") : t("verify")}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleFlagToggle(user.id, !user.flagged)}>
-                        <Flag className="h-4 w-4 mr-2" />
-                        {user.flagged ? t("unflag") : t("flag")}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleEditCredits(user)}>
-                        <Sparkles className="h-4 w-4 mr-2" />
-                        {t("editCredits")}
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="text-destructive"
-                        onClick={() => setDeleteUserId(user.id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        {t("delete")}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                    </TableCell>
+                    <TableCell className="text-sm">{user.email}</TableCell>
+                    <TableCell>
+                      <Badge variant={user.role === "ADMIN" ? "default" : "secondary"}>
+                        {user.role === "ADMIN" ? (
+                          <Shield className="mr-1 h-3 w-3" />
+                        ) : (
+                          <User className="mr-1 h-3 w-3" />
+                        )}
+                        {user.role}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-center">{user._count.prompts}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">
+                      {formatDistanceToNow(new Date(user.createdAt), locale)}
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          {user.role === "USER" ? (
+                            <DropdownMenuItem onClick={() => handleRoleChange(user.id, "ADMIN")}>
+                              <Shield className="mr-2 h-4 w-4" />
+                              {t("makeAdmin")}
+                            </DropdownMenuItem>
+                          ) : (
+                            <DropdownMenuItem onClick={() => handleRoleChange(user.id, "USER")}>
+                              <User className="mr-2 h-4 w-4" />
+                              {t("removeAdmin")}
+                            </DropdownMenuItem>
+                          )}
+                          <DropdownMenuItem
+                            onClick={() => handleVerifyToggle(user.id, !user.verified)}
+                          >
+                            <BadgeCheck className="mr-2 h-4 w-4" />
+                            {user.verified ? t("unverify") : t("verify")}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleFlagToggle(user.id, !user.flagged)}
+                          >
+                            <Flag className="mr-2 h-4 w-4" />
+                            {user.flagged ? t("unflag") : t("flag")}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleEditCredits(user)}>
+                            <Sparkles className="mr-2 h-4 w-4" />
+                            {t("editCredits")}
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => setDeleteUserId(user.id)}
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            {t("delete")}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
 
           {/* Pagination */}
           {pagination && pagination.totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 pt-4 border-t">
-              <p className="text-sm text-muted-foreground">
+            <div className="mt-4 flex flex-col items-center justify-between gap-4 border-t pt-4 sm:flex-row">
+              <p className="text-muted-foreground text-sm">
                 {t("showing", {
                   from: (pagination.page - 1) * pagination.limit + 1,
                   to: Math.min(pagination.page * pagination.limit, pagination.total),
@@ -471,7 +509,7 @@ export function UsersTable() {
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <span className="text-sm tabular-nums px-2">
+                <span className="px-2 text-sm tabular-nums">
                   {currentPage} / {pagination.totalPages}
                 </span>
                 <Button
@@ -500,7 +538,7 @@ export function UsersTable() {
             <AlertDialogAction
               onClick={handleDelete}
               disabled={loading}
-              className="bg-destructive text-white hover:bg-destructive/90"
+              className="bg-destructive hover:bg-destructive/90 text-white"
             >
               {t("delete")}
             </AlertDialogAction>
@@ -527,10 +565,10 @@ export function UsersTable() {
                 onChange={(e) => setNewCreditLimit(e.target.value)}
                 placeholder="10"
               />
-              <p className="text-xs text-muted-foreground">
-                {t("currentCredits", { 
+              <p className="text-muted-foreground text-xs">
+                {t("currentCredits", {
                   remaining: editCreditsUser?.generationCreditsRemaining ?? 0,
-                  limit: editCreditsUser?.dailyGenerationLimit ?? 0
+                  limit: editCreditsUser?.dailyGenerationLimit ?? 0,
                 })}
               </p>
             </div>
@@ -538,7 +576,7 @@ export function UsersTable() {
           <AlertDialogFooter>
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
             <AlertDialogAction onClick={handleSaveCredits} disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               {t("save")}
             </AlertDialogAction>
           </AlertDialogFooter>

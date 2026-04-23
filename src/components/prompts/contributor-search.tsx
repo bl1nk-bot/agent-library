@@ -93,7 +93,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
           {selectedUsers.map((user) => (
             <div
               key={user.id}
-              className="flex items-center gap-1.5 pl-1 pr-2 py-1 rounded-full bg-muted text-sm"
+              className="bg-muted flex items-center gap-1.5 rounded-full py-1 pr-2 pl-1 text-sm"
             >
               <Avatar className="h-5 w-5">
                 <AvatarImage src={user.avatar || undefined} />
@@ -105,7 +105,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
               <button
                 type="button"
                 onClick={() => onRemove(user.id)}
-                className="ml-0.5 p-0.5 rounded-full hover:bg-foreground/10"
+                className="hover:bg-foreground/10 ml-0.5 rounded-full p-0.5"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -117,7 +117,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
       {/* Search input */}
       <div className="relative" ref={containerRef}>
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="text-muted-foreground absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2" />
           <Input
             value={query}
             onChange={(e) => {
@@ -126,7 +126,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
             }}
             onFocus={() => setIsOpen(true)}
             placeholder={t("searchContributors")}
-            className="pl-8 h-9"
+            className="h-9 pl-8"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="none"
@@ -136,7 +136,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
             data-form-type="other"
           />
           {isLoading && (
-            <Loader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+            <Loader2 className="text-muted-foreground absolute top-1/2 right-2.5 h-4 w-4 -translate-y-1/2 animate-spin" />
           )}
         </div>
 
@@ -144,7 +144,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
         {isOpen && results.length > 0 && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 w-full rounded-md border bg-popover shadow-md max-h-[200px] overflow-y-auto ${
+            className={`bg-popover absolute z-50 max-h-[200px] w-full overflow-y-auto rounded-md border shadow-md ${
               openUpward ? "bottom-full mb-1" : "top-full mt-1"
             }`}
           >
@@ -153,7 +153,7 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
                 key={user.id}
                 type="button"
                 onClick={() => handleSelect(user)}
-                className="flex items-center gap-2 w-full px-3 py-2 text-left hover:bg-accent transition-colors first:rounded-t-md last:rounded-b-md"
+                className="hover:bg-accent flex w-full items-center gap-2 px-3 py-2 text-left transition-colors first:rounded-t-md last:rounded-b-md"
               >
                 <Avatar className="h-6 w-6">
                   <AvatarImage src={user.avatar || undefined} />
@@ -162,9 +162,9 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <div className="text-sm font-medium truncate">@{user.username}</div>
+                  <div className="truncate text-sm font-medium">@{user.username}</div>
                   {user.name && (
-                    <div className="text-xs text-muted-foreground truncate">{user.name}</div>
+                    <div className="text-muted-foreground truncate text-xs">{user.name}</div>
                   )}
                 </div>
               </button>
@@ -173,9 +173,11 @@ export function ContributorSearch({ selectedUsers, onSelect, onRemove }: Contrib
         )}
 
         {isOpen && query.length >= 1 && !isLoading && results.length === 0 && (
-          <div className={`absolute z-50 w-full rounded-md border bg-popover shadow-md p-3 text-sm text-muted-foreground text-center ${
-            openUpward ? "bottom-full mb-1" : "top-full mt-1"
-          }`}>
+          <div
+            className={`bg-popover text-muted-foreground absolute z-50 w-full rounded-md border p-3 text-center text-sm shadow-md ${
+              openUpward ? "bottom-full mb-1" : "top-full mt-1"
+            }`}
+          >
             {t("noUsersFound")}
           </div>
         )}

@@ -12,7 +12,7 @@ metadata:
   version: 1.0.0
   category: development
   source:
-    repository: 'https://github.com/vercel-labs/agent-skills'
+    repository: "https://github.com/vercel-labs/agent-skills"
     path: skills/composition-patterns
 ---
 

@@ -3,10 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { isPrivateUrl } from "@/lib/webhook";
 
-export async function POST(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user || session.user.role !== "ADMIN") {
@@ -31,7 +28,8 @@ export async function POST(
       "{{PROMPT_ID}}": "test-prompt-id-12345",
       "{{PROMPT_TITLE}}": "Test Prompt Title",
       "{{PROMPT_DESCRIPTION}}": "This is a test description for the webhook.",
-      "{{PROMPT_CONTENT}}": "This is the test prompt content. It demonstrates how your webhook will receive data when a new prompt is created.",
+      "{{PROMPT_CONTENT}}":
+        "This is the test prompt content. It demonstrates how your webhook will receive data when a new prompt is created.",
       "{{PROMPT_TYPE}}": "TEXT",
       "{{PROMPT_URL}}": `${siteUrl}/prompts/test-prompt-id-12345`,
       "{{PROMPT_MEDIA_URL}}": "https://example.com/media/test-image.png",
@@ -61,10 +59,7 @@ export async function POST(
     try {
       parsedPayload = JSON.parse(payload);
     } catch {
-      return NextResponse.json(
-        { error: "Invalid JSON payload" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
     }
 
     // A10: Validate webhook URL is not targeting private/internal networks

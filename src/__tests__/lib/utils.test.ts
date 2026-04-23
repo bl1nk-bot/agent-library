@@ -98,8 +98,7 @@ describe("isChromeBrowser", () => {
 
   it("should return false for Firefox browser", () => {
     vi.stubGlobal("navigator", {
-      userAgent:
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
+      userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
     });
     expect(isChromeBrowser()).toBe(false);
   });

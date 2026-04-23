@@ -1,24 +1,8 @@
 {
   "presets": {
-    "feature": [
-      "stage:spec",
-      "size:m",
-      "p:p1",
-      "type:feat"
-    ],
-    "hotfix": [
-      "stage:act",
-      "size:s",
-      "p:p0",
-      "type:fix",
-      "Bug"
-    ],
-    "docs-translate": [
-      "stage:doc",
-      "size:xs",
-      "p:p2",
-      "type:docs"
-    ],
+    "feature": ["stage:spec", "size:m", "p:p1", "type:feat"],
+    "hotfix": ["stage:act", "size:s", "p:p0", "type:fix", "Bug"],
+    "docs-translate": ["stage:doc", "size:xs", "p:p2", "type:docs"],
     "mobile-ui": [
       "stage:spec",
       "size:m",
@@ -94,21 +78,8 @@
       "p": "p:p1"
     }
   },
-  "required": [
-    "stage",
-    "type",
-    "p"
-  ],
-  "optional": [
-    "agent",
-    "size",
-    "lang",
-    "env",
-    "constraint",
-    "rev",
-    "auto",
-    "plat"
-  ],
+  "required": ["stage", "type", "p"],
+  "optional": ["agent", "size", "lang", "env", "constraint", "rev", "auto", "plat"],
   "allLabels": {
     "agent": [
       "agent:claude",
@@ -128,23 +99,8 @@
       "stage:review",
       "stage:finalize"
     ],
-    "size": [
-      "size:xs",
-      "size:s",
-      "size:m",
-      "size:l",
-      "size:xl",
-      "size:xxl",
-      "size:xxxl"
-    ],
-    "p": [
-      "p:p0",
-      "p:p1",
-      "p:p2",
-      "p:p3",
-      "p:p4",
-      "p:backlog"
-    ],
+    "size": ["size:xs", "size:s", "size:m", "size:l", "size:xl", "size:xxl", "size:xxxl"],
+    "p": ["p:p0", "p:p1", "p:p2", "p:p3", "p:p4", "p:backlog"],
     "type": [
       "type:feat",
       "type:fix",
@@ -161,35 +117,11 @@
       "type:md",
       "type:dep"
     ],
-    "lang": [
-      "lang:node",
-      "lang:js",
-      "lang:ts",
-      "lang:rust",
-      "lang:python"
-    ],
-    "plat": [
-      "plat:vercel",
-      "plat:ci",
-      "plat:github",
-      "plat:gitlab"
-    ],
-    "env": [
-      "env:dev",
-      "env:prod",
-      "env:local"
-    ],
-    "constraint": [
-      "constraint:mobile"
-    ],
-    "rev": [
-      "rev:ant",
-      "rev:rabbit",
-      "rev:ready",
-      "rev:fail",
-      "rev:translated",
-      "rev:expert"
-    ],
+    "lang": ["lang:node", "lang:js", "lang:ts", "lang:rust", "lang:python"],
+    "plat": ["plat:vercel", "plat:ci", "plat:github", "plat:gitlab"],
+    "env": ["env:dev", "env:prod", "env:local"],
+    "constraint": ["constraint:mobile"],
+    "rev": ["rev:ant", "rev:rabbit", "rev:ready", "rev:fail", "rev:translated", "rev:expert"],
     "auto": [
       "auto:todo",
       "auto:stale",
@@ -200,8 +132,6 @@
       "auto:wait",
       "auto:log"
     ],
-    "other": [
-      "Bug"
-    ]
+    "other": ["Bug"]
   }
 }

@@ -9,10 +9,7 @@ const createVersionSchema = z.object({
 });
 
 // POST - Create a new version
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user) {
@@ -109,10 +106,7 @@ export async function POST(
 }
 
 // GET - Get all versions
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id: promptId } = await params;
 

@@ -28,13 +28,13 @@ npx tsc --noEmit         # Check TypeScript types
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `prompts.config.ts` | Main app configuration (branding, theme, auth, features) |
-| `prisma/schema.prisma` | Database schema |
-| `src/lib/auth/index.ts` | NextAuth configuration |
-| `src/lib/db.ts` | Prisma client singleton |
-| `messages/*.json` | i18n translation files |
+| File                    | Purpose                                                  |
+| ----------------------- | -------------------------------------------------------- |
+| `prompts.config.ts`     | Main app configuration (branding, theme, auth, features) |
+| `prisma/schema.prisma`  | Database schema                                          |
+| `src/lib/auth/index.ts` | NextAuth configuration                                   |
+| `src/lib/db.ts`         | Prisma client singleton                                  |
+| `messages/*.json`       | i18n translation files                                   |
 
 ## Project Structure
 

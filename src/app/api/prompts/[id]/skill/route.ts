@@ -9,7 +9,7 @@ import JSZip from "jszip";
  */
 function parseIdParam(idParam: string): string {
   let param = idParam;
-  
+
   // Remove .skill extension if present
   if (param.endsWith(".skill")) {
     param = param.slice(0, -".skill".length);
@@ -24,21 +24,18 @@ function parseIdParam(idParam: string): string {
   return param;
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: idParam } = await params;
   const id = parseIdParam(idParam);
 
   // Fetch the skill
   const prompt = await db.prompt.findFirst({
     where: { id, deletedAt: null, isPrivate: false, type: "SKILL" },
-    select: { 
+    select: {
       id: true,
       slug: true,
-      title: true, 
-      description: true, 
+      title: true,
+      description: true,
       content: true,
     },
   });
@@ -59,14 +56,19 @@ export async function GET(
   }
 
   // Generate the zip content as blob for Response compatibility
-  const zipContent = await zip.generateAsync({ 
+  const zipContent = await zip.generateAsync({
     type: "blob",
     compression: "DEFLATE",
     compressionOptions: { level: 9 },
   });
 
   // Generate filename
-  const slug = prompt.slug || prompt.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const slug =
+    prompt.slug ||
+    prompt.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
   const filename = `${slug}.skill`;
 
   return new Response(zipContent, {

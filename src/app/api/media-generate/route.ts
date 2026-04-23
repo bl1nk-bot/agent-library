@@ -92,17 +92,11 @@ export async function POST(request: NextRequest) {
     const plugin = getMediaGeneratorPlugin(provider);
 
     if (!plugin) {
-      return NextResponse.json(
-        { error: `Provider "${provider}" not found` },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: `Provider "${provider}" not found` }, { status: 404 });
     }
 
     if (!plugin.isEnabled()) {
-      return NextResponse.json(
-        { error: `Provider "${provider}" is not enabled` },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: `Provider "${provider}" is not enabled` }, { status: 400 });
     }
 
     const task = await plugin.startGeneration({

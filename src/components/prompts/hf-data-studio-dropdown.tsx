@@ -6,11 +6,7 @@ import { useTheme } from "next-themes";
 import { ChevronDown, Play, ExternalLink, Sparkles, Loader2 } from "lucide-react";
 import Editor from "@monaco-editor/react";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -50,7 +46,7 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
 
   const handleGenerateSQL = async () => {
     if (!aiPrompt.trim() || isGenerating) return;
-    
+
     setIsGenerating(true);
     try {
       const response = await fetch("/api/generate/sql", {
@@ -58,9 +54,9 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: aiPrompt }),
       });
-      
+
       if (!response.ok) throw new Error("Failed to generate SQL");
-      
+
       const data = await response.json();
       setSql(data.sql);
     } catch (error) {
@@ -72,31 +68,35 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
 
   return (
     <div className="flex w-full sm:w-auto">
-      <Button 
-        size="sm" 
-        variant="outline" 
-        className="h-8 text-xs rounded-e-none border-e-0 flex-1 sm:flex-initial"
+      <Button
+        size="sm"
+        variant="outline"
+        className="h-8 flex-1 rounded-e-none border-e-0 text-xs sm:flex-initial"
         onClick={handleOpenDataset}
       >
         🤗 {t("button")}
       </Button>
       <Popover modal>
         <PopoverTrigger asChild>
-          <Button 
-            size="sm" 
-            variant="outline" 
-            className="h-8 px-2 rounded-s-none"
-          >
+          <Button size="sm" variant="outline" className="h-8 rounded-s-none px-2">
             <ChevronDown className="h-3 w-3" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-[calc(100vw-2rem)] sm:w-[500px] p-3" sideOffset={8} collisionPadding={16}>
+        <PopoverContent
+          align="end"
+          className="w-[calc(100vw-2rem)] p-3 sm:w-[500px]"
+          sideOffset={8}
+          collisionPadding={16}
+        >
           <div className="space-y-3">
             {/* Header with Examples Select + AI Button */}
             <div className="flex items-center justify-between gap-2">
               <div className="flex flex-1 items-stretch">
                 <Select onValueChange={(value) => setSql(value)}>
-                  <SelectTrigger className={`h-8 text-xs flex-1 ${aiGenerationEnabled ? "rounded-e-none border-e-0" : ""}`} size="sm">
+                  <SelectTrigger
+                    className={`h-8 flex-1 text-xs ${aiGenerationEnabled ? "rounded-e-none border-e-0" : ""}`}
+                    size="sm"
+                  >
                     <SelectValue placeholder={t("selectExample")} />
                   </SelectTrigger>
                   <SelectContent>
@@ -123,7 +123,7 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
                 href={HF_DATASET_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 shrink-0"
+                className="text-muted-foreground hover:text-foreground flex shrink-0 items-center gap-1 text-xs"
               >
                 {t("openDataset")} <ExternalLink className="h-3 w-3" />
               </a>
@@ -131,33 +131,29 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
 
             {/* AI Input (toggled) */}
             {aiGenerationEnabled && showAiInput && (
-              <div className="flex rounded-md focus-within:ring-1 focus-within:ring-ring focus-within:border-foreground/30">
+              <div className="focus-within:ring-ring focus-within:border-foreground/30 flex rounded-md focus-within:ring-1">
                 <input
                   placeholder={t("aiPlaceholder")}
                   value={aiPrompt}
                   onChange={(e) => setAiPrompt(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleGenerateSQL()}
-                  className="h-8 text-xs flex-1 rounded-s-md rounded-e-none border border-e-0 border-input bg-transparent px-3 py-1 outline-none placeholder:text-muted-foreground"
+                  className="border-input placeholder:text-muted-foreground h-8 flex-1 rounded-s-md rounded-e-none border border-e-0 bg-transparent px-3 py-1 text-xs outline-none"
                   autoFocus
                 />
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   variant="outline"
-                  className="rounded-s-none border-s-0 text-[11px] bg-muted/50 hover:bg-muted"
+                  className="bg-muted/50 hover:bg-muted rounded-s-none border-s-0 text-[11px]"
                   onClick={handleGenerateSQL}
                   disabled={isGenerating || !aiPrompt.trim()}
                 >
-                  {isGenerating ? (
-                    <Loader2 className="h-3 w-3 animate-spin" />
-                  ) : (
-                    t("generateSql")
-                  )}
+                  {isGenerating ? <Loader2 className="h-3 w-3 animate-spin" /> : t("generateSql")}
                 </Button>
               </div>
             )}
 
             {/* SQL Editor */}
-            <div dir="ltr" className="border rounded-md overflow-hidden text-left">
+            <div dir="ltr" className="overflow-hidden rounded-md border text-left">
               <Editor
                 height="200px"
                 defaultLanguage="sql"
@@ -178,7 +174,7 @@ export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStud
 
             {/* Run Button */}
             <Button size="sm" className="w-full" onClick={handleRun}>
-              <Play className="h-3.5 w-3.5 mr-1.5" />
+              <Play className="mr-1.5 h-3.5 w-3.5" />
               {t("runQuery")}
             </Button>
           </div>

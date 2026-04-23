@@ -6,19 +6,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.formatOnSave": true
   },
-  "editor.rulers": [
-    100
-  ],
+  "editor.rulers": [100],
   "files.associations": {
     "*.agent.md": "chatagent",
     "*.instructions.md": "instructions",
@@ -30,9 +23,7 @@
     "./.schemas/tools.schema.json": "website/data/tools.yml"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
-  ],
+  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]],
   "search.exclude": {
     "**/node_modules": true,
     "**/dist": true,

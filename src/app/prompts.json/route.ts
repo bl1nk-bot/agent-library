@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-function getUserIdentifier(user: {
-  username: string;
-  githubUsername: string | null;
-}): string {
+function getUserIdentifier(user: { username: string; githubUsername: string | null }): string {
   return user.githubUsername || user.username;
 }
 
@@ -143,9 +140,6 @@ export async function GET() {
     );
   } catch (error) {
     console.error("prompts.json error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

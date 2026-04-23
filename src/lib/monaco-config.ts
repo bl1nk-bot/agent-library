@@ -1,4 +1,3 @@
- 
 /**
  * Monaco Editor Configuration for Enhanced Mobile Experience
  * Optimized syntax highlighting, performance, and mobile touch handling
@@ -28,38 +27,38 @@ export const ENHANCED_DARK_THEME: MonacoThemeConfig = {
     { token: "keyword", foreground: "79c0ff", fontStyle: "bold" },
     { token: "keyword.control", foreground: "79c0ff" },
     { token: "keyword.operator", foreground: "79c0ff" },
-    
+
     // Strings - GitHub green
     { token: "string", foreground: "a5d6ff" },
     { token: "string.key", foreground: "79c0ff" },
     { token: "string.value", foreground: "a5d6ff" },
-    
+
     // Numbers - GitHub purple
     { token: "number", foreground: "d2a8ff" },
-    
+
     // Comments - GitHub gray with better contrast
     { token: "comment", foreground: "8b949e", fontStyle: "italic" },
-    
+
     // Functions - GitHub purple
     { token: "function", foreground: "d2a8ff" },
     { token: "identifier.function", foreground: "d2a8ff" },
-    
+
     // Types - GitHub orange
     { token: "type", foreground: "ffa657" },
     { token: "type.identifier", foreground: "ffa657" },
-    
+
     // Variables - GitHub light text
     { token: "variable", foreground: "e6edf3" },
     { token: "variable.parameter", foreground: "ffa657" },
-    
+
     // Properties - GitHub cyan
     { token: "property", foreground: "7ee787" },
-    
+
     // Markdown specific
     { token: "heading", foreground: "79c0ff", fontStyle: "bold" },
     { token: "emphasis", fontStyle: "italic" },
     { token: "strong", fontStyle: "bold" },
-    
+
     // JSON/YAML specific
     { token: "key", foreground: "79c0ff" },
     { token: "delimiter", foreground: "8b949e" },
@@ -90,38 +89,38 @@ export const ENHANCED_LIGHT_THEME: MonacoThemeConfig = {
     { token: "keyword", foreground: "0066cc", fontStyle: "bold" },
     { token: "keyword.control", foreground: "0066cc" },
     { token: "keyword.operator", foreground: "0066cc" },
-    
+
     // Strings
     { token: "string", foreground: "22863a" },
     { token: "string.key", foreground: "005cc5" },
     { token: "string.value", foreground: "22863a" },
-    
+
     // Numbers
     { token: "number", foreground: "a31515" },
-    
+
     // Comments
     { token: "comment", foreground: "6a737d", fontStyle: "italic" },
-    
+
     // Functions
     { token: "function", foreground: "6f42c1" },
     { token: "identifier.function", foreground: "6f42c1" },
-    
+
     // Types
     { token: "type", foreground: "005cc5" },
     { token: "type.identifier", foreground: "005cc5" },
-    
+
     // Variables
     { token: "variable", foreground: "24292e" },
     { token: "variable.parameter", foreground: "e36209" },
-    
+
     // Properties
     { token: "property", foreground: "22863a" },
-    
+
     // Markdown specific
     { token: "heading", foreground: "005cc5", fontStyle: "bold" },
     { token: "emphasis", fontStyle: "italic" },
     { token: "strong", fontStyle: "bold" },
-    
+
     // JSON/YAML specific
     { token: "key", foreground: "005cc5" },
     { token: "delimiter", foreground: "666666" },
@@ -150,17 +149,17 @@ export function getMobileEditorOptions(isMobile: boolean) {
     fontSize: isMobile ? 14 : 13,
     lineHeight: isMobile ? 24 : 20,
     letterSpacing: isMobile ? 0.2 : 0,
-    
+
     // Line numbers
     lineNumbers: (isMobile ? "off" : "on") as "off" | "on",
     lineNumbersMinChars: isMobile ? 0 : 3,
-    
+
     // Padding
     padding: {
       top: isMobile ? 12 : 8,
       bottom: isMobile ? 12 : 8,
     },
-    
+
     // Scrollbar
     scrollbar: {
       vertical: "auto" as const,
@@ -169,7 +168,7 @@ export function getMobileEditorOptions(isMobile: boolean) {
       horizontalScrollbarSize: isMobile ? 10 : 8,
       useShadows: false,
     },
-    
+
     // Performance optimizations for mobile
     ...(isMobile && {
       quickSuggestions: false,
@@ -183,13 +182,13 @@ export function getMobileEditorOptions(isMobile: boolean) {
       renderLineHighlight: "line" as const,
       mouseWheelZoom: false,
       fastScrollSensitivity: 2,
-      
+
       // Smooth animations
       cursorBlinking: "smooth" as const,
       cursorSmoothCaretAnimation: "on" as const,
       smoothScrolling: true,
     }),
-    
+
     // Common settings
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
@@ -200,12 +199,12 @@ export function getMobileEditorOptions(isMobile: boolean) {
     renderLineHighlight: "line" as const,
     overviewRulerBorder: false,
     hideCursorInOverviewRuler: true,
-    
+
     // Bracket colorization
     bracketPairColorization: {
       enabled: true,
     },
-    
+
     // Whitespace rendering
     renderWhitespace: "selection" as const,
   };
@@ -214,13 +213,10 @@ export function getMobileEditorOptions(isMobile: boolean) {
 /**
  * Apply custom theme to Monaco editor
  */
-export function applyMonacoTheme(
-  monaco: any,
-  theme: "dark" | "light"
-): void {
+export function applyMonacoTheme(monaco: any, theme: "dark" | "light"): void {
   const themeConfig = theme === "dark" ? ENHANCED_DARK_THEME : ENHANCED_LIGHT_THEME;
   const themeName = theme === "dark" ? "enhanced-dark" : "enhanced-light";
-  
+
   try {
     monaco.editor?.defineTheme?.(themeName, themeConfig);
     monaco.editor?.setTheme?.(themeName);

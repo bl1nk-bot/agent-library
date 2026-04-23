@@ -10,7 +10,7 @@ function BookWidget() {
   const BOOK_DEPTH = 22;
 
   return (
-    <div className="group border rounded-[var(--radius)] overflow-hidden hover:border-foreground/20 transition-colors bg-gradient-to-br from-primary/5 via-background to-primary/10 p-5">
+    <div className="group hover:border-foreground/20 from-primary/5 via-background to-primary/10 overflow-hidden rounded-[var(--radius)] border bg-gradient-to-br p-5 transition-colors">
       <style>{`
         @keyframes bookFlip {
           0%   { transform: rotateY(0deg); }
@@ -47,26 +47,26 @@ function BookWidget() {
           animation: lightGlow 2.5s ease-in-out forwards;
         }
       `}</style>
-      
+
       {/* 3D Book Container */}
       <div className="flex flex-col items-center gap-4">
         {/* Perspective container */}
-        <Link 
-          href="https://fka.gumroad.com/l/art-of-chatgpt-prompting" 
+        <Link
+          href="https://fka.gumroad.com/l/art-of-chatgpt-prompting"
           className="block"
           style={{ perspective: "800px" }}
         >
           {/* 3D transform container */}
-          <div 
+          <div
             className="book-3d-anim relative"
-            style={{ 
+            style={{
               width: BOOK_WIDTH,
               height: BOOK_HEIGHT,
               transformStyle: "preserve-3d",
             }}
           >
             {/* FRONT: Book Cover */}
-            <div className="absolute inset-0 rounded-sm shadow-xl overflow-hidden group-hover:shadow-2xl transition-shadow duration-300">
+            <div className="absolute inset-0 overflow-hidden rounded-sm shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
               <Image
                 src="/book-cover.jpg"
                 alt="The Interactive Book of Prompting"
@@ -74,36 +74,36 @@ function BookWidget() {
                 className="object-cover"
               />
               {/* Subtle radial light glow from top-right */}
-              <div 
-                className="light-anim absolute inset-0 pointer-events-none"
+              <div
+                className="light-anim pointer-events-none absolute inset-0"
                 style={{
-                  background: "radial-gradient(ellipse at 85% 15%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 30%, transparent 60%)",
+                  background:
+                    "radial-gradient(ellipse at 85% 15%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 30%, transparent 60%)",
                 }}
               />
             </div>
-            
+
             {/* Drop shadow under book */}
-            <div 
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-black/20 blur-md rounded-full opacity-50 group-hover:opacity-80 group-hover:w-28 group-hover:blur-lg transition-all duration-300"
-            />
-            
+            <div className="absolute -bottom-3 left-1/2 h-4 w-24 -translate-x-1/2 rounded-full bg-black/20 opacity-50 blur-md transition-all duration-300 group-hover:w-28 group-hover:opacity-80 group-hover:blur-lg" />
+
             {/* RIGHT: Pages edge - extends backward from cover's right */}
-            <div 
+            <div
               className="absolute top-0"
-              style={{ 
+              style={{
                 width: BOOK_DEPTH,
                 height: BOOK_HEIGHT,
                 right: 0,
                 transform: "rotateY(-90deg)",
                 transformOrigin: "right center",
-                background: "repeating-linear-gradient(to bottom, #f8f8f8 0px, #e0e0e0 1px, #f8f8f8 2px)",
+                background:
+                  "repeating-linear-gradient(to bottom, #f8f8f8 0px, #e0e0e0 1px, #f8f8f8 2px)",
               }}
             />
-            
+
             {/* LEFT: Spine edge - extends backward from cover's left */}
-            <div 
+            <div
               className="absolute top-0 rounded-l-sm"
-              style={{ 
+              style={{
                 width: BOOK_DEPTH,
                 height: BOOK_HEIGHT,
                 left: 0,
@@ -117,14 +117,12 @@ function BookWidget() {
 
         {/* Content */}
         <div className="w-full text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <BookOpen className="h-4 w-4 text-primary" />
-            <span className="text-xs font-medium text-primary">Free Interactive Guide</span>
+          <div className="mb-2 flex items-center justify-center gap-2">
+            <BookOpen className="text-primary h-4 w-4" />
+            <span className="text-primary text-xs font-medium">Free Interactive Guide</span>
           </div>
-          <h3 className="font-semibold text-base mb-1.5">
-            The Interactive Book of Prompting
-          </h3>
-          <p className="text-xs text-muted-foreground mb-4">
+          <h3 className="mb-1.5 text-base font-semibold">The Interactive Book of Prompting</h3>
+          <p className="text-muted-foreground mb-4 text-xs">
             Master AI prompting with 25 interactive chapters.
           </p>
           <Button asChild size="sm" className="w-full">
@@ -147,7 +145,8 @@ export const bookWidget: WidgetPlugin = {
       id: "book-promo",
       slug: "interactive-book-of-prompting",
       title: "The Interactive Book of Prompting",
-      description: "Master the art of crafting effective AI prompts with our comprehensive interactive guide.",
+      description:
+        "Master the art of crafting effective AI prompts with our comprehensive interactive guide.",
       content: "",
       type: "TEXT",
       tags: ["Prompting", "AI", "Guide", "Learning"],

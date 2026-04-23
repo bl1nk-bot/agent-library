@@ -24,7 +24,10 @@ interface DismissChangeRequestButtonProps {
   promptId: string;
 }
 
-export function DismissChangeRequestButton({ changeRequestId, promptId }: DismissChangeRequestButtonProps) {
+export function DismissChangeRequestButton({
+  changeRequestId,
+  promptId,
+}: DismissChangeRequestButtonProps) {
   const router = useRouter();
   const t = useTranslations("changeRequests");
   const tCommon = useTranslations("common");
@@ -60,25 +63,23 @@ export function DismissChangeRequestButton({ changeRequestId, promptId }: Dismis
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
-          <Trash2 className="h-4 w-4 mr-1.5" />
+          <Trash2 className="mr-1.5 h-4 w-4" />
           {t("dismiss")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("dismissConfirmTitle")}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t("dismissConfirmDescription")}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{t("dismissConfirmDescription")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isLoading}>{tCommon("cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDismiss}
             disabled={isLoading}
-            className="bg-destructive text-white hover:bg-destructive/90"
+            className="bg-destructive hover:bg-destructive/90 text-white"
           >
-            {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("dismiss")}
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -4,9 +4,9 @@
 /**
  * Non-interactive setup script for Docker builds.
  * Generates prompts.config.ts from environment variables.
- * 
+ *
  * Usage: BRAND_NAME="My App" node scripts/docker-setup.js
- * 
+ *
  * Environment Variables:
  *   BRAND_NAME        - App name (default: "My Prompt Library")
  *   BRAND_DESCRIPTION - App description
@@ -31,10 +31,10 @@
  *   FEATURE_MCP               - Enable MCP (default: "false")
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const CONFIG_FILE = path.join(__dirname, '..', 'prompts.config.ts');
+const CONFIG_FILE = path.join(__dirname, "..", "prompts.config.ts");
 
 function env(key, defaultValue) {
   return process.env[key] || defaultValue;
@@ -43,13 +43,16 @@ function env(key, defaultValue) {
 function envBool(key, defaultValue) {
   const val = process.env[key];
   if (val === undefined) return defaultValue;
-  return val.toLowerCase() === 'true' || val === '1';
+  return val.toLowerCase() === "true" || val === "1";
 }
 
 function envArray(key, defaultValue) {
   const val = process.env[key];
   if (!val) return defaultValue;
-  return val.split(',').map(s => s.trim()).filter(Boolean);
+  return val
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 function generateConfig(config) {
@@ -80,13 +83,13 @@ export default defineConfig({
 
   // Authentication plugins
   auth: {
-    providers: [${config.auth.providers.map(p => `"${p}"`).join(', ')}],
+    providers: [${config.auth.providers.map((p) => `"${p}"`).join(", ")}],
     allowRegistration: ${config.auth.allowRegistration},
   },
 
   // Internationalization
   i18n: {
-    locales: [${config.i18n.locales.map(l => `"${l}"`).join(', ')}],
+    locales: [${config.i18n.locales.map((l) => `"${l}"`).join(", ")}],
     defaultLocale: "${config.i18n.defaultLocale}",
   },
 
@@ -118,55 +121,55 @@ export default defineConfig({
 }
 
 function main() {
-  console.log('🔧 Docker Setup: Generating prompts.config.ts...');
+  console.log("🔧 Docker Setup: Generating prompts.config.ts...");
 
   const config = {
     branding: {
-      name: env('BRAND_NAME', 'My Prompt Library'),
-      description: env('BRAND_DESCRIPTION', 'Collect, organize, and share AI prompts'),
-      logo: env('BRAND_LOGO', '/logo.svg'),
-      logoDark: env('BRAND_LOGO_DARK', env('BRAND_LOGO', '/logo.svg')),
-      favicon: env('BRAND_FAVICON', '/logo.svg'),
+      name: env("BRAND_NAME", "My Prompt Library"),
+      description: env("BRAND_DESCRIPTION", "Collect, organize, and share AI prompts"),
+      logo: env("BRAND_LOGO", "/logo.svg"),
+      logoDark: env("BRAND_LOGO_DARK", env("BRAND_LOGO", "/logo.svg")),
+      favicon: env("BRAND_FAVICON", "/logo.svg"),
     },
     theme: {
-      primaryColor: env('BRAND_COLOR', '#6366f1'),
-      radius: env('THEME_RADIUS', 'sm'),
-      variant: env('THEME_VARIANT', 'default'),
-      density: env('THEME_DENSITY', 'default'),
+      primaryColor: env("BRAND_COLOR", "#6366f1"),
+      radius: env("THEME_RADIUS", "sm"),
+      variant: env("THEME_VARIANT", "default"),
+      density: env("THEME_DENSITY", "default"),
     },
     auth: {
-      providers: envArray('AUTH_PROVIDERS', ['credentials']),
-      allowRegistration: envBool('ALLOW_REGISTRATION', true),
+      providers: envArray("AUTH_PROVIDERS", ["credentials"]),
+      allowRegistration: envBool("ALLOW_REGISTRATION", true),
     },
     i18n: {
-      locales: envArray('LOCALES', ['en']),
-      defaultLocale: env('DEFAULT_LOCALE', 'en'),
+      locales: envArray("LOCALES", ["en"]),
+      defaultLocale: env("DEFAULT_LOCALE", "en"),
     },
     features: {
-      privatePrompts: envBool('FEATURE_PRIVATE_PROMPTS', true),
-      changeRequests: envBool('FEATURE_CHANGE_REQUESTS', true),
-      categories: envBool('FEATURE_CATEGORIES', true),
-      tags: envBool('FEATURE_TAGS', true),
-      comments: envBool('FEATURE_COMMENTS', true),
-      aiSearch: envBool('FEATURE_AI_SEARCH', false),
-      aiGeneration: envBool('FEATURE_AI_GENERATION', false),
-      mcp: envBool('FEATURE_MCP', false),
+      privatePrompts: envBool("FEATURE_PRIVATE_PROMPTS", true),
+      changeRequests: envBool("FEATURE_CHANGE_REQUESTS", true),
+      categories: envBool("FEATURE_CATEGORIES", true),
+      tags: envBool("FEATURE_TAGS", true),
+      comments: envBool("FEATURE_COMMENTS", true),
+      aiSearch: envBool("FEATURE_AI_SEARCH", false),
+      aiGeneration: envBool("FEATURE_AI_GENERATION", false),
+      mcp: envBool("FEATURE_MCP", false),
     },
   };
 
   // Log configuration
-  console.log('');
-  console.log('  Brand:      ', config.branding.name);
-  console.log('  Color:      ', config.theme.primaryColor);
-  console.log('  Auth:       ', config.auth.providers.join(', '));
-  console.log('  Locales:    ', config.i18n.locales.join(', '));
-  console.log('');
+  console.log("");
+  console.log("  Brand:      ", config.branding.name);
+  console.log("  Color:      ", config.theme.primaryColor);
+  console.log("  Auth:       ", config.auth.providers.join(", "));
+  console.log("  Locales:    ", config.i18n.locales.join(", "));
+  console.log("");
 
   // Generate and write config
   const content = generateConfig(config);
   fs.writeFileSync(CONFIG_FILE, content);
 
-  console.log('✅ Generated prompts.config.ts');
+  console.log("✅ Generated prompts.config.ts");
 }
 
 main();

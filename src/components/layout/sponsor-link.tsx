@@ -22,7 +22,7 @@ export function SponsorLink({ name, url, logo, darkLogo, className }: SponsorLin
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="opacity-60 hover:opacity-100 transition-opacity"
+      className="opacity-60 transition-opacity hover:opacity-100"
       onClick={handleClick}
     >
       {darkLogo ? (
@@ -32,14 +32,14 @@ export function SponsorLink({ name, url, logo, darkLogo, className }: SponsorLin
             alt={name}
             width={120}
             height={40}
-            className={`h-9 w-auto dark:hidden ${className || ''}`}
+            className={`h-9 w-auto dark:hidden ${className || ""}`}
           />
           <Image
             src={darkLogo}
             alt={name}
             width={120}
             height={40}
-            className={`h-9 w-auto hidden dark:block ${className || ''}`}
+            className={`hidden h-9 w-auto dark:block ${className || ""}`}
           />
         </>
       ) : (
@@ -48,7 +48,7 @@ export function SponsorLink({ name, url, logo, darkLogo, className }: SponsorLin
           alt={name}
           width={120}
           height={40}
-          className={`h-9 w-auto dark:invert ${className || ''}`}
+          className={`h-9 w-auto dark:invert ${className || ""}`}
         />
       )}
     </Link>
@@ -91,12 +91,7 @@ export function BuiltWithLink({ href, toolName, children }: BuiltWithLinkProps) 
   };
 
   return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={handleClick}
-    >
+    <Link href={href} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
       {children}
     </Link>
   );

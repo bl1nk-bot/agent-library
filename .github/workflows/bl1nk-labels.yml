@@ -8,25 +8,25 @@ on:
   workflow_dispatch:
     inputs:
       issue_number:
-        description: 'Issue/PR number'
+        description: "Issue/PR number"
         required: true
         type: number
       preset:
-        description: 'Override with preset'
+        description: "Override with preset"
         required: false
         type: choice
         options:
-          - ''
+          - ""
           - feature
           - hotfix
           - docs-translate
           - mobile-ui
       add_labels:
-        description: 'Add labels (space-separated, e.g. agent:claude type:feat)'
+        description: "Add labels (space-separated, e.g. agent:claude type:feat)"
         required: false
         type: string
       remove_labels:
-        description: 'Remove labels (space-separated)'
+        description: "Remove labels (space-separated)"
         required: false
         type: string
 
@@ -63,21 +63,21 @@ jobs:
         run: |
           declare -a ADD_ARGS
           declare -a REMOVE_ARGS
-          
+
           if [[ -n "${{ github.event.inputs.add_labels }}" ]]; then
             mapfile -t LABELS < <(echo "${{ github.event.inputs.add_labels }}" | tr ' ' '\n')
             for label in "${LABELS[@]}"; do
               ADD_ARGS+=("--add-label" "$label")
             done
           fi
-          
+
           if [[ -n "${{ github.event.inputs.remove_labels }}" ]]; then
             mapfile -t LABELS < <(echo "${{ github.event.inputs.remove_labels }}" | tr ' ' '\n')
             for label in "${LABELS[@]}"; do
               REMOVE_ARGS+=("--remove-label" "$label")
             done
           fi
-          
+
           .github/scripts/auto-label.sh "${ADD_ARGS[@]}" "${REMOVE_ARGS[@]}"
 
   # Job 2: Sync labels from linked issue to PR
@@ -99,4 +99,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: .github/scripts/sync-pr-labels.sh
-        

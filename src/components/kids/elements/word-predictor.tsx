@@ -1,4 +1,3 @@
- 
 "use client";
 
 import { useState, useEffect, useId } from "react";
@@ -35,9 +34,10 @@ export function WordPredictor({
 }: WordPredictorProps) {
   const t = useTranslations("kids.wordPredictor");
   const levelSlug = useLevelSlug();
-  const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
+  const { currentSection, markSectionComplete, registerSectionRequirement } =
+    useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
@@ -103,12 +103,14 @@ export function WordPredictor({
     return (
       <span>
         {parts[0]}
-        <span className={cn(
-          "inline-block min-w-[80px] px-3 py-1 mx-1 rounded-lg border-2 border-dashed text-center font-bold",
-          !submitted && "bg-yellow-100 border-yellow-500 text-yellow-700",
-          submitted && isCorrect && "bg-green-100 border-green-500 text-green-700 border-solid",
-          submitted && !isCorrect && "bg-red-100 border-red-400 text-red-600 border-solid"
-        )}>
+        <span
+          className={cn(
+            "mx-1 inline-block min-w-[80px] rounded-lg border-2 border-dashed px-3 py-1 text-center font-bold",
+            !submitted && "border-yellow-500 bg-yellow-100 text-yellow-700",
+            submitted && isCorrect && "border-solid border-green-500 bg-green-100 text-green-700",
+            submitted && !isCorrect && "border-solid border-red-400 bg-red-100 text-red-600"
+          )}
+        >
           {selectedAnswer || "???"}
         </span>
         {parts[1]}
@@ -117,33 +119,43 @@ export function WordPredictor({
   };
 
   return (
-    <div className="my-4 p-4 pixel-panel pixel-panel-indigo">
+    <div className="pixel-panel pixel-panel-indigo my-4 p-4">
       {/* Title */}
-      <h3 className="text-xl font-bold text-[#4338CA] mb-2 flex items-center gap-2">
+      <h3 className="mb-2 flex items-center gap-2 text-xl font-bold text-[#4338CA]">
         🧠 {displayTitle}
       </h3>
-      <p className="text-[#5D4037] mb-4 m-0">{displayInstruction}</p>
+      <p className="m-0 mb-4 text-[#5D4037]">{displayInstruction}</p>
 
       {/* AI Brain visualization */}
-      <div className="bg-white/80 p-4 mb-4 border-2 border-[#6366F1]" style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}>
-        <div className="flex items-center gap-2 mb-3">
+      <div
+        className="mb-4 border-2 border-[#6366F1] bg-white/80 p-4"
+        style={{
+          clipPath:
+            "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+        }}
+      >
+        <div className="mb-3 flex items-center gap-2">
           <span className="text-2xl">🤖</span>
           <span className="font-medium text-[#4338CA]">{t("aiThinks")}</span>
         </div>
-        <p className="text-lg text-[#2C1810] m-0">
-          {renderSentence()}
-        </p>
+        <p className="m-0 text-lg text-[#2C1810]">{renderSentence()}</p>
       </div>
 
       {/* Thinking bubble */}
       {!submitted && (
-        <div className="bg-[#F0F9FF] p-3 mb-4 border-2 border-[#0EA5E9] italic text-[#0369A1]" style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}>
+        <div
+          className="mb-4 border-2 border-[#0EA5E9] bg-[#F0F9FF] p-3 text-[#0369A1] italic"
+          style={{
+            clipPath:
+              "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+          }}
+        >
           💭 {aiThinking || t("thinkingDefault")}
         </div>
       )}
 
       {/* Options */}
-      <div className="grid grid-cols-2 gap-2 mb-4">
+      <div className="mb-4 grid grid-cols-2 gap-2">
         {options.map((option, index) => {
           const isSelected = selectedAnswer === option;
           const showCorrect = submitted && option === correctAnswer;
@@ -155,13 +167,20 @@ export function WordPredictor({
               onClick={() => handleSelect(option)}
               disabled={submitted}
               className={cn(
-                "p-3 border-2 font-bold text-lg transition-all",
-                !submitted && !isSelected && "bg-white border-[#6366F1] text-[#4338CA] hover:bg-indigo-50 cursor-pointer",
-                !submitted && isSelected && "bg-indigo-100 border-[#4338CA] text-[#4338CA] ring-2 ring-[#4338CA] scale-105",
-                showCorrect && "bg-green-100 border-green-500 text-green-700",
-                showWrong && "bg-red-100 border-red-400 text-red-600"
+                "border-2 p-3 text-lg font-bold transition-all",
+                !submitted &&
+                  !isSelected &&
+                  "cursor-pointer border-[#6366F1] bg-white text-[#4338CA] hover:bg-indigo-50",
+                !submitted &&
+                  isSelected &&
+                  "scale-105 border-[#4338CA] bg-indigo-100 text-[#4338CA] ring-2 ring-[#4338CA]",
+                showCorrect && "border-green-500 bg-green-100 text-green-700",
+                showWrong && "border-red-400 bg-red-100 text-red-600"
               )}
-              style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+              style={{
+                clipPath:
+                  "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+              }}
             >
               {showCorrect && "✓ "}
               {showWrong && "✗ "}
@@ -177,12 +196,15 @@ export function WordPredictor({
           onClick={handleSubmit}
           disabled={!selectedAnswer}
           className={cn(
-            "w-full py-3 font-bold text-lg transition-all",
+            "w-full py-3 text-lg font-bold transition-all",
             selectedAnswer
-              ? "bg-[#6366F1] hover:bg-[#4F46E5] text-white cursor-pointer"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              ? "cursor-pointer bg-[#6366F1] text-white hover:bg-[#4F46E5]"
+              : "cursor-not-allowed bg-gray-200 text-gray-400"
           )}
-          style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+          style={{
+            clipPath:
+              "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+          }}
         >
           {t("check")}
         </button>
@@ -190,20 +212,25 @@ export function WordPredictor({
 
       {/* Result */}
       {submitted && (
-        <div 
+        <div
           className={cn(
-            "p-4 border-2 mb-4 animate-in fade-in zoom-in-95 duration-300",
-            isCorrect ? "bg-green-100 border-green-500" : "bg-orange-100 border-orange-400"
+            "animate-in fade-in zoom-in-95 mb-4 border-2 p-4 duration-300",
+            isCorrect ? "border-green-500 bg-green-100" : "border-orange-400 bg-orange-100"
           )}
-          style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+          style={{
+            clipPath:
+              "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+          }}
         >
-          <p className={cn(
-            "font-bold text-lg mb-2 m-0",
-            isCorrect ? "text-green-700" : "text-orange-700"
-          )}>
+          <p
+            className={cn(
+              "m-0 mb-2 text-lg font-bold",
+              isCorrect ? "text-green-700" : "text-orange-700"
+            )}
+          >
             {isCorrect ? `🎉 ${successMessage || t("correct")}` : `🤔 ${t("tryAgain")}`}
           </p>
-          <p className="text-[#5D4037] m-0">{explanation}</p>
+          <p className="m-0 text-[#5D4037]">{explanation}</p>
         </div>
       )}
 
@@ -211,8 +238,11 @@ export function WordPredictor({
       {submitted && !isCorrect && (
         <button
           onClick={handleReset}
-          className="px-6 py-2 font-bold bg-[#6366F1] hover:bg-[#4F46E5] text-white"
-          style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+          className="bg-[#6366F1] px-6 py-2 font-bold text-white hover:bg-[#4F46E5]"
+          style={{
+            clipPath:
+              "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+          }}
         >
           {t("retry")}
         </button>

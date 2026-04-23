@@ -78,7 +78,7 @@ export function ReportPromptDialog({ promptId, isLoggedIn }: ReportPromptDialogP
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="text-xs text-muted-foreground hover:text-foreground hover:underline transition-colors inline-flex items-center gap-1">
+        <button className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors hover:underline">
           <Flag className="h-3 w-3" />
           {t("report")}
         </button>
@@ -106,7 +106,8 @@ export function ReportPromptDialog({ promptId, isLoggedIn }: ReportPromptDialogP
           </div>
           <div className="space-y-2">
             <Label htmlFor="details">
-              {t("details")} <span className="text-muted-foreground text-xs">({t("optional")})</span>
+              {t("details")}{" "}
+              <span className="text-muted-foreground text-xs">({t("optional")})</span>
             </Label>
             <Textarea
               id="details"
@@ -122,7 +123,7 @@ export function ReportPromptDialog({ promptId, isLoggedIn }: ReportPromptDialogP
             {tCommon("cancel")}
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting || !reason}>
-            {isSubmitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("submitReport")}
           </Button>
         </DialogFooter>

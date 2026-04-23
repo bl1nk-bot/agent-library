@@ -16,10 +16,16 @@ export async function GET(request: NextRequest) {
 
   try {
     // Handle comma-separated keywords
-    const keywords = query.split(",").map(k => k.trim()).filter(Boolean);
-    const titleConditions = keywords.length > 1
-      ? keywords.map(keyword => ({ title: { contains: keyword, mode: "insensitive" as const } }))
-      : [{ title: { contains: query, mode: "insensitive" as const } }];
+    const keywords = query
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean);
+    const titleConditions =
+      keywords.length > 1
+        ? keywords.map((keyword) => ({
+            title: { contains: keyword, mode: "insensitive" as const },
+          }))
+        : [{ title: { contains: query, mode: "insensitive" as const } }];
 
     const prompts = await db.prompt.findMany({
       where: {
@@ -50,18 +56,12 @@ export async function GET(request: NextRequest) {
         },
       },
       take: limit,
-      orderBy: [
-        { isFeatured: "desc" },
-        { viewCount: "desc" },
-      ],
+      orderBy: [{ isFeatured: "desc" }, { viewCount: "desc" }],
     });
 
     return NextResponse.json({ prompts });
   } catch (error) {
     console.error("Search failed:", error);
-    return NextResponse.json(
-      { error: "Search failed" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Search failed" }, { status: 500 });
   }
 }

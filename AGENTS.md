@@ -163,12 +163,14 @@ The main configuration file is `prompts.config.ts`:
 Authentication and storage use a plugin architecture:
 
 ### Auth Plugins (`src/lib/plugins/auth/`)
+
 - `credentials.ts` - Email/password authentication
 - `github.ts` - GitHub OAuth
 - `google.ts` - Google OAuth
 - `azure.ts` - Microsoft Entra ID
 
 ### Storage Plugins (`src/lib/plugins/storage/`)
+
 - `url.ts` - URL-based media (default)
 - `s3.ts` - AWS S3 storage
 
@@ -182,18 +184,19 @@ Authentication and storage use a plugin architecture:
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `prompts.config.ts` | Main app configuration |
-| `prisma/schema.prisma` | Database schema |
-| `src/lib/auth/index.ts` | NextAuth configuration |
-| `src/lib/db.ts` | Prisma client singleton |
-| `src/app/layout.tsx` | Root layout with providers |
-| `src/components/ui/` | Base UI components (shadcn) |
+| File                    | Purpose                     |
+| ----------------------- | --------------------------- |
+| `prompts.config.ts`     | Main app configuration      |
+| `prisma/schema.prisma`  | Database schema             |
+| `src/lib/auth/index.ts` | NextAuth configuration      |
+| `src/lib/db.ts`         | Prisma client singleton     |
+| `src/app/layout.tsx`    | Root layout with providers  |
+| `src/components/ui/`    | Base UI components (shadcn) |
 
 ## Boundaries
 
 ### Always Do
+
 - Run `npm run lint` before committing
 - Use existing UI components from `src/components/ui/`
 - Add translations for all user-facing text
@@ -201,12 +204,14 @@ Authentication and storage use a plugin architecture:
 - Use TypeScript strict types
 
 ### Ask First
+
 - Database schema changes (require migrations)
 - Adding new dependencies
 - Modifying authentication flow
 - Changes to `prompts.config.ts` structure
 
 ### Never Do
+
 - Commit secrets or API keys (use `.env`)
 - Modify `node_modules/` or generated files
 - Delete existing translations
@@ -216,12 +221,14 @@ Authentication and storage use a plugin architecture:
 ## Environment Variables
 
 Required in `.env`:
+
 ```
 DATABASE_URL=           # PostgreSQL connection string
 AUTH_SECRET=            # NextAuth secret key
 ```
 
 Optional OAuth (if using those providers):
+
 ```
 AUTH_GITHUB_ID=
 AUTH_GITHUB_SECRET=
@@ -233,6 +240,7 @@ AUTH_AZURE_AD_ISSUER=
 ```
 
 Optional features:
+
 ```
 OPENAI_API_KEY=         # For AI-powered semantic search
 ```
@@ -240,6 +248,7 @@ OPENAI_API_KEY=         # For AI-powered semantic search
 ## Testing
 
 Currently no automated tests. When implementing:
+
 - Place tests adjacent to source files or in `__tests__/` directories
 - Use descriptive test names
 - Mock external services (database, OAuth)
@@ -247,22 +256,33 @@ Currently no automated tests. When implementing:
 ## Common Tasks
 
 ### Adding a new page
+
 1. Create route in `src/app/{route}/page.tsx`
 2. Use server component for data fetching
 3. Add translations to `messages/*.json`
 
 ### Adding a new component
+
 1. Create in appropriate `src/components/{category}/` folder
 2. Export from component file (no barrel exports needed)
 3. Follow existing component patterns
 
 ### Adding a new API route
+
 1. Create in `src/app/api/{route}/route.ts`
 2. Export appropriate HTTP method handlers (GET, POST, etc.)
 3. Use Zod for request validation
 4. Return proper JSON responses with status codes
 
 ### Modifying database schema
+
 1. Update `prisma/schema.prisma`
 2. Run `npm run db:migrate` to create migration
 3. Update related TypeScript types if needed
+
+<!-- SPECKIT START -->
+
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+
+<!-- SPECKIT END -->

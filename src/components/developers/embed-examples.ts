@@ -40,7 +40,8 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       model: "Claude 4.5 Sonnet",
       mode: "code",
       thinking: true,
-      filetree: "src/\nsrc/hooks/\nsrc/hooks/useDebounce.ts\nsrc/hooks/useLocalStorage.ts\nsrc/components/\nsrc/components/SearchInput.tsx",
+      filetree:
+        "src/\nsrc/hooks/\nsrc/hooks/useDebounce.ts\nsrc/hooks/useLocalStorage.ts\nsrc/components/\nsrc/components/SearchInput.tsx",
       showFiletree: true,
       showDiff: false,
       lightColor: "#8b5cf6",
@@ -57,12 +58,15 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       model: "Claude 4.5 Sonnet",
       mode: "code",
       thinking: true,
-      filetree: "src/\nsrc/hooks/\nsrc/hooks/useDebounce.ts\nsrc/components/\nsrc/components/SearchInput.tsx",
+      filetree:
+        "src/\nsrc/hooks/\nsrc/hooks/useDebounce.ts\nsrc/components/\nsrc/components/SearchInput.tsx",
       showFiletree: true,
       showDiff: true,
       diffFilename: "SearchInput.tsx",
-      diffOldText: "const [query, setQuery] = useState('');\n\nuseEffect(() => {\n  fetchResults(query);\n}, [query]);",
-      diffNewText: "const [query, setQuery] = useState('');\nconst debouncedQuery = useDebounce(query, 300);\n\nuseEffect(() => {\n  fetchResults(debouncedQuery);\n}, [debouncedQuery]);",
+      diffOldText:
+        "const [query, setQuery] = useState('');\n\nuseEffect(() => {\n  fetchResults(query);\n}, [query]);",
+      diffNewText:
+        "const [query, setQuery] = useState('');\nconst debouncedQuery = useDebounce(query, 300);\n\nuseEffect(() => {\n  fetchResults(debouncedQuery);\n}, [debouncedQuery]);",
       flashButton: "accept",
       lightColor: "#8b5cf6",
       darkColor: "#a78bfa",
@@ -79,7 +83,8 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       mode: "code",
       thinking: true,
       reasoning: true,
-      filetree: "src/\nsrc/api/\nsrc/api/client.ts\nsrc/api/types.ts\nsrc/hooks/\nsrc/hooks/useUsers.ts",
+      filetree:
+        "src/\nsrc/api/\nsrc/api/client.ts\nsrc/api/types.ts\nsrc/hooks/\nsrc/hooks/useUsers.ts",
       showFiletree: true,
       showDiff: false,
       lightColor: "#3b82f6",
@@ -189,7 +194,8 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       thinking: true,
       reasoning: true,
       showFiletree: true,
-      filetree: "src/\nsrc/payments/\nsrc/payments/processor.ts\nsrc/payments/validation.ts\nsrc/payments/__tests__/",
+      filetree:
+        "src/\nsrc/payments/\nsrc/payments/processor.ts\nsrc/payments/validation.ts\nsrc/payments/__tests__/",
       showDiff: false,
       lightColor: "#f59e0b",
       darkColor: "#fbbf24",
@@ -247,8 +253,10 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       showFiletree: false,
       showDiff: true,
       diffFilename: "api.js",
-      diffOldText: "function fetchData(url, callback) {\n  fetch(url)\n    .then(res => res.json())\n    .then(data => callback(null, data))\n    .catch(err => callback(err));\n}",
-      diffNewText: "async function fetchData(url) {\n  try {\n    const res = await fetch(url);\n    return await res.json();\n  } catch (err) {\n    throw new Error(`Failed to fetch: ${err.message}`);\n  }\n}",
+      diffOldText:
+        "function fetchData(url, callback) {\n  fetch(url)\n    .then(res => res.json())\n    .then(data => callback(null, data))\n    .catch(err => callback(err));\n}",
+      diffNewText:
+        "async function fetchData(url) {\n  try {\n    const res = await fetch(url);\n    return await res.json();\n  } catch (err) {\n    throw new Error(`Failed to fetch: ${err.message}`);\n  }\n}",
       flashButton: "accept",
       lightColor: "#22c55e",
       darkColor: "#4ade80",
@@ -264,7 +272,8 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       model: "Claude 4.5 Sonnet",
       mode: "code",
       fast: true,
-      filetree: "src/\nsrc/utils/\nsrc/utils/formatDate.ts\nsrc/utils/__tests__/\nsrc/utils/__tests__/formatDate.test.ts",
+      filetree:
+        "src/\nsrc/utils/\nsrc/utils/formatDate.ts\nsrc/utils/__tests__/\nsrc/utils/__tests__/formatDate.test.ts",
       showFiletree: true,
       showDiff: false,
       lightColor: "#14b8a6",
@@ -301,7 +310,8 @@ export const EMBED_EXAMPLES: EmbedExample[] = [
       model: "GPT-5",
       mode: "code",
       thinking: true,
-      filetree: "config/\nconfig/settings.json\nconfig/settings.dev.json\nconfig/settings.prod.json",
+      filetree:
+        "config/\nconfig/settings.json\nconfig/settings.dev.json\nconfig/settings.prod.json",
       showFiletree: true,
       showDiff: false,
       mcpTools: "filesystem:read_file\nfilesystem:write_file\nfilesystem:list_directory",

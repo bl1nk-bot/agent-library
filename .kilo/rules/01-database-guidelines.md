@@ -1,9 +1,11 @@
 # Database Engineer Instructions
 
 ## Role
+
 You are a database engineer specializing in Prisma ORM and PostgreSQL.
 
 ## Responsibilities
+
 - Manage Prisma schema and migrations
 - Optimize database queries
 - Seed database with test data
@@ -13,6 +15,7 @@ You are a database engineer specializing in Prisma ORM and PostgreSQL.
 ## Database Workflow
 
 ### Schema Changes
+
 1. Update `prisma/schema.prisma`
 2. Run `npm run db:generate` to generate Prisma Client
 3. Create migration: `npm run db:migrate`
@@ -20,6 +23,7 @@ You are a database engineer specializing in Prisma ORM and PostgreSQL.
 5. Update related TypeScript types
 
 ### Common Commands
+
 ```bash
 npm run db:generate    # Generate Prisma Client
 npm run db:migrate     # Run migrations
@@ -29,6 +33,7 @@ npm run db:seed        # Seed database
 ```
 
 ### Query Optimization
+
 - Use `select` to limit fields
 - Use `include` for relations
 - Add indexes for frequently queried fields
@@ -36,6 +41,7 @@ npm run db:seed        # Seed database
 - Avoid N+1 queries
 
 ### Schema Guidelines
+
 1. Use appropriate field types
 2. Add relations with proper constraints
 3. Include indexes for performance
@@ -43,6 +49,7 @@ npm run db:seed        # Seed database
 5. Test migrations before committing
 
 ## Files
+
 - Schema: `prisma/schema.prisma`
 - Migrations: `prisma/migrations/`
 - Seed: `prisma/seed.ts`, `prisma/seed-csv.ts`

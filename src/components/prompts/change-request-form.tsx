@@ -25,7 +25,13 @@ interface ChangeRequestFormProps {
   structuredFormat?: string | null;
 }
 
-export function ChangeRequestForm({ promptId, currentContent, currentTitle, promptType, structuredFormat }: ChangeRequestFormProps) {
+export function ChangeRequestForm({
+  promptId,
+  currentContent,
+  currentTitle,
+  promptType,
+  structuredFormat,
+}: ChangeRequestFormProps) {
   const isStructured = promptType === "STRUCTURED";
   const isSkill = promptType === "SKILL";
   const router = useRouter();
@@ -58,7 +64,7 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!hasChanges) {
       toast.error(t("mustMakeChanges"));
       return;
@@ -106,8 +112,8 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
           placeholder={currentTitle}
         />
         {hasTitleChanges && (
-          <p className="text-xs text-muted-foreground">
-            <span className="text-red-600 dark:text-red-400 line-through">{currentTitle}</span>
+          <p className="text-muted-foreground text-xs">
+            <span className="text-red-600 line-through dark:text-red-400">{currentTitle}</span>
             {" → "}
             <span className="text-green-600 dark:text-green-400">{proposedTitle}</span>
           </p>
@@ -118,7 +124,7 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
       <div className="space-y-2">
         <Label>{t("proposedContent")}</Label>
         <Tabs defaultValue="edit">
-          <TabsList className="grid w-full grid-cols-2 mb-2">
+          <TabsList className="mb-2 grid w-full grid-cols-2">
             <TabsTrigger value="edit" className="gap-1.5">
               <Edit3 className="h-3.5 w-3.5" />
               {t("edit")}
@@ -127,19 +133,18 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
               <GitCompare className="h-3.5 w-3.5" />
               {t("preview")}
               {hasContentChanges && (
-                <span className="ml-1 h-4 min-w-4 px-1 rounded-full bg-green-500 text-white text-[10px] flex items-center justify-center">✓</span>
+                <span className="ml-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-green-500 px-1 text-[10px] text-white">
+                  ✓
+                </span>
               )}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="edit" className="mt-0">
             {isSkill ? (
-              <SkillEditor
-                value={proposedContent}
-                onChange={setProposedContent}
-              />
+              <SkillEditor value={proposedContent} onChange={setProposedContent} />
             ) : (
-              <div className="border rounded-lg overflow-hidden">
+              <div className="overflow-hidden rounded-lg border">
                 <VariableToolbar onInsert={handleInsertVariable} />
                 {isStructured ? (
                   <CodeEditor
@@ -156,7 +161,7 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
                     value={proposedContent}
                     onChange={(e) => setProposedContent(e.target.value)}
                     placeholder={t("proposedContentPlaceholder")}
-                    className="min-h-[300px] font-mono text-sm border-0 rounded-none focus-visible:ring-0"
+                    className="min-h-[300px] rounded-none border-0 font-mono text-sm focus-visible:ring-0"
                     required
                   />
                 )}
@@ -172,14 +177,20 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
                 original={currentContent}
                 modified={proposedContent}
                 className="min-h-[300px]"
-                language={isStructured ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json" : undefined}
+                language={
+                  isStructured
+                    ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json"
+                    : undefined
+                }
               />
             ) : (
-              <div className="min-h-[300px] flex items-center justify-center border rounded-lg bg-muted/30">
+              <div className="bg-muted/30 flex min-h-[300px] items-center justify-center rounded-lg border">
                 <div className="text-center">
-                  <GitCompare className="h-10 w-10 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">{t("noChangesYet")}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Edit the content to see changes</p>
+                  <GitCompare className="text-muted-foreground mx-auto mb-2 h-10 w-10" />
+                  <p className="text-muted-foreground text-sm">{t("noChangesYet")}</p>
+                  <p className="text-muted-foreground mt-1 text-xs">
+                    Edit the content to see changes
+                  </p>
                 </div>
               </div>
             )}
@@ -200,10 +211,10 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-4 border-t">
-        <div className="text-sm text-muted-foreground">
+      <div className="flex items-center justify-between border-t pt-4">
+        <div className="text-muted-foreground text-sm">
           {hasChanges ? (
-            <span className="text-green-600 dark:text-green-400 flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
               <span className="h-2 w-2 rounded-full bg-green-500" />
               {t("changesDetected")}
             </span>
@@ -212,19 +223,16 @@ export function ChangeRequestForm({ promptId, currentContent, currentTitle, prom
           )}
         </div>
         <div className="flex gap-2">
-          <Button 
-            type="button" 
+          <Button
+            type="button"
             variant="outline"
             onClick={() => router.back()}
             disabled={isLoading}
           >
             {tCommon("cancel")}
           </Button>
-          <Button 
-            type="submit"
-            disabled={isLoading || !hasChanges}
-          >
-            {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+          <Button type="submit" disabled={isLoading || !hasChanges}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("submit")}
           </Button>
         </div>

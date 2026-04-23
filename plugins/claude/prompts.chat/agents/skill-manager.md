@@ -59,16 +59,19 @@ Use these prompts.chat MCP tools:
 ### Managing Skill Files
 
 **Add a file:**
+
 ```
 add_file_to_skill(skillId, filename, content)
 ```
 
 **Update a file:**
+
 ```
 update_skill_file(skillId, filename, content)
 ```
 
 **Remove a file:**
+
 ```
 remove_file_from_skill(skillId, filename)
 ```
@@ -76,6 +79,7 @@ remove_file_from_skill(skillId, filename)
 ## Skill Structure
 
 A skill consists of:
+
 - **SKILL.md** (required) - Main skill instructions with frontmatter
 - **Reference docs** - Additional documentation files
 - **Scripts** - Helper scripts (Python, shell, etc.)

@@ -14,14 +14,9 @@ export const metadata: Metadata = {
 };
 
 // Query for skills list (cached)
-function getCachedSkills(
-   
-  orderBy: any,
-  perPage: number,
-  searchQuery?: string
-) {
+function getCachedSkills(orderBy: any, perPage: number, searchQuery?: string) {
   const cacheKey = JSON.stringify({ orderBy, perPage, searchQuery });
-  
+
   return unstable_cache(
     async () => {
       const where: Record<string, unknown> = {
@@ -89,7 +84,6 @@ function getCachedSkills(
       ]);
 
       return {
-         
         skills: skillsRaw.map((p: any) => ({
           ...p,
           voteCount: p._count.votes,
@@ -116,11 +110,11 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
   const tNav = await getTranslations("nav");
   const tSearch = await getTranslations("search");
   const params = await searchParams;
-  
+
   const perPage = 24;
 
   // Build order by clause
-   
+
   let orderBy: any = { createdAt: "desc" };
   if (params.sort === "oldest") {
     orderBy = { createdAt: "asc" };
@@ -134,25 +128,25 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
 
   return (
     <div className="container py-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex items-baseline gap-2">
           <h1 className="text-lg font-semibold">{tNav("skills")}</h1>
-          <span className="text-xs text-muted-foreground">{tSearch("found", { count: total })}</span>
+          <span className="text-muted-foreground text-xs">
+            {tSearch("found", { count: total })}
+          </span>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <SkillImportButton />
-          <Button size="sm" className="h-8 text-xs w-full sm:w-auto" asChild>
+          <Button size="sm" className="h-8 w-full text-xs sm:w-auto" asChild>
             <Link href="/prompts/new?type=SKILL">
-              <Plus className="h-3.5 w-3.5 mr-1" />
+              <Plus className="mr-1 h-3.5 w-3.5" />
               {t("createSkill")}
             </Link>
           </Button>
         </div>
       </div>
-      
-      <p className="text-sm text-muted-foreground mb-6">
-        {t("skillsDescription")}
-      </p>
+
+      <p className="text-muted-foreground mb-6 text-sm">{t("skillsDescription")}</p>
 
       <InfinitePromptList
         initialPrompts={skills}

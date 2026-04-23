@@ -126,8 +126,8 @@ export async function POST(
       select: { value: true },
     });
 
-    return NextResponse.json({ 
-      score, 
+    return NextResponse.json({
+      score,
       userVote: userVote?.value ?? 0,
     });
   } catch (error) {

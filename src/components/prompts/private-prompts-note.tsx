@@ -31,15 +31,13 @@ export function PrivatePromptsNote({ count }: PrivatePromptsNoteProps) {
   }
 
   return (
-    <div className="mb-4 p-3 rounded-lg border border-primary/20 bg-primary/5 flex items-start gap-3">
-      <Lock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-      <p className="flex-1 text-sm text-foreground">
-        {t("privatePromptsNote", { count })}
-      </p>
+    <div className="border-primary/20 bg-primary/5 mb-4 flex items-start gap-3 rounded-lg border p-3">
+      <Lock className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+      <p className="text-foreground flex-1 text-sm">{t("privatePromptsNote", { count })}</p>
       <Button
         variant="ghost"
         size="icon"
-        className="h-6 w-6 shrink-0 -mt-0.5 -mr-1 text-muted-foreground hover:text-foreground"
+        className="text-muted-foreground hover:text-foreground -mt-0.5 -mr-1 h-6 w-6 shrink-0"
         onClick={handleDismiss}
       >
         <X className="h-4 w-4" />

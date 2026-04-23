@@ -1,4 +1,3 @@
- 
 "use client";
 
 import { useState, useEffect } from "react";
@@ -26,10 +25,12 @@ export function ExtensionLink({ url }: ExtensionLinkProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 h-10 px-2.5 2xl:px-4 bg-zinc-900 dark:bg-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors border border-zinc-700 dark:border-zinc-600"
+      className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 transition-colors hover:bg-zinc-800 2xl:px-4 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:bg-zinc-700"
     >
       <Chromium className="h-4 w-4 text-zinc-100" />
-      <span className="hidden 2xl:inline text-sm font-medium text-zinc-100 whitespace-nowrap">{t("extension")}</span>
+      <span className="hidden text-sm font-medium whitespace-nowrap text-zinc-100 2xl:inline">
+        {t("extension")}
+      </span>
     </Link>
   );
 }

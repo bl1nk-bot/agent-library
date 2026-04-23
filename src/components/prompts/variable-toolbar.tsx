@@ -6,11 +6,7 @@ import { Variable, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface VariableToolbarProps {
   onInsert: (variable: string) => void;
@@ -29,7 +25,11 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
       const selected = getSelectedText();
       if (selected) {
         // Sanitize: lowercase, replace spaces with underscores, remove invalid chars
-        const sanitized = selected.trim().toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
+        const sanitized = selected
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, "_")
+          .replace(/[^a-z0-9_]/g, "");
         if (sanitized) {
           // Use queueMicrotask to avoid sync setState in effect
           queueMicrotask(() => setName(sanitized));
@@ -40,11 +40,11 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
 
   const handleInsert = () => {
     if (!name.trim()) return;
-    
+
     const variable = defaultValue.trim()
       ? `\${${name.trim()}:${defaultValue.trim()}}`
       : `\${${name.trim()}}`;
-    
+
     onInsert(variable);
     setName("");
     setDefaultValue("");
@@ -59,10 +59,10 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
   };
 
   return (
-    <div className="flex items-center gap-1 p-1 border-b bg-muted/30">
+    <div className="bg-muted/30 flex items-center gap-1 border-b p-1">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-7 text-xs gap-1.5">
+          <Button variant="ghost" size="sm" className="h-7 gap-1.5 text-xs">
             <Variable className="h-3.5 w-3.5" />
             {t("insertVariable")}
           </Button>
@@ -70,7 +70,9 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
         <PopoverContent className="w-72" align="start">
           <div className="space-y-3">
             <div className="space-y-1">
-              <Label htmlFor="var-name" className="text-xs">{t("variableName")}</Label>
+              <Label htmlFor="var-name" className="text-xs">
+                {t("variableName")}
+              </Label>
               <Input
                 id="var-name"
                 value={name}
@@ -82,7 +84,9 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="var-default" className="text-xs">{t("variableDefault")}</Label>
+              <Label htmlFor="var-default" className="text-xs">
+                {t("variableDefault")}
+              </Label>
               <Input
                 id="var-default"
                 value={defaultValue}
@@ -93,18 +97,22 @@ export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarPr
               />
             </div>
             <div className="flex items-center justify-between">
-              <code className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                {name ? (defaultValue ? `\${${name}:${defaultValue}}` : `\${${name}}`) : "${variable}"}
+              <code className="text-muted-foreground bg-muted rounded px-1.5 py-0.5 text-xs">
+                {name
+                  ? defaultValue
+                    ? `\${${name}:${defaultValue}}`
+                    : `\${${name}}`
+                  : "${variable}"}
               </code>
               <Button size="sm" onClick={handleInsert} disabled={!name.trim()} className="h-7">
-                <Plus className="h-3.5 w-3.5 mr-1" />
+                <Plus className="mr-1 h-3.5 w-3.5" />
                 {t("insert")}
               </Button>
             </div>
           </div>
         </PopoverContent>
       </Popover>
-      <span className="hidden sm:inline text-xs text-muted-foreground ml-1">
+      <span className="text-muted-foreground ml-1 hidden text-xs sm:inline">
         {t("variableHint")}
       </span>
     </div>

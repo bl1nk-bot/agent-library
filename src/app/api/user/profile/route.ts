@@ -5,7 +5,19 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
 const customLinkSchema = z.object({
-  type: z.enum(["website", "github", "twitter", "linkedin", "instagram", "youtube", "twitch", "discord", "mastodon", "bluesky", "sponsor"]),
+  type: z.enum([
+    "website",
+    "github",
+    "twitter",
+    "linkedin",
+    "instagram",
+    "youtube",
+    "twitch",
+    "discord",
+    "mastodon",
+    "bluesky",
+    "sponsor",
+  ]),
   url: z.string().url(),
   label: z.string().max(30).optional(),
 });
@@ -114,10 +126,7 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: "not_found", message: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "not_found", message: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json(user);

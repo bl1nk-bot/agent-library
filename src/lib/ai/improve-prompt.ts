@@ -55,12 +55,18 @@ function cosineSimilarity(a: number[], b: number[]): number {
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-function mapOutputTypeToDbType(outputType: OutputType): "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | null {
+function mapOutputTypeToDbType(
+  outputType: OutputType
+): "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | null {
   switch (outputType) {
-    case "image": return "IMAGE";
-    case "video": return "VIDEO";
-    case "sound": return "AUDIO";
-    default: return null;
+    case "image":
+      return "IMAGE";
+    case "video":
+      return "VIDEO";
+    case "sound":
+      return "AUDIO";
+    default:
+      return null;
   }
 }
 
@@ -68,7 +74,9 @@ async function findSimilarPrompts(
   query: string,
   outputType: OutputType,
   limit: number = 3
-): Promise<Array<{ id: string; slug: string | null; title: string; content: string; similarity: number }>> {
+): Promise<
+  Array<{ id: string; slug: string | null; title: string; content: string; similarity: number }>
+> {
   const aiSearchEnabled = await isAISearchEnabled();
   if (!aiSearchEnabled) {
     console.log("[improve-prompt] AI search is not enabled");

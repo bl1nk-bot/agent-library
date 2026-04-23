@@ -1,4 +1,3 @@
- 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -12,7 +11,12 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidApiKeyFormat } from "@/lib/api-key";
 import { improvePrompt } from "@/lib/ai/improve-prompt";
-import { parseSkillFiles, serializeSkillFiles, DEFAULT_SKILL_FILE, DEFAULT_SKILL_CONTENT } from "@/lib/skill-files";
+import {
+  parseSkillFiles,
+  serializeSkillFiles,
+  DEFAULT_SKILL_FILE,
+  DEFAULT_SKILL_CONTENT,
+} from "@/lib/skill-files";
 
 interface AuthenticatedUser {
   id: string;
@@ -122,13 +126,11 @@ function createServer(options: ServerOptions = {}) {
     if (authenticatedUser && includeOwnPrivate) {
       // If users filter includes the authenticated user (or no users filter), include their private prompts
       const usersFilter = options.users && options.users.length > 0 ? options.users : null;
-      const includeAuthUserPrivate = !usersFilter || usersFilter.includes(authenticatedUser.username);
-      
+      const includeAuthUserPrivate =
+        !usersFilter || usersFilter.includes(authenticatedUser.username);
+
       if (includeAuthUserPrivate) {
-        baseFilter.OR = [
-          { isPrivate: false },
-          { isPrivate: true, authorId: authenticatedUser.id },
-        ];
+        baseFilter.OR = [{ isPrivate: false }, { isPrivate: true, authorId: authenticatedUser.id }];
       } else {
         baseFilter.isPrivate = false;
       }
@@ -219,10 +221,8 @@ function createServer(options: ServerOptions = {}) {
     });
 
     // Find by slug field first, then by slugified title, then by id
-    const prompt = prompts.find((p) => 
-      p.slug === promptSlug || 
-      slugify(p.title) === promptSlug || 
-      p.id === promptSlug
+    const prompt = prompts.find(
+      (p) => p.slug === promptSlug || slugify(p.title) === promptSlug || p.id === promptSlug
     );
 
     if (!prompt) {
@@ -232,7 +232,7 @@ function createServer(options: ServerOptions = {}) {
     // Replace variables in content
     let filledContent = prompt.content;
     const variables = extractVariables(prompt.content);
-    
+
     for (const variable of variables) {
       const value = args[variable.name] ?? variable.defaultValue ?? `\${${variable.name}}`;
       filledContent = filledContent.replace(
@@ -294,10 +294,7 @@ function createServer(options: ServerOptions = {}) {
             // Visibility filter: public OR user's own private prompts
             authenticatedUser
               ? {
-                  OR: [
-                    { isPrivate: false },
-                    { isPrivate: true, authorId: authenticatedUser.id },
-                  ],
+                  OR: [{ isPrivate: false }, { isPrivate: true, authorId: authenticatedUser.id }],
                 }
               : { isPrivate: false },
           ],
@@ -353,7 +350,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP search_prompts error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to search prompts" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to search prompts" }) },
+          ],
           isError: true,
         };
       }
@@ -395,7 +394,9 @@ function createServer(options: ServerOptions = {}) {
 
         if (!prompt) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Prompt not found" }) }],
+            content: [
+              { type: "text" as const, text: JSON.stringify({ error: "Prompt not found" }) },
+            ],
             isError: true,
           };
         }
@@ -436,11 +437,11 @@ function createServer(options: ServerOptions = {}) {
               },
               ElicitResultSchema
             );
-            
-            const timeoutPromise = new Promise<never>((_, reject) => 
+
+            const timeoutPromise = new Promise<never>((_, reject) =>
               setTimeout(() => reject(new Error("Elicitation timeout")), timeoutMs)
             );
-            
+
             const result = await Promise.race([elicitationPromise, timeoutPromise]);
 
             if (result.action === "accept" && result.content) {
@@ -483,7 +484,8 @@ function createServer(options: ServerOptions = {}) {
                       {
                         ...prompt,
                         variablesRequired: variables,
-                        message: "User declined to provide variable values. Returning original prompt.",
+                        message:
+                          "User declined to provide variable values. Returning original prompt.",
                         author: prompt.author.name || prompt.author.username,
                         category: prompt.category?.name || null,
                         tags: prompt.tags.map((t) => t.tag.name),
@@ -541,7 +543,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP get_prompt error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to get prompt" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to get prompt" }) },
+          ],
           isError: true,
         };
       }
@@ -557,26 +561,52 @@ function createServer(options: ServerOptions = {}) {
         "Save a new prompt to your prompts.chat account. Requires API key authentication. Prompts are private by default unless configured otherwise in settings.",
       inputSchema: {
         title: z.string().min(1).max(200).describe("Title of the prompt"),
-        content: z.string().min(1).describe("The prompt content. Can include variables like ${variable} or ${variable:default}"),
+        content: z
+          .string()
+          .min(1)
+          .describe(
+            "The prompt content. Can include variables like ${variable} or ${variable:default}"
+          ),
         description: z.string().max(500).optional().describe("Optional description of the prompt"),
-        tags: z.array(z.string()).max(10).optional().describe("Optional array of tag names (will be created if they don't exist)"),
+        tags: z
+          .array(z.string())
+          .max(10)
+          .optional()
+          .describe("Optional array of tag names (will be created if they don't exist)"),
         category: z.string().optional().describe("Optional category slug"),
-        isPrivate: z.boolean().optional().describe("Whether the prompt is private (default: uses your account setting)"),
-        type: z.enum(["TEXT", "STRUCTURED", "IMAGE", "VIDEO", "AUDIO"]).optional().describe("Prompt type (default: TEXT)"),
-        structuredFormat: z.enum(["JSON", "YAML"]).optional().describe("Format for structured prompts"),
+        isPrivate: z
+          .boolean()
+          .optional()
+          .describe("Whether the prompt is private (default: uses your account setting)"),
+        type: z
+          .enum(["TEXT", "STRUCTURED", "IMAGE", "VIDEO", "AUDIO"])
+          .optional()
+          .describe("Prompt type (default: TEXT)"),
+        structuredFormat: z
+          .enum(["JSON", "YAML"])
+          .optional()
+          .describe("Format for structured prompts"),
       },
     },
     async ({ title, content, description, tags, category, isPrivate, type, structuredFormat }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
 
       try {
         // Determine privacy setting
-        const shouldBePrivate = isPrivate !== undefined ? isPrivate : !authenticatedUser.mcpPromptsPublicByDefault;
+        const shouldBePrivate =
+          isPrivate !== undefined ? isPrivate : !authenticatedUser.mcpPromptsPublicByDefault;
 
         // Find or create tags
         const tagConnections: { tag: { connect: { id: string } } }[] = [];
@@ -584,7 +614,7 @@ function createServer(options: ServerOptions = {}) {
           for (const tagName of tags) {
             const tagSlug = slugify(tagName);
             if (!tagSlug) continue;
-            
+
             let tag = await db.tag.findUnique({ where: { slug: tagSlug } });
             if (!tag) {
               tag = await db.tag.create({
@@ -614,7 +644,7 @@ function createServer(options: ServerOptions = {}) {
             description: description || null,
             isPrivate: shouldBePrivate,
             type: type || "TEXT",
-            structuredFormat: type === "STRUCTURED" ? (structuredFormat || "JSON") : null,
+            structuredFormat: type === "STRUCTURED" ? structuredFormat || "JSON" : null,
             authorId: authenticatedUser.id,
             categoryId: categoryId || null,
             tags: {
@@ -646,7 +676,9 @@ function createServer(options: ServerOptions = {}) {
                     ...prompt,
                     tags: prompt.tags.map((t) => t.tag.name),
                     category: prompt.category?.name || null,
-                    link: prompt.isPrivate ? null : `https://prompts.chat/prompts/${prompt.id}_${getPromptName(prompt)}`,
+                    link: prompt.isPrivate
+                      ? null
+                      : `https://prompts.chat/prompts/${prompt.id}_${getPromptName(prompt)}`,
                   },
                 },
                 null,
@@ -658,7 +690,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP save_prompt error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to save prompt" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to save prompt" }) },
+          ],
           isError: true,
         };
       }
@@ -687,7 +721,14 @@ function createServer(options: ServerOptions = {}) {
     async ({ prompt, outputType = "text", outputFormat = "text" }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
@@ -724,38 +765,63 @@ function createServer(options: ServerOptions = {}) {
       inputSchema: {
         title: z.string().min(1).max(200).describe("Title of the skill"),
         description: z.string().max(500).optional().describe("Description of what the skill does"),
-        files: z.array(z.object({
-          filename: z.string().describe("File path (e.g., 'SKILL.md', 'reference.md', 'scripts/helper.py')"),
-          content: z.string().describe("File content"),
-        })).min(1).describe("Array of files. Must include SKILL.md as the main skill file."),
+        files: z
+          .array(
+            z.object({
+              filename: z
+                .string()
+                .describe("File path (e.g., 'SKILL.md', 'reference.md', 'scripts/helper.py')"),
+              content: z.string().describe("File content"),
+            })
+          )
+          .min(1)
+          .describe("Array of files. Must include SKILL.md as the main skill file."),
         tags: z.array(z.string()).max(10).optional().describe("Optional array of tag names"),
         category: z.string().optional().describe("Optional category slug"),
-        isPrivate: z.boolean().optional().describe("Whether the skill is private (default: uses your account setting)"),
+        isPrivate: z
+          .boolean()
+          .optional()
+          .describe("Whether the skill is private (default: uses your account setting)"),
       },
     },
     async ({ title, description, files, tags, category, isPrivate }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
 
       try {
         // Ensure SKILL.md exists
-        const hasSkillMd = files.some(f => f.filename === DEFAULT_SKILL_FILE);
+        const hasSkillMd = files.some((f) => f.filename === DEFAULT_SKILL_FILE);
         if (!hasSkillMd) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "SKILL.md file is required" }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({ error: "SKILL.md file is required" }),
+              },
+            ],
             isError: true,
           };
         }
 
         // Serialize files to multi-file format
-        const content = serializeSkillFiles(files.map(f => ({ filename: f.filename, content: f.content })));
+        const content = serializeSkillFiles(
+          files.map((f) => ({ filename: f.filename, content: f.content }))
+        );
 
         // Determine privacy setting
-        const shouldBePrivate = isPrivate !== undefined ? isPrivate : !authenticatedUser.mcpPromptsPublicByDefault;
+        const shouldBePrivate =
+          isPrivate !== undefined ? isPrivate : !authenticatedUser.mcpPromptsPublicByDefault;
 
         // Find or create tags
         const tagConnections: { tag: { connect: { id: string } } }[] = [];
@@ -763,7 +829,7 @@ function createServer(options: ServerOptions = {}) {
           for (const tagName of tags) {
             const tagSlug = slugify(tagName);
             if (!tagSlug) continue;
-            
+
             let tag = await db.tag.findUnique({ where: { slug: tagSlug } });
             if (!tag) {
               tag = await db.tag.create({
@@ -815,10 +881,12 @@ function createServer(options: ServerOptions = {}) {
                   success: true,
                   skill: {
                     ...skill,
-                    files: files.map(f => f.filename),
+                    files: files.map((f) => f.filename),
                     tags: skill.tags.map((t) => t.tag.name),
                     category: skill.category?.name || null,
-                    link: skill.isPrivate ? null : `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
+                    link: skill.isPrivate
+                      ? null
+                      : `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
                   },
                 },
                 null,
@@ -830,7 +898,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP save_skill error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to save skill" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to save skill" }) },
+          ],
           isError: true,
         };
       }
@@ -846,14 +916,25 @@ function createServer(options: ServerOptions = {}) {
         "Add a new file to an existing Agent Skill. Use this to add reference docs, scripts, or configuration files to a skill you own.",
       inputSchema: {
         skillId: z.string().describe("The ID of the skill to add the file to"),
-        filename: z.string().describe("File path (e.g., 'reference.md', 'scripts/helper.py', 'config/settings.json')"),
+        filename: z
+          .string()
+          .describe(
+            "File path (e.g., 'reference.md', 'scripts/helper.py', 'config/settings.json')"
+          ),
         content: z.string().describe("File content"),
       },
     },
     async ({ skillId, filename, content }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
@@ -872,7 +953,14 @@ function createServer(options: ServerOptions = {}) {
 
         if (!skill) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Skill not found or you don't have permission to edit it" }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "Skill not found or you don't have permission to edit it",
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -881,9 +969,16 @@ function createServer(options: ServerOptions = {}) {
         const files = parseSkillFiles(skill.content);
 
         // Check if file already exists
-        if (files.some(f => f.filename === filename)) {
+        if (files.some((f) => f.filename === filename)) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: `File '${filename}' already exists. Use a different filename or update the existing file.` }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: `File '${filename}' already exists. Use a different filename or update the existing file.`,
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -891,7 +986,14 @@ function createServer(options: ServerOptions = {}) {
         // Cannot add SKILL.md (it always exists)
         if (filename === DEFAULT_SKILL_FILE) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "SKILL.md already exists. Edit the skill directly to modify it." }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "SKILL.md already exists. Edit the skill directly to modify it.",
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -915,7 +1017,7 @@ function createServer(options: ServerOptions = {}) {
                   success: true,
                   message: `File '${filename}' added to skill`,
                   skillId,
-                  files: files.map(f => f.filename),
+                  files: files.map((f) => f.filename),
                   link: `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
                 },
                 null,
@@ -927,7 +1029,12 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP add_file_to_skill error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to add file to skill" }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({ error: "Failed to add file to skill" }),
+            },
+          ],
           isError: true,
         };
       }
@@ -943,14 +1050,23 @@ function createServer(options: ServerOptions = {}) {
         "Update an existing file in an Agent Skill. Use this to modify reference docs, scripts, configuration files, or SKILL.md content.",
       inputSchema: {
         skillId: z.string().describe("The ID of the skill containing the file"),
-        filename: z.string().describe("File path to update (e.g., 'SKILL.md', 'reference.md', 'scripts/helper.py')"),
+        filename: z
+          .string()
+          .describe("File path to update (e.g., 'SKILL.md', 'reference.md', 'scripts/helper.py')"),
         content: z.string().describe("New file content"),
       },
     },
     async ({ skillId, filename, content }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
@@ -969,7 +1085,14 @@ function createServer(options: ServerOptions = {}) {
 
         if (!skill) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Skill not found or you don't have permission to edit it" }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "Skill not found or you don't have permission to edit it",
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -978,10 +1101,17 @@ function createServer(options: ServerOptions = {}) {
         const files = parseSkillFiles(skill.content);
 
         // Find the file to update
-        const fileIndex = files.findIndex(f => f.filename === filename);
+        const fileIndex = files.findIndex((f) => f.filename === filename);
         if (fileIndex === -1) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: `File '${filename}' not found in skill. Use add_file_to_skill to add new files.` }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: `File '${filename}' not found in skill. Use add_file_to_skill to add new files.`,
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -1005,7 +1135,7 @@ function createServer(options: ServerOptions = {}) {
                   success: true,
                   message: `File '${filename}' updated in skill`,
                   skillId,
-                  files: files.map(f => f.filename),
+                  files: files.map((f) => f.filename),
                   link: `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
                 },
                 null,
@@ -1017,7 +1147,12 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP update_skill_file error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to update file in skill" }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({ error: "Failed to update file in skill" }),
+            },
+          ],
           isError: true,
         };
       }
@@ -1033,13 +1168,22 @@ function createServer(options: ServerOptions = {}) {
         "Remove a file from an existing Agent Skill. Cannot remove SKILL.md as it is required.",
       inputSchema: {
         skillId: z.string().describe("The ID of the skill to remove the file from"),
-        filename: z.string().describe("File path to remove (e.g., 'reference.md', 'scripts/helper.py')"),
+        filename: z
+          .string()
+          .describe("File path to remove (e.g., 'reference.md', 'scripts/helper.py')"),
       },
     },
     async ({ skillId, filename }) => {
       if (!authenticatedUser) {
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Authentication required. Please provide an API key." }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "Authentication required. Please provide an API key.",
+              }),
+            },
+          ],
           isError: true,
         };
       }
@@ -1048,7 +1192,14 @@ function createServer(options: ServerOptions = {}) {
         // Cannot remove SKILL.md
         if (filename === DEFAULT_SKILL_FILE) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Cannot remove SKILL.md - it is required for all skills" }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "Cannot remove SKILL.md - it is required for all skills",
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -1066,7 +1217,14 @@ function createServer(options: ServerOptions = {}) {
 
         if (!skill) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Skill not found or you don't have permission to edit it" }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "Skill not found or you don't have permission to edit it",
+                }),
+              },
+            ],
             isError: true,
           };
         }
@@ -1075,15 +1233,20 @@ function createServer(options: ServerOptions = {}) {
         const files = parseSkillFiles(skill.content);
 
         // Check if file exists
-        if (!files.some(f => f.filename === filename)) {
+        if (!files.some((f) => f.filename === filename)) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: `File '${filename}' not found in this skill` }) }],
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({ error: `File '${filename}' not found in this skill` }),
+              },
+            ],
             isError: true,
           };
         }
 
         // Remove the file
-        const updatedFiles = files.filter(f => f.filename !== filename);
+        const updatedFiles = files.filter((f) => f.filename !== filename);
 
         // Serialize and update
         const updatedContent = serializeSkillFiles(updatedFiles);
@@ -1101,7 +1264,7 @@ function createServer(options: ServerOptions = {}) {
                   success: true,
                   message: `File '${filename}' removed from skill`,
                   skillId,
-                  files: updatedFiles.map(f => f.filename),
+                  files: updatedFiles.map((f) => f.filename),
                   link: `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
                 },
                 null,
@@ -1113,7 +1276,12 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP remove_file_from_skill error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to remove file from skill" }) }],
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({ error: "Failed to remove file from skill" }),
+            },
+          ],
           isError: true,
         };
       }
@@ -1136,10 +1304,7 @@ function createServer(options: ServerOptions = {}) {
         // Build visibility filter
         const visibilityFilter = authenticatedUser
           ? {
-              OR: [
-                { isPrivate: false },
-                { isPrivate: true, authorId: authenticatedUser.id },
-              ],
+              OR: [{ isPrivate: false }, { isPrivate: true, authorId: authenticatedUser.id }],
             }
           : { isPrivate: false };
 
@@ -1169,7 +1334,9 @@ function createServer(options: ServerOptions = {}) {
 
         if (!skill) {
           return {
-            content: [{ type: "text" as const, text: JSON.stringify({ error: "Skill not found" }) }],
+            content: [
+              { type: "text" as const, text: JSON.stringify({ error: "Skill not found" }) },
+            ],
             isError: true,
           };
         }
@@ -1194,11 +1361,13 @@ function createServer(options: ServerOptions = {}) {
                   isPrivate: skill.isPrivate,
                   createdAt: skill.createdAt.toISOString(),
                   updatedAt: skill.updatedAt.toISOString(),
-                  files: files.map(f => ({
+                  files: files.map((f) => ({
                     filename: f.filename,
                     content: f.content,
                   })),
-                  link: skill.isPrivate ? null : `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
+                  link: skill.isPrivate
+                    ? null
+                    : `https://prompts.chat/prompts/${skill.id}_${getPromptName(skill)}`,
                 },
                 null,
                 2
@@ -1209,7 +1378,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP get_skill error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to get skill" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to get skill" }) },
+          ],
           isError: true,
         };
       }
@@ -1253,10 +1424,7 @@ function createServer(options: ServerOptions = {}) {
             // Visibility filter: public OR user's own private skills
             authenticatedUser
               ? {
-                  OR: [
-                    { isPrivate: false },
-                    { isPrivate: true, authorId: authenticatedUser.id },
-                  ],
+                  OR: [{ isPrivate: false }, { isPrivate: true, authorId: authenticatedUser.id }],
                 }
               : { isPrivate: false },
           ],
@@ -1294,7 +1462,7 @@ function createServer(options: ServerOptions = {}) {
             category: s.category?.name || null,
             tags: s.tags.map((t) => t.tag.name),
             votes: s._count.votes,
-            files: files.map(f => f.filename),
+            files: files.map((f) => f.filename),
             createdAt: s.createdAt.toISOString(),
             link: `https://prompts.chat/prompts/${s.id}_${getPromptName(s)}`,
           };
@@ -1311,7 +1479,9 @@ function createServer(options: ServerOptions = {}) {
       } catch (error) {
         console.error("MCP search_skills error:", error);
         return {
-          content: [{ type: "text" as const, text: JSON.stringify({ error: "Failed to search skills" }) }],
+          content: [
+            { type: "text" as const, text: JSON.stringify({ error: "Failed to search skills" }) },
+          ],
           isError: true,
         };
       }
@@ -1362,11 +1532,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         {
           name: "improve_prompt",
-          description: "Transform a basic prompt into a well-structured, comprehensive prompt using AI.",
+          description:
+            "Transform a basic prompt into a well-structured, comprehensive prompt using AI.",
         },
         {
           name: "save_skill",
-          description: "Save a new Agent Skill with multiple files (requires API key authentication).",
+          description:
+            "Save a new Agent Skill with multiple files (requires API key authentication).",
         },
         {
           name: "add_file_to_skill",
@@ -1374,7 +1546,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         {
           name: "update_skill_file",
-          description: "Update an existing file in an Agent Skill (requires API key authentication).",
+          description:
+            "Update an existing file in an Agent Skill (requires API key authentication).",
         },
         {
           name: "remove_file_from_skill",
@@ -1390,7 +1563,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ],
       prompts: {
-        description: "All public prompts are available as MCP prompts. Use prompts/list to browse and prompts/get to retrieve with variable substitution.",
+        description:
+          "All public prompts are available as MCP prompts. Use prompts/list to browse and prompts/get to retrieve with variable substitution.",
         usage: "Access via slash commands in MCP clients (e.g., /prompt-id)",
       },
       endpoint: "/api/mcp",

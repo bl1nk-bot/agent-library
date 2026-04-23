@@ -111,30 +111,22 @@ export function CommentForm({
           autoFocus={autoFocus}
           disabled={isLoading}
         />
-        <div className="flex items-center gap-2 justify-end">
+        <div className="flex items-center justify-end gap-2">
           {onCancel && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={onCancel}
-              disabled={isLoading}
-            >
+            <Button type="button" variant="ghost" size="sm" onClick={onCancel} disabled={isLoading}>
               {tCommon("cancel")}
             </Button>
           )}
-          <Button
-            type="submit"
-            size="sm"
-            disabled={isLoading || !content.trim()}
-          >
+          <Button type="submit" size="sm" disabled={isLoading || !content.trim()}>
             {isLoading ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t("posting")}
               </>
+            ) : parentId ? (
+              t("reply")
             ) : (
-              parentId ? t("reply") : t("postComment")
+              t("postComment")
             )}
           </Button>
         </div>
@@ -144,17 +136,15 @@ export function CommentForm({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>{tVote("loginRequired")}</DialogTitle>
-            <DialogDescription>
-              {t("loginToComment")}
-            </DialogDescription>
+            <DialogDescription>{t("loginToComment")}</DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex-col sm:flex-row gap-2">
+          <DialogFooter className="flex-col gap-2 sm:flex-row">
             <Button variant="outline" onClick={() => setShowLoginModal(false)}>
               {tCommon("cancel")}
             </Button>
             <Button asChild>
               <Link href="/login">
-                <LogIn className="h-4 w-4 mr-2" />
+                <LogIn className="mr-2 h-4 w-4" />
                 {tVote("goToLogin")}
               </Link>
             </Button>

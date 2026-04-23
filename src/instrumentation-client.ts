@@ -65,10 +65,7 @@ async function initSentry() {
 
 const sentryPromise = initSentry();
 
-export const onRouterTransitionStart = (
-  href: string,
-  navigationType: string
-): void => {
+export const onRouterTransitionStart = (href: string, navigationType: string): void => {
   sentryPromise.then((Sentry) => {
     Sentry?.captureRouterTransitionStart(href, navigationType);
   });

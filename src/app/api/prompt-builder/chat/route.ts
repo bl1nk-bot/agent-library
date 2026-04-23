@@ -9,7 +9,9 @@ import {
 } from "@/lib/ai/prompt-builder-tools";
 import { loadPrompt, getSystemPrompt } from "@/lib/ai/load-prompt";
 
-const promptBuilderAgentPrompt = loadPrompt("src/app/api/prompt-builder/chat/prompt-builder-agent.prompt.yml");
+const promptBuilderAgentPrompt = loadPrompt(
+  "src/app/api/prompt-builder/chat/prompt-builder-agent.prompt.yml"
+);
 
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o-mini";
 
@@ -35,7 +37,11 @@ function checkRateLimit(userId: string): { allowed: boolean; remaining: number; 
   }
 
   userLimit.count++;
-  return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - userLimit.count, resetIn: userLimit.resetAt - now };
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT_MAX_REQUESTS - userLimit.count,
+    resetIn: userLimit.resetAt - now,
+  };
 }
 
 const SYSTEM_PROMPT = getSystemPrompt(promptBuilderAgentPrompt);
@@ -74,17 +80,20 @@ export async function POST(request: NextRequest) {
   const userId = session.user.id || session.user.email || "anonymous";
   const rateLimit = checkRateLimit(userId);
   if (!rateLimit.allowed) {
-    return new Response(JSON.stringify({ 
-      error: "Rate limit exceeded. Please try again later.",
-      resetIn: Math.ceil(rateLimit.resetIn / 1000)
-    }), {
-      status: 429,
-      headers: { 
-        "Content-Type": "application/json",
-        "X-RateLimit-Remaining": "0",
-        "X-RateLimit-Reset": String(Math.ceil(rateLimit.resetIn / 1000)),
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        error: "Rate limit exceeded. Please try again later.",
+        resetIn: Math.ceil(rateLimit.resetIn / 1000),
+      }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "X-RateLimit-Remaining": "0",
+          "X-RateLimit-Reset": String(Math.ceil(rateLimit.resetIn / 1000)),
+        },
+      }
+    );
   }
 
   const config = await getConfig();
@@ -110,14 +119,13 @@ export async function POST(request: NextRequest) {
   const encoder = new TextEncoder();
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
-  
+
   const send = async (data: object) => {
     await writer.write(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
   };
 
   // Start processing in background
   (async () => {
-
     try {
       const openai = new OpenAI({
         apiKey,
@@ -125,9 +133,9 @@ export async function POST(request: NextRequest) {
       });
 
       // Build available tags and categories context
-      const tagNames = availableTags.map(t => t.name).join(", ");
-      const categoryNames = availableCategories.map(c => c.name).join(", ");
-        
+      const tagNames = availableTags.map((t) => t.name).join(", ");
+      const categoryNames = availableCategories.map((c) => c.name).join(", ");
+
       const availableContext = `
 
 AVAILABLE TAGS (use exact names with set_tags):
@@ -139,12 +147,15 @@ ${categoryNames || "(none)"}`;
       // Build system message with current state context
       const hasContent = currentState.title || currentState.content || currentState.description;
       const selectedTagNames = currentState.tagIds
-        .map(id => availableTags.find(t => t.id === id)?.name)
+        .map((id) => availableTags.find((t) => t.id === id)?.name)
         .filter(Boolean)
         .join(", ");
-      const selectedCategoryName = availableCategories.find(c => c.id === currentState.categoryId)?.name;
-      
-      const stateContext = hasContent ? `
+      const selectedCategoryName = availableCategories.find(
+        (c) => c.id === currentState.categoryId
+      )?.name;
+
+      const stateContext = hasContent
+        ? `
 
 CURRENT PROMPT STATE:
 - Title: ${currentState.title || "(not set)"}
@@ -156,7 +167,8 @@ ${currentState.content || "(not set)"}
 - Category: ${selectedCategoryName || "(none)"}
 - Private: ${currentState.isPrivate}
 
-CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT shorten, summarize, or truncate it. Only make the specific changes the user requested while keeping everything else exactly the same.` : "";
+CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT shorten, summarize, or truncate it. Only make the specific changes the user requested while keeping everything else exactly the same.`
+        : "";
 
       // Convert messages to OpenAI format
       const openaiMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [
@@ -200,7 +212,8 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
       let state = { ...currentState };
       let loopCount = 0;
       const maxLoops = 10;
-      const allToolCalls: Array<{ id: string; name: string; arguments: string; result: unknown }> = [];
+      const allToolCalls: Array<{ id: string; name: string; arguments: string; result: unknown }> =
+        [];
 
       while (loopCount < maxLoops) {
         loopCount++;
@@ -217,7 +230,8 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
         });
 
         let fullContent = "";
-        const toolCallsAccumulator: Map<number, { id: string; name: string; arguments: string }> = new Map();
+        const toolCallsAccumulator: Map<number, { id: string; name: string; arguments: string }> =
+          new Map();
 
         for await (const chunk of response) {
           const delta = chunk.choices[0]?.delta;
@@ -233,7 +247,7 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
             for (const tc of delta.tool_calls) {
               const idx = tc.index;
               const existing = toolCallsAccumulator.get(idx);
-              
+
               if (existing) {
                 // Append to existing tool call
                 if (tc.id) existing.id = tc.id;
@@ -252,7 +266,9 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
         }
 
         // Filter for valid tool calls (must have id and name)
-        const toolCalls = Array.from(toolCallsAccumulator.values()).filter(tc => tc.id && tc.name);
+        const toolCalls = Array.from(toolCallsAccumulator.values()).filter(
+          (tc) => tc.id && tc.name
+        );
 
         // If no tool calls, we're done
         if (toolCalls.length === 0) {
@@ -325,7 +341,10 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
       }
 
       // Max loops reached
-      await send({ type: "text", content: "I've made several changes. Let me know if you need anything else!" });
+      await send({
+        type: "text",
+        content: "I've made several changes. Let me know if you need anything else!",
+      });
       await send({ type: "state", state });
       await send({ type: "done" });
       await writer.write(encoder.encode("data: [DONE]\n\n"));
@@ -341,7 +360,7 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
+      Connection: "keep-alive",
     },
   });
 }

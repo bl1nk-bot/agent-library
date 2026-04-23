@@ -952,7 +952,7 @@
     "markAllRead": "모두 읽음으로 표시",
     "commentedOnPrompt": "님이 프롬프트에 댓글을 남겼습니다",
     "repliedToComment": "님이 댓글에 답글을 남겼습니다",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count}개의 읽지 않은 알림"
   },
   "comments": {
     "comments": "댓글",

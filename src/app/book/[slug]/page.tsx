@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getChapterBySlug, getAdjacentChapters, getAllChapters } from "@/lib/book/chapters";

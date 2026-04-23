@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import Image from "next/image";
 import { HeartHandshake } from "lucide-react";
 import { SponsorLink, BecomeSponsorLink, BuiltWithLink } from "@/components/layout/sponsor-link";

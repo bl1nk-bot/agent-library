@@ -74,7 +74,7 @@ export function PromptIde() {
   const monacoRef = useRef<unknown>(null);
   const editorRef = useRef<unknown>(null);
   const previewEditorRef = useRef<unknown>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const previewDecorationsRef = useRef<any>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isResizingRef = useRef(false);
@@ -100,9 +100,9 @@ export function PromptIde() {
   const getTypeErrors = useCallback(() => {
     if (!monacoRef.current || !editorRef.current) return [];
     
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const monaco = monacoRef.current as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any  
+     
     const editor = editorRef.current as any;
     const model = editor.getModel();
     if (!model) return [];
@@ -380,7 +380,7 @@ export function PromptIde() {
     if (output || error) {
       runCode(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [outputFormat]);
 
   // Save code to localStorage on change
@@ -389,9 +389,9 @@ export function PromptIde() {
   }, [code]);
 
   const handleEditorMount = useCallback((_editor: unknown, monaco: unknown) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const m = monaco as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const editor = _editor as any;
     
     // Store refs for later use
@@ -448,7 +448,7 @@ export function PromptIde() {
           }
           
           // Highlight in preview editor
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+           
           const previewEditor = previewEditorRef.current as any;
           if (previewEditor) {
             const previewModel = previewEditor.getModel();
@@ -456,7 +456,7 @@ export function PromptIde() {
               const escapedText = quotedString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
               const previewMatches = previewModel.findMatches(escapedText, true, false, true, null, true);
               if (previewMatches.length > 0) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
                 const decorations = previewMatches.map((match: any) => ({
                   range: match.range,
                   options: {
@@ -573,9 +573,9 @@ export function PromptIde() {
   const ignoreTypeErrors = useCallback(() => {
     if (!monacoRef.current || !editorRef.current) return;
     
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const monaco = monacoRef.current as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const editor = editorRef.current as any;
     const model = editor.getModel();
     if (!model) return;
@@ -820,7 +820,7 @@ export function PromptIde() {
                   
                   // Helper to find quoted string containing a word at a position
                   const getQuotedStringAtMatch = (model: unknown, range: { startLineNumber: number; startColumn: number; endColumn: number }) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                     
                     const mdl = model as any;
                     const lineContent = mdl.getLineContent(range.startLineNumber);
                     const matchStart = range.startColumn - 1;
@@ -878,7 +878,7 @@ export function PromptIde() {
                       }
                       
                       // Search in code editor (full word match with regex)
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                       
                       const codeEditor = editorRef.current as any;
                       if (!codeEditor) return;
                       
@@ -912,7 +912,7 @@ export function PromptIde() {
                       const escapedText = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                       const previewMatches = model.findMatches(escapedText, true, false, true, null, true);
                       if (previewMatches.length > 0) {
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                         
                         const decorations = previewMatches.map((m: any) => ({
                           range: m.range,
                           options: {

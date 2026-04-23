@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 // Query for skills list (cached)
 function getCachedSkills(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   orderBy: any,
   perPage: number,
   searchQuery?: string
@@ -89,7 +89,7 @@ function getCachedSkills(
       ]);
 
       return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         skills: skillsRaw.map((p: any) => ({
           ...p,
           voteCount: p._count.votes,
@@ -120,7 +120,7 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
   const perPage = 24;
 
   // Build order by clause
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   let orderBy: any = { createdAt: "desc" };
   if (params.sort === "oldest") {
     orderBy = { createdAt: "asc" };

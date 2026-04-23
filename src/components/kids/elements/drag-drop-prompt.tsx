@@ -51,7 +51,7 @@ export function DragDropPrompt({
   const targetIndexRef = useRef<number | null>(null); // Ref to access current target in event handlers
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const itemHeight = useRef(0);
+  const [itemHeight, setItemHeight] = useState(0);
 
   // Load saved state on mount
   useEffect(() => {
@@ -83,7 +83,7 @@ export function DragDropPrompt({
       setCurrentOrder(shuffled);
     }
     setIsLoaded(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [levelSlug, componentId]);
 
   // Save state when it changes
@@ -108,7 +108,7 @@ export function DragDropPrompt({
     setDragOffset(deltaY);
     
     // Calculate target position based on how far we've dragged
-    const positionShift = Math.round(deltaY / itemHeight.current);
+    const positionShift = Math.round(deltaY / itemHeight);
     const newTargetIndex = Math.max(0, Math.min(pieces.length - 1, state.draggedIndex + positionShift));
     setTargetIndex(newTargetIndex);
     targetIndexRef.current = newTargetIndex; // Keep ref in sync
@@ -144,7 +144,8 @@ export function DragDropPrompt({
   const handlePointerStart = useCallback((position: number, clientY: number, element: HTMLDivElement | null) => {
     if (submitted || !element) return;
     const rect = element.getBoundingClientRect();
-    itemHeight.current = rect.height + 8; // height + gap
+    const height = rect.height + 8; // height + gap
+    setItemHeight(height);
     setDraggedIndex(position);
     setTargetIndex(position);
     setDragOffset(0);
@@ -261,12 +262,12 @@ export function DragDropPrompt({
             } else if (draggedIndex < targetIndex) {
               // Items between original and target shift up
               if (position > draggedIndex && position <= targetIndex) {
-                transform = `translateY(-${itemHeight.current}px)`;
+                transform = `translateY(-${itemHeight}px)`;
               }
             } else if (draggedIndex > targetIndex) {
               // Items between target and original shift down
               if (position >= targetIndex && position < draggedIndex) {
-                transform = `translateY(${itemHeight.current}px)`;
+                transform = `translateY(${itemHeight}px)`;
               }
             }
           }

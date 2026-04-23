@@ -87,7 +87,7 @@ export function MagicWords({
       setAvailableWords(shuffleWords());
     }
     setIsLoaded(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [levelSlug, componentId]);
 
   // Save state when it changes

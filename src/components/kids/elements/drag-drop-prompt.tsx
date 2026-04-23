@@ -144,8 +144,7 @@ export function DragDropPrompt({
   const handlePointerStart = useCallback((position: number, clientY: number, element: HTMLDivElement | null) => {
     if (submitted || !element) return;
     const rect = element.getBoundingClientRect();
-    const height = rect.height + 8; // height + gap
-    setItemHeight(height);
+    setItemHeight(rect.height + 8); // height + gap
     setDraggedIndex(position);
     setTargetIndex(position);
     setDragOffset(0);

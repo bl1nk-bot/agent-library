@@ -255,6 +255,7 @@ function Button({
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           className
         )}
+        onClick={onClick}
         {...props}
       >
         {children || displayLabel}

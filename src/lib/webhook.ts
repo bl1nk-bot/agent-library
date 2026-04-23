@@ -220,6 +220,11 @@ function isPrivateUrl(urlString: string): boolean {
 
 export { isPrivateUrl };
 
+function escapeRegex(str: string): string {
+  // Escape ทุก meta-character ที่มีความหมายพิเศษใน regex รวมถึง backslash
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function replacePlaceholders(template: string, prompt: PromptData): string {
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://prompts.chat";
   const promptUrl = `${siteUrl}/prompts/${prompt.id}`;
@@ -253,7 +258,8 @@ function replacePlaceholders(template: string, prompt: PromptData): string {
 
   let result = template;
   for (const [placeholder, value] of Object.entries(replacements)) {
-    result = result.replace(new RegExp(placeholder.replace(/[{}]/g, "\\$&"), "g"), value);
+    const safePlaceholder = escapeRegex(placeholder);
+    result = result.replace(new RegExp(safePlaceholder, "g"), value);
   }
 
   return result;

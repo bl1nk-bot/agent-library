@@ -952,7 +952,7 @@
     "markAllRead": "Tümünü okundu işaretle",
     "commentedOnPrompt": "promptunuza yorum yaptı",
     "repliedToComment": "yorumunuza yanıt verdi",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count} okunmamış bildirim"
   },
   "comments": {
     "comments": "Yorumlar",

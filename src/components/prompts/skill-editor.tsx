@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 "use client";
 
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
@@ -201,7 +201,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const monacoRef = useRef<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 

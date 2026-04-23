@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Star, Code, Lock, Building2, Github, History } from "lucide-react";

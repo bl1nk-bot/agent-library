@@ -952,7 +952,7 @@
     "markAllRead": "Отметить все как прочитанное",
     "commentedOnPrompt": "прокомментировал ваш промпт",
     "repliedToComment": "ответил на ваш комментарий",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count, plural, one {# непрочитанное уведомление} few {# непрочитанных уведомления} many {# непрочитанных уведомлений} other {# непрочитанных уведомлений}}"
   },
   "comments": {
     "comments": "Комментарии",

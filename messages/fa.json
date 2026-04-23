@@ -952,7 +952,7 @@
     "markAllRead": "علامت‌گذاری همه به عنوان خوانده‌شده",
     "commentedOnPrompt": "روی پرامپت شما نظر داد",
     "repliedToComment": "به نظر شما پاسخ داد",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count} اعلان خوانده نشده"
   },
   "promptmasters": {
     "title": "پرامپت‌مسترها",

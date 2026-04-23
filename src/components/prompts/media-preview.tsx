@@ -58,7 +58,7 @@ export function MediaPreview({ mediaUrl, title, type }: MediaPreviewProps) {
             className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 scale-110"
             style={{ backgroundImage: `url(${mediaUrl})` }}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
           <img
             src={mediaUrl}
             alt={title}

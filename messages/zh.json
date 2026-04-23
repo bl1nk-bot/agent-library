@@ -952,7 +952,7 @@
     "markAllRead": "全部标为已读",
     "commentedOnPrompt": "评论了你的提示词",
     "repliedToComment": "回复了你的评论",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count} 条未读通知"
   },
   "comments": {
     "comments": "评论",

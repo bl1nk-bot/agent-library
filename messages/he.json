@@ -952,7 +952,7 @@
     "markAllRead": "סמן הכל כנקרא",
     "commentedOnPrompt": "הגיב על הפרומפט שלך",
     "repliedToComment": "הגיב לתגובה שלך",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count} {count, plural, one {התראה שלא נקראה} other {התראות שלא נקראו}}"
   },
   "comments": {
     "comments": "תגובות",

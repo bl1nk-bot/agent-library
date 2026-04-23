@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { prettifyJson, isValidJson } from "@/lib/format";
+import { prettifyJson, isValidJson, toYaml } from "@/lib/format";
 
 describe("prettifyJson", () => {
   it("should prettify valid JSON with proper indentation", () => {
@@ -158,5 +158,17 @@ describe("isValidJson", () => {
       "age": 30
     }`;
     expect(isValidJson(withWhitespace)).toBe(true);
+  });
+});
+
+describe("toYaml", () => {
+  it("should format string", () => {
+    expect(toYaml("test")).toBe("test");
+  });
+  it("should format number", () => {
+    expect(toYaml(123)).toBe("123");
+  });
+  it("should format object", () => {
+    expect(toYaml({ a: 1 })).toBe("a: 1");
   });
 });

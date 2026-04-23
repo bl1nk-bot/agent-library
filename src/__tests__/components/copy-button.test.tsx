@@ -31,18 +31,18 @@ import { toast } from "sonner";
 import { analyticsPrompt } from "@/lib/analytics";
 
 describe("CopyButton", () => {
-  const mockClipboard = {
-    writeText: vi.fn(),
-  };
+  const mockClipboardWriteText = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    // Mock clipboard API
+    // Mock clipboard API reliably
     Object.assign(navigator, {
-      clipboard: mockClipboard,
+      clipboard: {
+        writeText: mockClipboardWriteText
+      },
     });
-    mockClipboard.writeText.mockResolvedValue(undefined);
+    mockClipboardWriteText.mockResolvedValue(undefined);
   });
 
   it("should render copy button", () => {
@@ -60,7 +60,7 @@ describe("CopyButton", () => {
       fireEvent.click(screen.getByRole("button"));
     });
 
-    expect(mockClipboard.writeText).toHaveBeenCalledWith(content);
+    expect(mockClipboardWriteText).toHaveBeenCalledWith(content);
   });
 
   it("should show success toast on successful copy", async () => {
@@ -108,7 +108,7 @@ describe("CopyButton", () => {
   });
 
   it("should show error toast when clipboard fails", async () => {
-    mockClipboard.writeText.mockRejectedValueOnce(new Error("Clipboard error"));
+    mockClipboardWriteText.mockRejectedValueOnce(new Error("Clipboard error"));
 
     render(<CopyButton content="test" />);
 
@@ -120,7 +120,7 @@ describe("CopyButton", () => {
   });
 
   it("should not show Check icon when clipboard fails", async () => {
-    mockClipboard.writeText.mockRejectedValueOnce(new Error("Clipboard error"));
+    mockClipboardWriteText.mockRejectedValueOnce(new Error("Clipboard error"));
 
     render(<CopyButton content="test" />);
 
@@ -142,7 +142,7 @@ describe("CopyButton", () => {
       fireEvent.click(screen.getByRole("button"));
     });
 
-    expect(mockClipboard.writeText).toHaveBeenCalledWith("");
+    expect(mockClipboardWriteText).toHaveBeenCalledWith("");
   });
 
   it("should handle content with special characters", async () => {
@@ -153,7 +153,7 @@ describe("CopyButton", () => {
       fireEvent.click(screen.getByRole("button"));
     });
 
-    expect(mockClipboard.writeText).toHaveBeenCalledWith(specialContent);
+    expect(mockClipboardWriteText).toHaveBeenCalledWith(specialContent);
   });
 
   it("should handle multiline content", async () => {
@@ -164,7 +164,7 @@ describe("CopyButton", () => {
       fireEvent.click(screen.getByRole("button"));
     });
 
-    expect(mockClipboard.writeText).toHaveBeenCalledWith(multilineContent);
+    expect(mockClipboardWriteText).toHaveBeenCalledWith(multilineContent);
   });
 
   it("should be clickable multiple times", async () => {
@@ -174,12 +174,12 @@ describe("CopyButton", () => {
     await act(async () => {
       fireEvent.click(screen.getByRole("button"));
     });
-    expect(mockClipboard.writeText).toHaveBeenCalledTimes(1);
+    expect(mockClipboardWriteText).toHaveBeenCalledTimes(1);
 
     // Second click
     await act(async () => {
       fireEvent.click(screen.getByRole("button"));
     });
-    expect(mockClipboard.writeText).toHaveBeenCalledTimes(2);
+    expect(mockClipboardWriteText).toHaveBeenCalledTimes(2);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { prettifyJson, isValidJson, toYaml } from "@/lib/format";
+import { prettifyJson, isValidJson, toYaml, safeJsonLd } from "@/lib/format";
 
 describe("prettifyJson", () => {
   it("should prettify valid JSON with proper indentation", () => {
@@ -170,5 +170,16 @@ describe("toYaml", () => {
   });
   it("should format object", () => {
     expect(toYaml({ a: 1 })).toBe("a: 1");
+  });
+});
+
+describe("safeJsonLd", () => {
+  it("should stringify and escape < characters", () => {
+    const input = { html: "<script>alert('xss')</script>" };
+    expect(safeJsonLd(input)).toBe('{"html":"\\u003cscript>alert(\'xss\')\\u003c/script>"}');
+  });
+
+  it("should handle undefined", () => {
+    expect(safeJsonLd(undefined)).toBe('{}');
   });
 });

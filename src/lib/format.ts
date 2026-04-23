@@ -75,3 +75,13 @@ export function toYaml(obj: unknown, indent = 0): string {
 
   return String(obj);
 }
+
+/**
+ * Serialize data to JSON-LD safely, escaping < to \u003c to prevent XSS
+ */
+export function safeJsonLd(data: unknown): string {
+  if (data === undefined) {
+    return '{}';
+  }
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}

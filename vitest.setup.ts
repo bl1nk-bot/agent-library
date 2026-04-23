@@ -110,3 +110,10 @@ vi.mock("@/lib/config", () => ({
     })
   ),
 }));
+
+// Mock navigator.clipboard
+Object.assign(navigator, {
+  clipboard: {
+    writeText: vi.fn().mockImplementation(() => Promise.resolve()),
+  },
+});

@@ -952,7 +952,7 @@
     "markAllRead": "Segna tutto come letto",
     "commentedOnPrompt": "ha commentato il tuo prompt",
     "repliedToComment": "ha risposto al tuo commento",
-    "unreadCount": "{count} unread notifications"
+    "unreadCount": "{count} notifiche non lette"
   },
   "comments": {
     "comments": "Commenti",

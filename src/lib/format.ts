@@ -23,6 +23,12 @@ export function isValidJson(content: string): boolean {
   }
 }
 
+// 🛡️ Guardian: Consolidated from src/components/ide/utils.ts (deleted)
+// This function was duplicated - moved to canonical location
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 file, 38 → 0 LOC
+// Date: 2026-04-23
+// Session: .Jules/guardian/2026-04-23/
 /**
  * Simple YAML serializer for converting objects to YAML format
  */

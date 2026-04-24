@@ -36,5 +36,8 @@
         "--stdio"
       ]
     }
+  },
+  "experimental": {
+    "autoMemory": true
   }
 }

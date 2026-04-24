@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getChapterBySlug, getAdjacentChapters, getAllChapters } from "@/lib/book/chapters";
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: ChapterPageProps): Promise<Me
     return { title: "Chapter Not Found" };
   }
 
-  const description = chapter.description 
+  const description = chapter.description
     ? `${chapter.description}. Learn ${chapter.title.toLowerCase()} techniques in this free interactive prompt engineering guide.`
     : `Learn about ${chapter.title.toLowerCase()} in this free interactive prompt engineering guide. Part of The Interactive Book of Prompting.`;
 
@@ -95,10 +94,8 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
     Content = (await import(`@/content/book/${slug}.mdx`)).default;
   } catch {
     Content = () => (
-      <div className="text-center py-12">
-        <p className="text-muted-foreground">
-          This chapter is coming soon.
-        </p>
+      <div className="py-12 text-center">
+        <p className="text-muted-foreground">This chapter is coming soon.</p>
       </div>
     );
   }
@@ -107,18 +104,12 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
     <article>
       {/* Chapter Header */}
       <header className="mb-8">
-        <div className="text-sm text-primary font-medium mb-1">
-          {chapter.part}
-        </div>
+        <div className="text-primary mb-1 text-sm font-medium">{chapter.part}</div>
         <div className="flex items-start justify-between gap-4">
-          <h1 className="text-3xl font-bold tracking-tight mb-2">{chapter.title}</h1>
+          <h1 className="mb-2 text-3xl font-bold tracking-tight">{chapter.title}</h1>
           <MobileTOCButton />
         </div>
-        {chapter.description && (
-          <p className="text-muted-foreground">
-            {chapter.description}
-          </p>
-        )}
+        {chapter.description && <p className="text-muted-foreground">{chapter.description}</p>}
       </header>
 
       {/* Chapter Content */}
@@ -127,7 +118,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex items-center justify-between mt-12 pt-6 border-t">
+      <nav className="mt-12 flex items-center justify-between border-t pt-6">
         {prev ? (
           <Button variant="ghost" asChild className="gap-2">
             <Link href={`/book/${prev.slug}`}>

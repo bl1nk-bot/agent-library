@@ -8,9 +8,9 @@ describe("Background Component", () => {
   });
 
   it("has the noise overlay", () => {
-     render(<Background>Test</Background>);
-     // Expecting an element with this testid
-     const noise = screen.getByTestId("noise-overlay");
-     expect(noise).toBeInTheDocument();
+    render(<Background>Test</Background>);
+    // Expecting an element with this testid
+    const noise = screen.getByTestId("noise-overlay");
+    expect(noise).toBeInTheDocument();
   });
 });

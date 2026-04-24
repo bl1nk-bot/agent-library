@@ -19,10 +19,14 @@ interface DownloadPromptDropdownProps {
   promptType?: string;
 }
 
-export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: DownloadPromptDropdownProps) {
+export function DownloadPromptDropdown({
+  promptId,
+  promptSlug,
+  promptType,
+}: DownloadPromptDropdownProps) {
   const t = useTranslations("prompts");
   const [copiedFormat, setCopiedFormat] = useState<"md" | "yml" | null>(null);
-  
+
   const isSkill = promptType === "SKILL";
 
   const getFileName = (format: "md" | "yml") => {
@@ -44,7 +48,7 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
       const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch");
       const content = await response.text();
-      
+
       const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -54,7 +58,7 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
-      
+
       toast.success(t("downloadStarted"));
     } catch {
       toast.error(t("downloadFailed"));
@@ -80,7 +84,7 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
       const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch");
       const blob = await response.blob();
-      
+
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = downloadUrl;
@@ -90,7 +94,7 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
-      
+
       toast.success(t("downloadStarted"));
     } catch {
       toast.error(t("downloadFailed"));
@@ -101,7 +105,7 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
   if (isSkill) {
     return (
       <Button variant="ghost" size="sm" onClick={handleDownloadSkill}>
-        <Download className="h-4 w-4 mr-1" />
+        <Download className="mr-1 h-4 w-4" />
         {t("downloadSkill")}
       </Button>
     );
@@ -116,27 +120,27 @@ export function DownloadPromptDropdown({ promptId, promptSlug, promptType }: Dow
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem onClick={() => handleDownload("md")}>
-          <FileText className="h-4 w-4 mr-2" />
+          <FileText className="mr-2 h-4 w-4" />
           {t("downloadMarkdown")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleDownload("yml")}>
-          <FileCode className="h-4 w-4 mr-2" />
+          <FileCode className="mr-2 h-4 w-4" />
           {t("downloadYaml")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => handleCopyUrl("md")}>
           {copiedFormat === "md" ? (
-            <Check className="h-4 w-4 mr-2 text-green-500" />
+            <Check className="mr-2 h-4 w-4 text-green-500" />
           ) : (
-            <Link className="h-4 w-4 mr-2" />
+            <Link className="mr-2 h-4 w-4" />
           )}
           {t("copyMarkdownUrl")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleCopyUrl("yml")}>
           {copiedFormat === "yml" ? (
-            <Check className="h-4 w-4 mr-2 text-green-500" />
+            <Check className="mr-2 h-4 w-4 text-green-500" />
           ) : (
-            <Link className="h-4 w-4 mr-2" />
+            <Link className="mr-2 h-4 w-4" />
           )}
           {t("copyYamlUrl")}
         </DropdownMenuItem>

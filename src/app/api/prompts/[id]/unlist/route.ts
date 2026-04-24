@@ -4,10 +4,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
 // Toggle unlist status (admin only)
-export async function POST(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await auth();
@@ -42,10 +39,10 @@ export async function POST(
 
     // Toggle unlist status
     const newUnlistedStatus = !existing.isUnlisted;
-    
+
     await db.prompt.update({
       where: { id },
-      data: { 
+      data: {
         isUnlisted: newUnlistedStatus,
         unlistedAt: newUnlistedStatus ? new Date() : null,
       },
@@ -56,10 +53,10 @@ export async function POST(
     revalidateTag("categories", "max");
     revalidateTag("tags", "max");
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       isUnlisted: newUnlistedStatus,
-      message: newUnlistedStatus ? "Prompt unlisted" : "Prompt relisted" 
+      message: newUnlistedStatus ? "Prompt unlisted" : "Prompt relisted",
     });
   } catch (error) {
     console.error("Unlist prompt error:", error);

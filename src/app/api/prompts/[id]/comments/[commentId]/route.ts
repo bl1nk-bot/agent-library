@@ -30,9 +30,9 @@ export async function DELETE(
     // Find the comment
     const comment = await db.comment.findUnique({
       where: { id: commentId, deletedAt: null },
-      select: { 
-        id: true, 
-        promptId: true, 
+      select: {
+        id: true,
+        promptId: true,
         authorId: true,
       },
     });

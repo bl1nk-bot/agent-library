@@ -35,13 +35,13 @@ interface UpvoteButtonProps {
   showLabel?: boolean;
 }
 
-export function UpvoteButton({ 
-  promptId, 
-  initialVoted, 
-  initialCount, 
+export function UpvoteButton({
+  promptId,
+  initialVoted,
+  initialCount,
   isLoggedIn,
   size = "default",
-  showLabel = false
+  showLabel = false,
 }: UpvoteButtonProps) {
   const t = useTranslations("vote");
   const tCommon = useTranslations("common");
@@ -71,7 +71,7 @@ export function UpvoteButton({
       const data = await response.json();
       setIsVoted(data.voted);
       setVoteCount(data.voteCount);
-      
+
       if (data.voted) {
         analyticsPrompt.upvote(promptId);
       } else {
@@ -89,17 +89,15 @@ export function UpvoteButton({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{t("loginRequired")}</DialogTitle>
-          <DialogDescription>
-            {t("loginToVote")}
-          </DialogDescription>
+          <DialogDescription>{t("loginToVote")}</DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex-col sm:flex-row gap-2">
+        <DialogFooter className="flex-col gap-2 sm:flex-row">
           <Button variant="outline" onClick={() => setShowLoginModal(false)}>
             {tCommon("cancel")}
           </Button>
           <Button asChild>
             <Link href="/login">
-              <LogIn className="h-4 w-4 mr-2" />
+              <LogIn className="mr-2 h-4 w-4" />
               {t("goToLogin")}
             </Link>
           </Button>
@@ -115,9 +113,9 @@ export function UpvoteButton({
           onClick={handleVote}
           disabled={isLoading}
           className={cn(
-            "flex flex-col items-center justify-center w-14 h-14 rounded-full border-2 transition-all",
-            isVoted 
-              ? "bg-primary text-primary-foreground border-primary" 
+            "flex h-14 w-14 flex-col items-center justify-center rounded-full border-2 transition-all",
+            isVoted
+              ? "bg-primary text-primary-foreground border-primary"
               : "bg-background text-muted-foreground border-border hover:border-primary hover:text-primary"
           )}
         >
@@ -126,7 +124,7 @@ export function UpvoteButton({
           ) : (
             <>
               <TriangleUp className={cn("h-6 w-6", isVoted && "fill-current")} />
-              <span className="text-xs font-medium -mt-1">{voteCount}</span>
+              <span className="-mt-1 text-xs font-medium">{voteCount}</span>
             </>
           )}
         </button>
@@ -172,7 +170,10 @@ export function UpvoteButton({
         ) : (
           <TriangleUp className={cn("h-4 w-4", isVoted && "fill-current")} />
         )}
-        <span>{voteCount}{showLabel && ` ${voteCount === 1 ? t("upvote") : t("upvotes")}`}</span>
+        <span>
+          {voteCount}
+          {showLabel && ` ${voteCount === 1 ? t("upvote") : t("upvotes")}`}
+        </span>
       </Button>
       {loginModal}
     </>

@@ -1,5 +1,4 @@
 description = "Answer questions about the Bl1nk Agents Manager codebase with explanations and code snippets."
-
 prompt = """
 ## Mission: Explain the Bl1nk Agents Manager Codebase
 

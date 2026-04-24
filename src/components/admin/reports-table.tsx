@@ -134,15 +134,15 @@ export function ReportsTable({ reports }: ReportsTableProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">{t("title")}</h3>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
       </div>
 
       {reports.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground border rounded-md">
+        <div className="text-muted-foreground rounded-md border py-12 text-center">
           {t("noReports")}
         </div>
       ) : (
@@ -162,10 +162,10 @@ export function ReportsTable({ reports }: ReportsTableProps) {
               {reports.map((report) => (
                 <TableRow key={report.id}>
                   <TableCell>
-                    <Link 
+                    <Link
                       href={getPromptUrl(report.prompt.id, report.prompt.slug)}
                       prefetch={false}
-                      className="font-medium hover:underline flex items-center gap-1"
+                      className="flex items-center gap-1 font-medium hover:underline"
                     >
                       {report.prompt.title}
                       <ExternalLink className="h-3 w-3" />
@@ -175,7 +175,7 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                     <div>
                       <Badge variant="outline">{reasonLabels[report.reason]}</Badge>
                       {report.details && (
-                        <p className="text-xs text-muted-foreground mt-1 max-w-[200px] truncate">
+                        <p className="text-muted-foreground mt-1 max-w-[200px] truncate text-xs">
                           {report.details}
                         </p>
                       )}
@@ -197,15 +197,15 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                       {t(`statuses.${report.status.toLowerCase()}`)}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
+                  <TableCell className="text-muted-foreground text-sm">
                     {formatDistanceToNow(report.createdAt, locale)}
                   </TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="h-8 w-8"
                           disabled={loading === report.id}
                         >
@@ -214,30 +214,37 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
-                          <Link href={getPromptUrl(report.prompt.id, report.prompt.slug)} prefetch={false}>
-                            <Eye className="h-4 w-4 mr-2" />
+                          <Link
+                            href={getPromptUrl(report.prompt.id, report.prompt.slug)}
+                            prefetch={false}
+                          >
+                            <Eye className="mr-2 h-4 w-4" />
                             {t("viewPrompt")}
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         {report.status === "PENDING" && (
                           <>
-                            <DropdownMenuItem onClick={() => handleStatusChange(report.id, "REVIEWED")}>
-                              <Check className="h-4 w-4 mr-2" />
+                            <DropdownMenuItem
+                              onClick={() => handleStatusChange(report.id, "REVIEWED")}
+                            >
+                              <Check className="mr-2 h-4 w-4" />
                               {t("markReviewed")}
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleStatusChange(report.id, "DISMISSED")}>
-                              <X className="h-4 w-4 mr-2" />
+                            <DropdownMenuItem
+                              onClick={() => handleStatusChange(report.id, "DISMISSED")}
+                            >
+                              <X className="mr-2 h-4 w-4" />
                               {t("dismiss")}
                             </DropdownMenuItem>
                           </>
                         )}
                         {report.status !== "PENDING" && (
-                          <DropdownMenuItem 
+                          <DropdownMenuItem
                             onClick={() => handleStatusChange(report.id, "REVIEWED")}
                             disabled={report.status === "REVIEWED"}
                           >
-                            <Check className="h-4 w-4 mr-2" />
+                            <Check className="mr-2 h-4 w-4" />
                             {t("markReviewed")}
                           </DropdownMenuItem>
                         )}
@@ -245,7 +252,7 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                           <>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleRelistPrompt(report.prompt.id)}>
-                              <ListPlus className="h-4 w-4 mr-2" />
+                              <ListPlus className="mr-2 h-4 w-4" />
                               {t("relistPrompt")}
                             </DropdownMenuItem>
                           </>
@@ -254,7 +261,7 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                           <>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleRestorePrompt(report.prompt.id)}>
-                              <RotateCcw className="h-4 w-4 mr-2" />
+                              <RotateCcw className="mr-2 h-4 w-4" />
                               {t("restorePrompt")}
                             </DropdownMenuItem>
                           </>

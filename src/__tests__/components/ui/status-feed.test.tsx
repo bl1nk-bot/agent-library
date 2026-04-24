@@ -14,7 +14,7 @@ describe("StatusFeed Component", () => {
   it("shows messages sequentially", async () => {
     vi.useFakeTimers();
     render(<StatusFeed messages={messages} delay={100} />);
-    
+
     // Advance time for first message
     await act(async () => {
       vi.advanceTimersByTime(100);

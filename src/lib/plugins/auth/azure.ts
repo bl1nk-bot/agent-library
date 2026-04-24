@@ -8,7 +8,7 @@ export const azurePlugin: AuthPlugin = {
     MicrosoftEntraID({
       clientId: process.env.AZURE_AD_CLIENT_ID!,
       clientSecret: process.env.AZURE_AD_CLIENT_SECRET!,
-      issuer: process.env.AZURE_AD_TENANT_ID 
+      issuer: process.env.AZURE_AD_TENANT_ID
         ? `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/v2.0`
         : undefined,
     }),

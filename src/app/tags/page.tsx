@@ -44,13 +44,13 @@ export default async function TagsPage() {
     <div className="container py-6">
       <div className="mb-6">
         <h1 className="text-lg font-semibold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("description")}</p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
 
       {tags.length === 0 ? (
-        <div className="text-center py-12 border rounded-lg bg-muted/30">
-          <Tag className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <p className="text-sm text-muted-foreground">{t("noTags")}</p>
+        <div className="bg-muted/30 rounded-lg border py-12 text-center">
+          <Tag className="text-muted-foreground mx-auto mb-3 h-10 w-10" />
+          <p className="text-muted-foreground text-sm">{t("noTags")}</p>
         </div>
       ) : (
         <div className="flex flex-wrap gap-2">
@@ -59,22 +59,15 @@ export default async function TagsPage() {
               key={tag.id}
               href={`/tags/${tag.slug}`}
               prefetch={false}
-              className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors hover:border-foreground/30"
-              style={{ 
+              className="group hover:border-foreground/30 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 transition-colors"
+              style={{
                 backgroundColor: tag.color + "10",
                 borderColor: tag.color + "30",
               }}
             >
-              <span 
-                className="w-2 h-2 rounded-full" 
-                style={{ backgroundColor: tag.color }}
-              />
-              <span className="text-sm font-medium group-hover:underline">
-                {tag.name}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {tag._count.prompts}
-              </span>
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: tag.color }} />
+              <span className="text-sm font-medium group-hover:underline">{tag.name}</span>
+              <span className="text-muted-foreground text-xs">{tag._count.prompts}</span>
             </Link>
           ))}
         </div>

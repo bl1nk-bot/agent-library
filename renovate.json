@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":renovatePrefix",
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["dependencies"],
+  "assignees": ["@me"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["react", "react-dom"],
+      "groupName": "React ecosystem"
+    },
+    {
+      "matchPackageNames": ["next"],
+      "groupName": "Next.js"
+    },
+    {
+      "matchPackagePatterns": ["^@prisma/"],
+      "groupName": "Prisma"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true,
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "devDependencies (non-major)"
+    }
+  ],
+  "timezone": "Asia/Bangkok",
+  "schedule": ["before 5am on Monday"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 2,
+  "rangeStrategy": "pin"
+}

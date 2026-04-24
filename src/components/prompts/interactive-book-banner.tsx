@@ -13,7 +13,7 @@ export function InteractiveBookBanner() {
   const BOOK_DEPTH = 15;
 
   return (
-    <div className="mb-8 border rounded-[var(--radius)] overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10 p-6">
+    <div className="from-primary/5 via-background to-primary/10 mb-8 overflow-hidden rounded-[var(--radius)] border bg-gradient-to-br p-6">
       <style>{`
         @keyframes bookFlip {
           0%   { transform: rotateY(0deg); }
@@ -51,7 +51,7 @@ export function InteractiveBookBanner() {
         }
       `}</style>
 
-      <div className="flex flex-col sm:flex-row items-center gap-6">
+      <div className="flex flex-col items-center gap-6 sm:flex-row">
         {/* 3D Book */}
         <Link
           href="https://fka.gumroad.com/l/art-of-chatgpt-prompting"
@@ -67,7 +67,7 @@ export function InteractiveBookBanner() {
             }}
           >
             {/* FRONT: Book Cover */}
-            <div className="absolute inset-0 rounded-sm shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div className="absolute inset-0 overflow-hidden rounded-sm shadow-xl transition-shadow duration-300 hover:shadow-2xl">
               <Image
                 src="/book-cover.jpg"
                 alt="The Interactive Book of Prompting"
@@ -76,7 +76,7 @@ export function InteractiveBookBanner() {
               />
               {/* Subtle radial light glow from top-right */}
               <div
-                className="banner-light-anim absolute inset-0 pointer-events-none"
+                className="banner-light-anim pointer-events-none absolute inset-0"
                 style={{
                   background:
                     "radial-gradient(ellipse at 85% 15%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 30%, transparent 60%)",
@@ -85,7 +85,7 @@ export function InteractiveBookBanner() {
             </div>
 
             {/* Drop shadow under book */}
-            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-3 bg-black/20 blur-md rounded-full opacity-50" />
+            <div className="absolute -bottom-3 left-1/2 h-3 w-16 -translate-x-1/2 rounded-full bg-black/20 opacity-50 blur-md" />
 
             {/* RIGHT: Pages edge */}
             <div
@@ -118,18 +118,14 @@ export function InteractiveBookBanner() {
 
         {/* Content */}
         <div className="flex-1 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-xs font-medium text-primary uppercase tracking-wide">
+          <div className="mb-2 flex items-center justify-center gap-2 sm:justify-start">
+            <Sparkles className="text-primary h-4 w-4" />
+            <span className="text-primary text-xs font-medium tracking-wide uppercase">
               {t("badge")}
             </span>
           </div>
-          <h2 className="text-xl font-semibold mb-2">
-            {t("title")}
-          </h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("description")}
-          </p>
+          <h2 className="mb-2 text-xl font-semibold">{t("title")}</h2>
+          <p className="text-muted-foreground mb-4 text-sm">{t("description")}</p>
           <Button asChild size="sm">
             <Link href="https://fka.gumroad.com/l/art-of-chatgpt-prompting">
               <BookOpen className="mr-2 h-4 w-4" />

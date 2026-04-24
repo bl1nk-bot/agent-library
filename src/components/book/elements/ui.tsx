@@ -1,7 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Copy, Check, Lightbulb, AlertTriangle, Info, Zap, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Copy,
+  Check,
+  Lightbulb,
+  AlertTriangle,
+  Info,
+  Zap,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { RunPromptButton } from "@/components/prompts/run-prompt-button";
@@ -18,19 +29,15 @@ export function Collapsible({ title, children, defaultOpen = false }: Collapsibl
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="my-4 border rounded-lg overflow-hidden">
+    <div className="my-4 overflow-hidden rounded-lg border">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-2 p-4 bg-muted/50 hover:bg-muted transition-colors text-left font-medium"
+        className="bg-muted/50 hover:bg-muted flex w-full items-center gap-2 p-4 text-left font-medium transition-colors"
       >
         {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
         {title}
       </button>
-      {isOpen && (
-        <div className="p-4 border-t">
-          {children}
-        </div>
-      )}
+      {isOpen && <div className="border-t p-4">{children}</div>}
     </div>
   );
 }
@@ -69,11 +76,11 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
   const style = styles[type];
 
   return (
-    <div className={cn("my-6 p-4 rounded-lg border", style.bg, style.border)}>
+    <div className={cn("my-6 rounded-lg border p-4", style.bg, style.border)}>
       <div className="flex items-start gap-3">
-        <div className="shrink-0 mt-0.5">{style.icon}</div>
-        <div className="flex-1 min-w-0">
-          {title && <span className="font-semibold block mb-1">{title}</span>}
+        <div className="mt-0.5 shrink-0">{style.icon}</div>
+        <div className="min-w-0 flex-1">
+          {title && <span className="mb-1 block font-semibold">{title}</span>}
           <div className="text-sm [&>p]:m-0">{children}</div>
         </div>
       </div>
@@ -97,14 +104,14 @@ export function CopyableCode({ code, language }: CopyableCodeProps) {
   };
 
   return (
-    <div className="relative my-4 group">
-      <pre className="p-4 bg-muted rounded-lg overflow-x-auto text-sm">
+    <div className="group relative my-4">
+      <pre className="bg-muted overflow-x-auto rounded-lg p-4 text-sm">
         <code className={language ? `language-${language}` : ""}>{code}</code>
       </pre>
       <Button
         variant="ghost"
         size="sm"
-        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
         onClick={handleCopy}
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -133,8 +140,8 @@ export function Quiz({ question, options, correctIndex, explanation }: QuizProps
   const isCorrect = selected === correctIndex;
 
   return (
-    <div className="my-6 p-4 border rounded-lg bg-card">
-      <p className="font-semibold m-0! mb-4!">{question}</p>
+    <div className="bg-card my-6 rounded-lg border p-4">
+      <p className="m-0! mb-4! font-semibold">{question}</p>
       <div className="space-y-2">
         {options.map((option, index) => (
           <button
@@ -142,14 +149,14 @@ export function Quiz({ question, options, correctIndex, explanation }: QuizProps
             onClick={() => handleSelect(index)}
             disabled={showExplanation}
             className={cn(
-              "w-full p-3 text-left rounded-lg border transition-colors text-sm",
+              "w-full rounded-lg border p-3 text-left text-sm transition-colors",
               selected === index
                 ? isCorrect
-                  ? "bg-green-100 border-green-500 dark:bg-green-950 dark:border-green-700"
-                  : "bg-red-100 border-red-500 dark:bg-red-950 dark:border-red-700"
+                  ? "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-950"
+                  : "border-red-500 bg-red-100 dark:border-red-700 dark:bg-red-950"
                 : showExplanation && index === correctIndex
-                ? "bg-green-100 border-green-500 dark:bg-green-950 dark:border-green-700"
-                : "hover:bg-muted"
+                  ? "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-950"
+                  : "hover:bg-muted"
             )}
           >
             {option}
@@ -157,13 +164,13 @@ export function Quiz({ question, options, correctIndex, explanation }: QuizProps
         ))}
       </div>
       {showExplanation && (
-        <div className={cn(
-          "mt-4 p-3 rounded-lg text-sm",
-          isCorrect ? "bg-green-50 dark:bg-green-950/50" : "bg-amber-50 dark:bg-amber-950/50"
-        )}>
-          <p className="font-medium m-0! mb-1!">
-            {isCorrect ? "Correct!" : "Not quite."}
-          </p>
+        <div
+          className={cn(
+            "mt-4 rounded-lg p-3 text-sm",
+            isCorrect ? "bg-green-50 dark:bg-green-950/50" : "bg-amber-50 dark:bg-amber-950/50"
+          )}
+        >
+          <p className="m-0! mb-1! font-medium">{isCorrect ? "Correct!" : "Not quite."}</p>
           <p>{explanation}</p>
         </div>
       )}
@@ -193,7 +200,12 @@ function parsePromptVariables(content: string): { name: string; defaultValue: st
   return Array.from(seen.entries()).map(([name, defaultValue]) => ({ name, defaultValue }));
 }
 
-export function TryIt({ prompt, description, title = "Try It Yourself", compact = false }: TryItProps) {
+export function TryIt({
+  prompt,
+  description,
+  title = "Try It Yourself",
+  compact = false,
+}: TryItProps) {
   const [copied, setCopied] = useState(false);
 
   const unfilledVariables = parsePromptVariables(prompt);
@@ -201,7 +213,7 @@ export function TryIt({ prompt, description, title = "Try It Yourself", compact 
   const getContentWithVariables = (values: Record<string, string>) => {
     let result = prompt;
     for (const [name, value] of Object.entries(values)) {
-      const regex = new RegExp(`\\$\\{${name}(?::[^}]*)?\\}`, 'g');
+      const regex = new RegExp(`\\$\\{${name}(?::[^}]*)?\\}`, "g");
       result = result.replace(regex, value);
     }
     return result;
@@ -227,26 +239,21 @@ export function TryIt({ prompt, description, title = "Try It Yourself", compact 
             getContentWithVariables={getContentWithVariables}
           />
         </div>
-        <pre className="p-3 pr-12 bg-muted/50 rounded-lg text-sm whitespace-pre-wrap">{prompt}</pre>
+        <pre className="bg-muted/50 rounded-lg p-3 pr-12 text-sm whitespace-pre-wrap">{prompt}</pre>
       </div>
     );
   }
 
   return (
-    <div className="my-6 p-4 border-2 border-dashed border-primary/30 rounded-lg bg-primary/5">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2 text-primary font-semibold">
+    <div className="border-primary/30 bg-primary/5 my-6 rounded-lg border-2 border-dashed p-4">
+      <div className="mb-2 flex items-center justify-between">
+        <div className="text-primary flex items-center gap-2 font-semibold">
           <Zap className="h-4 w-4" />
           {title}
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCopy}
-            className="h-8"
-          >
-            {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
+          <Button variant="ghost" size="sm" onClick={handleCopy} className="h-8">
+            {copied ? <Check className="mr-1 h-4 w-4" /> : <Copy className="mr-1 h-4 w-4" />}
             {copied ? "Copied!" : "Copy"}
           </Button>
           <RunPromptButton
@@ -261,8 +268,10 @@ export function TryIt({ prompt, description, title = "Try It Yourself", compact 
           />
         </div>
       </div>
-      {description && <p className="text-sm text-muted-foreground mb-3 mt-0!">{description}</p>}
-      <pre className="p-3 bg-background rounded border text-sm whitespace-pre-wrap mb-0!">{prompt}</pre>
+      {description && <p className="text-muted-foreground mt-0! mb-3 text-sm">{description}</p>}
+      <pre className="bg-background mb-0! rounded border p-3 text-sm whitespace-pre-wrap">
+        {prompt}
+      </pre>
     </div>
   );
 }
@@ -294,10 +303,12 @@ interface NavFooterProps {
 
 export function NavFooter({ prev, next }: NavFooterProps) {
   return (
-    <div className={cn(
-      "flex mt-12 pt-6 border-t",
-      prev && next ? "justify-between" : next ? "justify-end" : "justify-start"
-    )}>
+    <div
+      className={cn(
+        "mt-12 flex border-t pt-6",
+        prev && next ? "justify-between" : next ? "justify-end" : "justify-start"
+      )}
+    >
       {prev && <NavButton href={prev.href} label={prev.label} direction="prev" />}
       {next && <NavButton href={next.href} label={next.label} direction="next" />}
     </div>

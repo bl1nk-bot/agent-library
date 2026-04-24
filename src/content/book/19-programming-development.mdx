@@ -1,16 +1,21 @@
 AI has transformed software development. This chapter covers prompting techniques for code generation, debugging, review, and development workflows.
 
 <Callout type="info" title="AI as Coding Partner">
-AI excels at code generation, debugging, and documentation—but always review generated code for security, correctness, and maintainability. Never deploy AI code without testing.
+  AI excels at code generation, debugging, and documentation—but always review generated code for
+  security, correctness, and maintainability. Never deploy AI code without testing.
 </Callout>
 
 ## Code Generation
 
 ### Do's and Don'ts: Code Prompts
 
-<Compare 
+<Compare
   before={{ label: "❌ Vague request", content: "Write a function to validate emails." }}
-  after={{ label: "✓ Complete specification", content: "Write a Python function that validates email addresses.\n\nInput: string (potential email)\nOutput: tuple[bool, str | None] - (is_valid, error_message)\nHandle: empty string, None, unicode chars\nUse regex, include type hints and docstring." }}
+  after={{
+    label: "✓ Complete specification",
+    content:
+      "Write a Python function that validates email addresses.\n\nInput: string (potential email)\nOutput: tuple[bool, str | None] - (is_valid, error_message)\nHandle: empty string, None, unicode chars\nUse regex, include type hints and docstring.",
+  }}
 />
 
 ### Function Generation
@@ -18,12 +23,14 @@ AI excels at code generation, debugging, and documentation—but always review g
 <TryIt compact prompt={`Write a \${language:Python} function that \${description:validates email addresses}.
 
 Requirements:
+
 - Input: \${inputTypes:string (potential email)}
 - Output: \${outputType:boolean and optional error message}
 - Handle edge cases: \${edgeCases:empty string, None, unicode characters}
 - Performance: \${performance:standard}
 
 Include:
+
 - Type hints/annotations
 - Docstring with examples
 - Input validation
@@ -34,18 +41,21 @@ Include:
 <TryIt compact prompt={`Create a \${language:Python} class for \${purpose:managing user sessions}.
 
 Class design:
+
 - Name: \${className:SessionManager}
 - Responsibility: \${responsibility:handle user session lifecycle}
 - Properties: \${properties:session_id, user_id, created_at, expires_at}
 - Methods: \${methods:create(), validate(), refresh(), destroy()}
 
 Requirements:
+
 - Follow \${designPattern:Singleton} pattern
 - Include proper encapsulation
 - Add comprehensive docstrings
 - Include usage example
 
 Testing:
+
 - Include unit test skeleton`} />
 
 ### API Endpoint Generation
@@ -57,15 +67,18 @@ Method: \${method:GET}
 Path: \${path:/api/users/{id}}
 
 Request:
+
 - Headers: \${headers:Authorization Bearer token}
 - Body schema: \${bodySchema:N/A for GET}
 - Query params: \${queryParams:include_posts (boolean)}
 
 Response:
+
 - Success: \${successResponse:200 with user object}
 - Errors: \${errorResponses:401 Unauthorized, 404 Not Found}
 
 Include:
+
 - Input validation
 - Authentication check
 - Error handling
@@ -74,7 +87,8 @@ Include:
 ## Debugging
 
 <Callout type="tip" title="Debugging Principle">
-Always include the **expected behavior**, **actual behavior**, and **error message** (if any). The more context you provide, the faster AI can identify the root cause.
+  Always include the **expected behavior**, **actual behavior**, and **error message** (if any). The
+  more context you provide, the faster AI can identify the root cause.
 </Callout>
 
 ### Bug Analysis
@@ -88,6 +102,7 @@ Error message (if any):
 \${error:none}
 
 Steps to debug:
+
 1. Identify what the code is trying to do
 2. Trace through execution with the given input
 3. Find where expected and actual behavior diverge
@@ -102,11 +117,13 @@ Error:
 \${errorMessage:paste error message or stack trace here}
 
 Context:
+
 - Language/Framework: \${framework:Python 3.11}
 - What I was trying to do: \${action:reading a JSON file}
 - Relevant code: \${codeSnippet:paste relevant code}
 
 Provide:
+
 1. Plain English explanation of the error
 2. Root cause
 3. Step-by-step fix
@@ -124,6 +141,7 @@ Target performance: \${targetPerformance:under 5 seconds}
 Constraints: \${constraints:memory limit 512MB}
 
 Provide:
+
 1. Identify bottlenecks
 2. Explain why each is slow
 3. Suggest optimizations (ranked by impact)
@@ -134,9 +152,13 @@ Provide:
 
 ### Do's and Don'ts: Code Review Prompts
 
-<Compare 
+<Compare
   before={{ label: "❌ Generic request", content: "Review this code." }}
-  after={{ label: "✓ Specific criteria", content: "Review this code for a pull request.\n\nCheck for:\n1. Correctness: bugs, logic errors, edge cases\n2. Security: injection risks, auth issues\n3. Performance: N+1 queries, memory leaks\n4. Maintainability: naming, complexity\n\nFormat: 🔴 Critical / 🟡 Important / 🟢 Suggestion" }}
+  after={{
+    label: "✓ Specific criteria",
+    content:
+      "Review this code for a pull request.\n\nCheck for:\n1. Correctness: bugs, logic errors, edge cases\n2. Security: injection risks, auth issues\n3. Performance: N+1 queries, memory leaks\n4. Maintainability: naming, complexity\n\nFormat: 🔴 Critical / 🟡 Important / 🟢 Suggestion",
+  }}
 />
 
 ### Comprehensive Review
@@ -147,6 +169,7 @@ Code:
 \${code:paste your code here}
 
 Review for:
+
 1. **Correctness**: Bugs, logic errors, edge cases
 2. **Security**: Vulnerabilities, injection risks, auth issues
 3. **Performance**: Inefficiencies, N+1 queries, memory leaks
@@ -167,6 +190,7 @@ Code:
 \${code:paste your code here}
 
 Check for:
+
 - [ ] Injection vulnerabilities (SQL, XSS, command)
 - [ ] Authentication/authorization flaws
 - [ ] Sensitive data exposure
@@ -176,6 +200,7 @@ Check for:
 - [ ] Error handling that leaks info
 
 For each finding:
+
 - Severity: Critical/High/Medium/Low
 - Location: Line number or function
 - Issue: Description
@@ -192,6 +217,7 @@ Code:
 \${code:paste your code here}
 
 Identify:
+
 1. Long methods (suggest extraction)
 2. Duplicate code (suggest DRY improvements)
 3. Complex conditionals (suggest simplification)
@@ -208,10 +234,12 @@ Current code:
 \${code:paste your code here}
 
 Goals:
+
 - \${whyPattern:decouple object creation from usage}
 - \${benefits:easier testing and extensibility}
 
 Provide:
+
 1. Explanation of the pattern
 2. How it applies here
 3. Refactored code
@@ -229,6 +257,7 @@ Function:
 Testing framework: \${testFramework:pytest}
 
 Cover:
+
 - Happy path (normal inputs)
 - Edge cases (empty, null, boundary values)
 - Error cases (invalid inputs)
@@ -246,9 +275,9 @@ Acceptance criteria: \${acceptanceCriteria:user can sign up, receives email, can
 
 Provide test cases in this format:
 
-| ID | Scenario | Given | When | Then | Priority |
-|----|----------|-------|------|------|----------|
-| TC01 | ... | ... | ... | ... | High |`} />
+| ID   | Scenario | Given | When | Then | Priority |
+| ---- | -------- | ----- | ---- | ---- | -------- | ----- |
+| TC01 | ...      | ...   | ...  | ...  | High     | `} /> |
 
 ## Architecture & Design
 
@@ -257,12 +286,14 @@ Provide test cases in this format:
 <TryIt compact prompt={`Design a system for \${requirement:real-time chat application}.
 
 Constraints:
+
 - Expected load: \${expectedLoad:10,000 concurrent users}
 - Latency requirements: \${latency:< 100ms message delivery}
 - Availability: \${availability:99.9%}
 - Budget: \${budget:moderate, prefer open source}
 
 Provide:
+
 1. High-level architecture diagram (ASCII/text)
 2. Component descriptions
 3. Data flow
@@ -275,11 +306,13 @@ Provide:
 <TryIt compact prompt={`Design a database schema for \${application:e-commerce platform}.
 
 Requirements:
+
 - \${feature1:User accounts with profiles and addresses}
 - \${feature2:Product catalog with categories and variants}
 - \${feature3:Orders with line items and payment tracking}
 
 Provide:
+
 1. Entity-relationship description
 2. Table definitions with columns and types
 3. Indexes for common queries
@@ -298,6 +331,7 @@ Code:
 Format: \${format:OpenAPI/Swagger YAML}
 
 Include:
+
 - Endpoint description
 - Request/response schemas
 - Example requests/responses
@@ -312,6 +346,7 @@ Code:
 \${code:paste your code here}
 
 Add:
+
 - File/module docstring (purpose, usage)
 - Function/method docstrings (params, returns, raises, examples)
 - Inline comments for complex logic only
@@ -324,29 +359,29 @@ Style: \${docStyle:Google}`} />
 ### Act as a Senior Developer
 
 ```
-I want you to act as a senior software developer. I will provide 
-code and ask questions about it. You will review the code, suggest 
-improvements, explain concepts, and help debug issues. Your 
-responses should be educational and help me become a better 
+I want you to act as a senior software developer. I will provide
+code and ask questions about it. You will review the code, suggest
+improvements, explain concepts, and help debug issues. Your
+responses should be educational and help me become a better
 developer.
 ```
 
 ### Act as a Code Reviewer
 
 ```
-I want you to act as a code reviewer. I will provide pull requests 
-with code changes, and you will review them thoroughly. Check for 
-bugs, security issues, performance problems, and adherence to best 
-practices. Provide constructive feedback that helps the developer 
+I want you to act as a code reviewer. I will provide pull requests
+with code changes, and you will review them thoroughly. Check for
+bugs, security issues, performance problems, and adherence to best
+practices. Provide constructive feedback that helps the developer
 improve.
 ```
 
 ### Act as a Software Architect
 
 ```
-I want you to act as a software architect. I will describe system 
-requirements and constraints, and you will design scalable, 
-maintainable architectures. Explain your design decisions, 
+I want you to act as a software architect. I will describe system
+requirements and constraints, and you will design scalable,
+maintainable architectures. Explain your design decisions,
 trade-offs, and provide diagrams where helpful.
 ```
 
@@ -363,6 +398,7 @@ Format: Conventional Commits
 Type: \${commitType:feat}
 
 Provide:
+
 - Subject line (50 chars max, imperative mood)
 - Body (what and why, wrapped at 72 chars)
 - Footer (references issues if applicable)`} />
@@ -375,36 +411,43 @@ Changes:
 \${changes:list your changes or paste diff summary}
 
 Template:
+
 ## Summary
+
 Brief description of changes
 
 ## Changes Made
+
 - Change 1
 - Change 2
 
 ## Testing
+
 - [ ] Unit tests added/updated
 - [ ] Manual testing completed
 
 ## Screenshots (if UI changes)
+
 placeholder
 
 ## Related Issues
+
 Closes #\${issueNumber:123}`} />
 
 ## Summary
 
 <Callout type="tip" title="Key Techniques">
-Include full context (language, framework, constraints), specify requirements precisely, request specific output formats, ask for explanations alongside code, and include edge cases to handle.
+  Include full context (language, framework, constraints), specify requirements precisely, request
+  specific output formats, ask for explanations alongside code, and include edge cases to handle.
 </Callout>
 
-<Quiz 
+<Quiz
   question="What's the most important element to include when asking AI to debug code?"
   options={[
     "The programming language only",
     "Expected behavior, actual behavior, and error message",
     "Just the code snippet",
-    "The file name"
+    "The file name",
   ]}
   correctIndex={1}
   explanation="Debugging requires context: what should happen vs. what actually happens. Error messages and stack traces help AI pinpoint the exact issue quickly."

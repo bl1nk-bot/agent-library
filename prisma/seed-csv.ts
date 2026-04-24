@@ -34,12 +34,12 @@ function parseCSV(text: string) {
       } else {
         inQuote = !inQuote;
       }
-    } else if (char === ',' && !inQuote) {
+    } else if (char === "," && !inQuote) {
       currentRow.push(currentCell);
       currentCell = "";
-    } else if ((char === '\r' || char === '\n') && !inQuote) {
-      if (char === '\r' && nextChar === '\n') i++; // Handle CRLF
-      
+    } else if ((char === "\r" || char === "\n") && !inQuote) {
+      if (char === "\r" && nextChar === "\n") i++; // Handle CRLF
+
       currentRow.push(currentCell);
       rows.push(currentRow);
       currentRow = [];
@@ -48,7 +48,7 @@ function parseCSV(text: string) {
       currentCell += char;
     }
   }
-  
+
   if (currentCell || currentRow.length > 0) {
     currentRow.push(currentCell);
     rows.push(currentRow);
@@ -63,7 +63,7 @@ async function main() {
   // 1. Create Default Admin User
   const password = await bcrypt.hash("password123", 12);
   const adminEmail = "admin@prompts.chat";
-  
+
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: {},
@@ -102,15 +102,15 @@ async function main() {
 
   console.log("📖 Reading CSV file...");
   const csvContent = fs.readFileSync(csvPath, "utf-8");
-  
+
   console.log("🧠 Parsing CSV data...");
   const rows = parseCSV(csvContent);
-  
+
   // Remove header
   // Expected header: act,prompt,for_devs,type,contributor
-  const header = rows[0].map(h => h.toLowerCase().trim());
+  const header = rows[0].map((h) => h.toLowerCase().trim());
   const dataRows = rows.slice(1);
-  
+
   console.log(`📊 Found ${dataRows.length} rows to process`);
 
   // Column mapping
@@ -127,7 +127,7 @@ async function main() {
   // Cache users to minimize DB lookups
   const userCache = new Map<string, string>(); // username -> id
   userCache.set("admin", admin.id);
-  
+
   // Pre-load existing users if any (optional, but safer to just upsert on demand or check cache)
 
   let successCount = 0;
@@ -145,8 +145,8 @@ async function main() {
     const contributor = idxContributor !== -1 ? row[idxContributor]?.trim() : "admin";
 
     if (!title || !content) {
-        skippedCount++;
-        continue;
+      skippedCount++;
+      continue;
     }
 
     // 1. Handle Author
@@ -154,89 +154,92 @@ async function main() {
     if (!authorId && contributor) {
       // Check or create user
       // Simple sanitization for username
-      const username = slugify(contributor).replace(/-/g, '_').substring(0, 30); 
+      const username = slugify(contributor).replace(/-/g, "_").substring(0, 30);
       const email = `${username}@prompts.chat`;
 
       try {
         // Try to find first
         let user = await prisma.user.findUnique({ where: { username } });
         if (!user) {
-            user = await prisma.user.create({
-                data: {
-                    username,
-                    email,
-                    name: contributor,
-                    password: password, // Default password
-                    role: "USER",
-                }
-            });
+          user = await prisma.user.create({
+            data: {
+              username,
+              email,
+              name: contributor,
+              password: password, // Default password
+              role: "USER",
+            },
+          });
         }
         authorId = user.id;
         userCache.set(contributor, authorId);
       } catch (error) {
         // Fallback to admin if user creation fails (e.g. duplicate email/username collision logic issues)
-        console.warn(`Failed to create/find author "${contributor}" (email: ${email}). Falling back to admin.`, error);
+        console.warn(
+          `Failed to create/find author "${contributor}" (email: ${email}). Falling back to admin.`,
+          error
+        );
         authorId = admin.id;
       }
     } else if (!authorId) {
-        authorId = admin.id;
+      authorId = admin.id;
     }
 
     // 2. Handle Prompt
     const slug = slugify(title);
-    
+
     // Ensure unique slug (simple append)
-    // For bulk import, checking every slug is slow. 
+    // For bulk import, checking every slug is slow.
     // We can just try create and catch error, or append random string.
     // Let's rely on Prisma's duplicate check and skip or append.
-    
+
     // Check existence
     const existing = await prisma.prompt.findFirst({
-        where: { slug },
-        select: { id: true }
+      where: { slug },
+      select: { id: true },
     });
 
     if (existing) {
-        skippedCount++;
-        continue; 
+      skippedCount++;
+      continue;
     }
 
     try {
-        const typeMap: Record<string, PromptType> = {
-            "TEXT": "TEXT",
-            "IMAGE": "IMAGE",
-            "CODE": "TEXT", // Map code to text or structured?
-        };
-        const promptType = typeMap[typeStr] || "TEXT";
+      const typeMap: Record<string, PromptType> = {
+        TEXT: "TEXT",
+        IMAGE: "IMAGE",
+        CODE: "TEXT", // Map code to text or structured?
+      };
+      const promptType = typeMap[typeStr] || "TEXT";
 
-        const prompt = await prisma.prompt.create({
-            data: {
-                title,
-                slug,
-                content,
-                type: promptType,
-                authorId: authorId!,
-                categoryId: defaultCategory.id,
-                viewCount: 0,
-            }
-        });
+      const prompt = await prisma.prompt.create({
+        data: {
+          title,
+          slug,
+          content,
+          type: promptType,
+          authorId: authorId!,
+          categoryId: defaultCategory.id,
+          viewCount: 0,
+        },
+      });
 
-        // Version
-        await prisma.promptVersion.create({
-            data: {
-                promptId: prompt.id,
-                version: 1,
-                content,
-                createdBy: authorId!,
-                changeNote: "Initial import via CSV"
-            }
-        });
+      // Version
+      await prisma.promptVersion.create({
+        data: {
+          promptId: prompt.id,
+          version: 1,
+          content,
+          createdBy: authorId!,
+          changeNote: "Initial import via CSV",
+        },
+      });
 
-        successCount++;
-        if (successCount % 100 === 0) process.stdout.write(".");
+      successCount++;
+      if (successCount % 100 === 0) process.stdout.write(".");
     } catch (error) {
-        console.error(`Failed to create prompt "${title}" (slug: ${slug}).`, error);
-        skippedCount++;
+      console.error(`Failed to create prompt "${title}" (slug: ${slug}).`, error);
+      skippedCount++;
     }
   }
 

@@ -27,7 +27,7 @@ export function ContributorAvatar({ username }: ContributorAvatarProps) {
         alt=""
         width={32}
         height={32}
-        className="rounded-full hover:ring-2 hover:ring-primary transition-all w-8 h-8"
+        className="hover:ring-primary h-8 w-8 rounded-full transition-all hover:ring-2"
         onError={() => setHasError(true)}
       />
     </Link>

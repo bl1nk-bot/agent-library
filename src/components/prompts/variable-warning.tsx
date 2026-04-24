@@ -6,10 +6,7 @@ import { AlertTriangle, Sparkles } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  detectVariables,
-  convertAllVariables,
-} from "@/lib/variable-detection";
+import { detectVariables, convertAllVariables } from "@/lib/variable-detection";
 
 interface VariableWarningProps {
   content: string;
@@ -40,9 +37,7 @@ export function VariableWarning({ content, onConvert }: VariableWarningProps) {
             <p className="text-sm font-medium text-amber-700 dark:text-amber-400">
               {t("variableWarningTitle")}
             </p>
-            <p className="text-xs text-muted-foreground">
-              {t("variableWarningDescription")}
-            </p>
+            <p className="text-muted-foreground text-xs">{t("variableWarningDescription")}</p>
           </div>
           <Button
             type="button"
@@ -55,13 +50,9 @@ export function VariableWarning({ content, onConvert }: VariableWarningProps) {
             {t("convertVariables")}
           </Button>
         </div>
-        <div className="flex flex-wrap gap-1.5 mt-1">
+        <div className="mt-1 flex flex-wrap gap-1.5">
           {uniqueExamples.map((example, i) => (
-            <Badge
-              key={i}
-              variant="outline"
-              className="font-mono text-xs bg-background"
-            >
+            <Badge key={i} variant="outline" className="bg-background font-mono text-xs">
               {example}
             </Badge>
           ))}
@@ -71,8 +62,10 @@ export function VariableWarning({ content, onConvert }: VariableWarningProps) {
             </Badge>
           )}
         </div>
-        <p className="text-xs text-muted-foreground mt-1">
-          {t("supportedFormat")}: <code className="bg-muted px-1 py-0.5 rounded">{`\${variable}`}</code> {t("or")} <code className="bg-muted px-1 py-0.5 rounded">{`\${variable:default}`}</code>
+        <p className="text-muted-foreground mt-1 text-xs">
+          {t("supportedFormat")}:{" "}
+          <code className="bg-muted rounded px-1 py-0.5">{`\${variable}`}</code> {t("or")}{" "}
+          <code className="bg-muted rounded px-1 py-0.5">{`\${variable:default}`}</code>
         </p>
       </AlertDescription>
     </Alert>

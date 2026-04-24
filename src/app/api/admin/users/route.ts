@@ -38,14 +38,18 @@ export async function GET(request: NextRequest) {
 
     // Build filter conditions
     type WhereCondition = {
-      OR?: Array<{ email?: { contains: string; mode: "insensitive" }; username?: { contains: string; mode: "insensitive" }; name?: { contains: string; mode: "insensitive" } }>;
+      OR?: Array<{
+        email?: { contains: string; mode: "insensitive" };
+        username?: { contains: string; mode: "insensitive" };
+        name?: { contains: string; mode: "insensitive" };
+      }>;
       role?: "ADMIN" | "USER";
       verified?: boolean;
       flagged?: boolean;
     };
 
     const filterConditions: WhereCondition = {};
-    
+
     switch (filter) {
       case "admin":
         filterConditions.role = "ADMIN";

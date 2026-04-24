@@ -9,7 +9,7 @@ import { IntlErrorCode } from "next-intl";
  */
 function detectLocaleFromHeader(acceptLanguage: string | null): string | null {
   if (!acceptLanguage) return null;
-  
+
   // Parse Accept-Language header into array of {lang, q} sorted by quality
   const languages = acceptLanguage
     .split(",")
@@ -19,7 +19,7 @@ function detectLocaleFromHeader(acceptLanguage: string | null): string | null {
       return { lang: lang.trim().toLowerCase(), q };
     })
     .sort((a, b) => b.q - a.q);
-  
+
   // Find first matching supported locale
   for (const { lang } of languages) {
     // Try exact match first (e.g., "en-us" -> "en")
@@ -32,18 +32,18 @@ function detectLocaleFromHeader(acceptLanguage: string | null): string | null {
       return lang;
     }
   }
-  
+
   return null;
 }
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
   const headerStore = await headers();
-  
+
   // 1. Check for saved locale preference in cookie
   let locale = cookieStore.get(LOCALE_COOKIE)?.value;
   let detectedFromBrowser = false;
-  
+
   // 2. If no cookie, detect from browser's Accept-Language header
   if (!locale || !supportedLocales.includes(locale)) {
     const acceptLanguage = headerStore.get("accept-language");
@@ -55,7 +55,7 @@ export default getRequestConfig(async () => {
       locale = defaultLocale;
     }
   }
-  
+
   // Load messages for the locale
   let messages;
   try {
@@ -64,7 +64,7 @@ export default getRequestConfig(async () => {
     // Fall back to default locale messages
     messages = (await import(`@/../messages/${defaultLocale}.json`)).default;
   }
-  
+
   return {
     locale,
     messages,
@@ -74,7 +74,7 @@ export default getRequestConfig(async () => {
       if (error.code === IntlErrorCode.MISSING_MESSAGE) {
         // Log missing messages but don't throw
         console.warn(`Missing translation: ${error.originalMessage}`);
-      } else if (error.code === "ENVIRONMENT_FALLBACK" as IntlErrorCode) {
+      } else if (error.code === ("ENVIRONMENT_FALLBACK" as IntlErrorCode)) {
         // Silently ignore environment fallback warnings
       } else {
         console.error(error);

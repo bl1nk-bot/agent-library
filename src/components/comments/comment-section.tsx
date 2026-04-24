@@ -73,19 +73,14 @@ export function CommentSection({
     // Remove the comment and all its replies recursively
     const getDescendantIds = (id: string): string[] => {
       const directReplies = comments.filter((c) => c.parentId === id);
-      return [
-        id,
-        ...directReplies.flatMap((reply) => getDescendantIds(reply.id)),
-      ];
+      return [id, ...directReplies.flatMap((reply) => getDescendantIds(reply.id))];
     };
     const idsToRemove = getDescendantIds(commentId);
     setComments((prev) => prev.filter((c) => !idsToRemove.includes(c.id)));
   };
 
   const handleCommentUpdated = (updatedComment: Comment) => {
-    setComments((prev) =>
-      prev.map((c) => (c.id === updatedComment.id ? updatedComment : c))
-    );
+    setComments((prev) => prev.map((c) => (c.id === updatedComment.id ? updatedComment : c)));
   };
 
   // Get root comments (no parent)
@@ -99,7 +94,7 @@ export function CommentSection({
 
   return (
     <div className="mt-8 border-t pt-6">
-      <div className="flex items-center gap-2 mb-4">
+      <div className="mb-4 flex items-center gap-2">
         <MessageSquare className="h-5 w-5" />
         <h2 className="text-lg font-semibold">
           {t("comments")} ({comments.length})
@@ -118,12 +113,10 @@ export function CommentSection({
       {/* Comments list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
         </div>
       ) : comments.length === 0 ? (
-        <p className="text-center text-muted-foreground py-8">
-          {t("noComments")}
-        </p>
+        <p className="text-muted-foreground py-8 text-center">{t("noComments")}</p>
       ) : (
         <div className="divide-y">
           {sortedRootComments.map((comment) => (

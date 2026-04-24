@@ -95,7 +95,7 @@ export function Sidebar() {
           <div
             key={agent.name}
             tabIndex={0}
-            className="group relative flex w-full justify-center outline-none focus-visible:ring-2 focus-visible:ring-agent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505] rounded-sm"
+            className="group focus-visible:ring-agent-cyan relative flex w-full justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             data-testid="agent-status-indicator"
           >
             <div

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useState, useRef, useEffect, useMemo } from "react"
-import { Sparkles } from "lucide-react"
-import { Slot } from "@radix-ui/react-slot"
-import type { ShaderMount as ShaderMountType } from "@paper-design/shaders"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Sparkles } from "lucide-react";
+import { Slot } from "@radix-ui/react-slot";
+import type { ShaderMount as ShaderMountType } from "@paper-design/shaders";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
@@ -34,14 +34,13 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  label?: string
-  viewMode?: "text" | "icon"
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  label?: string;
+  viewMode?: "text" | "icon";
 }
 
 class ShaderManager {
@@ -55,7 +54,6 @@ class ShaderManager {
       this.loading = true;
       try {
         const { liquidMetalFragmentShader, ShaderMount } = await import("@paper-design/shaders");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.mount = new (ShaderMount as any)(
           parent,
           liquidMetalFragmentShader,
@@ -86,7 +84,6 @@ class ShaderManager {
 
     if (this.currentParent !== parent) {
       this.currentParent = parent;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mount = this.mount as any;
       const canvas = mount.getCanvas?.() || mount.canvas;
       if (canvas && parent) {
@@ -97,7 +94,6 @@ class ShaderManager {
 
   setSpeed(speed: number) {
     if (this.mount) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.mount as any).setSpeed?.(speed);
     }
   }
@@ -129,18 +125,19 @@ function Button({
   }, [ariaLabelProp, children, label]);
 
   // --- START Hoisted Hooks and variables ---
-  const [isHovered, setIsHovered] = useState(false)
-  const isHoveredRef = useRef(false)
-  const [isPressed, setIsPressed] = useState(false)
-  const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])
+  const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
+  const [isPressed, setIsPressed] = useState(false);
+  const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
 
-  const shaderRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const rippleId = useRef(0)
+  const shaderRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const rippleId = useRef(0);
 
   // Compute mode and displayLabel unconditionally
-  const mode = viewMode || (size === "icon" || size === "icon-sm" || size === "icon-lg" ? "icon" : "text")
-  const displayLabel = label || (typeof children === 'string' ? children : "")
+  const mode =
+    viewMode || (size === "icon" || size === "icon-sm" || size === "icon-lg" ? "icon" : "text");
+  const displayLabel = label || (typeof children === "string" ? children : "");
 
   // Dynamic dimensions based on mode.
   const dimensions = useMemo(() => {
@@ -156,7 +153,7 @@ function Button({
         innerHeight: dim - 4,
         shaderWidth: dim,
         shaderHeight: dim,
-      }
+      };
     }
     // For text mode, we rely on CSS sizing (auto width, variant height)
     return {
@@ -166,14 +163,14 @@ function Button({
       innerHeight: undefined,
       shaderWidth: undefined,
       shaderHeight: undefined,
-    }
-  }, [mode, size])
+    };
+  }, [mode, size]);
 
   useEffect(() => {
-    const styleId = "shader-canvas-style-exploded"
+    const styleId = "shader-canvas-style-exploded";
     if (!document.getElementById(styleId)) {
-      const style = document.createElement("style")
-      style.id = styleId
+      const style = document.createElement("style");
+      style.id = styleId;
       style.textContent = `
         .shader-container-exploded canvas {
           width: 100% !important;
@@ -194,53 +191,53 @@ function Button({
             opacity: 0;
           }
         }
-      `
-      document.head.appendChild(style)
+      `;
+      document.head.appendChild(style);
     }
-  }, [])
+  }, []);
 
   const handleMouseEnter = () => {
-    setIsHovered(true)
-    isHoveredRef.current = true
+    setIsHovered(true);
+    isHoveredRef.current = true;
     if (isPrimary && shaderRef.current) {
       shaderManager.attach(shaderRef.current);
       shaderManager.setSpeed(1);
     }
-  }
+  };
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
-    isHoveredRef.current = false
-    setIsPressed(false)
+    setIsHovered(false);
+    isHoveredRef.current = false;
+    setIsPressed(false);
     if (isPrimary) shaderManager.setSpeed(0.6);
-  }
+  };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isPrimary) {
-      shaderManager.setSpeed(2.4)
+      shaderManager.setSpeed(2.4);
       setTimeout(() => {
         if (isHoveredRef.current) {
-          shaderManager.setSpeed(1)
+          shaderManager.setSpeed(1);
         } else {
-          shaderManager.setSpeed(0.6)
+          shaderManager.setSpeed(0.6);
         }
-      }, 300)
+      }, 300);
     }
 
     if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const ripple = { x, y, id: rippleId.current++ }
+      const rect = buttonRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const ripple = { x, y, id: rippleId.current++ };
 
-      setRipples((prev) => [...prev, ripple])
+      setRipples((prev) => [...prev, ripple]);
       setTimeout(() => {
-        setRipples((prev) => prev.filter((r) => r.id !== ripple.id))
-      }, 600)
+        setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
+      }, 600);
     }
 
-    onClick?.(e)
-  }
+    onClick?.(e);
+  };
   // --- END Hoisted Hooks and variables ---
 
   // Compute classes using buttonVariants - do NOT pass className here to avoid duplication
@@ -248,29 +245,30 @@ function Button({
 
   // Fallback to simple button if asChild is true or not primary variant
   if (asChild || !isExploded) {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         data-slot="button"
         className={cn(
           buttonVariants({ variant, size }),
-          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2",
           className
         )}
+        onClick={onClick}
         {...props}
       >
         {children || displayLabel}
       </Comp>
-    )
+    );
   }
 
   return (
-    <div className={cn("relative inline-block perspective-1000", className)}>
+    <div className={cn("perspective-1000 relative inline-block", className)}>
       <div
         className={cn(
-          "relative transform-style-3d transition-all duration-800",
+          "transform-style-3d relative transition-all duration-800",
           variantClasses,
-          "border-0 overflow-hidden",
+          "overflow-hidden border-0",
           props.disabled && "opacity-50"
         )}
         style={{
@@ -279,113 +277,118 @@ function Button({
           transform: `translateZ(0px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
         }}
       >
-          {/* Inner Background Layer */}
+        {/* Inner Background Layer */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            borderRadius: "var(--radius)",
+            background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
+            zIndex: 0,
+          }}
+        />
+
+        {/* Shader/Outer Layer */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            borderRadius: "var(--radius)",
+            zIndex: 1,
+          }}
+        >
           <div
+            ref={shaderRef}
+            className="shader-container-exploded"
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
               width: "100%",
               height: "100%",
               borderRadius: "var(--radius)",
-              background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
-              zIndex: 0,
             }}
           />
+        </div>
 
-          {/* Shader/Outer Layer */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              borderRadius: "var(--radius)",
-              zIndex: 1,
-            }}
-          >
-            <div
-              ref={shaderRef}
-              className="shader-container-exploded"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "var(--radius)",
-              }}
-            />
-          </div>
-
-          {/* Content Layer */}
-          <div className="relative z-10 flex items-center justify-center gap-2">
-            {mode === "icon" ? (
-              React.Children.count(children) > 0 && typeof children !== 'string' ? (
-                 <div style={{
+        {/* Content Layer */}
+        <div className="relative z-10 flex items-center justify-center gap-2">
+          {mode === "icon" ? (
+            React.Children.count(children) > 0 && typeof children !== "string" ? (
+              <div
+                style={{
                   color: "#666666",
                   filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
-                  display: "flex", alignItems: "center", justifyContent: "center"
-                }}>
-                  {children}
-                </div>
-              ) : (
-                <Sparkles
-                  size={16}
-                  style={{
-                    color: "#666666",
-                    filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
-                  }}
-                />
-              )
-            ) : (
-              <span
-                style={{
-                  fontSize: "inherit",
-                  color: "#666666",
-                  fontWeight: "inherit",
-                  textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
-                  whiteSpace: "nowrap",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                {displayLabel || children}
-              </span>
-            )}
-          </div>
-
-          <button
-            ref={buttonRef}
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onMouseDown={() => setIsPressed(true)}
-            onMouseUp={() => setIsPressed(false)}
-            className={cn(
-              "absolute inset-0 w-full h-full bg-transparent border-none z-40",
-              "cursor-pointer disabled:cursor-not-allowed outline-none",
-              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            )}
-            aria-label={displayLabel || (typeof children === 'string' ? children : undefined)}
-            {...props}
-          >
-            {ripples.map((ripple) => (
-              <span
-                key={ripple.id}
+                {children}
+              </div>
+            ) : (
+              <Sparkles
+                size={16}
                 style={{
-                  position: "absolute",
-                  left: `${ripple.x}px`,
-                  top: `${ripple.y}px`,
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  background: "radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%)",
-                  pointerEvents: "none",
-                  animation: "ripple-animation 0.6s ease-out",
+                  color: "#666666",
+                  filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
                 }}
               />
-            ))}
-          </button>
+            )
+          ) : (
+            <span
+              style={{
+                fontSize: "inherit",
+                color: "#666666",
+                fontWeight: "inherit",
+                textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {displayLabel || children}
+            </span>
+          )}
+        </div>
+
+        <button
+          ref={buttonRef}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseDown={() => setIsPressed(true)}
+          onMouseUp={() => setIsPressed(false)}
+          className={cn(
+            "absolute inset-0 z-40 h-full w-full border-none bg-transparent",
+            "cursor-pointer outline-none disabled:cursor-not-allowed",
+            "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2"
+          )}
+          aria-label={displayLabel || (typeof children === "string" ? children : undefined)}
+          {...props}
+        >
+          {ripples.map((ripple) => (
+            <span
+              key={ripple.id}
+              style={{
+                position: "absolute",
+                left: `${ripple.x}px`,
+                top: `${ripple.y}px`,
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%)",
+                pointerEvents: "none",
+                animation: "ripple-animation 0.6s ease-out",
+              }}
+            />
+          ))}
+        </button>
       </div>
     </div>
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

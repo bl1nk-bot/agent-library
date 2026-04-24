@@ -18,7 +18,7 @@ export default async function HowToWriteEffectivePromptsPage() {
     <div className="container max-w-4xl py-8">
       <InteractiveBookBanner />
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
+        <h1 className="mb-2 text-3xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground mb-4">{t("subtitle")}</p>
         <LanguageSwitcher />
       </div>

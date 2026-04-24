@@ -152,7 +152,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       <div className="mb-6">
         <Button variant="ghost" size="sm" className="mb-4 -ml-2" asChild>
           <Link href="/categories">
-            <ArrowLeft className="h-4 w-4 mr-1" />
+            <ArrowLeft className="mr-1 h-4 w-4" />
             {t("categories.allCategories")}
           </Link>
         </Button>
@@ -171,26 +171,34 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
               )}
             </div>
             {category.description && (
-              <p className="text-sm text-muted-foreground mt-1">
-                {category.description}
-              </p>
+              <p className="text-muted-foreground mt-1 text-sm">{category.description}</p>
             )}
-            <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
+            <div className="text-muted-foreground mt-2 flex items-center gap-3 text-sm">
               <span>{t("categories.promptCount", { count: totalPrompts })}</span>
               <span>•</span>
               <span>{t("categories.subscriberCount", { count: category._count.subscribers })}</span>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
             <CategoryFilters categorySlug={slug} />
-            {config.features.mcp !== false && <McpServerPopup initialCategories={[slug]} showOfficialBranding={!config.homepage?.useCloneBranding} />}
+            {config.features.mcp !== false && (
+              <McpServerPopup
+                initialCategories={[slug]}
+                showOfficialBranding={!config.homepage?.useCloneBranding}
+              />
+            )}
           </div>
         </div>
 
         {/* Mobile filters */}
-        <div className="flex md:hidden items-center gap-2 mt-4">
+        <div className="mt-4 flex items-center gap-2 md:hidden">
           <CategoryFilters categorySlug={slug} />
-          {config.features.mcp !== false && <McpServerPopup initialCategories={[slug]} showOfficialBranding={!config.homepage?.useCloneBranding} />}
+          {config.features.mcp !== false && (
+            <McpServerPopup
+              initialCategories={[slug]}
+              showOfficialBranding={!config.homepage?.useCloneBranding}
+            />
+          )}
         </div>
       </div>
 

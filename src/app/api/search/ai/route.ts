@@ -5,10 +5,7 @@ export async function GET(request: NextRequest) {
   try {
     const enabled = await isAISearchEnabled();
     if (!enabled) {
-      return NextResponse.json(
-        { error: "AI Search is not enabled" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "AI Search is not enabled" }, { status: 400 });
     }
 
     const searchParams = request.nextUrl.searchParams;
@@ -16,10 +13,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "20");
 
     if (!query || query.trim().length === 0) {
-      return NextResponse.json(
-        { error: "Query is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Query is required" }, { status: 400 });
     }
 
     const results = await semanticSearch(query, limit);
@@ -31,9 +25,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("AI Search error:", error);
-    return NextResponse.json(
-      { error: "Search failed" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Search failed" }, { status: 500 });
   }
 }

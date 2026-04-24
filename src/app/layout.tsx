@@ -35,14 +35,8 @@ export const metadata: Metadata = {
     default: "AI Command Hub",
     template: "%s | AI Command Hub",
   },
-  description:
-    "Digital Luxury Interface for AI Agents.",
-  keywords: [
-    "AI",
-    "Agents",
-    "Command Hub",
-    "Digital Noir",
-  ],
+  description: "Digital Luxury Interface for AI Agents.",
+  keywords: ["AI", "Agents", "Command Hub", "Digital Noir"],
   authors: [{ name: "bl1nk Team" }],
   creator: "AI Command Hub",
   publisher: "AI Command Hub",
@@ -64,8 +58,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "AI Command Hub",
     title: "AI Command Hub",
-    description:
-      "Digital Luxury Interface for AI Agents.",
+    description: "Digital Luxury Interface for AI Agents.",
     images: [
       {
         url: "/og.png",
@@ -78,8 +71,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AI Command Hub",
-    description:
-      "Digital Luxury Interface for AI Agents.",
+    description: "Digital Luxury Interface for AI Agents.",
     images: ["/og.png"],
     creator: "@aicommandhub",
   },
@@ -118,7 +110,7 @@ function hexToOklch(hex: string): string {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const c = (max - min) * 0.4;
-  
+
   let h = 0;
   if (max !== min) {
     if (max === r) h = ((g - b) / (max - min)) * 60;
@@ -126,7 +118,7 @@ function hexToOklch(hex: string): string {
     else h = (4 + (r - g) / (max - min)) * 60;
   }
   if (h < 0) h += 360;
-  
+
   return `oklch(${(l * 0.8 + 0.2).toFixed(3)} ${c.toFixed(3)} ${h.toFixed(1)})`;
 }
 
@@ -139,7 +131,7 @@ export default async function RootLayout({
   const pathname = headersList.get("x-pathname") || headersList.get("x-invoke-path") || "";
   const isEmbedRoute = pathname.startsWith("/embed");
   const isKidsRoute = pathname.startsWith("/kids");
-  
+
   const locale = await getLocale();
   const messages = await getMessages();
   const config = await getConfig();
@@ -149,39 +141,55 @@ export default async function RootLayout({
   const themeClasses = `theme-${config.theme.variant} density-${config.theme.density}`;
   const primaryOklch = hexToOklch(config.theme.colors.primary);
   const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(config.theme.colors.primary);
-  const lightness = rgb 
-    ? 0.2126 * (parseInt(rgb[1], 16) / 255) + 0.7152 * (parseInt(rgb[2], 16) / 255) + 0.0722 * (parseInt(rgb[3], 16) / 255)
+  const lightness = rgb
+    ? 0.2126 * (parseInt(rgb[1], 16) / 255) +
+      0.7152 * (parseInt(rgb[2], 16) / 255) +
+      0.0722 * (parseInt(rgb[3], 16) / 255)
     : 0.5;
   const foreground = lightness > 0.5 ? "oklch(0.2 0 0)" : "oklch(0.98 0 0)";
-  
+
   const themeStyles = {
     "--radius": radiusValues[config.theme.radius],
     "--primary": primaryOklch,
     "--primary-foreground": foreground,
   } as React.CSSProperties;
 
-  const fontClasses = isRtl 
-    ? `${inter.variable} ${notoSansArabic.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-arabic` 
+  const fontClasses = isRtl
+    ? `${inter.variable} ${notoSansArabic.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-arabic`
     : `${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-sans`;
 
   return (
-    <html lang={locale} dir={isRtl ? "rtl" : "ltr"} suppressHydrationWarning className={themeClasses} style={themeStyles}>
+    <html
+      lang={locale}
+      dir={isRtl ? "rtl" : "ltr"}
+      suppressHydrationWarning
+      className={themeClasses}
+      style={themeStyles}
+    >
       <head>
         <WebsiteStructuredData />
       </head>
-      <body className={`${fontClasses} antialiased bg-[#050505] text-white selection:bg-cyan-500/30 selection:text-cyan-50`}>
-        {process.env.GOOGLE_ANALYTICS_ID && (
-          <Analytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-        )}
-        <Providers locale={locale} messages={messages} theme={config.theme} branding={{ ...config.branding, useCloneBranding: config.homepage?.useCloneBranding }}>
+      <body
+        className={`${fontClasses} bg-[#050505] text-white antialiased selection:bg-cyan-500/30 selection:text-cyan-50`}
+      >
+        {process.env.GOOGLE_ANALYTICS_ID && <Analytics gaId={process.env.GOOGLE_ANALYTICS_ID} />}
+        <Providers
+          locale={locale}
+          messages={messages}
+          theme={config.theme}
+          branding={{ ...config.branding, useCloneBranding: config.homepage?.useCloneBranding }}
+        >
           {isEmbedRoute || isKidsRoute ? (
             children
           ) : (
             <>
               <LocaleDetector />
-              <div className="relative min-h-screen flex flex-col">
+              <div className="relative flex min-h-screen flex-col">
                 {/* Temporary header/footer until we rebuild layout */}
-                <Header authProvider={config.auth.provider} allowRegistration={config.auth.allowRegistration} />
+                <Header
+                  authProvider={config.auth.provider}
+                  allowRegistration={config.auth.allowRegistration}
+                />
                 <main className="flex-1">{children}</main>
                 <Footer />
                 <CookieConsentBanner />

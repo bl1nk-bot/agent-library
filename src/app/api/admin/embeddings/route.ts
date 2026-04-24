@@ -26,14 +26,11 @@ export async function POST(request: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const result = await generateAllEmbeddings(
-            (current, total, success, failed) => {
-              const progress = JSON.stringify({ current, total, success, failed, done: false });
-              controller.enqueue(encoder.encode(`data: ${progress}\n\n`));
-            },
-            regenerate
-          );
-          
+          const result = await generateAllEmbeddings((current, total, success, failed) => {
+            const progress = JSON.stringify({ current, total, success, failed, done: false });
+            controller.enqueue(encoder.encode(`data: ${progress}\n\n`));
+          }, regenerate);
+
           const final = JSON.stringify({ ...result, done: true });
           controller.enqueue(encoder.encode(`data: ${final}\n\n`));
           controller.close();
@@ -49,14 +46,11 @@ export async function POST(request: NextRequest) {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
+        Connection: "keep-alive",
       },
     });
   } catch (error) {
     console.error("Generate embeddings error:", error);
-    return NextResponse.json(
-      { error: "Failed to generate embeddings" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to generate embeddings" }, { status: 500 });
   }
 }

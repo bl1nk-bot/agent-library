@@ -18,26 +18,17 @@ export async function GET(request: NextRequest) {
   const socketAccessToken = searchParams.get("token");
 
   if (!provider || !socketAccessToken) {
-    return NextResponse.json(
-      { error: "Missing provider or token" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Missing provider or token" }, { status: 400 });
   }
 
   const plugin = getMediaGeneratorPlugin(provider);
 
   if (!plugin) {
-    return NextResponse.json(
-      { error: `Provider "${provider}" not found` },
-      { status: 404 }
-    );
+    return NextResponse.json({ error: `Provider "${provider}" not found` }, { status: 404 });
   }
 
   if (!plugin.checkStatus) {
-    return NextResponse.json(
-      { error: "Provider does not support polling" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Provider does not support polling" }, { status: 400 });
   }
 
   try {

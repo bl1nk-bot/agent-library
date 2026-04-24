@@ -118,9 +118,7 @@ describe("calculateSimilarity", () => {
   it("should be symmetric", () => {
     const content1 = "The quick brown fox";
     const content2 = "A quick brown dog";
-    expect(calculateSimilarity(content1, content2)).toBe(
-      calculateSimilarity(content2, content1)
-    );
+    expect(calculateSimilarity(content1, content2)).toBe(calculateSimilarity(content2, content1));
   });
 });
 
@@ -140,9 +138,7 @@ describe("isSimilarContent", () => {
   });
 
   it("should return false for content below default threshold", () => {
-    expect(
-      isSimilarContent("Write a poem about love", "Create a business plan")
-    ).toBe(false);
+    expect(isSimilarContent("Write a poem about love", "Create a business plan")).toBe(false);
   });
 
   it("should respect custom threshold", () => {
@@ -218,10 +214,7 @@ describe("similarity edge cases", () => {
   });
 
   it("should handle unicode characters", () => {
-    const similarity = calculateSimilarity(
-      "Hello 世界 emoji 🎉",
-      "Hello 世界 emoji 🎉"
-    );
+    const similarity = calculateSimilarity("Hello 世界 emoji 🎉", "Hello 世界 emoji 🎉");
     expect(similarity).toBe(1);
   });
 

@@ -1,13 +1,45 @@
 "use client";
 
-export { IconLock, IconUser, IconClipboard, IconSettings, IconCheck, IconX, IconStar, IconLightbulb, IconTarget } from "./elements/icons";
+export {
+  IconLock,
+  IconUser,
+  IconClipboard,
+  IconSettings,
+  IconCheck,
+  IconX,
+  IconStar,
+  IconLightbulb,
+  IconTarget,
+} from "./elements/icons";
 export { CodeEditor } from "./elements/code-editor";
 export { ChainExample, ChainFlowDemo } from "./elements/chain";
-export { Collapsible, Callout, CopyableCode, Quiz, TryIt, NavButton, NavFooter } from "./elements/ui";
+export {
+  Collapsible,
+  Callout,
+  CopyableCode,
+  Quiz,
+  TryIt,
+  NavButton,
+  NavFooter,
+} from "./elements/ui";
 export { Checklist, Compare, InfoGrid } from "./elements/lists";
-export { FrameworkDemo, CRISPEFramework, BREAKFramework, RTFFramework } from "./elements/frameworks";
+export {
+  FrameworkDemo,
+  CRISPEFramework,
+  BREAKFramework,
+  RTFFramework,
+} from "./elements/frameworks";
 export { PromptBreakdown, SpecificitySpectrum } from "./elements/prompt";
-export { TokenizerDemo, ContextWindowDemo, TemperatureDemo, StructuredOutputDemo, FewShotDemo, JsonYamlDemo, IterativeRefinementDemo, CostCalculatorDemo } from "./elements/demos";
+export {
+  TokenizerDemo,
+  ContextWindowDemo,
+  TemperatureDemo,
+  StructuredOutputDemo,
+  FewShotDemo,
+  JsonYamlDemo,
+  IterativeRefinementDemo,
+  CostCalculatorDemo,
+} from "./elements/demos";
 export { PrinciplesSummary } from "./elements/principles";
 export { JailbreakDemo } from "./elements/security";
 export { EmbeddingsDemo, LLMCapabilitiesDemo } from "./elements/ai-demos";

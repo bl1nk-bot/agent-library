@@ -29,20 +29,26 @@ const partColors: Record<PartType, { bg: string; border: string; text: string; e
   role: { bg: "bg-purple-100", border: "border-purple-400", text: "text-purple-700", emoji: "🎭" },
   task: { bg: "bg-blue-100", border: "border-blue-400", text: "text-blue-700", emoji: "✏️" },
   context: { bg: "bg-green-100", border: "border-green-400", text: "text-green-700", emoji: "📖" },
-  constraint: { bg: "bg-orange-100", border: "border-orange-400", text: "text-orange-700", emoji: "📏" },
+  constraint: {
+    bg: "bg-orange-100",
+    border: "border-orange-400",
+    text: "text-orange-700",
+    emoji: "📏",
+  },
 };
 
 export function PromptParts({ title, instruction, parts, successMessage }: PromptPartsProps) {
   const t = useTranslations("kids.promptParts");
   const levelSlug = useLevelSlug();
-  const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
+  const { currentSection, markSectionComplete, registerSectionRequirement } =
+    useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
   }, [currentSection, registerSectionRequirement]);
-  
+
   const displayTitle = title || t("title");
   const displayInstruction = instruction || t("instruction");
 
@@ -78,7 +84,9 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
 
   // Check if all parts are correctly assigned
   const checkCompletion = (newAssignments: Record<number, PartType | null>) => {
-    const allAssigned = parts.every((_, index) => newAssignments[index] !== undefined && newAssignments[index] !== null);
+    const allAssigned = parts.every(
+      (_, index) => newAssignments[index] !== undefined && newAssignments[index] !== null
+    );
     const allCorrect = parts.every((part, index) => newAssignments[index] === part.type);
     if (allAssigned && allCorrect) {
       setCompleted(true);
@@ -97,7 +105,7 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
 
   const handleCategoryClick = (category: PartType) => {
     if (completed || selectedPart === null) return;
-    
+
     const newAssignments = { ...assignments, [selectedPart]: category };
     setAssignments(newAssignments);
     setSelectedPart(null);
@@ -119,12 +127,12 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
   const score = parts.filter((part, index) => assignments[index] === part.type).length;
 
   return (
-    <div className="my-4 p-4 bg-gradient-to-br from-[#FEF3C7] to-[#FDE68A] border-4 border-[#D97706] rounded-xl">
+    <div className="my-4 rounded-xl border-4 border-[#D97706] bg-gradient-to-br from-[#FEF3C7] to-[#FDE68A] p-4">
       {/* Title */}
-      <h3 className="text-xl font-bold text-[#92400E] mb-2 flex items-center gap-2">
+      <h3 className="mb-2 flex items-center gap-2 text-xl font-bold text-[#92400E]">
         🧩 {displayTitle}
       </h3>
-      <p className="text-[#92400E] mb-4 m-0">{displayInstruction}</p>
+      <p className="m-0 mb-4 text-[#92400E]">{displayInstruction}</p>
 
       {/* Score */}
       <div className="mb-4 text-sm font-medium text-[#92400E]">
@@ -132,7 +140,7 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
       </div>
 
       {/* Prompt pieces to categorize */}
-      <div className="bg-white/80 rounded-lg p-4 mb-4 border-2 border-[#D97706]">
+      <div className="mb-4 rounded-lg border-2 border-[#D97706] bg-white/80 p-4">
         <div className="flex flex-wrap gap-2">
           {parts.map((part, index) => {
             const status = getAssignmentStatus(index);
@@ -146,9 +154,13 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
                 onClick={() => handlePartClick(index)}
                 disabled={completed}
                 className={cn(
-                  "px-3 py-2 rounded-lg border-2 transition-all text-base font-medium",
-                  !assigned && !isSelected && "bg-gray-100 border-gray-300 text-gray-700 hover:border-[#D97706]",
-                  !assigned && isSelected && "bg-yellow-100 border-[#D97706] text-[#92400E] ring-2 ring-[#D97706] scale-105",
+                  "rounded-lg border-2 px-3 py-2 text-base font-medium transition-all",
+                  !assigned &&
+                    !isSelected &&
+                    "border-gray-300 bg-gray-100 text-gray-700 hover:border-[#D97706]",
+                  !assigned &&
+                    isSelected &&
+                    "scale-105 border-[#D97706] bg-yellow-100 text-[#92400E] ring-2 ring-[#D97706]",
                   assigned && colors && `${colors.bg} ${colors.border} ${colors.text}`,
                   status === "correct" && "ring-2 ring-green-500",
                   status === "wrong" && "ring-2 ring-red-400",
@@ -166,8 +178,8 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
 
       {/* Category buttons */}
       {selectedPart !== null && !completed && (
-        <div className="mb-4 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-sm font-medium text-[#92400E] mb-2">{t("pickCategory")}</div>
+        <div className="animate-in fade-in slide-in-from-top-2 mb-4 duration-200">
+          <div className="mb-2 text-sm font-medium text-[#92400E]">{t("pickCategory")}</div>
           <div className="grid grid-cols-2 gap-2">
             {(Object.keys(partColors) as PartType[]).map((type) => {
               const colors = partColors[type];
@@ -176,11 +188,11 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
                   key={type}
                   onClick={() => handleCategoryClick(type)}
                   className={cn(
-                    "flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 font-bold transition-all",
+                    "flex items-center justify-center gap-2 rounded-lg border-2 px-4 py-3 font-bold transition-all",
                     colors.bg,
                     colors.border,
                     colors.text,
-                    "hover:scale-105 cursor-pointer"
+                    "cursor-pointer hover:scale-105"
                   )}
                 >
                   <span className="text-xl">{colors.emoji}</span>
@@ -194,8 +206,8 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
 
       {/* Success message */}
       {completed && (
-        <div className="p-4 bg-green-100 border-2 border-green-500 rounded-lg mb-4 animate-in fade-in zoom-in-95 duration-300">
-          <p className="font-bold text-green-700 text-lg m-0">
+        <div className="animate-in fade-in zoom-in-95 mb-4 rounded-lg border-2 border-green-500 bg-green-100 p-4 duration-300">
+          <p className="m-0 text-lg font-bold text-green-700">
             🎉 {successMessage || t("success")}
           </p>
         </div>
@@ -205,7 +217,7 @@ export function PromptParts({ title, instruction, parts, successMessage }: Promp
       {(Object.keys(assignments).length > 0 || completed) && (
         <button
           onClick={handleReset}
-          className="px-6 py-2 rounded-lg font-bold bg-[#D97706] hover:bg-[#B45309] text-white"
+          className="rounded-lg bg-[#D97706] px-6 py-2 font-bold text-white hover:bg-[#B45309]"
         >
           {t("retry")}
         </button>

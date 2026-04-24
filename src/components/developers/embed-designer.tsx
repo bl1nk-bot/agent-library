@@ -110,7 +110,7 @@ export function EmbedDesigner() {
       try {
         const parsed = JSON.parse(saved);
         setConfig({ ...defaultConfig, ...parsed });
-        if (!MODELS.find(m => m.value === parsed.model)) {
+        if (!MODELS.find((m) => m.value === parsed.model)) {
           setCustomModel(parsed.model);
         }
       } catch (e) {
@@ -124,14 +124,15 @@ export function EmbedDesigner() {
   }, [config]);
 
   const updateConfig = useCallback((updates: Partial<EmbedConfig>) => {
-    setConfig(prev => ({ ...prev, ...updates }));
+    setConfig((prev) => ({ ...prev, ...updates }));
   }, []);
 
   const generatePreviewURL = useCallback(() => {
     const params = new URLSearchParams();
     if (config.prompt) params.set("prompt", config.prompt);
     if (config.context) params.set("context", config.context);
-    if (config.model !== "GPT 4o") params.set("model", config.model === "custom" ? customModel : config.model);
+    if (config.model !== "GPT 4o")
+      params.set("model", config.model === "custom" ? customModel : config.model);
     if (config.mode !== "chat") params.set("mode", config.mode);
     if (config.thinking) params.set("thinking", "true");
     if (config.reasoning) params.set("reasoning", "true");
@@ -172,13 +173,13 @@ export function EmbedDesigner() {
   };
 
   const loadExample = (exampleValue: string) => {
-    const example = EMBED_EXAMPLES.find(e => e.value === exampleValue);
+    const example = EMBED_EXAMPLES.find((e) => e.value === exampleValue);
     if (example) {
       updateConfig({
         ...defaultConfig,
         ...example.config,
       });
-      setPreviewKey(prev => prev + 1);
+      setPreviewKey((prev) => prev + 1);
       toast.success(`${example.label} loaded!`);
     }
   };
@@ -187,22 +188,28 @@ export function EmbedDesigner() {
     setConfig(defaultConfig);
     setCustomModel("");
     localStorage.removeItem(STORAGE_KEY);
-    setPreviewKey(prev => prev + 1);
+    setPreviewKey((prev) => prev + 1);
     toast.success(t("settingsCleared"));
   };
 
   return (
-    <div className="h-full flex overflow-hidden">
+    <div className="flex h-full overflow-hidden">
       {/* Left Panel - Settings */}
-      <div className="w-80 h-full flex flex-col border-r bg-muted/20 shrink-0 overflow-hidden">
-        <div className="h-10 px-4 border-b bg-muted/30 flex items-center justify-between shrink-0">
-          <span className="text-sm font-medium text-muted-foreground">{t("embedSettings")}</span>
-          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={resetConfig} title={t("reset")}>
+      <div className="bg-muted/20 flex h-full w-80 shrink-0 flex-col overflow-hidden border-r">
+        <div className="bg-muted/30 flex h-10 shrink-0 items-center justify-between border-b px-4">
+          <span className="text-muted-foreground text-sm font-medium">{t("embedSettings")}</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6"
+            onClick={resetConfig}
+            title={t("reset")}
+          >
             <RotateCcw className="h-3 w-3" />
           </Button>
         </div>
-        <ScrollArea className="flex-1 min-h-0">
-          <div className="p-4 space-y-4">
+        <ScrollArea className="min-h-0 flex-1">
+          <div className="space-y-4 p-4">
             {/* Load Example */}
             <div className="space-y-1.5">
               <Label className="text-xs">{t("loadExample")}</Label>
@@ -211,10 +218,12 @@ export function EmbedDesigner() {
                   <SelectValue placeholder={t("chooseExample")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {Array.from(new Set(EMBED_EXAMPLES.map(ex => ex.category))).map(category => (
+                  {Array.from(new Set(EMBED_EXAMPLES.map((ex) => ex.category))).map((category) => (
                     <SelectGroup key={category}>
-                      <SelectLabel className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{category}</SelectLabel>
-                      {EMBED_EXAMPLES.filter(ex => ex.category === category).map(ex => (
+                      <SelectLabel className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
+                        {category}
+                      </SelectLabel>
+                      {EMBED_EXAMPLES.filter((ex) => ex.category === category).map((ex) => (
                         <SelectItem key={ex.value} value={ex.value} className="text-xs">
                           {ex.label}
                         </SelectItem>
@@ -226,14 +235,16 @@ export function EmbedDesigner() {
             </div>
 
             {/* Prompt Section */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Prompt</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                Prompt
+              </h3>
+
               <div className="space-y-1.5">
                 <Label className="text-xs">Context</Label>
                 <Input
                   value={config.context}
-                  onChange={e => updateConfig({ context: e.target.value })}
+                  onChange={(e) => updateConfig({ context: e.target.value })}
                   placeholder="file.py, @web, @codebase, #image"
                   className="h-8 text-xs"
                 />
@@ -243,29 +254,31 @@ export function EmbedDesigner() {
                 <Label className="text-xs">Prompt Text</Label>
                 <Textarea
                   value={config.prompt}
-                  onChange={e => updateConfig({ prompt: e.target.value })}
+                  onChange={(e) => updateConfig({ prompt: e.target.value })}
                   placeholder="Enter your prompt..."
-                  className="min-h-[100px] text-xs resize-none"
+                  className="min-h-[100px] resize-none text-xs"
                 />
               </div>
             </div>
 
             {/* AI Settings */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI Settings</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                AI Settings
+              </h3>
+
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1.5">
                   <Label className="text-xs">Model</Label>
-                  <Select 
-                    value={MODELS.find(m => m.value === config.model) ? config.model : "custom"} 
-                    onValueChange={v => updateConfig({ model: v })}
+                  <Select
+                    value={MODELS.find((m) => m.value === config.model) ? config.model : "custom"}
+                    onValueChange={(v) => updateConfig({ model: v })}
                   >
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {MODELS.map(m => (
+                      {MODELS.map((m) => (
                         <SelectItem key={m.value} value={m.value} className="text-xs">
                           {m.label}
                         </SelectItem>
@@ -276,15 +289,23 @@ export function EmbedDesigner() {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs">Mode</Label>
-                  <Select value={config.mode} onValueChange={v => updateConfig({ mode: v })}>
+                  <Select value={config.mode} onValueChange={(v) => updateConfig({ mode: v })}>
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="chat" className="text-xs">Chat</SelectItem>
-                      <SelectItem value="code" className="text-xs">Code</SelectItem>
-                      <SelectItem value="ask" className="text-xs">Ask</SelectItem>
-                      <SelectItem value="plan" className="text-xs">Plan</SelectItem>
+                      <SelectItem value="chat" className="text-xs">
+                        Chat
+                      </SelectItem>
+                      <SelectItem value="code" className="text-xs">
+                        Code
+                      </SelectItem>
+                      <SelectItem value="ask" className="text-xs">
+                        Ask
+                      </SelectItem>
+                      <SelectItem value="plan" className="text-xs">
+                        Plan
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -295,7 +316,7 @@ export function EmbedDesigner() {
                   <Label className="text-xs">Custom Model</Label>
                   <Input
                     value={customModel}
-                    onChange={e => setCustomModel(e.target.value)}
+                    onChange={(e) => setCustomModel(e.target.value)}
                     placeholder="Enter model name"
                     className="h-8 text-xs"
                   />
@@ -304,88 +325,116 @@ export function EmbedDesigner() {
 
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Thinking</Label>
-                <Switch checked={config.thinking} onCheckedChange={v => updateConfig({ thinking: v })} />
+                <Switch
+                  checked={config.thinking}
+                  onCheckedChange={(v) => updateConfig({ thinking: v })}
+                />
               </div>
 
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Reasoning</Label>
-                <Switch checked={config.reasoning} onCheckedChange={v => updateConfig({ reasoning: v })} />
+                <Switch
+                  checked={config.reasoning}
+                  onCheckedChange={(v) => updateConfig({ reasoning: v })}
+                />
               </div>
 
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Planning</Label>
-                <Switch checked={config.planning} onCheckedChange={v => updateConfig({ planning: v })} />
+                <Switch
+                  checked={config.planning}
+                  onCheckedChange={(v) => updateConfig({ planning: v })}
+                />
               </div>
 
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Fast</Label>
-                <Switch checked={config.fast} onCheckedChange={v => updateConfig({ fast: v })} />
+                <Switch checked={config.fast} onCheckedChange={(v) => updateConfig({ fast: v })} />
               </div>
 
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Max</Label>
-                <Switch checked={config.max} onCheckedChange={v => updateConfig({ max: v })} />
+                <Switch checked={config.max} onCheckedChange={(v) => updateConfig({ max: v })} />
               </div>
             </div>
 
             {/* File Tree */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">File Tree</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                File Tree
+              </h3>
+
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Show File Tree</Label>
-                <Switch checked={config.showFiletree} onCheckedChange={v => updateConfig({ showFiletree: v })} />
+                <Switch
+                  checked={config.showFiletree}
+                  onCheckedChange={(v) => updateConfig({ showFiletree: v })}
+                />
               </div>
 
               {config.showFiletree && (
                 <Textarea
                   value={config.filetree}
-                  onChange={e => updateConfig({ filetree: e.target.value })}
+                  onChange={(e) => updateConfig({ filetree: e.target.value })}
                   placeholder={`src/\nsrc/components/\nsrc/components/Button.tsx`}
-                  className="min-h-[80px] text-xs font-mono resize-none"
+                  className="min-h-[80px] resize-none font-mono text-xs"
                 />
               )}
             </div>
 
             {/* Diff View */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Diff View</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                Diff View
+              </h3>
+
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Show Diff</Label>
-                <Switch checked={config.showDiff} onCheckedChange={v => updateConfig({ showDiff: v })} />
+                <Switch
+                  checked={config.showDiff}
+                  onCheckedChange={(v) => updateConfig({ showDiff: v })}
+                />
               </div>
 
               {config.showDiff && (
                 <>
                   <Input
                     value={config.diffFilename}
-                    onChange={e => updateConfig({ diffFilename: e.target.value })}
+                    onChange={(e) => updateConfig({ diffFilename: e.target.value })}
                     placeholder="Filename"
                     className="h-8 text-xs"
                   />
                   <Textarea
                     value={config.diffOldText}
-                    onChange={e => updateConfig({ diffOldText: e.target.value })}
+                    onChange={(e) => updateConfig({ diffOldText: e.target.value })}
                     placeholder="Old code..."
-                    className="min-h-[60px] text-xs font-mono resize-none bg-red-50 dark:bg-red-950/20"
+                    className="min-h-[60px] resize-none bg-red-50 font-mono text-xs dark:bg-red-950/20"
                   />
                   <Textarea
                     value={config.diffNewText}
-                    onChange={e => updateConfig({ diffNewText: e.target.value })}
+                    onChange={(e) => updateConfig({ diffNewText: e.target.value })}
                     placeholder="New code..."
-                    className="min-h-[60px] text-xs font-mono resize-none bg-green-50 dark:bg-green-950/20"
+                    className="min-h-[60px] resize-none bg-green-50 font-mono text-xs dark:bg-green-950/20"
                   />
                   <div className="space-y-1.5">
                     <Label className="text-xs">Flash Button</Label>
-                    <Select value={config.flashButton} onValueChange={v => updateConfig({ flashButton: v })}>
+                    <Select
+                      value={config.flashButton}
+                      onValueChange={(v) => updateConfig({ flashButton: v })}
+                    >
                       <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="none" className="text-xs">None</SelectItem>
-                        <SelectItem value="accept" className="text-xs">Accept</SelectItem>
-                        <SelectItem value="reject" className="text-xs">Reject</SelectItem>
+                        <SelectItem value="none" className="text-xs">
+                          None
+                        </SelectItem>
+                        <SelectItem value="accept" className="text-xs">
+                          Accept
+                        </SelectItem>
+                        <SelectItem value="reject" className="text-xs">
+                          Reject
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -394,38 +443,48 @@ export function EmbedDesigner() {
             </div>
 
             {/* MCP Tools */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">MCP Tools</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                MCP Tools
+              </h3>
+
               <div className="flex items-center justify-between">
                 <Label className="text-xs">Show MCP Tools</Label>
-                <Switch checked={config.showMcpTools} onCheckedChange={v => updateConfig({ showMcpTools: v })} />
+                <Switch
+                  checked={config.showMcpTools}
+                  onCheckedChange={(v) => updateConfig({ showMcpTools: v })}
+                />
               </div>
 
               {config.showMcpTools && (
                 <Textarea
                   value={config.mcpTools}
-                  onChange={e => updateConfig({ mcpTools: e.target.value })}
+                  onChange={(e) => updateConfig({ mcpTools: e.target.value })}
                   placeholder={`github:create_issue\ngithub:search_code\nfilesystem:read_file`}
-                  className="min-h-[80px] text-xs font-mono resize-none"
+                  className="min-h-[80px] resize-none font-mono text-xs"
                 />
               )}
             </div>
 
             {/* Appearance */}
-            <div className="space-y-3 pt-2 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Appearance</h3>
-              
+            <div className="space-y-3 border-t pt-2">
+              <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                Appearance
+              </h3>
+
               <div className="space-y-1.5">
                 <Label className="text-xs">Theme</Label>
                 <div className="flex gap-1">
-                  {(["auto", "light", "dark"] as const).map(mode => (
+                  {(["auto", "light", "dark"] as const).map((mode) => (
                     <Button
                       key={mode}
                       variant={config.themeMode === mode ? "default" : "outline"}
                       size="sm"
-                      className="flex-1 h-7 text-xs"
-                      onClick={() => { updateConfig({ themeMode: mode }); setPreviewKey(k => k + 1); }}
+                      className="h-7 flex-1 text-xs"
+                      onClick={() => {
+                        updateConfig({ themeMode: mode });
+                        setPreviewKey((k) => k + 1);
+                      }}
                     >
                       {mode.charAt(0).toUpperCase() + mode.slice(1)}
                     </Button>
@@ -435,13 +494,16 @@ export function EmbedDesigner() {
 
               <div className="space-y-1.5">
                 <Label className="text-xs">Color Presets</Label>
-                <div className="flex gap-1 flex-wrap">
-                  {COLOR_PRESETS.map(preset => (
+                <div className="flex flex-wrap gap-1">
+                  {COLOR_PRESETS.map((preset) => (
                     <button
                       key={preset.name}
-                      className="w-6 h-6 rounded-full border-2 border-transparent hover:border-foreground/50 transition-colors"
+                      className="hover:border-foreground/50 h-6 w-6 rounded-full border-2 border-transparent transition-colors"
                       style={{ backgroundColor: preset.light }}
-                      onClick={() => { updateConfig({ lightColor: preset.light, darkColor: preset.dark }); setPreviewKey(k => k + 1); }}
+                      onClick={() => {
+                        updateConfig({ lightColor: preset.light, darkColor: preset.dark });
+                        setPreviewKey((k) => k + 1);
+                      }}
                       title={preset.name}
                     />
                   ))}
@@ -455,14 +517,17 @@ export function EmbedDesigner() {
                     <input
                       type="color"
                       value={config.lightColor}
-                      onChange={e => { updateConfig({ lightColor: e.target.value }); setPreviewKey(k => k + 1); }}
-                      className="w-8 h-8 rounded cursor-pointer"
+                      onChange={(e) => {
+                        updateConfig({ lightColor: e.target.value });
+                        setPreviewKey((k) => k + 1);
+                      }}
+                      className="h-8 w-8 cursor-pointer rounded"
                     />
                     <Input
                       value={config.lightColor}
-                      onChange={e => updateConfig({ lightColor: e.target.value })}
-                      onBlur={() => setPreviewKey(k => k + 1)}
-                      className="h-8 text-xs flex-1"
+                      onChange={(e) => updateConfig({ lightColor: e.target.value })}
+                      onBlur={() => setPreviewKey((k) => k + 1)}
+                      className="h-8 flex-1 text-xs"
                     />
                   </div>
                 </div>
@@ -472,14 +537,17 @@ export function EmbedDesigner() {
                     <input
                       type="color"
                       value={config.darkColor}
-                      onChange={e => { updateConfig({ darkColor: e.target.value }); setPreviewKey(k => k + 1); }}
-                      className="w-8 h-8 rounded cursor-pointer"
+                      onChange={(e) => {
+                        updateConfig({ darkColor: e.target.value });
+                        setPreviewKey((k) => k + 1);
+                      }}
+                      className="h-8 w-8 cursor-pointer rounded"
                     />
                     <Input
                       value={config.darkColor}
-                      onChange={e => updateConfig({ darkColor: e.target.value })}
-                      onBlur={() => setPreviewKey(k => k + 1)}
-                      className="h-8 text-xs flex-1"
+                      onChange={(e) => updateConfig({ darkColor: e.target.value })}
+                      onBlur={() => setPreviewKey((k) => k + 1)}
+                      className="h-8 flex-1 text-xs"
                     />
                   </div>
                 </div>
@@ -488,16 +556,16 @@ export function EmbedDesigner() {
               <div className="space-y-1.5">
                 <div className="flex justify-between">
                   <Label className="text-xs">Height</Label>
-                  <span className="text-xs text-muted-foreground">{config.height}px</span>
+                  <span className="text-muted-foreground text-xs">{config.height}px</span>
                 </div>
                 <input
                   type="range"
                   value={config.height}
-                  onChange={e => updateConfig({ height: parseInt(e.target.value) })}
+                  onChange={(e) => updateConfig({ height: parseInt(e.target.value) })}
                   min={200}
                   max={800}
                   step={10}
-                  className="w-full h-1.5 bg-muted rounded-full appearance-none cursor-pointer accent-primary"
+                  className="bg-muted accent-primary h-1.5 w-full cursor-pointer appearance-none rounded-full"
                 />
               </div>
             </div>
@@ -506,9 +574,9 @@ export function EmbedDesigner() {
       </div>
 
       {/* Right Panel - Preview & Code */}
-      <div className="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
-        <div className="h-10 px-4 border-b bg-muted/30 flex items-center justify-between shrink-0">
-          <span className="text-sm font-medium text-muted-foreground">{t("preview")}</span>
+      <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
+        <div className="bg-muted/30 flex h-10 shrink-0 items-center justify-between border-b px-4">
+          <span className="text-muted-foreground text-sm font-medium">{t("preview")}</span>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" className="h-7 gap-1.5 text-xs" asChild>
               <a href={generatePreviewURL()} target="_blank" rel="noopener noreferrer">
@@ -516,7 +584,12 @@ export function EmbedDesigner() {
                 {t("openInNewTab")}
               </a>
             </Button>
-            <Button variant="default" size="sm" className="h-7 gap-1.5 text-xs" onClick={handleCopyEmbed}>
+            <Button
+              variant="default"
+              size="sm"
+              className="h-7 gap-1.5 text-xs"
+              onClick={handleCopyEmbed}
+            >
               {copied ? <Check className="h-3 w-3" /> : <Code2 className="h-3 w-3" />}
               {t("copyEmbedCode")}
             </Button>
@@ -524,35 +597,61 @@ export function EmbedDesigner() {
         </div>
 
         {/* Preview Area */}
-        <div className="flex-1 min-h-0 p-4 overflow-hidden bg-[repeating-conic-gradient(#80808010_0%_25%,transparent_0%_50%)] dark:bg-[repeating-conic-gradient(#40404020_0%_25%,transparent_0%_50%)] bg-[length:20px_20px] flex items-center justify-center">
-          <div 
-            className="w-full max-w-[800px] rounded-xl border shadow-lg overflow-hidden bg-background"
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[repeating-conic-gradient(#80808010_0%_25%,transparent_0%_50%)] bg-[length:20px_20px] p-4 dark:bg-[repeating-conic-gradient(#40404020_0%_25%,transparent_0%_50%)]">
+          <div
+            className="bg-background w-full max-w-[800px] overflow-hidden rounded-xl border shadow-lg"
             style={{ height: config.height }}
           >
             <iframe
               key={previewKey}
               src={generatePreviewURL()}
-              className="w-full h-full border-0"
+              className="h-full w-full border-0"
               title="Embed Preview"
             />
           </div>
         </div>
 
         {/* Embed Code */}
-        <div className="min-h-32 max-h-64 border-t shrink-0 flex flex-col resize-y overflow-hidden">
-          <div className="h-8 px-4 border-b bg-muted/30 flex items-center justify-between shrink-0">
-            <span className="text-xs font-medium text-muted-foreground">{t("embedCode")}</span>
-            <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">HTML</span>
+        <div className="flex max-h-64 min-h-32 shrink-0 resize-y flex-col overflow-hidden border-t">
+          <div className="bg-muted/30 flex h-8 shrink-0 items-center justify-between border-b px-4">
+            <span className="text-muted-foreground text-xs font-medium">{t("embedCode")}</span>
+            <span className="text-muted-foreground/60 text-[10px] tracking-wider uppercase">
+              HTML
+            </span>
           </div>
           <div className="flex-1 overflow-auto bg-zinc-100 dark:bg-zinc-900">
-            <pre className="p-3 text-xs font-mono leading-relaxed whitespace-pre-wrap break-all">
+            <pre className="p-3 font-mono text-xs leading-relaxed break-all whitespace-pre-wrap">
               <code className="text-zinc-700 dark:text-zinc-300">
-                <span className="text-pink-600 dark:text-pink-400">&lt;iframe</span>{"\n"}
-                {"  "}<span className="text-sky-600 dark:text-sky-400">src</span>=<span className="text-amber-600 dark:text-amber-300">&quot;{typeof window !== "undefined" ? window.location.origin : ""}{generatePreviewURL()}&quot;</span>{"\n"}
-                {"  "}<span className="text-sky-600 dark:text-sky-400">width</span>=<span className="text-amber-600 dark:text-amber-300">&quot;100%&quot;</span>{"\n"}
-                {"  "}<span className="text-sky-600 dark:text-sky-400">height</span>=<span className="text-amber-600 dark:text-amber-300">&quot;{config.height}&quot;</span>{"\n"}
-                {"  "}<span className="text-sky-600 dark:text-sky-400">frameborder</span>=<span className="text-amber-600 dark:text-amber-300">&quot;0&quot;</span>{"\n"}
-                {"  "}<span className="text-sky-600 dark:text-sky-400">style</span>=<span className="text-amber-600 dark:text-amber-300">&quot;border-radius: 12px; border: 1px solid #e5e7eb;&quot;</span><span className="text-pink-600 dark:text-pink-400">&gt;</span>{"\n"}
+                <span className="text-pink-600 dark:text-pink-400">&lt;iframe</span>
+                {"\n"}
+                {"  "}
+                <span className="text-sky-600 dark:text-sky-400">src</span>=
+                <span className="text-amber-600 dark:text-amber-300">
+                  &quot;{typeof window !== "undefined" ? window.location.origin : ""}
+                  {generatePreviewURL()}&quot;
+                </span>
+                {"\n"}
+                {"  "}
+                <span className="text-sky-600 dark:text-sky-400">width</span>=
+                <span className="text-amber-600 dark:text-amber-300">&quot;100%&quot;</span>
+                {"\n"}
+                {"  "}
+                <span className="text-sky-600 dark:text-sky-400">height</span>=
+                <span className="text-amber-600 dark:text-amber-300">
+                  &quot;{config.height}&quot;
+                </span>
+                {"\n"}
+                {"  "}
+                <span className="text-sky-600 dark:text-sky-400">frameborder</span>=
+                <span className="text-amber-600 dark:text-amber-300">&quot;0&quot;</span>
+                {"\n"}
+                {"  "}
+                <span className="text-sky-600 dark:text-sky-400">style</span>=
+                <span className="text-amber-600 dark:text-amber-300">
+                  &quot;border-radius: 12px; border: 1px solid #e5e7eb;&quot;
+                </span>
+                <span className="text-pink-600 dark:text-pink-400">&gt;</span>
+                {"\n"}
                 <span className="text-pink-600 dark:text-pink-400">&lt;/iframe&gt;</span>
               </code>
             </pre>

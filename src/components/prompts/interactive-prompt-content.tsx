@@ -137,7 +137,7 @@ function EditableSpan({
       onKeyDown={handleKeyDown}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      className={`inline border-b-2 px-1 rounded-sm outline-none min-w-[2ch] cursor-text ${
+      className={`inline min-w-[2ch] cursor-text rounded-sm border-b-2 px-1 outline-none ${
         isShowingPlaceholder
           ? "bg-primary/5 border-primary/20 text-muted-foreground/60"
           : "bg-primary/10 border-primary/40 focus:border-primary focus:bg-primary/15"
@@ -146,8 +146,8 @@ function EditableSpan({
   );
 }
 
-export function InteractivePromptContent({ 
-  content, 
+export function InteractivePromptContent({
+  content,
   className,
   isStructured = false,
   structuredFormat = "json",
@@ -161,7 +161,7 @@ export function InteractivePromptContent({
   promptType,
   shareTitle,
   promptTitle,
-  promptDescription
+  promptDescription,
 }: InteractivePromptContentProps) {
   const t = useTranslations("common");
   const [copied, setCopied] = useState(false);
@@ -218,26 +218,31 @@ export function InteractivePromptContent({
   }, [displayedContent, variables, values]);
 
   // Get content with custom variable values (for RunPromptButton dialog)
-  const getContentWithVariables = useCallback((customValues: Record<string, string>) => {
-    let result = displayedContent;
-    for (const variable of variables) {
-      const value = customValues[variable.name] || values[variable.name] || variable.defaultValue;
-      result = result.replace(variable.fullMatch, value);
-    }
-    return result;
-  }, [displayedContent, variables, values]);
+  const getContentWithVariables = useCallback(
+    (customValues: Record<string, string>) => {
+      let result = displayedContent;
+      for (const variable of variables) {
+        const value = customValues[variable.name] || values[variable.name] || variable.defaultValue;
+        result = result.replace(variable.fullMatch, value);
+      }
+      return result;
+    },
+    [displayedContent, variables, values]
+  );
 
   // Get unfilled variables (empty current value and no default)
   const unfilledVariables = useMemo(() => {
-    return uniqueVariables.filter(v => {
-      const currentValue = values[v.name];
-      return !currentValue || currentValue.trim() === "";
-    }).map(v => ({ name: v.name, defaultValue: v.defaultValue }));
+    return uniqueVariables
+      .filter((v) => {
+        const currentValue = values[v.name];
+        return !currentValue || currentValue.trim() === "";
+      })
+      .map((v) => ({ name: v.name, defaultValue: v.defaultValue }));
   }, [uniqueVariables, values]);
 
   // Handle variables filled from RunPromptButton dialog
   const handleVariablesFilled = useCallback((newValues: Record<string, string>) => {
-    setValues(prev => ({ ...prev, ...newValues }));
+    setValues((prev) => ({ ...prev, ...newValues }));
   }, []);
 
   // Update a variable value
@@ -258,9 +263,8 @@ export function InteractivePromptContent({
   };
 
   // Prettify JSON content for display
-  const displayContent = isStructured && structuredFormat === "json" 
-    ? prettifyJson(displayedContent) 
-    : displayedContent;
+  const displayContent =
+    isStructured && structuredFormat === "json" ? prettifyJson(displayedContent) : displayedContent;
 
   // Handle translation callback
   const handleTranslate = useCallback((translated: string) => {
@@ -276,7 +280,7 @@ export function InteractivePromptContent({
       // SKILL type: render with Monaco editor (read-only markdown)
       return (
         <div className={className}>
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-1">
               {title && <h3 className="text-base font-semibold">{title}</h3>}
               <TranslateButton
@@ -286,7 +290,13 @@ export function InteractivePromptContent({
               />
             </div>
             <div className="flex items-center gap-2">
-              {promptId && <DownloadPromptDropdown promptId={promptId} promptSlug={promptSlug} promptType={promptType} />}
+              {promptId && (
+                <DownloadPromptDropdown
+                  promptId={promptId}
+                  promptSlug={promptSlug}
+                  promptType={promptType}
+                />
+              )}
               {shareTitle && <ShareDropdown title={shareTitle} />}
               <Button variant="ghost" size="sm" onClick={copyToClipboard}>
                 {copied ? (
@@ -311,7 +321,7 @@ export function InteractivePromptContent({
     if (isStructured) {
       return (
         <div className={className}>
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-1">
               {title && <h3 className="text-base font-semibold">{title}</h3>}
               <TranslateButton
@@ -321,7 +331,13 @@ export function InteractivePromptContent({
               />
             </div>
             <div className="flex items-center gap-2">
-              {promptId && <DownloadPromptDropdown promptId={promptId} promptSlug={promptSlug} promptType={promptType} />}
+              {promptId && (
+                <DownloadPromptDropdown
+                  promptId={promptId}
+                  promptSlug={promptSlug}
+                  promptType={promptType}
+                />
+              )}
               {shareTitle && <ShareDropdown title={shareTitle} />}
               <Button variant="ghost" size="sm" onClick={copyToClipboard}>
                 {copied ? (
@@ -330,7 +346,7 @@ export function InteractivePromptContent({
                   <Copy className="h-4 w-4" />
                 )}
               </Button>
-              <RunPromptButton 
+              <RunPromptButton
                 content={displayContent}
                 title={promptTitle || title}
                 description={promptDescription || description}
@@ -339,13 +355,15 @@ export function InteractivePromptContent({
                 getContentWithVariables={getContentWithVariables}
                 categoryName={categoryName}
                 parentCategoryName={parentCategoryName}
-                promptType={promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"}
+                promptType={
+                  promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"
+                }
                 emphasized
               />
             </div>
           </div>
-          <CodeView 
-            content={displayContent} 
+          <CodeView
+            content={displayContent}
             language={structuredFormat}
             className="text-sm"
             wordWrap
@@ -355,7 +373,7 @@ export function InteractivePromptContent({
     }
     return (
       <div className={className}>
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-1">
             {title && <h3 className="text-base font-semibold">{title}</h3>}
             <TranslateButton
@@ -365,16 +383,18 @@ export function InteractivePromptContent({
             />
           </div>
           <div className="flex items-center gap-2">
-            {promptId && <DownloadPromptDropdown promptId={promptId} promptSlug={promptSlug} promptType={promptType} />}
+            {promptId && (
+              <DownloadPromptDropdown
+                promptId={promptId}
+                promptSlug={promptSlug}
+                promptType={promptType}
+              />
+            )}
             {shareTitle && <ShareDropdown title={shareTitle} />}
             <Button variant="ghost" size="sm" onClick={copyToClipboard}>
-              {copied ? (
-                <Check className="h-4 w-4 text-green-500" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
+              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </Button>
-            <RunPromptButton 
+            <RunPromptButton
               content={displayedContent}
               title={promptTitle || title}
               description={promptDescription || description}
@@ -383,12 +403,14 @@ export function InteractivePromptContent({
               getContentWithVariables={getContentWithVariables}
               categoryName={categoryName}
               parentCategoryName={parentCategoryName}
-              promptType={promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"}
+              promptType={
+                promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"
+              }
               emphasized
             />
           </div>
         </div>
-        <pre className="whitespace-pre-wrap text-sm bg-muted p-4 rounded-lg font-mono border max-h-[500px] overflow-y-auto">
+        <pre className="bg-muted max-h-[500px] overflow-y-auto rounded-lg border p-4 font-mono text-sm whitespace-pre-wrap">
           {displayedContent}
         </pre>
       </div>
@@ -400,7 +422,7 @@ export function InteractivePromptContent({
     return (
       <div className={className}>
         {/* Header with title and action buttons */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-1">
             {title && <h3 className="text-base font-semibold">{title}</h3>}
             <TranslateButton
@@ -412,20 +434,22 @@ export function InteractivePromptContent({
           <div className="flex items-center gap-2">
             {isModified && (
               <Button variant="ghost" size="sm" onClick={handleReset} className="h-7 px-2 text-xs">
-                <RotateCcw className="h-3 w-3 mr-1" />
+                <RotateCcw className="mr-1 h-3 w-3" />
                 {t("reset")}
               </Button>
             )}
-            {promptId && <DownloadPromptDropdown promptId={promptId} promptSlug={promptSlug} promptType={promptType} />}
+            {promptId && (
+              <DownloadPromptDropdown
+                promptId={promptId}
+                promptSlug={promptSlug}
+                promptType={promptType}
+              />
+            )}
             {shareTitle && <ShareDropdown title={shareTitle} />}
             <Button variant="ghost" size="sm" onClick={copyToClipboard}>
-              {copied ? (
-                <Check className="h-4 w-4 text-green-500" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
+              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </Button>
-            <RunPromptButton 
+            <RunPromptButton
               content={getFinalContent()}
               title={promptTitle || title}
               description={promptDescription || description}
@@ -434,18 +458,20 @@ export function InteractivePromptContent({
               getContentWithVariables={getContentWithVariables}
               categoryName={categoryName}
               parentCategoryName={parentCategoryName}
-              promptType={promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"}
+              promptType={
+                promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" | "SKILL"
+              }
               emphasized
             />
           </div>
         </div>
         {/* Variable form */}
-        <div className="mb-4 p-4 rounded-lg border bg-muted/30 space-y-3">
+        <div className="bg-muted/30 mb-4 space-y-3 rounded-lg border p-4">
           <span className="text-sm font-medium">{t("variables")}</span>
           <div className="grid gap-3 sm:grid-cols-2">
             {uniqueVariables.map(({ name, defaultValue }) => (
               <div key={name} className="space-y-1">
-                <Label htmlFor={`var-${name}`} className="text-xs text-muted-foreground">
+                <Label htmlFor={`var-${name}`} className="text-muted-foreground text-xs">
                   {name}
                 </Label>
                 <Input
@@ -460,8 +486,8 @@ export function InteractivePromptContent({
           </div>
         </div>
         {/* Code view with replaced variables */}
-        <CodeView 
-          content={getFinalContent()} 
+        <CodeView
+          content={getFinalContent()}
           language={structuredFormat}
           className="text-sm"
           wordWrap
@@ -510,7 +536,7 @@ export function InteractivePromptContent({
 
   return (
     <div className={className}>
-      <div className="flex items-center justify-between mb-3">
+      <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-1">
           {title && <h3 className="text-base font-semibold">{title}</h3>}
           <TranslateButton
@@ -522,20 +548,22 @@ export function InteractivePromptContent({
         <div className="flex items-center gap-2">
           {isModified && (
             <Button variant="ghost" size="sm" onClick={handleReset} className="h-7 px-2 text-xs">
-              <RotateCcw className="h-3 w-3 mr-1" />
+              <RotateCcw className="mr-1 h-3 w-3" />
               {t("reset")}
             </Button>
           )}
-          {promptId && <DownloadPromptDropdown promptId={promptId} promptSlug={promptSlug} promptType={promptType} />}
+          {promptId && (
+            <DownloadPromptDropdown
+              promptId={promptId}
+              promptSlug={promptSlug}
+              promptType={promptType}
+            />
+          )}
           {shareTitle && <ShareDropdown title={shareTitle} />}
           <Button variant="ghost" size="sm" onClick={copyToClipboard}>
-            {copied ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+            {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
           </Button>
-          <RunPromptButton 
+          <RunPromptButton
             content={getFinalContent()}
             title={promptTitle || title}
             description={promptDescription || description}
@@ -550,12 +578,12 @@ export function InteractivePromptContent({
         </div>
       </div>
       {/* Variable form for text prompts */}
-      <div className="mb-4 p-4 rounded-lg border bg-muted/30 space-y-3">
+      <div className="bg-muted/30 mb-4 space-y-3 rounded-lg border p-4">
         <span className="text-sm font-medium">{t("variables")}</span>
         <div className="grid gap-3 sm:grid-cols-2">
           {uniqueVariables.map(({ name, defaultValue }) => (
             <div key={name} className="space-y-1">
-              <Label htmlFor={`var-text-${name}`} className="text-xs text-muted-foreground">
+              <Label htmlFor={`var-text-${name}`} className="text-muted-foreground text-xs">
                 {name}
               </Label>
               <Input
@@ -569,7 +597,7 @@ export function InteractivePromptContent({
           ))}
         </div>
       </div>
-      <div className="whitespace-pre-wrap text-sm bg-muted p-4 rounded-lg font-mono border leading-relaxed max-h-[500px] overflow-y-auto">
+      <div className="bg-muted max-h-[500px] overflow-y-auto rounded-lg border p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">
         {renderContent()}
       </div>
     </div>

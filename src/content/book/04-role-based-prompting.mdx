@@ -1,7 +1,8 @@
 Role-based prompting is one of the most powerful and widely-used techniques in prompt engineering. By assigning a specific role or persona to the AI, you can dramatically influence the quality, style, and relevance of responses.
 
 <Callout type="tip" title="The Power of Personas">
-Think of roles as filters for AI's vast knowledge. The right role focuses responses like a lens focuses light.
+  Think of roles as filters for AI's vast knowledge. The right role focuses responses like a lens
+  focuses light.
 </Callout>
 
 ## Why Roles Work
@@ -28,7 +29,10 @@ LLMs work by predicting the most likely next token based on the context they're 
 Think of it this way: if you ask "What should I do about this cough?" the model could respond as a doctor, a friend, a pharmacist, or a worried parent. Each would give different advice. By specifying the role upfront, you're telling the model which "voice" to use from its training data.
 
 <Callout type="info" title="Why This Matters">
-The model isn't pretending or role-playing in a theatrical sense. It's statistically biasing its outputs toward patterns it learned from real experts, professionals, and specialists during training. A "doctor" role activates medical knowledge pathways; a "poet" role activates literary patterns.
+  The model isn't pretending or role-playing in a theatrical sense. It's statistically biasing its
+  outputs toward patterns it learned from real experts, professionals, and specialists during
+  training. A "doctor" role activates medical knowledge pathways; a "poet" role activates literary
+  patterns.
 </Callout>
 
 ## Basic Role Patterns
@@ -177,32 +181,32 @@ Document: \${apiEndpoint}`} />
 ## Roles for Different Tasks
 
 <div className="my-4 grid gap-2">
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Code review</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Code review</span>
     <span className="text-muted-foreground">Senior developer + mentor</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Writing feedback</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Writing feedback</span>
     <span className="text-muted-foreground">Editor + target audience member</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Business strategy</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Business strategy</span>
     <span className="text-muted-foreground">Consultant + industry expert</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Learning new topic</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Learning new topic</span>
     <span className="text-muted-foreground">Patient teacher + practitioner</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Creative writing</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Creative writing</span>
     <span className="text-muted-foreground">Specific genre author</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Technical explanation</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Technical explanation</span>
     <span className="text-muted-foreground">Expert + communicator</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-40">Problem-solving</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-40 font-semibold">Problem-solving</span>
     <span className="text-muted-foreground">Domain specialist + generalist</span>
   </div>
 </div>
@@ -211,23 +215,38 @@ Document: \${apiEndpoint}`} />
 
 ### Overly Generic Roles
 
-<Compare 
+<Compare
   before={{ label: "Weak", content: "You are a helpful assistant." }}
-  after={{ label: "Better", content: "You are a helpful assistant specializing in Python development, particularly web applications with Flask and Django." }}
+  after={{
+    label: "Better",
+    content:
+      "You are a helpful assistant specializing in Python development, particularly web applications with Flask and Django.",
+  }}
 />
 
 ### Conflicting Roles
 
-<Compare 
-  before={{ label: "Problematic", content: "You are a creative writer who always follows strict templates." }}
-  after={{ label: "Better", content: "You are a creative writer who works within established story structures while adding original elements." }}
+<Compare
+  before={{
+    label: "Problematic",
+    content: "You are a creative writer who always follows strict templates.",
+  }}
+  after={{
+    label: "Better",
+    content:
+      "You are a creative writer who works within established story structures while adding original elements.",
+  }}
 />
 
 ### Unrealistic Expertise
 
-<Compare 
+<Compare
   before={{ label: "Problematic", content: "You are an expert in everything." }}
-  after={{ label: "Better", content: "You are a T-shaped professional: deep expertise in machine learning with broad knowledge of software engineering practices." }}
+  after={{
+    label: "Better",
+    content:
+      "You are a T-shaped professional: deep expertise in machine learning with broad knowledge of software engineering practices.",
+  }}
 />
 
 ## Real-World Prompt Examples
@@ -240,6 +259,7 @@ Document: \${apiEndpoint}`} />
   prompt={`You are a senior technical writer at a developer tools company. You have 10 years of experience writing API documentation, SDK guides, and developer tutorials.
 
 Your documentation style:
+
 - Clear, scannable structure with headers and code examples
 - Explains the "why" alongside the "how"
 - Anticipates common questions and edge cases
@@ -271,8 +291,9 @@ Write the opening scene of a story about a librarian who discovers that books in
   prompt={`You are an executive communications coach who has worked with Fortune 500 CEOs. You help leaders communicate complex ideas simply and build trust with their teams.
 
 Review this message for a team meeting about budget cuts. Suggest improvements that:
+
 - Acknowledge the difficulty while maintaining confidence
-- Are transparent without creating panic  
+- Are transparent without creating panic
 - Show empathy while being professional
 - Include clear next steps
 
@@ -310,16 +331,17 @@ Solve step by step, explaining your deductions.`} />
 ## Summary
 
 <Callout type="info" title="Key Takeaways">
-Role-based prompting is powerful because it focuses the model's vast knowledge, sets expectations for tone and style, provides implicit context, and makes outputs more consistent.
+  Role-based prompting is powerful because it focuses the model's vast knowledge, sets expectations
+  for tone and style, provides implicit context, and makes outputs more consistent.
 </Callout>
 
-<Quiz 
+<Quiz
   question="What makes a role-based prompt more effective?"
   options={[
     "Using generic role titles like 'expert'",
     "Adding specific expertise, experience, and perspective details",
     "Keeping the role description as short as possible",
-    "Asking the AI to switch roles frequently"
+    "Asking the AI to switch roles frequently",
   ]}
   correctIndex={1}
   explanation="The more detailed and realistic the role, the better the results. Specificity helps the model understand exactly what knowledge, tone, and perspective to apply."

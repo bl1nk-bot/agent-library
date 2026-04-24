@@ -7,7 +7,7 @@ const ENABLED_STORAGE: string = process.env.ENABLED_STORAGE || "url";
 export function registerBuiltInStoragePlugins(): void {
   if (ENABLED_STORAGE === "url") {
     registerStoragePlugin(urlStoragePlugin);
-    return
+    return;
   }
 
   if (ENABLED_STORAGE === "s3") {

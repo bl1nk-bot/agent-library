@@ -1,8 +1,8 @@
 /**
  * Wiro.ai Media Generator Plugin
- * 
+ *
  * Generates images and videos using Wiro.ai API.
- * 
+ *
  * Required env vars:
  * - WIRO_API_KEY
  * - WIRO_VIDEO_MODELS (comma-separated, e.g., "google/veo3.1-fast")
@@ -23,7 +23,10 @@ import type {
 const WIRO_API_BASE = "https://api.wiro.ai/v1";
 const WIRO_SOCKET_URL = "wss://socket.wiro.ai/v1";
 
-function parseModels(envVar: string | undefined, type: "image" | "video" | "audio"): MediaGeneratorModel[] {
+function parseModels(
+  envVar: string | undefined,
+  type: "image" | "video" | "audio"
+): MediaGeneratorModel[] {
   if (!envVar) return [];
   return envVar
     .split(",")
@@ -135,7 +138,9 @@ export const wiroGeneratorPlugin: MediaGeneratorPlugin = {
   isConfigured: () => {
     return !!(
       process.env.WIRO_API_KEY &&
-      (process.env.WIRO_VIDEO_MODELS || process.env.WIRO_IMAGE_MODELS || process.env.WIRO_AUDIO_MODELS)
+      (process.env.WIRO_VIDEO_MODELS ||
+        process.env.WIRO_IMAGE_MODELS ||
+        process.env.WIRO_AUDIO_MODELS)
     );
   },
 
@@ -162,7 +167,7 @@ export const wiroGeneratorPlugin: MediaGeneratorPlugin = {
 
     const formData = new FormData();
     formData.append("prompt", request.prompt);
-    
+
     if (request.type === "video") {
       // Video-specific parameters
       formData.append("resolution", "720p");
@@ -209,9 +214,7 @@ export const wiroGeneratorPlugin: MediaGeneratorPlugin = {
     const result = await response.json();
 
     if (!result.result) {
-      throw new Error(
-        `Wiro.ai generation failed: ${result.errors?.join(", ") || "Unknown error"}`
-      );
+      throw new Error(`Wiro.ai generation failed: ${result.errors?.join(", ") || "Unknown error"}`);
     }
 
     return {

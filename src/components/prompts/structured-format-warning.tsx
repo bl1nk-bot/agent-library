@@ -18,11 +18,11 @@ interface StructuredFormatWarningProps {
 function looksLikeJson(content: string): boolean {
   const trimmed = content.trim();
   if (!trimmed) return false;
-  
+
   // Check if it starts and ends with JSON object/array delimiters
   const startsWithJsonDelimiter = trimmed.startsWith("{") || trimmed.startsWith("[");
   const endsWithJsonDelimiter = trimmed.endsWith("}") || trimmed.endsWith("]");
-  
+
   if (startsWithJsonDelimiter && endsWithJsonDelimiter) {
     // Additional check: try to parse it as JSON
     try {
@@ -35,11 +35,11 @@ function looksLikeJson(content: string): boolean {
       return hasJsonKeyPattern;
     }
   }
-  
+
   // Check for multiline JSON-like content that might have text before/after
   const jsonObjectPattern = /^\s*\{[\s\S]*"[^"]+"\s*:[\s\S]*\}\s*$/;
   const jsonArrayPattern = /^\s*\[[\s\S]*\{[\s\S]*"[^"]+"\s*:[\s\S]*\}[\s\S]*\]\s*$/;
-  
+
   return jsonObjectPattern.test(trimmed) || jsonArrayPattern.test(trimmed);
 }
 
@@ -49,13 +49,13 @@ function looksLikeJson(content: string): boolean {
 function looksLikeYaml(content: string): boolean {
   const trimmed = content.trim();
   if (!trimmed) return false;
-  
+
   // Don't detect as YAML if it looks like JSON
   if (looksLikeJson(content)) return false;
-  
-  const lines = trimmed.split("\n").filter(line => line.trim() && !line.trim().startsWith("#"));
+
+  const lines = trimmed.split("\n").filter((line) => line.trim() && !line.trim().startsWith("#"));
   if (lines.length < 2) return false;
-  
+
   // YAML patterns to look for:
   // 1. Key-value pairs with colon (key: value)
   const keyValuePattern = /^[\w_-]+\s*:\s*.*/;
@@ -63,26 +63,26 @@ function looksLikeYaml(content: string): boolean {
   const listItemPattern = /^\s*-\s+.+/;
   // 3. Nested structure with indentation
   const indentedKeyPattern = /^\s{2,}[\w_-]+\s*:/;
-  
+
   let keyValueCount = 0;
   let listItemCount = 0;
   let indentedCount = 0;
-  
+
   for (const line of lines) {
     if (keyValuePattern.test(line)) keyValueCount++;
     if (listItemPattern.test(line)) listItemCount++;
     if (indentedKeyPattern.test(line)) indentedCount++;
   }
-  
+
   // Consider it YAML if:
   // - Multiple key-value pairs at root level with some structure
   // - Or has list items with nested content
   // - Or has indented key-value structure
-  const hasSignificantYamlStructure = 
+  const hasSignificantYamlStructure =
     (keyValueCount >= 2 && (listItemCount > 0 || indentedCount > 0)) ||
     (listItemCount >= 2 && indentedCount >= 1) ||
     (keyValueCount >= 3 && indentedCount >= 2);
-  
+
   return hasSignificantYamlStructure;
 }
 
@@ -95,10 +95,10 @@ function detectStructuredFormat(content: string): "JSON" | "YAML" | null {
   return null;
 }
 
-export function StructuredFormatWarning({ 
-  content, 
-  isStructuredInput, 
-  onSwitchToStructured 
+export function StructuredFormatWarning({
+  content,
+  isStructuredInput,
+  onSwitchToStructured,
 }: StructuredFormatWarningProps) {
   const t = useTranslations("prompts");
 
@@ -127,7 +127,7 @@ export function StructuredFormatWarning({
             <p className="text-sm font-medium text-blue-700 dark:text-blue-400">
               {t("structuredFormatDetected", { format: detectedFormat })}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               {t("structuredFormatWarningDescription")}
             </p>
           </div>

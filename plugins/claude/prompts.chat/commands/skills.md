@@ -68,6 +68,7 @@ You'll be prompted to provide the SKILL.md content and any additional files.
 ## Skill Structure
 
 Skills can contain multiple files:
+
 - **SKILL.md** (required) - Main instructions with frontmatter
 - **Reference docs** - Additional documentation
 - **Scripts** - Helper scripts (Python, shell, etc.)

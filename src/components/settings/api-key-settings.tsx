@@ -6,6 +6,12 @@ import { Copy, Eye, EyeOff, RefreshCw, Trash2, Key, Loader2 } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AlertDialog,
@@ -127,28 +133,42 @@ export function ApiKeySettings({ initialApiKey, initialPublicByDefault }: ApiKey
                 <code className="bg-muted flex-1 overflow-hidden rounded-md px-3 py-2 font-mono text-sm text-ellipsis">
                   {showKey ? apiKey : maskedKey}
                 </code>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setShowKey(!showKey)}
-                  aria-label={showKey ? t("hideKey") : t("showKey")}
-                  title={showKey ? t("hideKey") : t("showKey")}
-                >
-                  {showKey ? (
-                    <EyeOff className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <Eye className="h-4 w-4" aria-hidden="true" />
-                  )}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={copyToClipboard}
-                  aria-label={t("copyKey")}
-                  title={t("copyKey")}
-                >
-                  <Copy className="h-4 w-4" aria-hidden="true" />
-                </Button>
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setShowKey(!showKey)}
+                        aria-label={showKey ? t("hideKey") : t("showKey")}
+                      >
+                        {showKey ? (
+                          <EyeOff className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Eye className="h-4 w-4" aria-hidden="true" />
+                        )}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{showKey ? t("hideKey") : t("showKey")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={copyToClipboard}
+                        aria-label={t("copyKey")}
+                      >
+                        <Copy className="h-4 w-4" aria-hidden="true" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t("copyKey")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               <p className="text-muted-foreground text-xs">{t("keyWarning")}</p>
             </div>

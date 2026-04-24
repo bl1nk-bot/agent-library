@@ -70,9 +70,9 @@ export function ChangeRequestActions({ changeRequestId, promptId }: ChangeReques
           className="flex-1 bg-green-600 hover:bg-green-700"
         >
           {isLoading && action === "approve" ? (
-            <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
+            <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
           ) : (
-            <Check className="h-4 w-4 mr-1.5" />
+            <Check className="mr-1.5 h-4 w-4" />
           )}
           {t("approve")}
         </Button>
@@ -84,9 +84,9 @@ export function ChangeRequestActions({ changeRequestId, promptId }: ChangeReques
           className="flex-1"
         >
           {isLoading && action === "reject" ? (
-            <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
+            <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
           ) : (
-            <X className="h-4 w-4 mr-1.5" />
+            <X className="mr-1.5 h-4 w-4" />
           )}
           {t("reject")}
         </Button>

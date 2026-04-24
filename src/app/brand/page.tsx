@@ -11,11 +11,7 @@ import { notFound } from "next/navigation";
 // Promi logo SVG component for light backgrounds
 function PromiLogo({ className }: { className?: string }) {
   return (
-    <svg 
-      viewBox="0 0 16 20" 
-      className={className}
-      style={{ imageRendering: "pixelated" }}
-    >
+    <svg viewBox="0 0 16 20" className={className} style={{ imageRendering: "pixelated" }}>
       {/* Antenna */}
       <rect x="7" y="0" width="2" height="2" fill="#FFD700" />
       <rect x="6" y="2" width="4" height="2" fill="#C0C0C0" />
@@ -46,11 +42,7 @@ function PromiLogo({ className }: { className?: string }) {
 // Promi logo SVG component for dark backgrounds
 function PromiLogoDark({ className }: { className?: string }) {
   return (
-    <svg 
-      viewBox="0 0 16 20" 
-      className={className}
-      style={{ imageRendering: "pixelated" }}
-    >
+    <svg viewBox="0 0 16 20" className={className} style={{ imageRendering: "pixelated" }}>
       {/* Antenna */}
       <rect x="7" y="0" width="2" height="2" fill="#FFD700" />
       <rect x="6" y="2" width="4" height="2" fill="#E0E0E0" />
@@ -87,7 +79,14 @@ interface AssetCardProps {
   filename: string;
 }
 
-function AssetCard({ title, description, bgClass, children, downloadUrl, filename }: AssetCardProps) {
+function AssetCard({
+  title,
+  description,
+  bgClass,
+  children,
+  downloadUrl,
+  filename,
+}: AssetCardProps) {
   const handleDownload = async () => {
     try {
       const response = await fetch(downloadUrl);
@@ -106,17 +105,15 @@ function AssetCard({ title, description, bgClass, children, downloadUrl, filenam
   };
 
   return (
-    <div className="border rounded-lg overflow-hidden">
-      <div className={`${bgClass} h-40 flex items-center justify-center p-8`}>
-        {children}
-      </div>
-      <div className="p-4 flex items-center justify-between bg-background">
+    <div className="overflow-hidden rounded-lg border">
+      <div className={`${bgClass} flex h-40 items-center justify-center p-8`}>{children}</div>
+      <div className="bg-background flex items-center justify-between p-4">
         <div>
-          <p className="font-medium text-sm">{title}</p>
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <p className="text-sm font-medium">{title}</p>
+          <p className="text-muted-foreground text-xs">{description}</p>
         </div>
         <Button variant="outline" size="sm" onClick={handleDownload}>
-          <Download className="h-3 w-3 mr-1" />
+          <Download className="mr-1 h-3 w-3" />
           SVG
         </Button>
       </div>
@@ -142,11 +139,14 @@ function ColorCard({ color, name, description }: ColorCardProps) {
   return (
     <button
       onClick={handleCopy}
-      className="flex items-center justify-between p-3 rounded-md transition-colors hover:opacity-80"
+      className="flex items-center justify-between rounded-md p-3 transition-colors hover:opacity-80"
       style={{ backgroundColor: color }}
     >
       <div className="text-left">
-        <p className="font-mono text-sm font-medium" style={{ color: isLight(color) ? "#000" : "#fff" }}>
+        <p
+          className="font-mono text-sm font-medium"
+          style={{ color: isLight(color) ? "#000" : "#fff" }}
+        >
           {color}
         </p>
         <p className="text-xs opacity-80" style={{ color: isLight(color) ? "#000" : "#fff" }}>
@@ -182,16 +182,14 @@ export default function BrandAssetsPage() {
 
   return (
     <div className="container max-w-4xl py-10">
-      <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
-      <p className="text-muted-foreground mb-10">
-        {t("description", { name: branding.name })}
-      </p>
+      <h1 className="mb-2 text-3xl font-bold">{t("title")}</h1>
+      <p className="text-muted-foreground mb-10">{t("description", { name: branding.name })}</p>
 
       <div className="space-y-10">
         {/* Logos Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("logos")}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+          <h2 className="mb-4 text-xl font-semibold">{t("logos")}</h2>
+          <div className="grid gap-4 md:grid-cols-2">
             {/* Logo for light backgrounds */}
             <AssetCard
               title={t("logo")}
@@ -270,9 +268,11 @@ export default function BrandAssetsPage() {
 
         {/* Promi Mascot Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">Promi</h2>
-          <p className="text-sm text-muted-foreground mb-4">The pixel art mascot for prompts.chat Kids</p>
-          <div className="grid md:grid-cols-2 gap-4">
+          <h2 className="mb-4 text-xl font-semibold">Promi</h2>
+          <p className="text-muted-foreground mb-4 text-sm">
+            The pixel art mascot for prompts.chat Kids
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
             {/* Promi for light backgrounds */}
             <AssetCard
               title="Promi"
@@ -299,8 +299,8 @@ export default function BrandAssetsPage() {
 
         {/* Animated Logos Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("animatedLogos")}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+          <h2 className="mb-4 text-xl font-semibold">{t("animatedLogos")}</h2>
+          <div className="grid gap-4 md:grid-cols-2">
             {/* Logo animated */}
             <AssetCard
               title={t("logo")}
@@ -309,7 +309,7 @@ export default function BrandAssetsPage() {
               downloadUrl="/logo-animated.svg"
               filename="logo-animated.svg"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {}
               <img src="/logo-animated.svg" alt="Logo animated" className="h-20 w-auto" />
             </AssetCard>
 
@@ -321,7 +321,7 @@ export default function BrandAssetsPage() {
               downloadUrl="/promi-animated.svg"
               filename="promi-animated.svg"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {}
               <img src="/promi-animated.svg" alt="Promi animated" className="h-20 w-auto" />
             </AssetCard>
           </div>
@@ -329,37 +329,21 @@ export default function BrandAssetsPage() {
 
         {/* Colors Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("brandColors")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">{t("clickToCopy")}</p>
+          <h2 className="mb-4 text-xl font-semibold">{t("brandColors")}</h2>
+          <p className="text-muted-foreground mb-4 text-sm">{t("clickToCopy")}</p>
           <div className="grid gap-2">
-            <ColorCard
-              color="#000000"
-              name="Primary"
-              description={t("primary")}
-            />
-            <ColorCard
-              color="#ffffff"
-              name="Background"
-              description={t("background")}
-            />
-            <ColorCard
-              color="#6366f1"
-              name="Accent"
-              description={t("accent")}
-            />
-            <ColorCard
-              color="#71717a"
-              name="Muted"
-              description={t("muted")}
-            />
+            <ColorCard color="#000000" name="Primary" description={t("primary")} />
+            <ColorCard color="#ffffff" name="Background" description={t("background")} />
+            <ColorCard color="#6366f1" name="Accent" description={t("accent")} />
+            <ColorCard color="#71717a" name="Muted" description={t("muted")} />
           </div>
         </section>
 
         {/* Usage Guidelines */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("usageGuidelines")}</h2>
+          <h2 className="mb-4 text-xl font-semibold">{t("usageGuidelines")}</h2>
           <div className="prose prose-neutral dark:prose-invert max-w-none">
-            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+            <ul className="text-muted-foreground list-inside list-disc space-y-2">
               <li>{t("guideline1")}</li>
               <li>{t("guideline2")}</li>
               <li>{t("guideline3")}</li>
@@ -371,7 +355,7 @@ export default function BrandAssetsPage() {
 
         {/* License */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("license")}</h2>
+          <h2 className="mb-4 text-xl font-semibold">{t("license")}</h2>
           <p className="text-muted-foreground">
             {t.rich("licenseText", {
               name: branding.name,
@@ -380,7 +364,7 @@ export default function BrandAssetsPage() {
                   href="https://creativecommons.org/publicdomain/zero/1.0/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
+                  className="hover:text-foreground underline"
                 >
                   {chunks}
                 </a>

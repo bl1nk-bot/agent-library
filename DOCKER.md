@@ -35,6 +35,7 @@ docker run -d \
 ```
 
 > **Note:** Branding is applied during the first build. To change branding later, delete the volume and re-run:
+>
 > ```bash
 > docker rm -f my-prompts
 > docker volume rm prompts-data
@@ -47,57 +48,57 @@ All variables are prefixed with `PCHAT_` to avoid conflicts.
 
 #### Branding (`branding.*` in prompts.config.ts)
 
-| Env Variable | Config Path | Description | Default |
-|--------------|-------------|-------------|---------|
-| `PCHAT_NAME` | `branding.name` | App name shown in UI | `My Prompt Library` |
-| `PCHAT_DESCRIPTION` | `branding.description` | App description | `Collect, organize...` |
-| `PCHAT_LOGO` | `branding.logo` | Logo path (in public/) | `/logo.svg` |
-| `PCHAT_LOGO_DARK` | `branding.logoDark` | Dark mode logo | Same as `PCHAT_LOGO` |
-| `PCHAT_FAVICON` | `branding.favicon` | Favicon path | `/logo.svg` |
+| Env Variable        | Config Path            | Description            | Default                |
+| ------------------- | ---------------------- | ---------------------- | ---------------------- |
+| `PCHAT_NAME`        | `branding.name`        | App name shown in UI   | `My Prompt Library`    |
+| `PCHAT_DESCRIPTION` | `branding.description` | App description        | `Collect, organize...` |
+| `PCHAT_LOGO`        | `branding.logo`        | Logo path (in public/) | `/logo.svg`            |
+| `PCHAT_LOGO_DARK`   | `branding.logoDark`    | Dark mode logo         | Same as `PCHAT_LOGO`   |
+| `PCHAT_FAVICON`     | `branding.favicon`     | Favicon path           | `/logo.svg`            |
 
 #### Theme (`theme.*` in prompts.config.ts)
 
-| Env Variable | Config Path | Description | Default |
-|--------------|-------------|-------------|---------|
-| `PCHAT_COLOR` | `theme.colors.primary` | Primary color (hex) | `#6366f1` |
-| `PCHAT_THEME_RADIUS` | `theme.radius` | Border radius: `none\|sm\|md\|lg` | `sm` |
-| `PCHAT_THEME_VARIANT` | `theme.variant` | UI style: `default\|flat\|brutal` | `default` |
-| `PCHAT_THEME_DENSITY` | `theme.density` | Spacing: `compact\|default\|comfortable` | `default` |
+| Env Variable          | Config Path            | Description                              | Default   |
+| --------------------- | ---------------------- | ---------------------------------------- | --------- |
+| `PCHAT_COLOR`         | `theme.colors.primary` | Primary color (hex)                      | `#6366f1` |
+| `PCHAT_THEME_RADIUS`  | `theme.radius`         | Border radius: `none\|sm\|md\|lg`        | `sm`      |
+| `PCHAT_THEME_VARIANT` | `theme.variant`        | UI style: `default\|flat\|brutal`        | `default` |
+| `PCHAT_THEME_DENSITY` | `theme.density`        | Spacing: `compact\|default\|comfortable` | `default` |
 
 #### Authentication (`auth.*` in prompts.config.ts)
 
-| Env Variable | Config Path | Description | Default |
-|--------------|-------------|-------------|---------|
-| `PCHAT_AUTH_PROVIDERS` | `auth.providers` | Providers: `github,google,credentials` | `credentials` |
-| `PCHAT_ALLOW_REGISTRATION` | `auth.allowRegistration` | Allow public signup | `true` |
+| Env Variable               | Config Path              | Description                            | Default       |
+| -------------------------- | ------------------------ | -------------------------------------- | ------------- |
+| `PCHAT_AUTH_PROVIDERS`     | `auth.providers`         | Providers: `github,google,credentials` | `credentials` |
+| `PCHAT_ALLOW_REGISTRATION` | `auth.allowRegistration` | Allow public signup                    | `true`        |
 
 #### Internationalization (`i18n.*` in prompts.config.ts)
 
-| Env Variable | Config Path | Description | Default |
-|--------------|-------------|-------------|---------|
-| `PCHAT_LOCALES` | `i18n.locales` | Supported locales (comma-separated) | `en` |
-| `PCHAT_DEFAULT_LOCALE` | `i18n.defaultLocale` | Default locale | `en` |
+| Env Variable           | Config Path          | Description                         | Default |
+| ---------------------- | -------------------- | ----------------------------------- | ------- |
+| `PCHAT_LOCALES`        | `i18n.locales`       | Supported locales (comma-separated) | `en`    |
+| `PCHAT_DEFAULT_LOCALE` | `i18n.defaultLocale` | Default locale                      | `en`    |
 
 #### Features (`features.*` in prompts.config.ts)
 
-| Env Variable | Config Path | Description | Default |
-|--------------|-------------|-------------|---------|
-| `PCHAT_FEATURE_PRIVATE_PROMPTS` | `features.privatePrompts` | Enable private prompts | `true` |
-| `PCHAT_FEATURE_CHANGE_REQUESTS` | `features.changeRequests` | Enable versioning | `true` |
-| `PCHAT_FEATURE_CATEGORIES` | `features.categories` | Enable categories | `true` |
-| `PCHAT_FEATURE_TAGS` | `features.tags` | Enable tags | `true` |
-| `PCHAT_FEATURE_COMMENTS` | `features.comments` | Enable comments | `true` |
-| `PCHAT_FEATURE_AI_SEARCH` | `features.aiSearch` | Enable AI search | `false` |
-| `PCHAT_FEATURE_AI_GENERATION` | `features.aiGeneration` | Enable AI generation | `false` |
-| `PCHAT_FEATURE_MCP` | `features.mcp` | Enable MCP features | `false` |
+| Env Variable                    | Config Path               | Description            | Default |
+| ------------------------------- | ------------------------- | ---------------------- | ------- |
+| `PCHAT_FEATURE_PRIVATE_PROMPTS` | `features.privatePrompts` | Enable private prompts | `true`  |
+| `PCHAT_FEATURE_CHANGE_REQUESTS` | `features.changeRequests` | Enable versioning      | `true`  |
+| `PCHAT_FEATURE_CATEGORIES`      | `features.categories`     | Enable categories      | `true`  |
+| `PCHAT_FEATURE_TAGS`            | `features.tags`           | Enable tags            | `true`  |
+| `PCHAT_FEATURE_COMMENTS`        | `features.comments`       | Enable comments        | `true`  |
+| `PCHAT_FEATURE_AI_SEARCH`       | `features.aiSearch`       | Enable AI search       | `false` |
+| `PCHAT_FEATURE_AI_GENERATION`   | `features.aiGeneration`   | Enable AI generation   | `false` |
+| `PCHAT_FEATURE_MCP`             | `features.mcp`            | Enable MCP features    | `false` |
 
 ## System Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `AUTH_SECRET` | Secret for authentication tokens | Auto-generated |
-| `PORT` | Internal container port | `3000` |
-| `DATABASE_URL` | PostgreSQL connection string | Internal DB |
+| Variable       | Description                      | Default        |
+| -------------- | -------------------------------- | -------------- |
+| `AUTH_SECRET`  | Secret for authentication tokens | Auto-generated |
+| `PORT`         | Internal container port          | `3000`         |
+| `DATABASE_URL` | PostgreSQL connection string     | Internal DB    |
 
 ## Production Setup
 
@@ -160,6 +161,7 @@ docker run -d \
 ### All-in-One Image
 
 Data is stored in `/data` inside the container:
+
 - `/data/postgres` - PostgreSQL database files
 
 Mount a volume to persist data:
@@ -198,6 +200,7 @@ curl http://localhost:4444/api/health
 ```
 
 Response:
+
 ```json
 {
   "status": "healthy",
@@ -243,25 +246,30 @@ docker exec -it prompts bash
 ### Common Issues
 
 **Container won't start:**
+
 - Check logs: `docker logs prompts`
 - Ensure port 4444 is available: `lsof -i :4444`
 
 **Database connection errors:**
+
 - Wait for PostgreSQL to initialize (can take 30-60 seconds on first run)
 - Check database logs: `docker exec prompts cat /var/log/supervisor/postgresql.log`
 
 **Authentication issues:**
+
 - Ensure `AUTH_SECRET` is set for production
 - For OAuth, verify callback URLs are configured correctly
 
 ## Resource Requirements
 
 Minimum:
+
 - 1 CPU core
 - 1GB RAM
 - 2GB disk space
 
 Recommended:
+
 - 2 CPU cores
 - 2GB RAM
 - 10GB disk space

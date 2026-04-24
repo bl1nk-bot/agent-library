@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { formatDistanceToNow } from "@/lib/date";
-import { 
-  ChevronUp, 
-  ChevronDown, 
-  MessageSquare, 
-  Trash2, 
+import {
+  ChevronUp,
+  ChevronDown,
+  MessageSquare,
+  Trash2,
   Flag,
   Loader2,
   MoreHorizontal,
   Plus,
-  Minus
+  Minus,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -75,7 +75,7 @@ interface CommentItemProps {
 function autoLinkText(text: string): React.ReactNode[] {
   const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/g;
   const parts = text.split(urlRegex);
-  
+
   return parts.map((part, index) => {
     if (urlRegex.test(part)) {
       // Reset regex lastIndex
@@ -86,7 +86,7 @@ function autoLinkText(text: string): React.ReactNode[] {
           href={part}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          className="text-primary hover:underline break-all"
+          className="text-primary break-all hover:underline"
         >
           {part}
         </a>
@@ -135,14 +135,11 @@ export function CommentItem({
     setIsVoting(true);
 
     try {
-      const response = await fetch(
-        `/api/prompts/${promptId}/comments/${comment.id}/vote`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ value }),
-        }
-      );
+      const response = await fetch(`/api/prompts/${promptId}/comments/${comment.id}/vote`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to vote");
@@ -163,10 +160,9 @@ export function CommentItem({
     setIsDeleting(true);
 
     try {
-      const response = await fetch(
-        `/api/prompts/${promptId}/comments/${comment.id}`,
-        { method: "DELETE" }
-      );
+      const response = await fetch(`/api/prompts/${promptId}/comments/${comment.id}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete comment");
@@ -186,10 +182,9 @@ export function CommentItem({
     setIsFlagging(true);
 
     try {
-      const response = await fetch(
-        `/api/prompts/${promptId}/comments/${comment.id}/flag`,
-        { method: "POST" }
-      );
+      const response = await fetch(`/api/prompts/${promptId}/comments/${comment.id}/flag`, {
+        method: "POST",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to flag comment");
@@ -215,16 +210,16 @@ export function CommentItem({
   const nestedReplies = allComments.filter((c) => c.parentId === comment.id);
 
   return (
-    <div className={cn("group", depth > 0 && "ml-6 border-l-2 border-muted pl-4")}>
+    <div className={cn("group", depth > 0 && "border-muted ml-6 border-l-2 pl-4")}>
       <div
         className={cn(
           "py-3",
           isDownvoted && "opacity-50",
-          localFlagged && "bg-red-500/5 rounded-md px-3 -mx-3"
+          localFlagged && "-mx-3 rounded-md bg-red-500/5 px-3"
         )}
       >
         {/* Header */}
-        <div className="flex items-center gap-2 mb-2">
+        <div className="mb-2 flex items-center gap-2">
           <Link href={`/@${comment.author.username}`} className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={comment.author.avatar || undefined} />
@@ -232,39 +227,42 @@ export function CommentItem({
                 {comment.author.name?.charAt(0) || comment.author.username.charAt(0)}
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm font-medium hover:underline">
-              {comment.author.username}
-            </span>
+            <span className="text-sm font-medium hover:underline">{comment.author.username}</span>
           </Link>
           {comment.author.role === "ADMIN" && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">
+            <span className="bg-primary/10 text-primary rounded px-1.5 py-0.5 text-[10px] font-medium">
               {t("admin")}
             </span>
           )}
-          <span className="text-xs text-muted-foreground">
+          <span className="text-muted-foreground text-xs">
             {formatDistanceToNow(new Date(comment.createdAt), locale)}
           </span>
           {localFlagged && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-500 font-medium">
+            <span className="rounded bg-red-500/10 px-1.5 py-0.5 text-[10px] font-medium text-red-500">
               {t("flagged")}
             </span>
           )}
         </div>
 
         {/* Content */}
-        <div className={cn("text-sm whitespace-pre-wrap break-words", isDownvoted && "text-muted-foreground")}>
+        <div
+          className={cn(
+            "text-sm break-words whitespace-pre-wrap",
+            isDownvoted && "text-muted-foreground"
+          )}
+        >
           {autoLinkText(comment.content)}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-1 mt-2">
+        <div className="mt-2 flex items-center gap-1">
           {/* Vote buttons */}
           <div className="flex items-center">
             <button
               onClick={() => handleVote(1)}
               disabled={isVoting}
               className={cn(
-                "p-1 rounded hover:bg-accent transition-colors",
+                "hover:bg-accent rounded p-1 transition-colors",
                 localUserVote === 1 && "text-primary"
               )}
               title={t("upvote")}
@@ -273,7 +271,7 @@ export function CommentItem({
             </button>
             <span
               className={cn(
-                "text-xs font-medium min-w-[20px] text-center",
+                "min-w-[20px] text-center text-xs font-medium",
                 localScore > 0 && "text-primary",
                 localScore < 0 && "text-destructive"
               )}
@@ -284,7 +282,7 @@ export function CommentItem({
               onClick={() => handleVote(-1)}
               disabled={isVoting}
               className={cn(
-                "p-1 rounded hover:bg-accent transition-colors",
+                "hover:bg-accent rounded p-1 transition-colors",
                 localUserVote === -1 && "text-destructive"
               )}
               title={t("downvote")}
@@ -298,10 +296,10 @@ export function CommentItem({
             <Button
               variant="ghost"
               size="sm"
-              className="h-7 px-2 text-xs text-muted-foreground"
+              className="text-muted-foreground h-7 px-2 text-xs"
               onClick={() => setIsReplying(!isReplying)}
             >
-              <MessageSquare className="h-3.5 w-3.5 mr-1" />
+              <MessageSquare className="mr-1 h-3.5 w-3.5" />
               {t("reply")}
             </Button>
           )}
@@ -313,7 +311,7 @@ export function CommentItem({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-7 w-7 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="h-7 w-7 p-0 opacity-0 transition-opacity group-hover:opacity-100"
                 >
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
@@ -321,7 +319,7 @@ export function CommentItem({
               <DropdownMenuContent align="end">
                 {isAdmin && (
                   <DropdownMenuItem onClick={handleFlag} disabled={isFlagging}>
-                    <Flag className="h-4 w-4 mr-2" />
+                    <Flag className="mr-2 h-4 w-4" />
                     {localFlagged ? t("unflag") : t("flag")}
                   </DropdownMenuItem>
                 )}
@@ -330,7 +328,7 @@ export function CommentItem({
                     onClick={() => setShowDeleteDialog(true)}
                     className="text-destructive focus:text-destructive"
                   >
-                    <Trash2 className="h-4 w-4 mr-2" />
+                    <Trash2 className="mr-2 h-4 w-4" />
                     {tCommon("delete")}
                   </DropdownMenuItem>
                 )}
@@ -361,20 +359,14 @@ export function CommentItem({
           {/* Collapse/Expand toggle */}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors py-1 mb-1"
+            className="text-muted-foreground hover:text-foreground mb-1 flex items-center gap-1 py-1 text-xs transition-colors"
           >
-            {isCollapsed ? (
-              <Plus className="h-3 w-3" />
-            ) : (
-              <Minus className="h-3 w-3" />
-            )}
+            {isCollapsed ? <Plus className="h-3 w-3" /> : <Minus className="h-3 w-3" />}
             <span>
-              {isCollapsed
-                ? t("showReplies", { count: nestedReplies.length })
-                : t("hideReplies")}
+              {isCollapsed ? t("showReplies", { count: nestedReplies.length }) : t("hideReplies")}
             </span>
           </button>
-          
+
           {!isCollapsed && (
             <div>
               {nestedReplies.map((reply) => (
@@ -404,14 +396,10 @@ export function CommentItem({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("deleteCommentTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t("deleteCommentDescription")}
-            </AlertDialogDescription>
+            <AlertDialogDescription>{t("deleteCommentDescription")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>
-              {tCommon("cancel")}
-            </AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>{tCommon("cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               disabled={isDeleting}
@@ -419,7 +407,7 @@ export function CommentItem({
             >
               {isDeleting ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   {t("deleting")}
                 </>
               ) : (

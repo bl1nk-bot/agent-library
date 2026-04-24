@@ -13,7 +13,7 @@ function getOpenAIClient(): OpenAI {
     if (!apiKey) {
       throw new Error("OPENAI_API_KEY is not set");
     }
-    openai = new OpenAI({ 
+    openai = new OpenAI({
       apiKey,
       baseURL: process.env.OPENAI_BASE_URL || undefined,
     });
@@ -34,22 +34,19 @@ export async function isAIGenerationEnabled(): Promise<boolean> {
 
 export async function translateContent(content: string, targetLanguage: string): Promise<string> {
   const client = getOpenAIClient();
-  
-  const systemPrompt = interpolatePrompt(
-    getSystemPrompt(translatePrompt),
-    { targetLanguage }
-  );
+
+  const systemPrompt = interpolatePrompt(getSystemPrompt(translatePrompt), { targetLanguage });
 
   const response = await client.chat.completions.create({
     model: GENERATIVE_MODEL,
     messages: [
       { role: "system", content: systemPrompt },
-      { role: "user", content }
+      { role: "user", content },
     ],
     temperature: 0.3,
     max_tokens: 4000,
   });
-  
+
   return response.choices[0]?.message?.content?.trim() || "";
 }
 
@@ -60,21 +57,21 @@ export async function generateSQL(prompt: string): Promise<string> {
   }
 
   const client = getOpenAIClient();
-  
+
   const systemPrompt = getSystemPrompt(sqlGenerationPrompt);
 
   const response = await client.chat.completions.create({
     model: GENERATIVE_MODEL,
     messages: [
       { role: "system", content: systemPrompt },
-      { role: "user", content: prompt }
+      { role: "user", content: prompt },
     ],
     temperature: 0.7,
     max_tokens: 500,
   });
-  
+
   const content = response.choices[0]?.message?.content || "";
-  
+
   // Clean up the response - remove markdown code blocks if present
   return content
     .replace(/^```sql\n?/i, "")

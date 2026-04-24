@@ -44,7 +44,10 @@ const getLeaderboard = unstable_cache(
     for (const vote of votesByAuthor) {
       const authorId = promptToAuthor.get(vote.promptId);
       if (authorId) {
-        authorVoteCounts.set(authorId, (authorVoteCounts.get(authorId) || 0) + vote._count.promptId);
+        authorVoteCounts.set(
+          authorId,
+          (authorVoteCounts.get(authorId) || 0) + vote._count.promptId
+        );
       }
     }
 

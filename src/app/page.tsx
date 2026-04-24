@@ -12,20 +12,25 @@ export default async function HomePage() {
   const tNav = await getTranslations("nav");
   const session = await auth();
   const config = await getConfig();
-  
+
   const isOAuth = config.auth.provider !== "credentials";
   // Show register button only for non-logged-in users
-  const showRegisterButton = !session && (isOAuth || (config.auth.provider === "credentials" && config.auth.allowRegistration));
+  const showRegisterButton =
+    !session &&
+    (isOAuth || (config.auth.provider === "credentials" && config.auth.allowRegistration));
 
   const useCloneBranding = config.homepage?.useCloneBranding ?? false;
-  
+
   // Fetch GitHub stars dynamically (with caching)
-  const githubStars = await getGithubStars(useCloneBranding, config.homepage?.achievements?.enabled);
+  const githubStars = await getGithubStars(
+    useCloneBranding,
+    config.homepage?.achievements?.enabled
+  );
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <HeroSection 
+      <HeroSection
         config={config}
         session={session}
         t={tHomepage}
@@ -37,7 +42,7 @@ export default async function HomePage() {
 
       {/* Sponsors Section */}
       {config.homepage?.sponsors?.enabled && config.homepage.sponsors.items.length > 0 && (
-        <SponsorsSection 
+        <SponsorsSection
           items={config.homepage.sponsors.items}
           t={tHomepage}
           useCloneBranding={useCloneBranding}
@@ -49,7 +54,7 @@ export default async function HomePage() {
 
       {/* CTA Section - only show if not using clone branding */}
       {!useCloneBranding && (
-        <CtaSection 
+        <CtaSection
           config={config}
           showRegisterButton={showRegisterButton}
           isOAuth={isOAuth}

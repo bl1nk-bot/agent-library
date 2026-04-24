@@ -5,7 +5,7 @@ describe("ChatCard Component", () => {
   const mockMessage = {
     role: "assistant",
     content: "This is a response",
-    agent: "Gemini"
+    agent: "Gemini",
   };
 
   it("renders message content", () => {

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { db } from "@/lib/db";
 import { semanticSearch, isAISearchEnabled } from "@/lib/ai/embeddings";
 
@@ -27,32 +26,33 @@ export const PROMPT_BUILDER_TOOLS = [
     type: "function" as const,
     function: {
       name: "search_prompts",
-      description: "Search for existing prompts to use as examples or inspiration. Returns prompts matching the query with their title, description, content preview, and tags. Use promptType filter when looking for structured prompts like JSON or YAML.",
+      description:
+        "Search for existing prompts to use as examples or inspiration. Returns prompts matching the query with their title, description, content preview, and tags. Use promptType filter when looking for structured prompts like JSON or YAML.",
       parameters: {
         type: "object",
         properties: {
           query: {
             type: "string",
-            description: "Search query to find relevant prompts"
+            description: "Search query to find relevant prompts",
           },
           limit: {
             type: "number",
-            description: "Maximum number of prompts to return (default 5, max 10)"
+            description: "Maximum number of prompts to return (default 5, max 10)",
           },
           promptType: {
             type: "string",
             enum: ["TEXT", "STRUCTURED", "IMAGE", "VIDEO", "AUDIO"],
-            description: "Filter by prompt type. Use STRUCTURED to find JSON/YAML format prompts."
+            description: "Filter by prompt type. Use STRUCTURED to find JSON/YAML format prompts.",
           },
           structuredFormat: {
             type: "string",
             enum: ["JSON", "YAML"],
-            description: "When promptType is STRUCTURED, filter by specific format (JSON or YAML)"
-          }
+            description: "When promptType is STRUCTURED, filter by specific format (JSON or YAML)",
+          },
         },
-        required: ["query"]
-      }
-    }
+        required: ["query"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -64,12 +64,12 @@ export const PROMPT_BUILDER_TOOLS = [
         properties: {
           title: {
             type: "string",
-            description: "The title for the prompt (max 200 characters)"
-          }
+            description: "The title for the prompt (max 200 characters)",
+          },
         },
-        required: ["title"]
-      }
-    }
+        required: ["title"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -81,52 +81,54 @@ export const PROMPT_BUILDER_TOOLS = [
         properties: {
           description: {
             type: "string",
-            description: "The description for the prompt (max 500 characters)"
-          }
+            description: "The description for the prompt (max 500 characters)",
+          },
         },
-        required: ["description"]
-      }
-    }
+        required: ["description"],
+      },
+    },
   },
   {
     type: "function" as const,
     function: {
       name: "set_content",
-      description: "Set the main prompt content. Use ${variableName} or ${variableName:defaultValue} syntax for variables that users can customize.",
+      description:
+        "Set the main prompt content. Use ${variableName} or ${variableName:defaultValue} syntax for variables that users can customize.",
       parameters: {
         type: "object",
         properties: {
           content: {
             type: "string",
-            description: "The prompt content with optional variable placeholders"
-          }
+            description: "The prompt content with optional variable placeholders",
+          },
         },
-        required: ["content"]
-      }
-    }
+        required: ["content"],
+      },
+    },
   },
   {
     type: "function" as const,
     function: {
       name: "set_type",
-      description: "Set the prompt type (TEXT for regular prompts, STRUCTURED for JSON/YAML workflows, IMAGE/VIDEO/AUDIO for media generation prompts).",
+      description:
+        "Set the prompt type (TEXT for regular prompts, STRUCTURED for JSON/YAML workflows, IMAGE/VIDEO/AUDIO for media generation prompts).",
       parameters: {
         type: "object",
         properties: {
           type: {
             type: "string",
             enum: ["TEXT", "IMAGE", "VIDEO", "AUDIO", "STRUCTURED"],
-            description: "The type of prompt"
+            description: "The type of prompt",
           },
           structuredFormat: {
             type: "string",
             enum: ["JSON", "YAML"],
-            description: "Format for structured prompts (only when type is STRUCTURED)"
-          }
+            description: "Format for structured prompts (only when type is STRUCTURED)",
+          },
         },
-        required: ["type"]
-      }
-    }
+        required: ["type"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -139,12 +141,12 @@ export const PROMPT_BUILDER_TOOLS = [
           tagNames: {
             type: "array",
             items: { type: "string" },
-            description: "Array of tag names to apply to the prompt"
-          }
+            description: "Array of tag names to apply to the prompt",
+          },
         },
-        required: ["tagNames"]
-      }
-    }
+        required: ["tagNames"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -156,12 +158,12 @@ export const PROMPT_BUILDER_TOOLS = [
         properties: {
           categoryName: {
             type: "string",
-            description: "The name of the category"
-          }
+            description: "The name of the category",
+          },
         },
-        required: ["categoryName"]
-      }
-    }
+        required: ["categoryName"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -173,12 +175,12 @@ export const PROMPT_BUILDER_TOOLS = [
         properties: {
           isPrivate: {
             type: "boolean",
-            description: "True for private, false for public"
-          }
+            description: "True for private, false for public",
+          },
         },
-        required: ["isPrivate"]
-      }
-    }
+        required: ["isPrivate"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -190,21 +192,21 @@ export const PROMPT_BUILDER_TOOLS = [
         properties: {
           requiresMediaUpload: {
             type: "boolean",
-            description: "Whether media upload is required"
+            description: "Whether media upload is required",
           },
           mediaType: {
             type: "string",
             enum: ["IMAGE", "VIDEO", "DOCUMENT"],
-            description: "Type of media required"
+            description: "Type of media required",
           },
           mediaCount: {
             type: "number",
-            description: "Number of media files required (1-10)"
-          }
+            description: "Number of media files required (1-10)",
+          },
         },
-        required: ["requiresMediaUpload"]
-      }
-    }
+        required: ["requiresMediaUpload"],
+      },
+    },
   },
   {
     type: "function" as const,
@@ -213,9 +215,9 @@ export const PROMPT_BUILDER_TOOLS = [
       description: "Get all available tags that can be applied to prompts.",
       parameters: {
         type: "object",
-        properties: {}
-      }
-    }
+        properties: {},
+      },
+    },
   },
   {
     type: "function" as const,
@@ -224,9 +226,9 @@ export const PROMPT_BUILDER_TOOLS = [
       description: "Get all available categories for organizing prompts.",
       parameters: {
         type: "object",
-        properties: {}
-      }
-    }
+        properties: {},
+      },
+    },
   },
   {
     type: "function" as const,
@@ -235,10 +237,10 @@ export const PROMPT_BUILDER_TOOLS = [
       description: "Get the current state of the prompt being built.",
       parameters: {
         type: "object",
-        properties: {}
-      }
-    }
-  }
+        properties: {},
+      },
+    },
+  },
 ];
 
 export async function executeToolCall(
@@ -256,23 +258,25 @@ export async function executeToolCall(
       const limit = Math.min(Math.max((args.limit as number) || 5, 1), 10);
       const promptType = args.promptType as string | undefined;
       const structuredFormat = args.structuredFormat as string | undefined;
-      
+
       try {
         // Run both full-text and semantic search in parallel
         const useSemanticSearch = await isAISearchEnabled();
-        
+
         // Full-text search
         const textSearchPromise = db.prompt.findMany({
           where: {
             isPrivate: false,
             deletedAt: null,
-            ...(promptType && { type: promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED" }),
+            ...(promptType && {
+              type: promptType as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED",
+            }),
             ...(structuredFormat && { structuredFormat: structuredFormat as "JSON" | "YAML" }),
             OR: [
               { title: { contains: query, mode: "insensitive" } },
               { description: { contains: query, mode: "insensitive" } },
-              { content: { contains: query, mode: "insensitive" } }
-            ]
+              { content: { contains: query, mode: "insensitive" } },
+            ],
           },
           select: {
             id: true,
@@ -284,23 +288,23 @@ export async function executeToolCall(
             tags: {
               select: {
                 tag: {
-                  select: { name: true, color: true }
-                }
-              }
-            }
+                  select: { name: true, color: true },
+                },
+              },
+            },
           },
           take: limit,
-          orderBy: { createdAt: "desc" }
+          orderBy: { createdAt: "desc" },
         });
 
         // Semantic search (if enabled)
-        const semanticSearchPromise = useSemanticSearch 
+        const semanticSearchPromise = useSemanticSearch
           ? semanticSearch(query, limit)
           : Promise.resolve([]);
 
         const [textResults, semanticResults] = await Promise.all([
           textSearchPromise,
-          semanticSearchPromise
+          semanticSearchPromise,
         ]);
 
         // Combine and deduplicate results
@@ -322,7 +326,7 @@ export async function executeToolCall(
           if (seenIds.has(p.id)) continue;
           if (promptType && p.type !== promptType) continue;
           if (structuredFormat && p.structuredFormat !== structuredFormat) continue;
-          
+
           seenIds.add(p.id);
           combinedResults.push({
             id: p.id,
@@ -331,16 +335,16 @@ export async function executeToolCall(
             contentPreview: p.content.substring(0, 200) + (p.content.length > 200 ? "..." : ""),
             type: p.type,
             structuredFormat: p.structuredFormat,
-            tags: p.tags.map(t => t.tag.name),
+            tags: p.tags.map((t) => t.tag.name),
             source: "semantic",
-            similarity: Math.round(p.similarity * 100) + "%"
+            similarity: Math.round(p.similarity * 100) + "%",
           });
         }
 
         // Add text search results
         for (const p of textResults) {
           if (seenIds.has(p.id)) continue;
-          
+
           seenIds.add(p.id);
           combinedResults.push({
             id: p.id,
@@ -350,7 +354,7 @@ export async function executeToolCall(
             type: p.type,
             structuredFormat: p.structuredFormat,
             tags: p.tags.map((t: { tag: { name: string } }) => t.tag.name),
-            source: "text"
+            source: "text",
           });
         }
 
@@ -374,16 +378,16 @@ export async function executeToolCall(
               tags: {
                 select: {
                   tag: {
-                    select: { name: true, color: true }
-                  }
-                }
-              }
+                    select: { name: true, color: true },
+                  },
+                },
+              },
             },
             take: limit,
-            orderBy: { createdAt: "desc" }
+            orderBy: { createdAt: "desc" },
           });
 
-          finalResults = randomPrompts.map(p => ({
+          finalResults = randomPrompts.map((p) => ({
             id: p.id,
             title: p.title,
             description: p.description,
@@ -391,7 +395,7 @@ export async function executeToolCall(
             type: p.type,
             structuredFormat: p.structuredFormat,
             tags: p.tags.map((t: { tag: { name: string } }) => t.tag.name),
-            source: "random" as const
+            source: "random" as const,
           }));
         }
 
@@ -401,21 +405,25 @@ export async function executeToolCall(
             data: {
               prompts: finalResults,
               count: finalResults.length,
-              searchType: finalResults.length > 0 && finalResults[0].source === "random" 
-                ? "random_examples" 
-                : (useSemanticSearch ? "hybrid" : "text"),
+              searchType:
+                finalResults.length > 0 && finalResults[0].source === "random"
+                  ? "random_examples"
+                  : useSemanticSearch
+                    ? "hybrid"
+                    : "text",
               filters: { promptType, structuredFormat },
-              note: finalResults.length > 0 && finalResults[0].source === "random"
-                ? "No matching prompts found. Showing random examples to understand the prompt style."
-                : undefined
-            }
+              note:
+                finalResults.length > 0 && finalResults[0].source === "random"
+                  ? "No matching prompts found. Showing random examples to understand the prompt style."
+                  : undefined,
+            },
           },
-          newState
+          newState,
         };
       } catch (error) {
         return {
           result: { success: false, error: "Failed to search prompts" },
-          newState
+          newState,
         };
       }
     }
@@ -425,7 +433,7 @@ export async function executeToolCall(
       newState.title = title;
       return {
         result: { success: true, data: { title } },
-        newState
+        newState,
       };
     }
 
@@ -434,7 +442,7 @@ export async function executeToolCall(
       newState.description = description;
       return {
         result: { success: true, data: { description } },
-        newState
+        newState,
       };
     }
 
@@ -442,7 +450,7 @@ export async function executeToolCall(
       newState.content = args.content as string;
       return {
         result: { success: true, data: { content: newState.content } },
-        newState
+        newState,
       };
     }
 
@@ -454,7 +462,7 @@ export async function executeToolCall(
       }
       return {
         result: { success: true, data: { type, structuredFormat: newState.structuredFormat } },
-        newState
+        newState,
       };
     }
 
@@ -463,10 +471,13 @@ export async function executeToolCall(
       const matchedTagIds: string[] = [];
       const matchedNames: string[] = [];
 
+      const tagMapByNameOrSlug = new Map(availableTags.flatMap(t => [
+        [t.name.toLowerCase(), t],
+        [t.slug, t]
+      ]));
+
       for (const name of tagNames) {
-        const tag = availableTags.find(
-          t => t.name.toLowerCase() === name.toLowerCase() || t.slug === name.toLowerCase()
-        );
+        const tag = tagMapByNameOrSlug.get(name.toLowerCase());
         if (tag) {
           matchedTagIds.push(tag.id);
           matchedNames.push(tag.name);
@@ -477,31 +488,35 @@ export async function executeToolCall(
       return {
         result: {
           success: true,
-          data: { 
+          data: {
             appliedTags: matchedNames,
-            notFound: tagNames.filter(n => !matchedNames.map(m => m.toLowerCase()).includes(n.toLowerCase()))
-          }
+            notFound: tagNames.filter(
+              (n) => !matchedNames.map((m) => m.toLowerCase()).includes(n.toLowerCase())
+            ),
+          },
         },
-        newState
+        newState,
       };
     }
 
     case "set_category": {
       const categoryName = args.categoryName as string;
       const category = availableCategories.find(
-        c => c.name.toLowerCase() === categoryName.toLowerCase() || c.slug === categoryName.toLowerCase()
+        (c) =>
+          c.name.toLowerCase() === categoryName.toLowerCase() ||
+          c.slug === categoryName.toLowerCase()
       );
 
       if (category) {
         newState.categoryId = category.id;
         return {
           result: { success: true, data: { category: category.name } },
-          newState
+          newState,
         };
       }
       return {
         result: { success: false, error: `Category "${categoryName}" not found` },
-        newState
+        newState,
       };
     }
 
@@ -509,7 +524,7 @@ export async function executeToolCall(
       newState.isPrivate = args.isPrivate as boolean;
       return {
         result: { success: true, data: { isPrivate: newState.isPrivate } },
-        newState
+        newState,
       };
     }
 
@@ -529,10 +544,10 @@ export async function executeToolCall(
           data: {
             requiresMediaUpload: newState.requiresMediaUpload,
             mediaType: newState.requiredMediaType,
-            mediaCount: newState.requiredMediaCount
-          }
+            mediaCount: newState.requiredMediaCount,
+          },
         },
-        newState
+        newState,
       };
     }
 
@@ -540,9 +555,9 @@ export async function executeToolCall(
       return {
         result: {
           success: true,
-          data: { tags: availableTags.map(t => ({ name: t.name, color: t.color })) }
+          data: { tags: availableTags.map((t) => ({ name: t.name, color: t.color })) },
         },
-        newState
+        newState,
       };
     }
 
@@ -551,21 +566,22 @@ export async function executeToolCall(
         result: {
           success: true,
           data: {
-            categories: availableCategories.map(c => ({
+            categories: availableCategories.map((c) => ({
               name: c.name,
-              isSubcategory: !!c.parentId
-            }))
-          }
+              isSubcategory: !!c.parentId,
+            })),
+          },
         },
-        newState
+        newState,
       };
     }
 
     case "get_current_state": {
+      const tagMapById = new Map(availableTags.map(t => [t.id, t]));
       const tagNames = currentState.tagIds
-        .map(id => availableTags.find(t => t.id === id)?.name)
+        .map(id => tagMapById.get(id)?.name)
         .filter(Boolean);
-      const categoryName = availableCategories.find(c => c.id === currentState.categoryId)?.name;
+      const categoryName = availableCategories.find((c) => c.id === currentState.categoryId)?.name;
 
       return {
         result: {
@@ -581,17 +597,17 @@ export async function executeToolCall(
             isPrivate: currentState.isPrivate,
             requiresMediaUpload: currentState.requiresMediaUpload,
             mediaType: currentState.requiredMediaType,
-            mediaCount: currentState.requiredMediaCount
-          }
+            mediaCount: currentState.requiredMediaCount,
+          },
         },
-        newState
+        newState,
       };
     }
 
     default:
       return {
         result: { success: false, error: `Unknown tool: ${toolName}` },
-        newState
+        newState,
       };
   }
 }

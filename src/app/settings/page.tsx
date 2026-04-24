@@ -39,18 +39,16 @@ export default async function SettingsPage() {
     <div className="container max-w-2xl py-6">
       <div className="mb-6">
         <h1 className="text-lg font-semibold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">
-          {t("description")}
-        </p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
 
       <div className="space-y-6">
-        <ProfileForm 
+        <ProfileForm
           user={{
             ...user,
             customLinks: user.customLinks as CustomLink[] | null,
-          }} 
-          showVerifiedSection={!config.homepage?.useCloneBranding} 
+          }}
+          showVerifiedSection={!config.homepage?.useCloneBranding}
         />
 
         {config.features.mcp !== false && (

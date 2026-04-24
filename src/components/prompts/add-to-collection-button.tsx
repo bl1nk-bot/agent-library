@@ -71,10 +71,7 @@ export function AddToCollectionButton({
         size="sm"
         onClick={handleClick}
         disabled={isLoading}
-        className={cn(
-          "gap-1.5",
-          inCollection && "bg-primary/10 text-primary hover:bg-primary/20"
-        )}
+        className={cn("gap-1.5", inCollection && "bg-primary/10 text-primary hover:bg-primary/20")}
       >
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -87,7 +84,7 @@ export function AddToCollectionButton({
       </Button>
 
       {showTooltip && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 text-xs font-medium bg-foreground text-background rounded shadow-lg whitespace-nowrap z-50 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="bg-foreground text-background animate-in fade-in slide-in-from-top-1 absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded px-2 py-1 text-xs font-medium whitespace-nowrap shadow-lg duration-200">
           {inCollection ? t("added") : t("removed")}
         </div>
       )}

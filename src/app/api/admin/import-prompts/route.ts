@@ -15,10 +15,10 @@ interface CsvRow {
 // Unescape literal escape sequences like \n, \t, etc.
 function unescapeString(str: string): string {
   return str
-    .replace(/\\n/g, '\n')
-    .replace(/\\r/g, '\r')
-    .replace(/\\t/g, '\t')
-    .replace(/\\\\/g, '\\');
+    .replace(/\\n/g, "\n")
+    .replace(/\\r/g, "\r")
+    .replace(/\\t/g, "\t")
+    .replace(/\\\\/g, "\\");
 }
 
 function parseCSV(content: string): CsvRow[] {
@@ -27,12 +27,12 @@ function parseCSV(content: string): CsvRow[] {
   let current = "";
   let inQuotes = false;
   let isFirstRow = true;
-  
+
   // Parse character by character to handle multi-line quoted fields
   for (let i = 0; i < content.length; i++) {
     const char = content[i];
     const nextChar = content[i + 1];
-    
+
     if (char === '"' && !inQuotes) {
       inQuotes = true;
     } else if (char === '"' && inQuotes) {
@@ -43,20 +43,20 @@ function parseCSV(content: string): CsvRow[] {
       } else {
         inQuotes = false;
       }
-    } else if (char === ',' && !inQuotes) {
+    } else if (char === "," && !inQuotes) {
       values.push(current);
       current = "";
-    } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+    } else if ((char === "\n" || (char === "\r" && nextChar === "\n")) && !inQuotes) {
       // End of row (not inside quotes)
-      if (char === '\r') i++; // Skip \r in \r\n
-      
+      if (char === "\r") i++; // Skip \r in \r\n
+
       values.push(current);
       current = "";
-      
+
       if (isFirstRow) {
         // Skip header row
         isFirstRow = false;
-      } else if (values.some(v => v.trim())) {
+      } else if (values.some((v) => v.trim())) {
         // Only add non-empty rows
         rows.push({
           act: values[0]?.trim() || "",
@@ -71,11 +71,11 @@ function parseCSV(content: string): CsvRow[] {
       current += char;
     }
   }
-  
+
   // Handle last row if file doesn't end with newline
   if (current || values.length > 0) {
     values.push(current);
-    if (!isFirstRow && values.some(v => v.trim())) {
+    if (!isFirstRow && values.some((v) => v.trim())) {
       rows.push({
         act: values[0]?.trim() || "",
         prompt: unescapeString(values[1] || ""),
@@ -85,11 +85,14 @@ function parseCSV(content: string): CsvRow[] {
       });
     }
   }
-  
+
   return rows;
 }
 
-function mapCsvTypeToPromptType(csvType: string): { type: "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED"; structuredFormat: "JSON" | "YAML" | null } {
+function mapCsvTypeToPromptType(csvType: string): {
+  type: "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "STRUCTURED";
+  structuredFormat: "JSON" | "YAML" | null;
+} {
   const type = csvType.toUpperCase();
   if (type === "JSON") return { type: "STRUCTURED", structuredFormat: "JSON" };
   if (type === "YAML") return { type: "STRUCTURED", structuredFormat: "YAML" };
@@ -110,9 +113,9 @@ export async function POST(request: NextRequest) {
     // Read the prompts.csv file from the project root
     const csvPath = path.join(process.cwd(), "prompts.csv");
     const csvContent = await fs.readFile(csvPath, "utf-8");
-    
+
     const rows = parseCSV(csvContent);
-    
+
     if (rows.length === 0) {
       return NextResponse.json({ error: "No valid rows found in CSV" }, { status: 400 });
     }
@@ -138,7 +141,7 @@ export async function POST(request: NextRequest) {
     // Helper to get or create contributor user
     async function getOrCreateContributorUser(username: string): Promise<string> {
       const normalizedUsername = username.toLowerCase().trim();
-      
+
       // Check cache first
       if (contributorCache.has(normalizedUsername)) {
         return contributorCache.get(normalizedUsername)!;
@@ -146,13 +149,10 @@ export async function POST(request: NextRequest) {
 
       // Check if user exists by username or pseudo email
       const pseudoEmail = `${normalizedUsername}@unclaimed.prompts.chat`;
-      
+
       let user = await db.user.findFirst({
         where: {
-          OR: [
-            { username: normalizedUsername },
-            { email: pseudoEmail },
-          ],
+          OR: [{ username: normalizedUsername }, { email: pseudoEmail }],
         },
       });
 
@@ -175,17 +175,20 @@ export async function POST(request: NextRequest) {
     // Handle multiple contributors (comma-separated), return first as primary author
     async function getOrCreateContributor(contributorField: string): Promise<string> {
       if (!contributorField) return adminUserId;
-      
+
       // Split by comma for multiple contributors
-      const contributors = contributorField.split(',').map(c => c.trim()).filter(Boolean);
-      
+      const contributors = contributorField
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean);
+
       if (contributors.length === 0) return adminUserId;
-      
+
       // Create users for all contributors, return first as primary author
       for (const username of contributors) {
         await getOrCreateContributorUser(username);
       }
-      
+
       return contributorCache.get(contributors[0].toLowerCase())!;
     }
 
@@ -210,7 +213,7 @@ export async function POST(request: NextRequest) {
 
         // Determine type and structured format
         const { type, structuredFormat } = mapCsvTypeToPromptType(row.type);
-        
+
         // Determine category based on for_devs field
         const isForDevs = row.for_devs.toUpperCase() === "TRUE";
         const categoryId = isForDevs ? codingCategory.id : null;
@@ -255,10 +258,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error importing prompts:", error);
-    return NextResponse.json(
-      { error: "Failed to import prompts" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to import prompts" }, { status: 500 });
   }
 }
 
@@ -274,9 +274,9 @@ export async function DELETE(request: NextRequest) {
     const csvPath = path.join(process.cwd(), "prompts.csv");
     const csvContent = await fs.readFile(csvPath, "utf-8");
     const rows = parseCSV(csvContent);
-    
-    const titles = rows.map(row => row.act);
-    
+
+    const titles = rows.map((row) => row.act);
+
     // Delete all prompts that match the CSV titles
     const result = await db.prompt.deleteMany({
       where: {
@@ -298,9 +298,6 @@ export async function DELETE(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error deleting community prompts:", error);
-    return NextResponse.json(
-      { error: "Failed to delete community prompts" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete community prompts" }, { status: 500 });
   }
 }

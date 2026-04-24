@@ -26,6 +26,7 @@
 **Agent Library** is a curated, community-driven collection of high-performance instructions and workflows for AI Agents and Large Language Models. Built for the era of autonomous digital intelligence, it provides the building blocks for developers and enthusiasts to create specialized AI capabilities.
 
 ### Key Pillars
+
 - **Agent Skills:** Multi-file prompts that add specialized tools and logic to AI agents.
 - **Context Engineering:** Beyond simple chat—manage complex reasoning and data flows.
 - **Platform Neutral:** Designed to work across ChatGPT, Claude, Gemini, and local models.
@@ -36,6 +37,7 @@
 ## 📖 The Interactive Book of Prompting
 
 Master the art of communicating with machines. Our free, interactive guide covers everything from basics to advanced techniques like:
+
 - **Chain-of-Thought** reasoning
 - **Multi-step Agent Workflows**
 - **Model Context Protocol (MCP)** integration
@@ -50,6 +52,7 @@ Master the art of communicating with machines. Our free, interactive guide cover
 Deploy your own private instance of the Agent Library for your team or organization.
 
 ### Quick Start
+
 ```bash
 git clone https://github.com/bl1nk-bot/agent-library.git
 cd agent-library
@@ -57,6 +60,7 @@ bun install && bun run setup
 ```
 
 The interactive setup wizard will guide you through:
+
 - **Custom Branding** (Name, Logo, Theme)
 - **Authentication Providers** (GitHub, Google, Azure AD)
 - **Feature Toggles** (Private Prompts, AI Search, MCP Support)
@@ -68,9 +72,11 @@ The interactive setup wizard will guide you through:
 ## 🔌 Integrations
 
 ### MCP Server
+
 Integrate this entire library directly into VS Code, Cursor, or Claude Desktop.
 
 **Configuration:**
+
 ```json
 {
   "mcpServers": {
@@ -90,6 +96,7 @@ We believe in open knowledge. Contributions are welcome through GitHub pull requ
 ### Development
 
 This project uses:
+
 - **Next.js 16** with App Router
 - **TypeScript 5** (strict mode)
 - **Prisma ORM** for database management
@@ -116,6 +123,7 @@ For more information, see [AGENTS.md](AGENTS.md) for development guidelines.
 ### Development
 
 This project uses:
+
 - **Next.js 16** with App Router
 - **TypeScript 5** (strict mode)
 - **Prisma ORM** for database management
@@ -146,4 +154,5 @@ For more information, see [AGENTS.md](AGENTS.md) for development guidelines.
 **[CC0 1.0 Universal (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/)** — This project belongs to everyone. Copy, modify, and use it freely without any restrictions.
 
 ---
+
 <sub>Built with passion by **bl1nk Team**. Based on the open-source community's collective wisdom.</sub>

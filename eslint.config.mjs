@@ -28,8 +28,8 @@ const eslintConfig = defineConfig([
       "security/detect-unsafe-regex": "off",
       "security/detect-non-literal-regexp": "off",
       "security/detect-non-literal-fs-filename": "off",
-      "@next/next/no-img-element": "off"
-    }
+      "@next/next/no-img-element": "off",
+    },
   },
   globalIgnores([
     // Default ignores of eslint-config-next:

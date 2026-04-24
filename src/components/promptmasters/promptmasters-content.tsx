@@ -51,7 +51,7 @@ function LeaderboardSkeleton() {
           <Skeleton className="h-8 w-8 rounded-full" />
           <Skeleton className="h-10 w-10 rounded-full" />
           <div className="flex-1">
-            <Skeleton className="h-4 w-32 mb-1" />
+            <Skeleton className="mb-1 h-4 w-32" />
             <Skeleton className="h-3 w-20" />
           </div>
           <Skeleton className="h-6 w-16" />
@@ -70,18 +70,18 @@ function RankBadge({ rank }: { rank: number }) {
     return <Award className="h-6 w-6 text-amber-600" />;
   }
   return (
-    <span className="w-6 h-6 flex items-center justify-center text-sm font-medium text-muted-foreground">
+    <span className="text-muted-foreground flex h-6 w-6 items-center justify-center text-sm font-medium">
       {rank}
     </span>
   );
 }
 
-function LeaderboardList({ 
-  users, 
-  sortMode, 
-  translations 
-}: { 
-  users: LeaderboardUser[]; 
+function LeaderboardList({
+  users,
+  sortMode,
+  translations,
+}: {
+  users: LeaderboardUser[];
   sortMode: SortMode;
   translations: Translations;
 }) {
@@ -97,11 +97,7 @@ function LeaderboardList({
   }, [users, sortMode]);
 
   if (users.length === 0) {
-    return (
-      <div className="text-center py-12 text-muted-foreground">
-        {translations.noData}
-      </div>
-    );
+    return <div className="text-muted-foreground py-12 text-center">{translations.noData}</div>;
   }
 
   return (
@@ -111,9 +107,9 @@ function LeaderboardList({
           key={user.id}
           href={`/@${user.username}`}
           prefetch={false}
-          className="flex items-center gap-4 p-3 hover:bg-muted/50 transition-colors"
+          className="hover:bg-muted/50 flex items-center gap-4 p-3 transition-colors"
         >
-          <div className="w-8 flex justify-center">
+          <div className="flex w-8 justify-center">
             <RankBadge rank={index + 1} />
           </div>
           <Avatar className="h-10 w-10">
@@ -122,22 +118,24 @@ function LeaderboardList({
               {(user.name || user.username).slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1 min-w-0">
-            <p className="font-medium truncate">{user.name || user.username}</p>
-            <p className="text-sm text-muted-foreground">@{user.username}</p>
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-medium">{user.name || user.username}</p>
+            <p className="text-muted-foreground text-sm">@{user.username}</p>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <div className="text-center">
               <p className="font-semibold">{user.promptCount}</p>
-              <p className="text-xs text-muted-foreground">{translations.prompts}</p>
+              <p className="text-muted-foreground text-xs">{translations.prompts}</p>
             </div>
             <div className="text-center">
-              <p className="font-semibold text-primary">
-                {sortMode === "perPrompt" 
-                  ? (user.promptCount > 0 ? (user.totalUpvotes / user.promptCount).toFixed(1) : "0")
+              <p className="text-primary font-semibold">
+                {sortMode === "perPrompt"
+                  ? user.promptCount > 0
+                    ? (user.totalUpvotes / user.promptCount).toFixed(1)
+                    : "0"
                   : user.totalUpvotes}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 {sortMode === "perPrompt" ? translations.perPrompt : translations.upvotes}
               </p>
             </div>
@@ -179,9 +177,9 @@ export function PromptmastersContent({ translations }: PromptmastersContentProps
 
   return (
     <div className="container py-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-2">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 text-center">
+          <div className="mb-2 flex items-center justify-center gap-2">
             <Trophy className="h-8 w-8 text-yellow-500" />
             <h1 className="text-3xl font-bold">{translations.title}</h1>
           </div>
@@ -189,39 +187,43 @@ export function PromptmastersContent({ translations }: PromptmastersContentProps
         </div>
 
         <Tabs defaultValue="all" className="w-full">
-          <div className="flex items-center gap-2 mb-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="all">{translations.allTime}</TabsTrigger>
-            <TabsTrigger value="month">{translations.thisMonth}</TabsTrigger>
-            <TabsTrigger value="week">{translations.thisWeek}</TabsTrigger>
-          </TabsList>
-          <div className="flex-1" />
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setSortMode(sortMode === "total" ? "perPrompt" : "total")}
-                className="shrink-0"
-              >
-                {sortMode === "total" ? (
-                  <BarChart3 className="h-4 w-4" />
-                ) : (
-                  <TrendingUp className="h-4 w-4" />
-                )}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              {sortMode === "total" ? translations.sortByTotal : translations.sortByRatio}
-            </TooltipContent>
-          </Tooltip>
+          <div className="mb-6 flex items-center gap-2">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="all">{translations.allTime}</TabsTrigger>
+              <TabsTrigger value="month">{translations.thisMonth}</TabsTrigger>
+              <TabsTrigger value="week">{translations.thisWeek}</TabsTrigger>
+            </TabsList>
+            <div className="flex-1" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setSortMode(sortMode === "total" ? "perPrompt" : "total")}
+                  className="shrink-0"
+                >
+                  {sortMode === "total" ? (
+                    <BarChart3 className="h-4 w-4" />
+                  ) : (
+                    <TrendingUp className="h-4 w-4" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                {sortMode === "total" ? translations.sortByTotal : translations.sortByRatio}
+              </TooltipContent>
+            </Tooltip>
           </div>
 
           <TabsContent value="all" className="mt-0">
             {loading ? (
               <LeaderboardSkeleton />
             ) : (
-              <LeaderboardList users={allTime?.leaderboard || []} sortMode={sortMode} translations={translations} />
+              <LeaderboardList
+                users={allTime?.leaderboard || []}
+                sortMode={sortMode}
+                translations={translations}
+              />
             )}
           </TabsContent>
 
@@ -229,7 +231,11 @@ export function PromptmastersContent({ translations }: PromptmastersContentProps
             {loading ? (
               <LeaderboardSkeleton />
             ) : (
-              <LeaderboardList users={monthly?.leaderboard || []} sortMode={sortMode} translations={translations} />
+              <LeaderboardList
+                users={monthly?.leaderboard || []}
+                sortMode={sortMode}
+                translations={translations}
+              />
             )}
           </TabsContent>
 
@@ -237,7 +243,11 @@ export function PromptmastersContent({ translations }: PromptmastersContentProps
             {loading ? (
               <LeaderboardSkeleton />
             ) : (
-              <LeaderboardList users={weekly?.leaderboard || []} sortMode={sortMode} translations={translations} />
+              <LeaderboardList
+                users={weekly?.leaderboard || []}
+                sortMode={sortMode}
+                translations={translations}
+              />
             )}
           </TabsContent>
         </Tabs>

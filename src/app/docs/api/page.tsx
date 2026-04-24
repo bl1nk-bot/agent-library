@@ -1,6 +1,18 @@
 import Link from "next/link";
 import { headers } from "next/headers";
-import { Code, Zap, Terminal, Search, Box, Key, Save, Sparkles, Cpu, FilePlus, FileX } from "lucide-react";
+import {
+  Code,
+  Zap,
+  Terminal,
+  Search,
+  Box,
+  Key,
+  Save,
+  Sparkles,
+  Cpu,
+  FilePlus,
+  FileX,
+} from "lucide-react";
 import { ImprovePromptDemo } from "@/components/api/improve-prompt-demo";
 import {
   Table,
@@ -25,12 +37,11 @@ export default async function ApiDocsPage() {
   const baseUrl = `${protocol}://${host}`;
   return (
     <div className="container max-w-4xl py-10">
-      <h1 className="text-2xl font-bold mb-2">API Documentation</h1>
+      <h1 className="mb-2 text-2xl font-bold">API Documentation</h1>
       <p className="text-muted-foreground mb-8">
-        {config.features.mcp !== false 
+        {config.features.mcp !== false
           ? "prompts.chat provides an MCP-first API for searching and discovering AI prompts programmatically. Use the MCP endpoint directly with any MCP-compatible client, or make standard HTTP requests."
-          : "prompts.chat provides an API for searching and discovering AI prompts programmatically."
-        }
+          : "prompts.chat provides an API for searching and discovering AI prompts programmatically."}
       </p>
 
       <div className="prose prose-neutral dark:prose-invert max-w-none space-y-10">
@@ -38,7 +49,7 @@ export default async function ApiDocsPage() {
           <>
             {/* MCP Overview */}
             <section className="space-y-4">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Zap className="h-5 w-5" />
                 MCP-First API
               </h2>
@@ -48,12 +59,12 @@ export default async function ApiDocsPage() {
                   href="https://modelcontextprotocol.io"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
+                  className="hover:text-foreground underline"
                 >
                   Model Context Protocol (MCP)
                 </Link>
-                , enabling seamless integration with AI assistants, IDEs, and automation tools.
-                The same endpoint works for both MCP clients and traditional REST-style requests.
+                , enabling seamless integration with AI assistants, IDEs, and automation tools. The
+                same endpoint works for both MCP clients and traditional REST-style requests.
               </p>
               <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                 <p className="text-muted-foreground"># MCP Endpoint</p>
@@ -63,50 +74,57 @@ export default async function ApiDocsPage() {
 
             {/* Using with MCP Clients */}
             <section className="space-y-4">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Terminal className="h-5 w-5" />
                 Using with MCP Clients
               </h2>
               <p className="text-muted-foreground">
-                Add prompts.chat to your MCP client configuration. Choose your client and connection type below:
+                Add prompts.chat to your MCP client configuration. Choose your client and connection
+                type below:
               </p>
-              <McpConfigTabs baseUrl={baseUrl} className="[&_button]:text-sm [&_button]:px-3 [&_button]:py-1.5 [&_pre]:text-sm [&_pre]:p-4" />
+              <McpConfigTabs
+                baseUrl={baseUrl}
+                className="[&_button]:px-3 [&_button]:py-1.5 [&_button]:text-sm [&_pre]:p-4 [&_pre]:text-sm"
+              />
               <p className="text-muted-foreground text-sm">
-                <strong>Remote</strong> connects directly to prompts.chat API. <strong>Local</strong> runs the MCP server locally via npx.
+                <strong>Remote</strong> connects directly to prompts.chat API.{" "}
+                <strong>Local</strong> runs the MCP server locally via npx.
               </p>
             </section>
 
             {/* Authentication */}
             <section className="space-y-4">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Key className="h-5 w-5" />
                 Authentication
               </h2>
               <p className="text-muted-foreground">
-                Most API features work without authentication. However, to save prompts via MCP or access your private prompts,
-                you need to authenticate using an API key.
+                Most API features work without authentication. However, to save prompts via MCP or
+                access your private prompts, you need to authenticate using an API key.
               </p>
-              
-              <div className="bg-muted/50 rounded-lg p-4 text-sm space-y-3">
+
+              <div className="bg-muted/50 space-y-3 rounded-lg p-4 text-sm">
                 <div>
                   <p className="font-medium">Generate an API Key</p>
                   <p className="text-muted-foreground">
                     Go to{" "}
-                    <Link href="/settings" className="underline hover:text-foreground">
+                    <Link href="/settings" className="hover:text-foreground underline">
                       Settings
-                    </Link>
-                    {" "}to generate your API key. Keys start with <code className="bg-muted px-1.5 py-0.5 rounded">pchat_</code>.
+                    </Link>{" "}
+                    to generate your API key. Keys start with{" "}
+                    <code className="bg-muted rounded px-1.5 py-0.5">pchat_</code>.
                   </p>
                 </div>
                 <div>
                   <p className="font-medium">Using the API Key</p>
                   <p className="text-muted-foreground">
-                    Pass your API key via the <code className="bg-muted px-1.5 py-0.5 rounded">PROMPTS_API_KEY</code> header.
+                    Pass your API key via the{" "}
+                    <code className="bg-muted rounded px-1.5 py-0.5">PROMPTS_API_KEY</code> header.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+              <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                 <pre>{`# Remote: HTTP transport with headers
 "prompts-chat": {
   "url": "${baseUrl}/api/mcp",
@@ -132,26 +150,28 @@ curl -X POST ${baseUrl}/api/mcp \\
               </div>
 
               <p className="text-muted-foreground text-sm">
-                <strong>Remote (HTTP)</strong> sends requests to prompts.chat with the API key in headers. 
-                <strong> Local (stdio)</strong> runs the MCP server locally via npx with the API key as an environment variable.
-                With authentication, you can use the <code className="bg-muted px-1.5 py-0.5 rounded">save_prompt</code> tool 
-                and search results will include your private prompts.
+                <strong>Remote (HTTP)</strong> sends requests to prompts.chat with the API key in
+                headers.
+                <strong> Local (stdio)</strong> runs the MCP server locally via npx with the API key
+                as an environment variable. With authentication, you can use the{" "}
+                <code className="bg-muted rounded px-1.5 py-0.5">save_prompt</code> tool and search
+                results will include your private prompts.
               </p>
             </section>
 
             {/* MCP Prompts */}
             <section className="space-y-4">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Terminal className="h-5 w-5" />
                 MCP Prompts
               </h2>
               <p className="text-muted-foreground">
-                All public prompts are exposed as native MCP prompts. This allows MCP clients to list 
-                and use prompts directly via slash commands or prompt pickers. You can filter prompts 
-                by category or tag using URL query parameters.
+                All public prompts are exposed as native MCP prompts. This allows MCP clients to
+                list and use prompts directly via slash commands or prompt pickers. You can filter
+                prompts by category or tag using URL query parameters.
               </p>
-              
-              <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+
+              <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                 <pre>{`# Filter by users (one or more usernames)
 "prompts-chat": {
   "url": "${baseUrl}/api/mcp?users=f,torvalds"
@@ -172,22 +192,24 @@ curl -X POST ${baseUrl}/api/mcp \\
   "url": "${baseUrl}/api/mcp?users=f&categories=coding&tags=js"
 }`}</pre>
               </div>
-              
-              <div className="bg-muted/50 rounded-lg p-4 text-sm space-y-3">
+
+              <div className="bg-muted/50 space-y-3 rounded-lg p-4 text-sm">
                 <div>
                   <p className="font-medium">prompts/list</p>
-                  <p className="text-muted-foreground">Browse all available prompts with pagination support.</p>
+                  <p className="text-muted-foreground">
+                    Browse all available prompts with pagination support.
+                  </p>
                 </div>
                 <div>
                   <p className="font-medium">prompts/get</p>
                   <p className="text-muted-foreground">
-                    Retrieve a prompt by ID. Variables ({"${name}"} or {"${name:default}"}) are automatically 
-                    substituted with provided arguments.
+                    Retrieve a prompt by ID. Variables ({"${name}"} or {"${name:default}"}) are
+                    automatically substituted with provided arguments.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+              <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                 <pre>{`# List prompts
 curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
@@ -212,186 +234,219 @@ curl -X POST ${baseUrl}/api/mcp \\
 
             {/* Available Tools */}
             <section className="space-y-6">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Box className="h-5 w-5" />
                 Available Tools
               </h2>
 
-          {/* search_prompts Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              search_prompts
-            </h3>
-            <p className="text-muted-foreground">
-              Search for AI prompts by keyword. Returns matching prompts with title, description, 
-              content, author, category, and tags.
-            </p>
+              {/* search_prompts Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Search className="h-4 w-4" />
+                  search_prompts
+                </h3>
+                <p className="text-muted-foreground">
+                  Search for AI prompts by keyword. Returns matching prompts with title,
+                  description, content, author, category, and tags.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[120px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">query</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Search query to find relevant prompts</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">limit</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">number</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Maximum results (default: 10, max: 50)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">type</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      Filter by type: <code className="text-xs">TEXT</code>, <code className="text-xs">STRUCTURED</code>, <code className="text-xs">IMAGE</code>, <code className="text-xs">VIDEO</code>, <code className="text-xs">AUDIO</code>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">category</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Filter by category slug</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">tag</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Filter by tag slug</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[120px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">query</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Search query to find relevant prompts
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">limit</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">number</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Maximum results (default: 10, max: 50)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">type</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Filter by type: <code className="text-xs">TEXT</code>,{" "}
+                          <code className="text-xs">STRUCTURED</code>,{" "}
+                          <code className="text-xs">IMAGE</code>,{" "}
+                          <code className="text-xs">VIDEO</code>,{" "}
+                          <code className="text-xs">AUDIO</code>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">category</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Filter by category slug
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">tag</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Filter by tag slug
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
 
-          {/* get_prompt Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Box className="h-4 w-4" />
-              get_prompt
-            </h3>
-            <p className="text-muted-foreground">
-              Get a prompt by ID. If the prompt contains template variables (like {"${variable}"} or {"${variable:default}"}), 
-              the MCP client will be asked to provide values through elicitation.
-            </p>
+              {/* get_prompt Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Box className="h-4 w-4" />
+                  get_prompt
+                </h3>
+                <p className="text-muted-foreground">
+                  Get a prompt by ID. If the prompt contains template variables (like{" "}
+                  {"${variable}"} or {"${variable:default}"}), the MCP client will be asked to
+                  provide values through elicitation.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[120px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">id</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">The ID of the prompt to retrieve</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[120px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">id</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          The ID of the prompt to retrieve
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
 
-            <div className="bg-muted/50 rounded-lg p-4 text-sm">
-              <p className="font-medium mb-2">Variable Elicitation</p>
-              <p className="text-muted-foreground">
-                When a prompt contains variables like {"${name}"} or {"${topic:default value}"}, MCP clients 
-                that support elicitation will prompt the user to fill in these values. Variables with 
-                default values (after the colon) are optional. The prompt content will be returned with 
-                variables replaced.
-              </p>
-            </div>
-          </div>
+                <div className="bg-muted/50 rounded-lg p-4 text-sm">
+                  <p className="mb-2 font-medium">Variable Elicitation</p>
+                  <p className="text-muted-foreground">
+                    When a prompt contains variables like {"${name}"} or {"${topic:default value}"},
+                    MCP clients that support elicitation will prompt the user to fill in these
+                    values. Variables with default values (after the colon) are optional. The prompt
+                    content will be returned with variables replaced.
+                  </p>
+                </div>
+              </div>
 
-          {/* save_prompt Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Save className="h-4 w-4" />
-              save_prompt
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
-            </h3>
-            <p className="text-muted-foreground">
-              Save a new prompt to your account. Requires API key authentication. Prompts are private by default
-              unless you&apos;ve changed the default in your settings.
-            </p>
+              {/* save_prompt Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Save className="h-4 w-4" />
+                  save_prompt
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+                    Requires Auth
+                  </span>
+                </h3>
+                <p className="text-muted-foreground">
+                  Save a new prompt to your account. Requires API key authentication. Prompts are
+                  private by default unless you&apos;ve changed the default in your settings.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">title</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Title of the prompt (max 200 chars)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">content</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">The prompt content. Can include variables like {"${var}"}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">description</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Optional description (max 500 chars)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">tags</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string[]</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Array of tag names (max 10)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">category</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Category slug</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">isPrivate</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">boolean</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Override default privacy setting</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">type</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      <code className="text-xs">TEXT</code> (default), <code className="text-xs">STRUCTURED</code>, <code className="text-xs">IMAGE</code>, <code className="text-xs">VIDEO</code>, <code className="text-xs">AUDIO</code>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">title</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Title of the prompt (max 200 chars)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">content</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          The prompt content. Can include variables like {"${var}"}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">description</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Optional description (max 500 chars)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">tags</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string[]</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Array of tag names (max 10)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">category</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Category slug
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">isPrivate</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">boolean</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Override default privacy setting
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">type</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          <code className="text-xs">TEXT</code> (default),{" "}
+                          <code className="text-xs">STRUCTURED</code>,{" "}
+                          <code className="text-xs">IMAGE</code>,{" "}
+                          <code className="text-xs">VIDEO</code>,{" "}
+                          <code className="text-xs">AUDIO</code>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
 
-            <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <pre>{`# Save a prompt via MCP
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <pre>{`# Save a prompt via MCP
 curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "PROMPTS_API_KEY: pchat_your_api_key_here" \\
@@ -410,60 +465,69 @@ curl -X POST ${baseUrl}/api/mcp \\
       }
     }
   }'`}</pre>
-            </div>
-          </div>
+                </div>
+              </div>
 
-          {/* improve_prompt Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Sparkles className="h-4 w-4" />
-              improve_prompt
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
-            </h3>
-            <p className="text-muted-foreground">
-              Transform a basic prompt into a well-structured, comprehensive prompt using AI.
-              Searches for similar prompts for inspiration and generates improved versions.
-            </p>
+              {/* improve_prompt Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Sparkles className="h-4 w-4" />
+                  improve_prompt
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+                    Requires Auth
+                  </span>
+                </h3>
+                <p className="text-muted-foreground">
+                  Transform a basic prompt into a well-structured, comprehensive prompt using AI.
+                  Searches for similar prompts for inspiration and generates improved versions.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">prompt</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">The prompt to improve (max 10,000 chars)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">outputType</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      Content type: <code className="text-xs">text</code> (default), <code className="text-xs">image</code>, <code className="text-xs">video</code>, <code className="text-xs">sound</code>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">outputFormat</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      Response format: <code className="text-xs">text</code> (default), <code className="text-xs">structured_json</code>, <code className="text-xs">structured_yaml</code>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">prompt</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          The prompt to improve (max 10,000 chars)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">outputType</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Content type: <code className="text-xs">text</code> (default),{" "}
+                          <code className="text-xs">image</code>,{" "}
+                          <code className="text-xs">video</code>,{" "}
+                          <code className="text-xs">sound</code>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">outputFormat</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Response format: <code className="text-xs">text</code> (default),{" "}
+                          <code className="text-xs">structured_json</code>,{" "}
+                          <code className="text-xs">structured_yaml</code>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
 
-            <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <pre>{`# Improve a prompt via MCP
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <pre>{`# Improve a prompt via MCP
 curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "PROMPTS_API_KEY: pchat_your_api_key_here" \\
@@ -480,76 +544,90 @@ curl -X POST ${baseUrl}/api/mcp \\
       }
     }
   }'`}</pre>
-            </div>
-          </div>
+                </div>
+              </div>
 
-          {/* save_skill Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Cpu className="h-4 w-4" />
-              save_skill
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
-            </h3>
-            <p className="text-muted-foreground">
-              Save a new Agent Skill to your account. Skills are multi-file prompts that can include SKILL.md (required),
-              reference docs, scripts, and configuration files. Perfect for creating comprehensive coding agent skills.
-            </p>
+              {/* save_skill Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Cpu className="h-4 w-4" />
+                  save_skill
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+                    Requires Auth
+                  </span>
+                </h3>
+                <p className="text-muted-foreground">
+                  Save a new Agent Skill to your account. Skills are multi-file prompts that can
+                  include SKILL.md (required), reference docs, scripts, and configuration files.
+                  Perfect for creating comprehensive coding agent skills.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">title</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Title of the skill (max 200 chars)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">files</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">array</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      Array of {`{filename, content}`}. Must include <code className="text-xs">SKILL.md</code>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">description</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Optional description (max 500 chars)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">tags</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string[]</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Array of tag names (max 10)</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">category</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Category slug</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">isPrivate</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">boolean</TableCell>
-                    <TableCell className="text-xs">No</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">Override default privacy setting</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">title</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Title of the skill (max 200 chars)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">files</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">array</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Array of {`{filename, content}`}. Must include{" "}
+                          <code className="text-xs">SKILL.md</code>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">description</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Optional description (max 500 chars)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">tags</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string[]</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Array of tag names (max 10)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">category</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Category slug
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">isPrivate</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">boolean</TableCell>
+                        <TableCell className="text-xs">No</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          Override default privacy setting
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
 
-            <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <pre>{`# Save a skill via MCP
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <pre>{`# Save a skill via MCP
 curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "PROMPTS_API_KEY: pchat_your_api_key_here" \\
@@ -571,130 +649,147 @@ curl -X POST ${baseUrl}/api/mcp \\
       }
     }
   }'`}</pre>
-            </div>
-          </div>
+                </div>
+              </div>
 
-          {/* add_file_to_skill Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <FilePlus className="h-4 w-4" />
-              add_file_to_skill
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
-            </h3>
-            <p className="text-muted-foreground">
-              Add a new file to an existing Agent Skill. Use this to add reference docs, scripts, or configuration files.
-            </p>
+              {/* add_file_to_skill Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <FilePlus className="h-4 w-4" />
+                  add_file_to_skill
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+                    Requires Auth
+                  </span>
+                </h3>
+                <p className="text-muted-foreground">
+                  Add a new file to an existing Agent Skill. Use this to add reference docs,
+                  scripts, or configuration files.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">skillId</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">ID of the skill to add the file to</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">filename</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      File path (e.g., <code className="text-xs">reference.md</code>, <code className="text-xs">scripts/helper.py</code>)
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">content</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">File content</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">skillId</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          ID of the skill to add the file to
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">filename</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          File path (e.g., <code className="text-xs">reference.md</code>,{" "}
+                          <code className="text-xs">scripts/helper.py</code>)
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">content</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          File content
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
 
-          {/* remove_file_from_skill Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <FileX className="h-4 w-4" />
-              remove_file_from_skill
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
-            </h3>
-            <p className="text-muted-foreground">
-              Remove a file from an existing Agent Skill. Cannot remove SKILL.md as it is required.
-            </p>
+              {/* remove_file_from_skill Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <FileX className="h-4 w-4" />
+                  remove_file_from_skill
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+                    Requires Auth
+                  </span>
+                </h3>
+                <p className="text-muted-foreground">
+                  Remove a file from an existing Agent Skill. Cannot remove SKILL.md as it is
+                  required.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">skillId</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">ID of the skill to remove the file from</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">filename</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">File path to remove (cannot be SKILL.md)</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">skillId</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          ID of the skill to remove the file from
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">filename</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          File path to remove (cannot be SKILL.md)
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
 
-          {/* get_skill Tool */}
-          <div className="space-y-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <Cpu className="h-4 w-4" />
-              get_skill
-            </h3>
-            <p className="text-muted-foreground">
-              Get an Agent Skill by ID, including all its files (SKILL.md, reference docs, scripts, etc.).
-              Returns skill metadata and file contents. Public skills are accessible without authentication;
-              private skills require API key authentication.
-            </p>
+              {/* get_skill Tool */}
+              <div className="space-y-4">
+                <h3 className="flex items-center gap-2 font-medium">
+                  <Cpu className="h-4 w-4" />
+                  get_skill
+                </h3>
+                <p className="text-muted-foreground">
+                  Get an Agent Skill by ID, including all its files (SKILL.md, reference docs,
+                  scripts, etc.). Returns skill metadata and file contents. Public skills are
+                  accessible without authentication; private skills require API key authentication.
+                </p>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[140px]">Parameter</TableHead>
-                    <TableHead className="w-[100px]">Type</TableHead>
-                    <TableHead className="w-[80px]">Required</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-mono text-xs">id</TableCell>
-                    <TableCell className="text-muted-foreground text-xs">string</TableCell>
-                    <TableCell className="text-xs">Yes</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">The ID of the skill to retrieve</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+                <div className="overflow-hidden rounded-lg border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[140px]">Parameter</TableHead>
+                        <TableHead className="w-[100px]">Type</TableHead>
+                        <TableHead className="w-[80px]">Required</TableHead>
+                        <TableHead>Description</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-mono text-xs">id</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">string</TableCell>
+                        <TableCell className="text-xs">Yes</TableCell>
+                        <TableCell className="text-muted-foreground text-sm">
+                          The ID of the skill to retrieve
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
 
-            <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <pre>{`# Get a skill via MCP
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <pre>{`# Get a skill via MCP
 curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -708,20 +803,20 @@ curl -X POST ${baseUrl}/api/mcp \\
       }
     }
   }'`}</pre>
-            </div>
-          </div>
-        </section>
+                </div>
+              </div>
+            </section>
 
             {/* MCP Protocol Example */}
             <section className="space-y-4">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <Code className="h-5 w-5" />
                 MCP Protocol Examples
               </h2>
 
               <div className="space-y-3">
                 <h3 className="font-medium">Initialize Connection</h3>
-                <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                   <pre>{`curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "Accept: application/json, text/event-stream" \\
@@ -740,7 +835,7 @@ curl -X POST ${baseUrl}/api/mcp \\
 
               <div className="space-y-3">
                 <h3 className="font-medium">List Available Tools</h3>
-                <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                   <pre>{`curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "Accept: application/json, text/event-stream" \\
@@ -754,7 +849,7 @@ curl -X POST ${baseUrl}/api/mcp \\
 
               <div className="space-y-3">
                 <h3 className="font-medium">Search Prompts</h3>
-                <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                   <pre>{`curl -X POST ${baseUrl}/api/mcp \\
   -H "Content-Type: application/json" \\
   -H "Accept: application/json, text/event-stream" \\
@@ -778,9 +873,10 @@ curl -X POST ${baseUrl}/api/mcp \\
             <section className="space-y-4">
               <h2 className="text-lg font-semibold">Response Format</h2>
               <p className="text-muted-foreground">
-                The <code className="bg-muted px-1.5 py-0.5 rounded text-sm">search_prompts</code> tool returns results in the following format:
+                The <code className="bg-muted rounded px-1.5 py-0.5 text-sm">search_prompts</code>{" "}
+                tool returns results in the following format:
               </p>
-              <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+              <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
                 <pre>{`{
   "query": "code review",
   "count": 2,
@@ -806,55 +902,63 @@ curl -X POST ${baseUrl}/api/mcp \\
 
         {/* Improve Prompt API */}
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
+          <h2 className="flex items-center gap-2 text-lg font-semibold">
             <Sparkles className="h-5 w-5" />
             Improve Prompt API
-            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Requires Auth</span>
+            <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs">
+              Requires Auth
+            </span>
           </h2>
           <p className="text-muted-foreground">
-            Transform basic prompts into well-structured, comprehensive prompts using AI.
-            The API uses embeddings to find similar prompts for inspiration and generates
-            improved versions while preserving the original intent. Requires API key authentication.
+            Transform basic prompts into well-structured, comprehensive prompts using AI. The API
+            uses embeddings to find similar prompts for inspiration and generates improved versions
+            while preserving the original intent. Requires API key authentication.
           </p>
 
-          <div className="border rounded-lg overflow-hidden">
+          <div className="overflow-hidden rounded-lg border">
             <table className="w-full">
               <thead className="bg-muted/50">
                 <tr>
-                  <th className="text-left p-3 text-sm font-medium w-[120px]">Parameter</th>
-                  <th className="text-left p-3 text-sm font-medium w-[100px]">Type</th>
-                  <th className="text-left p-3 text-sm font-medium w-[80px]">Required</th>
-                  <th className="text-left p-3 text-sm font-medium">Description</th>
+                  <th className="w-[120px] p-3 text-left text-sm font-medium">Parameter</th>
+                  <th className="w-[100px] p-3 text-left text-sm font-medium">Type</th>
+                  <th className="w-[80px] p-3 text-left text-sm font-medium">Required</th>
+                  <th className="p-3 text-left text-sm font-medium">Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-t">
                   <td className="p-3 font-mono text-xs">prompt</td>
-                  <td className="p-3 text-muted-foreground text-xs">string</td>
+                  <td className="text-muted-foreground p-3 text-xs">string</td>
                   <td className="p-3 text-xs">Yes</td>
-                  <td className="p-3 text-muted-foreground text-sm">The prompt to improve (max 10,000 chars)</td>
+                  <td className="text-muted-foreground p-3 text-sm">
+                    The prompt to improve (max 10,000 chars)
+                  </td>
                 </tr>
                 <tr className="border-t">
                   <td className="p-3 font-mono text-xs">outputType</td>
-                  <td className="p-3 text-muted-foreground text-xs">string</td>
+                  <td className="text-muted-foreground p-3 text-xs">string</td>
                   <td className="p-3 text-xs">No</td>
-                  <td className="p-3 text-muted-foreground text-sm">
-                    Content type: <code className="text-xs">text</code> (default), <code className="text-xs">image</code>, <code className="text-xs">video</code>, <code className="text-xs">sound</code>
+                  <td className="text-muted-foreground p-3 text-sm">
+                    Content type: <code className="text-xs">text</code> (default),{" "}
+                    <code className="text-xs">image</code>, <code className="text-xs">video</code>,{" "}
+                    <code className="text-xs">sound</code>
                   </td>
                 </tr>
                 <tr className="border-t">
                   <td className="p-3 font-mono text-xs">outputFormat</td>
-                  <td className="p-3 text-muted-foreground text-xs">string</td>
+                  <td className="text-muted-foreground p-3 text-xs">string</td>
                   <td className="p-3 text-xs">No</td>
-                  <td className="p-3 text-muted-foreground text-sm">
-                    Response format: <code className="text-xs">text</code> (default), <code className="text-xs">structured_json</code>, <code className="text-xs">structured_yaml</code>
+                  <td className="text-muted-foreground p-3 text-sm">
+                    Response format: <code className="text-xs">text</code> (default),{" "}
+                    <code className="text-xs">structured_json</code>,{" "}
+                    <code className="text-xs">structured_yaml</code>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+          <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
             <pre>{`# Improve a prompt
 curl -X POST ${baseUrl}/api/improve-prompt \\
   -H "Content-Type: application/json" \\
@@ -866,10 +970,10 @@ curl -X POST ${baseUrl}/api/improve-prompt \\
   }'`}</pre>
           </div>
 
-          <div className="bg-muted/50 rounded-lg p-4 text-sm space-y-3">
+          <div className="bg-muted/50 space-y-3 rounded-lg p-4 text-sm">
             <div>
               <p className="font-medium">Response Format</p>
-              <pre className="mt-2 text-xs text-muted-foreground">{`{
+              <pre className="text-muted-foreground mt-2 text-xs">{`{
   "original": "write a blog post about AI",
   "improved": "You are an expert technology writer...\n\n## Task\nWrite an engaging blog post...",
   "outputType": "text",
@@ -884,7 +988,7 @@ curl -X POST ${baseUrl}/api/improve-prompt \\
           </div>
 
           <div className="pt-4">
-            <h3 className="font-medium mb-4">Try It Out</h3>
+            <h3 className="mb-4 font-medium">Try It Out</h3>
             <ImprovePromptDemo />
           </div>
         </section>
@@ -895,7 +999,7 @@ curl -X POST ${baseUrl}/api/improve-prompt \\
           <p className="text-muted-foreground">
             Use the standard REST endpoint to search and retrieve prompts:
           </p>
-          <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
+          <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
             <pre>{`# Search prompts via REST
 curl "${baseUrl}/api/prompts?q=code+review&perPage=10"
 
@@ -908,12 +1012,9 @@ curl "${baseUrl}/api/prompts/{id}"`}</pre>
         <section className="space-y-4">
           <h2 className="text-lg font-semibold">Rate Limits</h2>
           <p className="text-muted-foreground">
-            The API is public and free to use. Please be respectful with request frequency.
-            For high-volume usage, consider{" "}
-            <Link
-              href="/docs/self-hosting"
-              className="underline hover:text-foreground"
-            >
+            The API is public and free to use. Please be respectful with request frequency. For
+            high-volume usage, consider{" "}
+            <Link href="/docs/self-hosting" className="hover:text-foreground underline">
               self-hosting your own instance
             </Link>
             .
@@ -929,7 +1030,7 @@ curl "${baseUrl}/api/prompts/{id}"`}</pre>
               href="https://github.com/bl1nk-bot/agent-library/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-foreground"
+              className="hover:text-foreground underline"
             >
               GitHub Issue
             </Link>

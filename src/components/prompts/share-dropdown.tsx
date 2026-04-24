@@ -62,11 +62,10 @@ export function ShareDropdown({ title, url, promptId }: ShareDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => handleShare("twitter")}>
-          <XIcon className="h-4 w-4 mr-2" />
-          X / Twitter
+          <XIcon className="mr-2 h-4 w-4" />X / Twitter
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleShare("hackernews")}>
-          <HackerNewsIcon className="h-4 w-4 mr-2" />
+          <HackerNewsIcon className="mr-2 h-4 w-4" />
           Hacker News
         </DropdownMenuItem>
       </DropdownMenuContent>

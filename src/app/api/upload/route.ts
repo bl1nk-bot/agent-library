@@ -9,20 +9,18 @@ const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp
 const ALLOWED_VIDEO_TYPES = ["video/mp4"];
 
 async function compressToJpg(buffer: Buffer): Promise<Buffer> {
-  return await sharp(buffer)
-    .jpeg({ quality: 90, mozjpeg: true })
-    .toBuffer();
+  return await sharp(buffer).jpeg({ quality: 90, mozjpeg: true }).toBuffer();
 }
 
 export async function POST(request: NextRequest) {
   const session = await auth();
-  
+
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const enabledStorage = process.env.ENABLED_STORAGE || "url";
-  
+
   if (enabledStorage === "url") {
     return NextResponse.json(
       { error: "File upload is not enabled. Using URL storage mode." },
@@ -31,7 +29,7 @@ export async function POST(request: NextRequest) {
   }
 
   const storagePlugin = getStoragePlugin(enabledStorage);
-  
+
   if (!storagePlugin) {
     return NextResponse.json(
       { error: `Storage plugin "${enabledStorage}" not found` },
@@ -61,7 +59,9 @@ export async function POST(request: NextRequest) {
     // Validate file type
     if (!isImage && !isVideo) {
       return NextResponse.json(
-        { error: "Invalid file type. Only JPEG, PNG, GIF, WebP images and MP4 videos are allowed." },
+        {
+          error: "Invalid file type. Only JPEG, PNG, GIF, WebP images and MP4 videos are allowed.",
+        },
         { status: 400 }
       );
     }
@@ -69,10 +69,7 @@ export async function POST(request: NextRequest) {
     // Validate file size based on type
     const maxSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
     if (file.size > maxSize) {
-      return NextResponse.json(
-        { error: `File too large. Maximum size is 4MB.` },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: `File too large. Maximum size is 4MB.` }, { status: 400 });
     }
 
     // Convert to buffer
@@ -82,7 +79,7 @@ export async function POST(request: NextRequest) {
     // Generate filename
     const timestamp = Date.now();
     const randomId = Math.random().toString(36).substring(2, 8);
-    
+
     let uploadBuffer: Buffer;
     let filename: string;
     let mimeType: string;

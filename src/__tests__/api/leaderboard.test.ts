@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { GET } from "@/app/api/leaderboard/route";
 import { db } from "@/lib/db";
@@ -124,7 +123,9 @@ describe("GET /api/leaderboard", () => {
 
     expect(response.status).toBe(200);
     // User2 should be first with 10 votes
-    expect(data.leaderboard[0].totalUpvotes).toBeGreaterThanOrEqual(data.leaderboard[1]?.totalUpvotes || 0);
+    expect(data.leaderboard[0].totalUpvotes).toBeGreaterThanOrEqual(
+      data.leaderboard[1]?.totalUpvotes || 0
+    );
   });
 
   it("should aggregate votes for users with multiple prompts", async () => {

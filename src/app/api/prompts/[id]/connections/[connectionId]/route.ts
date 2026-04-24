@@ -32,10 +32,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     });
 
     if (!connection) {
-      return NextResponse.json(
-        { error: "Connection not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Connection not found" }, { status: 404 });
     }
 
     if (connection.sourceId !== id) {
@@ -45,10 +42,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    if (
-      connection.source.authorId !== session.user.id &&
-      session.user.role !== "ADMIN"
-    ) {
+    if (connection.source.authorId !== session.user.id && session.user.role !== "ADMIN") {
       return NextResponse.json(
         { error: "You can only delete connections from your own prompts" },
         { status: 403 }
@@ -65,10 +59,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to delete connection:", error);
-    return NextResponse.json(
-      { error: "Failed to delete connection" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete connection" }, { status: 500 });
   }
 }
 
@@ -94,10 +85,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     });
 
     if (!connection) {
-      return NextResponse.json(
-        { error: "Connection not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Connection not found" }, { status: 404 });
     }
 
     if (connection.sourceId !== id) {
@@ -107,10 +95,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    if (
-      connection.source.authorId !== session.user.id &&
-      session.user.role !== "ADMIN"
-    ) {
+    if (connection.source.authorId !== session.user.id && session.user.role !== "ADMIN") {
       return NextResponse.json(
         { error: "You can only update connections on your own prompts" },
         { status: 403 }
@@ -137,9 +122,6 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
     console.error("Failed to update connection:", error);
-    return NextResponse.json(
-      { error: "Failed to update connection" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update connection" }, { status: 500 });
   }
 }

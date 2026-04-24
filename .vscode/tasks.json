@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Development: Start Dev Server",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "💎 Database: Prisma Studio",
+      "type": "shell",
+      "command": "npm run db:studio",
+      "group": "build",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "🛠️ Database: Sync Schema (Push)",
+      "type": "shell",
+      "command": "npm run db:push",
+      "group": "build"
+    },
+    {
+      "label": "🏗️ Build: Next.js Production",
+      "type": "shell",
+      "command": "npm run build",
+      "group": "build"
+    },
+    {
+      "label": "🧪 Quality: Run All Checks (QA)",
+      "type": "shell",
+      "command": "npm run lint && npm run test && node scripts/check_translations.js",
+      "group": "test"
+    },
+    {
+      "label": "🌐 Localization: Find Unused Keys",
+      "type": "shell",
+      "command": "node scripts/find-unused-translations.js",
+      "group": "none"
+    },
+    {
+      "label": "🔑 DevOps: Sync Environment Variables",
+      "type": "shell",
+      "command": "node scripts/sync-env.js",
+      "group": "none"
+    }
+  ]
+}

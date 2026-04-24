@@ -17,7 +17,9 @@ interface UpdateWebhookData {
   isEnabled?: boolean;
 }
 
-function validateUpdateWebhook(body: unknown): { success: true; data: UpdateWebhookData } | { success: false; error: string } {
+function validateUpdateWebhook(
+  body: unknown
+): { success: true; data: UpdateWebhookData } | { success: false; error: string } {
   if (typeof body !== "object" || body === null) {
     return { success: false, error: "Invalid request body" };
   }
@@ -70,7 +72,10 @@ function validateUpdateWebhook(body: unknown): { success: true; data: UpdateWebh
   }
 
   if (data.events !== undefined) {
-    if (!Array.isArray(data.events) || !data.events.every(e => typeof e === "string" && VALID_EVENTS.includes(e))) {
+    if (
+      !Array.isArray(data.events) ||
+      !data.events.every((e) => typeof e === "string" && VALID_EVENTS.includes(e))
+    ) {
       return { success: false, error: `Events must be an array of: ${VALID_EVENTS.join(", ")}` };
     }
     result.events = data.events;
@@ -87,10 +92,7 @@ function validateUpdateWebhook(body: unknown): { success: true; data: UpdateWebh
 }
 
 // GET single webhook
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user || session.user.role !== "ADMIN") {
@@ -114,10 +116,7 @@ export async function GET(
 }
 
 // UPDATE webhook
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user || session.user.role !== "ADMIN") {
@@ -137,7 +136,7 @@ export async function PATCH(
 
     // Build update data with proper Prisma types
     const updateData: Record<string, unknown> = { ...validation.data };
-    
+
     if (validation.data.headers === null) {
       updateData.headers = Prisma.JsonNull;
     }
@@ -155,10 +154,7 @@ export async function PATCH(
 }
 
 // DELETE webhook
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user || session.user.role !== "ADMIN") {

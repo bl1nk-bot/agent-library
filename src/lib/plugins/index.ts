@@ -13,10 +13,10 @@ let initialized = false;
 
 export function initializePlugins(): void {
   if (initialized) return;
-  
+
   registerBuiltInAuthPlugins();
   registerBuiltInStoragePlugins();
-  
+
   initialized = true;
 }
 
@@ -38,18 +38,18 @@ export async function getConfiguredAuthPlugins() {
   initializePlugins();
   const config = await getConfig();
   const providerIds = getProviderIds(config);
-  
+
   const plugins = providerIds
     .map((id) => getAuthPlugin(id))
     .filter((p): p is NonNullable<typeof p> => p !== null && p !== undefined);
-  
+
   if (plugins.length === 0) {
     throw new Error(
       `No auth plugins found for configured providers: ${providerIds.join(", ")}. ` +
-      `Available plugins: credentials, google, azure, github`
+        `Available plugins: credentials, google, azure, github`
     );
   }
-  
+
   return plugins;
 }
 

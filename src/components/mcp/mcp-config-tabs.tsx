@@ -36,17 +36,26 @@ const CLIENT_LABELS: Record<Client, string> = {
 
 const NPM_PACKAGE = "@fkadev/prompts.chat-mcp";
 
-function buildLocalEnv(apiKey?: string | null, queryParams?: string): Record<string, string> | undefined {
+function buildLocalEnv(
+  apiKey?: string | null,
+  queryParams?: string
+): Record<string, string> | undefined {
   const env: Record<string, string> = {};
   if (apiKey) env.PROMPTS_API_KEY = apiKey;
   if (queryParams) env.PROMPTS_QUERY = queryParams;
   return Object.keys(env).length > 0 ? env : undefined;
 }
 
-function getConfig(client: Client, mode: Mode, mcpUrl: string, apiKey?: string | null, queryParams?: string): string {
+function getConfig(
+  client: Client,
+  mode: Mode,
+  mcpUrl: string,
+  apiKey?: string | null,
+  queryParams?: string
+): string {
   const packageName = NPM_PACKAGE;
   const localEnv = buildLocalEnv(apiKey, queryParams);
-  
+
   switch (client) {
     case "cursor":
       if (mode === "remote") {
@@ -54,7 +63,7 @@ function getConfig(client: Client, mode: Mode, mcpUrl: string, apiKey?: string |
           mcpServers: {
             "prompts.chat": {
               url: mcpUrl,
-              ...(apiKey && { headers: { "PROMPTS_API_KEY": apiKey } }),
+              ...(apiKey && { headers: { PROMPTS_API_KEY: apiKey } }),
             },
           },
         };
@@ -79,8 +88,10 @@ function getConfig(client: Client, mode: Mode, mcpUrl: string, apiKey?: string |
         }
         return `claude mcp add --transport http prompts.chat ${mcpUrl}`;
       } else {
-        const envPrefix = localEnv 
-          ? Object.entries(localEnv).map(([k, v]) => `${k}="${v}"`).join(" ") + " "
+        const envPrefix = localEnv
+          ? Object.entries(localEnv)
+              .map(([k, v]) => `${k}="${v}"`)
+              .join(" ") + " "
           : "";
         return `${envPrefix}claude mcp add prompts.chat -- npx -y ${packageName}`;
       }
@@ -93,7 +104,7 @@ function getConfig(client: Client, mode: Mode, mcpUrl: string, apiKey?: string |
               "prompts.chat": {
                 type: "http",
                 url: mcpUrl,
-                ...(apiKey && { headers: { "PROMPTS_API_KEY": apiKey } }),
+                ...(apiKey && { headers: { PROMPTS_API_KEY: apiKey } }),
               },
             },
           },
@@ -145,7 +156,7 @@ args = ["-y", "${packageName}"]`;
           mcpServers: {
             "prompts.chat": {
               serverUrl: mcpUrl,
-              ...(apiKey && { headers: { "PROMPTS_API_KEY": apiKey } }),
+              ...(apiKey && { headers: { PROMPTS_API_KEY: apiKey } }),
             },
           },
         };
@@ -170,8 +181,10 @@ args = ["-y", "${packageName}"]`;
         }
         return `gemini mcp add prompts.chat --transport sse ${mcpUrl}`;
       } else {
-        const envPrefix = localEnv 
-          ? Object.entries(localEnv).map(([k, v]) => `${k}="${v}"`).join(" ") + " "
+        const envPrefix = localEnv
+          ? Object.entries(localEnv)
+              .map(([k, v]) => `${k}="${v}"`)
+              .join(" ") + " "
           : "";
         return `${envPrefix}gemini mcp add prompts.chat -- npx -y ${packageName}`;
       }
@@ -181,12 +194,21 @@ args = ["-y", "${packageName}"]`;
   }
 }
 
-export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeChange, hideModeToggle, apiKey, showOfficialBranding = false }: McpConfigTabsProps) {
+export function McpConfigTabs({
+  baseUrl,
+  queryParams,
+  className,
+  mode,
+  onModeChange,
+  hideModeToggle,
+  apiKey,
+  showOfficialBranding = false,
+}: McpConfigTabsProps) {
   const [selectedClient, setSelectedClient] = useState<Client>("vscode");
   const [internalMode, setInternalMode] = useState<Mode>("remote");
   const [copied, setCopied] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
-  
+
   const selectedMode = mode ?? internalMode;
   const handleModeChange = (newMode: Mode) => {
     if (onModeChange) {
@@ -196,16 +218,15 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
     }
   };
 
-  const base = baseUrl || (typeof window !== "undefined" ? window.location.origin : "https://prompts.chat");
+  const base =
+    baseUrl || (typeof window !== "undefined" ? window.location.origin : "https://prompts.chat");
   const mcpUrl = queryParams ? `${base}/api/mcp?${queryParams}` : `${base}/api/mcp`;
-  
+
   // Full config with actual API key (for copying)
   const config = getConfig(selectedClient, selectedMode, mcpUrl, apiKey, queryParams);
-  
+
   // Display config: show full key if revealed, otherwise show placeholder (queryParams always visible)
-  const displayApiKey = apiKey 
-    ? (showApiKey ? apiKey : "<click to reveal>")
-    : null;
+  const displayApiKey = apiKey ? (showApiKey ? apiKey : "<click to reveal>") : null;
   const displayConfig = getConfig(selectedClient, selectedMode, mcpUrl, displayApiKey, queryParams);
 
   const handleCopy = async () => {
@@ -226,7 +247,7 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
             key={client}
             onClick={() => setSelectedClient(client)}
             className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded transition-colors whitespace-nowrap",
+              "rounded px-2 py-1 text-[11px] font-medium whitespace-nowrap transition-colors",
               selectedClient === client
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -243,7 +264,7 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
           <button
             onClick={() => handleModeChange("remote")}
             className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded transition-colors",
+              "rounded px-2 py-1 text-[11px] font-medium transition-colors",
               selectedMode === "remote"
                 ? "bg-muted text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -254,7 +275,7 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
           <button
             onClick={() => handleModeChange("local")}
             className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded transition-colors",
+              "rounded px-2 py-1 text-[11px] font-medium transition-colors",
               selectedMode === "local"
                 ? "bg-muted text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -267,11 +288,13 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
 
       {/* Config Display */}
       <div className="relative">
-        <div 
-          dir="ltr" 
+        <div
+          dir="ltr"
           className={cn(
-            "bg-muted rounded-md p-2 font-mono text-[11px] overflow-x-auto text-left",
-            showOfficialBranding && (selectedClient === "vscode" || selectedClient === "cursor") && "max-h-24 overflow-y-auto"
+            "bg-muted overflow-x-auto rounded-md p-2 text-left font-mono text-[11px]",
+            showOfficialBranding &&
+              (selectedClient === "vscode" || selectedClient === "cursor") &&
+              "max-h-24 overflow-y-auto"
           )}
         >
           <pre className="whitespace-pre">
@@ -281,9 +304,9 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
                   <span key={i}>
                     {part}
                     {i < arr.length - 1 && (
-                      <span 
+                      <span
                         onClick={() => setShowApiKey(true)}
-                        className="text-primary underline cursor-pointer hover:text-primary/80"
+                        className="text-primary hover:text-primary/80 cursor-pointer underline"
                       >
                         {"<click to reveal>"}
                       </span>
@@ -302,11 +325,7 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
           className="absolute top-1 right-1 h-6 w-6 p-0"
           onClick={handleCopy}
         >
-          {copied ? (
-            <Check className="h-3 w-3 text-green-500" />
-          ) : (
-            <Copy className="h-3 w-3" />
-          )}
+          {copied ? <Check className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
         </Button>
       </div>
 
@@ -316,7 +335,7 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
           <Button
             variant="outline"
             size="sm"
-            className="h-7 text-[11px] gap-1.5 w-fit"
+            className="h-7 w-fit gap-1.5 text-[11px]"
             onClick={() => {
               const cursorConfig: Record<string, unknown> = {
                 command: "npx",
@@ -325,7 +344,10 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
               const localEnv = buildLocalEnv(apiKey, queryParams);
               if (localEnv) cursorConfig.env = localEnv;
               const configBase64 = btoa(JSON.stringify(cursorConfig));
-              window.open(`cursor://anysphere.cursor-deeplink/mcp/install?name=${encodeURIComponent("prompts.chat")}&config=${configBase64}`, "_self");
+              window.open(
+                `cursor://anysphere.cursor-deeplink/mcp/install?name=${encodeURIComponent("prompts.chat")}&config=${configBase64}`,
+                "_self"
+              );
             }}
           >
             <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
@@ -343,10 +365,20 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
             <Button
               variant="outline"
               size="sm"
-              className="h-7 text-[11px] gap-1.5"
-              onClick={() => window.open("vscode:mcp/by-name/io.github.f/prompts.chat-mcp", "_self")}
+              className="h-7 gap-1.5 text-[11px]"
+              onClick={() =>
+                window.open("vscode:mcp/by-name/io.github.f/prompts.chat-mcp", "_self")
+              }
             >
-              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="#007ACC" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#007ACC"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
               </svg>
@@ -355,17 +387,27 @@ export function McpConfigTabs({ baseUrl, queryParams, className, mode, onModeCha
             <Button
               variant="outline"
               size="sm"
-              className="h-7 text-[11px] gap-1.5"
-              onClick={() => window.open("vscode-insiders:mcp/by-name/io.github.f/prompts.chat-mcp", "_self")}
+              className="h-7 gap-1.5 text-[11px]"
+              onClick={() =>
+                window.open("vscode-insiders:mcp/by-name/io.github.f/prompts.chat-mcp", "_self")
+              }
             >
-              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="#24bfa5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#24bfa5"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
               </svg>
               Insiders
             </Button>
           </div>
-          <p className="text-[10px] text-muted-foreground">
+          <p className="text-muted-foreground text-[10px]">
             prompts.chat is in the official{" "}
             <a
               href="https://github.com/mcp"

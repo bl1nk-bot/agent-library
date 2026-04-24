@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -31,7 +30,7 @@ export default function DevelopersPage() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Check mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -63,12 +62,10 @@ export default function DevelopersPage() {
 
   if (isMobile) {
     return (
-      <div className="container flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
-        <Monitor className="h-16 w-16 text-muted-foreground mb-6" />
-        <h1 className="text-2xl font-bold mb-2">{t("desktopOnly")}</h1>
-        <p className="text-muted-foreground mb-6 max-w-md">
-          {t("desktopOnlyDescription")}
-        </p>
+      <div className="container flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
+        <Monitor className="text-muted-foreground mb-6 h-16 w-16" />
+        <h1 className="mb-2 text-2xl font-bold">{t("desktopOnly")}</h1>
+        <p className="text-muted-foreground mb-6 max-w-md">{t("desktopOnlyDescription")}</p>
         <Button asChild>
           <Link href="/prompts">{t("browsePrompts")}</Link>
         </Button>
@@ -77,54 +74,70 @@ export default function DevelopersPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem-1.65rem)] overflow-hidden">
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="flex flex-col h-full gap-0 overflow-hidden">
-        <div className="h-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 shrink-0 flex items-center">
-          <TabsList className="h-9 bg-transparent border-0 p-0 gap-2">
-            <TabsTrigger 
-              value="enhancer" 
-              className="h-9 border-0 border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none rounded-none px-3 py-2 gap-1.5 text-sm"
+    <div className="flex h-[calc(100vh-4rem-1.65rem)] flex-col overflow-hidden">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="flex h-full flex-col gap-0 overflow-hidden"
+      >
+        <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 flex h-10 shrink-0 items-center border-b px-4 backdrop-blur">
+          <TabsList className="h-9 gap-2 border-0 bg-transparent p-0">
+            <TabsTrigger
+              value="enhancer"
+              className="data-[state=active]:border-b-primary h-9 gap-1.5 rounded-none border-0 border-b-2 border-b-transparent px-3 py-2 text-sm focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               <Sparkles className="h-3.5 w-3.5" />
               {t("promptEnhancer")}
             </TabsTrigger>
-            <TabsTrigger 
-              value="tokenizer" 
-              className="h-9 border-0 border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none rounded-none px-3 py-2 gap-1.5 text-sm"
+            <TabsTrigger
+              value="tokenizer"
+              className="data-[state=active]:border-b-primary h-9 gap-1.5 rounded-none border-0 border-b-2 border-b-transparent px-3 py-2 text-sm focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               <Hash className="h-3.5 w-3.5" />
               {t("promptTokenizer")}
             </TabsTrigger>
-            <TabsTrigger 
-              value="builder" 
-              className="h-9 border-0 border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none rounded-none px-3 py-2 gap-1.5 text-sm"
+            <TabsTrigger
+              value="builder"
+              className="data-[state=active]:border-b-primary h-9 gap-1.5 rounded-none border-0 border-b-2 border-b-transparent px-3 py-2 text-sm focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               <Code2 className="h-3.5 w-3.5" />
               {t("promptBuilder")}
             </TabsTrigger>
-            <TabsTrigger 
-              value="embed" 
-              className="h-9 border-0 border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none rounded-none px-3 py-2 gap-1.5 text-sm"
+            <TabsTrigger
+              value="embed"
+              className="data-[state=active]:border-b-primary h-9 gap-1.5 rounded-none border-0 border-b-2 border-b-transparent px-3 py-2 text-sm focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               <Frame className="h-3.5 w-3.5" />
               {t("embedDesigner")}
             </TabsTrigger>
           </TabsList>
         </div>
-        
-        <TabsContent value="enhancer" className="flex-1 mt-0 min-h-0 overflow-hidden data-[state=inactive]:hidden">
+
+        <TabsContent
+          value="enhancer"
+          className="mt-0 min-h-0 flex-1 overflow-hidden data-[state=inactive]:hidden"
+        >
           <PromptEnhancer />
         </TabsContent>
-        
-        <TabsContent value="tokenizer" className="flex-1 mt-0 min-h-0 overflow-hidden data-[state=inactive]:hidden">
+
+        <TabsContent
+          value="tokenizer"
+          className="mt-0 min-h-0 flex-1 overflow-hidden data-[state=inactive]:hidden"
+        >
           <PromptTokenizer />
         </TabsContent>
-        
-        <TabsContent value="builder" className="flex-1 mt-0 min-h-0 overflow-hidden data-[state=inactive]:hidden">
+
+        <TabsContent
+          value="builder"
+          className="mt-0 min-h-0 flex-1 overflow-hidden data-[state=inactive]:hidden"
+        >
           <PromptIde />
         </TabsContent>
-        
-        <TabsContent value="embed" className="flex-1 mt-0 min-h-0 overflow-hidden data-[state=inactive]:hidden">
+
+        <TabsContent
+          value="embed"
+          className="mt-0 min-h-0 flex-1 overflow-hidden data-[state=inactive]:hidden"
+        >
           <EmbedDesigner />
         </TabsContent>
       </Tabs>

@@ -1,9 +1,9 @@
 /**
  * Seed script to import skills from Anthropic's skills repository
- * 
+ *
  * Usage:
  *   npx tsx scripts/seed-skills.ts [skill-name]
- * 
+ *
  * Examples:
  *   npx tsx scripts/seed-skills.ts pdf
  *   npx tsx scripts/seed-skills.ts --all
@@ -31,7 +31,7 @@ interface SkillMetadata {
  */
 function parseFrontmatter(content: string): { metadata: SkillMetadata; body: string } {
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  
+
   if (!frontmatterMatch) {
     return {
       metadata: { name: "Unknown", description: "" },
@@ -59,7 +59,10 @@ function parseFrontmatter(content: string): { metadata: SkillMetadata; body: str
 /**
  * Recursively read all files from a directory
  */
-function readSkillFiles(skillDir: string, basePath: string = ""): Array<{ path: string; content: string }> {
+function readSkillFiles(
+  skillDir: string,
+  basePath: string = ""
+): Array<{ path: string; content: string }> {
   const files: Array<{ path: string; content: string }> = [];
   const entries = fs.readdirSync(skillDir, { withFileTypes: true });
 
@@ -72,7 +75,7 @@ function readSkillFiles(skillDir: string, basePath: string = ""): Array<{ path: 
     } else if (entry.isFile()) {
       // Skip binary files and hidden files
       if (entry.name.startsWith(".")) continue;
-      
+
       try {
         const content = fs.readFileSync(fullPath, "utf-8");
         files.push({ path: relativePath, content });
@@ -170,22 +173,25 @@ async function importSkill(skillDir: string, authorId: string): Promise<void> {
  */
 async function main() {
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0) {
     console.log("Usage:");
     console.log("  npx tsx scripts/seed-skills.ts <skill-name>  - Import a specific skill");
     console.log("  npx tsx scripts/seed-skills.ts --all         - Import all skills");
     console.log("  npx tsx scripts/seed-skills.ts --list        - List available skills");
     console.log("\nAvailable skills:");
-    
+
     const skillsDir = "/tmp/anthropic-skills/skills";
     if (fs.existsSync(skillsDir)) {
-      const skills = fs.readdirSync(skillsDir, { withFileTypes: true })
+      const skills = fs
+        .readdirSync(skillsDir, { withFileTypes: true })
         .filter((d) => d.isDirectory())
         .map((d) => d.name);
       skills.forEach((s) => console.log(`  - ${s}`));
     } else {
-      console.log("  (Skills repo not found. Clone it first with: git clone https://github.com/anthropics/skills.git /tmp/anthropic-skills)");
+      console.log(
+        "  (Skills repo not found. Clone it first with: git clone https://github.com/anthropics/skills.git /tmp/anthropic-skills)"
+      );
     }
     return;
   }
@@ -219,7 +225,8 @@ async function main() {
 
   if (args[0] === "--all") {
     // Import all skills
-    const skillDirs = fs.readdirSync(skillsBaseDir, { withFileTypes: true })
+    const skillDirs = fs
+      .readdirSync(skillsBaseDir, { withFileTypes: true })
       .filter((d) => d.isDirectory())
       .map((d) => path.join(skillsBaseDir, d.name));
 
@@ -234,20 +241,22 @@ async function main() {
     }
   } else if (args[0] === "--list") {
     // List available skills
-    const skills = fs.readdirSync(skillsBaseDir, { withFileTypes: true })
+    const skills = fs
+      .readdirSync(skillsBaseDir, { withFileTypes: true })
       .filter((d) => d.isDirectory())
       .map((d) => d.name);
-    
+
     console.log("Available skills:");
     skills.forEach((s) => console.log(`  - ${s}`));
   } else {
     // Import specific skill
     const skillDir = path.join(skillsBaseDir, args[0]);
-    
+
     if (!fs.existsSync(skillDir)) {
       console.error(`Skill not found: ${args[0]}`);
       console.log("\nAvailable skills:");
-      const skills = fs.readdirSync(skillsBaseDir, { withFileTypes: true })
+      const skills = fs
+        .readdirSync(skillsBaseDir, { withFileTypes: true })
         .filter((d) => d.isDirectory())
         .map((d) => d.name);
       skills.forEach((s) => console.log(`  - ${s}`));

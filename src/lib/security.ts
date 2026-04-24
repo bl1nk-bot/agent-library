@@ -1,5 +1,5 @@
-import { lookup } from 'dns/promises';
-import { isIP } from 'net';
+import { lookup } from "dns/promises";
+import { isIP } from "net";
 
 /**
  * Checks if an IP address is private, loopback, or otherwise restricted.
@@ -13,11 +13,11 @@ function isPrivateIP(ip: string): boolean {
   // 169.254.0.0/16  -> 169.254.x.x (Link-local)
   // 0.0.0.0/8       -> 0.x.x.x (Current network)
 
-  if (ip === '::1') return true; // IPv6 loopback
-  if (ip.startsWith('fe80:')) return true; // IPv6 link-local
-  if (ip.startsWith('fc') || ip.startsWith('fd')) return true; // IPv6 private unique local
+  if (ip === "::1") return true; // IPv6 loopback
+  if (ip.startsWith("fe80:")) return true; // IPv6 link-local
+  if (ip.startsWith("fc") || ip.startsWith("fd")) return true; // IPv6 private unique local
 
-  const parts = ip.split('.').map(Number);
+  const parts = ip.split(".").map(Number);
   if (parts.length !== 4) return false; // Not IPv4 (or invalid format handled by isIP check before)
 
   if (parts[0] === 10) return true;
@@ -39,11 +39,11 @@ export async function validateUrl(url: string): Promise<void> {
   try {
     parsedUrl = new URL(url);
   } catch {
-    throw new Error('Invalid URL format');
+    throw new Error("Invalid URL format");
   }
 
-  if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
-    throw new Error('Invalid protocol. Only http and https are allowed.');
+  if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+    throw new Error("Invalid protocol. Only http and https are allowed.");
   }
 
   // Resolve hostname
@@ -51,21 +51,23 @@ export async function validateUrl(url: string): Promise<void> {
 
   // Skip DNS lookup if hostname is an IP literal and check directly
   if (isIP(hostname)) {
-      if (isPrivateIP(hostname)) {
-          throw new Error(`Access to restricted IP address ${hostname} is forbidden.`);
-      }
-      return;
+    if (isPrivateIP(hostname)) {
+      throw new Error(`Access to restricted IP address ${hostname} is forbidden.`);
+    }
+    return;
   }
 
   try {
     const { address } = await lookup(hostname);
     if (isPrivateIP(address)) {
-      throw new Error(`Access to restricted IP address ${address} (resolved from ${hostname}) is forbidden.`);
+      throw new Error(
+        `Access to restricted IP address ${address} (resolved from ${hostname}) is forbidden.`
+      );
     }
   } catch (error) {
-     if (error instanceof Error && error.message.includes('Access to restricted IP')) {
-         throw error;
-     }
+    if (error instanceof Error && error.message.includes("Access to restricted IP")) {
+      throw error;
+    }
     // If DNS lookup fails, strictly we should fail for security in high-security contexts.
     // However, sometimes public DNS fails. But allowing it means we might miss a private DNS resolution if the attacker controls DNS.
     // For this context (SSRF prevention), if we can't resolve it to check the IP, we shouldn't let fetch try blindly.

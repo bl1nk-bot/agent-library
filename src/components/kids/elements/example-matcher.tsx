@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useState, useEffect, useId } from "react";
@@ -38,14 +37,15 @@ export function ExampleMatcher({
 }: ExampleMatcherProps) {
   const t = useTranslations("kids.exampleMatcher");
   const levelSlug = useLevelSlug();
-  const { currentSection, markSectionComplete, registerSectionRequirement } = useSectionNavigation();
+  const { currentSection, markSectionComplete, registerSectionRequirement } =
+    useSectionNavigation();
   const componentId = useId();
-  
+
   // Register that this section has an interactive element requiring completion
   useEffect(() => {
     registerSectionRequirement(currentSection);
   }, [currentSection, registerSectionRequirement]);
-  
+
   const displayTitle = title || t("title");
   const displayInstruction = instruction || t("instruction");
 
@@ -101,31 +101,33 @@ export function ExampleMatcher({
   };
 
   return (
-    <div className="my-4 p-4 bg-gradient-to-br from-[#E0E7FF] to-[#C7D2FE] border-4 border-[#6366F1] rounded-xl">
+    <div className="my-4 rounded-xl border-4 border-[#6366F1] bg-gradient-to-br from-[#E0E7FF] to-[#C7D2FE] p-4">
       {/* Title */}
-      <h3 className="text-xl font-bold text-[#4338CA] mb-2 flex items-center gap-2">
+      <h3 className="mb-2 flex items-center gap-2 text-xl font-bold text-[#4338CA]">
         🧩 {displayTitle}
       </h3>
-      <p className="text-[#5D4037] mb-4 m-0">{displayInstruction}</p>
+      <p className="m-0 mb-4 text-[#5D4037]">{displayInstruction}</p>
 
       {/* Examples Pattern */}
-      <div className="bg-white/80 rounded-lg p-4 mb-4 border-2 border-[#6366F1]">
-        <div className="text-sm font-medium text-[#4338CA] mb-2">{t("pattern")}</div>
+      <div className="mb-4 rounded-lg border-2 border-[#6366F1] bg-white/80 p-4">
+        <div className="mb-2 text-sm font-medium text-[#4338CA]">{t("pattern")}</div>
         <div className="space-y-2">
           {examples.map((example, index) => (
             <div key={index} className="flex items-center gap-3 text-lg">
-              <span className="px-3 py-1 bg-[#E0E7FF] rounded-lg font-medium">{example.input}</span>
-              <span className="text-[#6366F1] font-bold">→</span>
-              <span className="px-3 py-1 bg-[#C7D2FE] rounded-lg font-medium">{example.output}</span>
+              <span className="rounded-lg bg-[#E0E7FF] px-3 py-1 font-medium">{example.input}</span>
+              <span className="font-bold text-[#6366F1]">→</span>
+              <span className="rounded-lg bg-[#C7D2FE] px-3 py-1 font-medium">
+                {example.output}
+              </span>
             </div>
           ))}
           {/* Question row */}
-          <div className="flex items-center gap-3 text-lg pt-2 border-t-2 border-dashed border-[#6366F1]">
-            <span className="px-3 py-1 bg-[#FEF3C7] border-2 border-[#F59E0B] rounded-lg font-medium">
+          <div className="flex items-center gap-3 border-t-2 border-dashed border-[#6366F1] pt-2 text-lg">
+            <span className="rounded-lg border-2 border-[#F59E0B] bg-[#FEF3C7] px-3 py-1 font-medium">
               {question}
             </span>
-            <span className="text-[#6366F1] font-bold">→</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-lg font-medium text-gray-400">
+            <span className="font-bold text-[#6366F1]">→</span>
+            <span className="rounded-lg bg-gray-100 px-3 py-1 font-medium text-gray-400">
               {submitted ? (isCorrect ? selectedAnswer : `${selectedAnswer} ❌`) : "???"}
             </span>
           </div>
@@ -133,7 +135,7 @@ export function ExampleMatcher({
       </div>
 
       {/* Options */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {options.map((option) => {
           const isSelected = selectedAnswer === option;
           const showCorrect = submitted && option === correctAnswer;
@@ -145,11 +147,13 @@ export function ExampleMatcher({
               onClick={() => handleSelect(option)}
               disabled={submitted}
               className={cn(
-                "px-4 py-3 rounded-lg border-2 text-xl font-bold transition-all",
-                !submitted && !isSelected && "bg-white border-gray-300 hover:border-[#6366F1] hover:bg-[#E0E7FF]",
-                !submitted && isSelected && "bg-[#C7D2FE] border-[#6366F1] scale-105",
-                showCorrect && "bg-green-100 border-green-500 text-green-700",
-                showWrong && "bg-red-100 border-red-400 text-red-600",
+                "rounded-lg border-2 px-4 py-3 text-xl font-bold transition-all",
+                !submitted &&
+                  !isSelected &&
+                  "border-gray-300 bg-white hover:border-[#6366F1] hover:bg-[#E0E7FF]",
+                !submitted && isSelected && "scale-105 border-[#6366F1] bg-[#C7D2FE]",
+                showCorrect && "border-green-500 bg-green-100 text-green-700",
+                showWrong && "border-red-400 bg-red-100 text-red-600",
                 submitted && !showCorrect && !showWrong && "opacity-50"
               )}
             >
@@ -166,10 +170,8 @@ export function ExampleMatcher({
             onClick={handleSubmit}
             disabled={!selectedAnswer}
             className={cn(
-              "px-6 py-2 rounded-lg font-bold text-white transition-all",
-              selectedAnswer
-                ? "bg-[#6366F1] hover:bg-[#4F46E5]"
-                : "bg-gray-300 cursor-not-allowed"
+              "rounded-lg px-6 py-2 font-bold text-white transition-all",
+              selectedAnswer ? "bg-[#6366F1] hover:bg-[#4F46E5]" : "cursor-not-allowed bg-gray-300"
             )}
           >
             {t("check")}
@@ -177,7 +179,7 @@ export function ExampleMatcher({
         ) : !isCorrect ? (
           <button
             onClick={handleReset}
-            className="px-6 py-2 rounded-lg font-bold bg-[#6366F1] hover:bg-[#4F46E5] text-white"
+            className="rounded-lg bg-[#6366F1] px-6 py-2 font-bold text-white hover:bg-[#4F46E5]"
           >
             {t("retry")}
           </button>
@@ -186,21 +188,18 @@ export function ExampleMatcher({
 
       {/* Result feedback */}
       {submitted && (
-        <div className={cn(
-          "mt-4 p-4 rounded-lg border-2 animate-in fade-in zoom-in-95 duration-300",
-          isCorrect
-            ? "bg-green-100 border-green-500"
-            : "bg-amber-100 border-amber-500"
-        )}>
-          <p className={cn(
-            "font-bold text-lg m-0",
-            isCorrect ? "text-green-700" : "text-amber-700"
-          )}>
+        <div
+          className={cn(
+            "animate-in fade-in zoom-in-95 mt-4 rounded-lg border-2 p-4 duration-300",
+            isCorrect ? "border-green-500 bg-green-100" : "border-amber-500 bg-amber-100"
+          )}
+        >
+          <p
+            className={cn("m-0 text-lg font-bold", isCorrect ? "text-green-700" : "text-amber-700")}
+          >
             {isCorrect ? t("correct") : t("tryAgain")}
           </p>
-          {explanation && (
-            <p className="text-[#5D4037] mt-2 m-0">{explanation}</p>
-          )}
+          {explanation && <p className="m-0 mt-2 text-[#5D4037]">{explanation}</p>}
         </div>
       )}
     </div>

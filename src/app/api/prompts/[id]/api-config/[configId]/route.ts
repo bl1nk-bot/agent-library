@@ -31,10 +31,7 @@ export async function GET(
     });
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt not found or unauthorized" }, { status: 404 });
     }
 
     const apiConfig = await db.apiConfig.findFirst({
@@ -45,19 +42,13 @@ export async function GET(
     });
 
     if (!apiConfig) {
-      return NextResponse.json(
-        { error: "API configuration not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "API configuration not found" }, { status: 404 });
     }
 
     return NextResponse.json(apiConfig);
   } catch (error) {
     console.error("[v0] Error fetching API config:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch API configuration" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch API configuration" }, { status: 500 });
   }
 }
 
@@ -91,10 +82,7 @@ export async function PUT(
     });
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt not found or unauthorized" }, { status: 404 });
     }
 
     // Update API config
@@ -115,17 +103,11 @@ export async function PUT(
       );
     }
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
-      return NextResponse.json(
-        { error: "API configuration not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "API configuration not found" }, { status: 404 });
     }
 
     console.error("[v0] Error updating API config:", error);
-    return NextResponse.json(
-      { error: "Failed to update API configuration" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update API configuration" }, { status: 500 });
   }
 }
 
@@ -155,10 +137,7 @@ export async function DELETE(
     });
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt not found or unauthorized" }, { status: 404 });
     }
 
     // Delete API config
@@ -172,15 +151,9 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
-      return NextResponse.json(
-        { error: "API configuration not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "API configuration not found" }, { status: 404 });
     }
     console.error("[v0] Error deleting API config:", error);
-    return NextResponse.json(
-      { error: "Failed to delete API configuration" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete API configuration" }, { status: 500 });
   }
 }

@@ -50,14 +50,14 @@ export async function POST(
     // Toggle flagged status
     const updated = await db.comment.update({
       where: { id: commentId },
-      data: { 
+      data: {
         flagged: !comment.flagged,
         flaggedAt: !comment.flagged ? new Date() : null,
         flaggedBy: !comment.flagged ? session.user.id : null,
       },
     });
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       flagged: updated.flagged,
     });
   } catch (error) {

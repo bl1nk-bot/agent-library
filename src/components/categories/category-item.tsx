@@ -17,22 +17,16 @@ interface CategoryItemProps {
 
 export function CategoryItem({ category, isSubscribed, showSubscribe }: CategoryItemProps) {
   return (
-    <div className="group flex items-center justify-between gap-2 border rounded-[var(--radius)] px-3 py-2 bg-card hover:bg-accent/50 transition-colors">
+    <div className="group bg-card hover:bg-accent/50 flex items-center justify-between gap-2 rounded-[var(--radius)] border px-3 py-2 transition-colors">
       <Link
         href={`/categories/${category.slug}`}
-        className="flex items-center gap-2 min-w-0 flex-1"
+        className="flex min-w-0 flex-1 items-center gap-2"
       >
-        {category.icon && (
-          <span className="text-sm shrink-0">{category.icon}</span>
-        )}
-        <span className="text-sm font-medium truncate group-hover:underline">
-          {category.name}
-        </span>
+        {category.icon && <span className="shrink-0 text-sm">{category.icon}</span>}
+        <span className="truncate text-sm font-medium group-hover:underline">{category.name}</span>
       </Link>
-      <div className="flex items-center gap-1 shrink-0">
-        <span className="text-xs text-muted-foreground">
-          {category.promptCount}
-        </span>
+      <div className="flex shrink-0 items-center gap-1">
+        <span className="text-muted-foreground text-xs">{category.promptCount}</span>
         {showSubscribe && (
           <SubscribeButton
             categoryId={category.id}

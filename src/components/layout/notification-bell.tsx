@@ -41,7 +41,7 @@ export function NotificationBell() {
   const { data: session } = useSession();
   const t = useTranslations("notifications");
   const locale = useLocale();
-  const [notifications, setNotifications] = useState<Notifications>({ 
+  const [notifications, setNotifications] = useState<Notifications>({
     pendingChangeRequests: 0,
     unreadComments: 0,
     commentNotifications: [],
@@ -97,7 +97,7 @@ export function NotificationBell() {
 
   if (totalCount === 0) {
     return (
-      <Button variant="ghost" size="icon" className="h-8 w-8 relative" asChild>
+      <Button variant="ghost" size="icon" className="relative h-8 w-8" asChild>
         <Link href={`/@${session.user.username}`} aria-label={t("title")}>
           <Bell className="h-4 w-4" aria-hidden="true" />
         </Link>
@@ -111,12 +111,12 @@ export function NotificationBell() {
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 relative"
+          className="relative h-8 w-8"
           aria-label={`${t("title")} - ${t("unreadCount", { count: totalCount })}`}
         >
           <Bell className="h-4 w-4" aria-hidden="true" />
           <span
-            className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-red-500 text-white text-[10px] font-medium flex items-center justify-center"
+            className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-medium text-white"
             aria-hidden="true"
           >
             {totalCount > 9 ? "9+" : totalCount}
@@ -129,7 +129,7 @@ export function NotificationBell() {
           {totalCount > 0 && (
             <button
               onClick={() => handleMarkAsRead()}
-              className="text-xs text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground text-xs"
             >
               {t("markAllRead")}
             </button>
@@ -138,9 +138,12 @@ export function NotificationBell() {
         <DropdownMenuSeparator />
         {notifications.pendingChangeRequests > 0 && (
           <DropdownMenuItem asChild>
-            <Link href={`/@${session.user.username}?tab=changes`} className="flex items-center justify-between">
+            <Link
+              href={`/@${session.user.username}?tab=changes`}
+              className="flex items-center justify-between"
+            >
               <span>{t("pendingChangeRequests")}</span>
-              <span className="ml-2 h-5 min-w-5 px-1 rounded-full bg-red-500 text-white text-xs font-medium flex items-center justify-center">
+              <span className="ml-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-medium text-white">
                 {notifications.pendingChangeRequests}
               </span>
             </Link>
@@ -151,7 +154,7 @@ export function NotificationBell() {
             {notifications.pendingChangeRequests > 0 && <DropdownMenuSeparator />}
             {notifications.commentNotifications.map((notification) => (
               <DropdownMenuItem key={notification.id} asChild>
-                <Link 
+                <Link
                   href={`/prompts/${notification.promptId}`}
                   onClick={() => handleMarkAsRead([notification.id])}
                   className="flex items-start gap-3 py-2"
@@ -159,34 +162,35 @@ export function NotificationBell() {
                   <Avatar className="h-8 w-8 shrink-0">
                     <AvatarImage src={notification.actor?.avatar || undefined} />
                     <AvatarFallback className="text-xs">
-                      {notification.actor?.name?.charAt(0) || notification.actor?.username?.charAt(0) || "?"}
+                      {notification.actor?.name?.charAt(0) ||
+                        notification.actor?.username?.charAt(0) ||
+                        "?"}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="text-sm leading-tight">
-                      <span className="font-medium">@{notification.actor?.username}</span>
-                      {" "}
-                      {notification.type === "COMMENT" 
+                      <span className="font-medium">@{notification.actor?.username}</span>{" "}
+                      {notification.type === "COMMENT"
                         ? t("commentedOnPrompt")
                         : t("repliedToComment")}
                     </p>
                     {notification.promptTitle && (
-                      <p className="text-xs text-muted-foreground truncate mt-0.5">
+                      <p className="text-muted-foreground mt-0.5 truncate text-xs">
                         {notification.promptTitle}
                       </p>
                     )}
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="text-muted-foreground mt-0.5 text-xs">
                       {formatDistanceToNow(new Date(notification.createdAt), locale)}
                     </p>
                   </div>
-                  <MessageSquare className="h-4 w-4 text-muted-foreground shrink-0" />
+                  <MessageSquare className="text-muted-foreground h-4 w-4 shrink-0" />
                 </Link>
               </DropdownMenuItem>
             ))}
           </>
         )}
         {totalCount === 0 && (
-          <div className="py-4 text-center text-sm text-muted-foreground">
+          <div className="text-muted-foreground py-4 text-center text-sm">
             {t("noNotifications")}
           </div>
         )}

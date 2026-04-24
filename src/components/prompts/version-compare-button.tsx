@@ -4,12 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { GitCompare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DiffView } from "@/components/ui/diff-view";
 import { prettifyJson } from "@/lib/format";
 
@@ -21,12 +16,12 @@ interface VersionCompareButtonProps {
   structuredFormat?: string | null;
 }
 
-export function VersionCompareButton({ 
-  versionContent, 
-  versionNumber, 
+export function VersionCompareButton({
+  versionContent,
+  versionNumber,
   currentContent,
   promptType,
-  structuredFormat
+  structuredFormat,
 }: VersionCompareButtonProps) {
   const isStructured = promptType === "STRUCTURED";
   const t = useTranslations("prompts");
@@ -45,18 +40,30 @@ export function VersionCompareButton({
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+        <DialogContent className="flex max-h-[90vh] max-w-4xl flex-col">
           <DialogHeader>
             <DialogTitle>
               {t("version")} {versionNumber} → {t("currentVersion")}
             </DialogTitle>
           </DialogHeader>
-          <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="min-h-0 flex-1 overflow-hidden">
             <DiffView
-              original={isStructured && structuredFormat?.toLowerCase() === "json" ? prettifyJson(versionContent) : versionContent}
-              modified={isStructured && structuredFormat?.toLowerCase() === "json" ? prettifyJson(currentContent) : currentContent}
+              original={
+                isStructured && structuredFormat?.toLowerCase() === "json"
+                  ? prettifyJson(versionContent)
+                  : versionContent
+              }
+              modified={
+                isStructured && structuredFormat?.toLowerCase() === "json"
+                  ? prettifyJson(currentContent)
+                  : currentContent
+              }
               className="max-h-[calc(90vh-120px)]"
-              language={isStructured ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json" : undefined}
+              language={
+                isStructured
+                  ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json"
+                  : undefined
+              }
             />
           </div>
         </DialogContent>

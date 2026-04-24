@@ -34,7 +34,6 @@ interface ApiConfigManagerProps {
 }
 
 export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
-
   const [configs, setConfigs] = useState<ApiConfig[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedConfig, setSelectedConfig] = useState<ApiConfig | null>(null);
@@ -70,10 +69,9 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
     }
 
     try {
-      const response = await fetch(
-        `/api/prompts/${promptId}/api-config/${configId}`,
-        { method: "DELETE" }
-      );
+      const response = await fetch(`/api/prompts/${promptId}/api-config/${configId}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         setConfigs((prev) => prev.filter((c) => c.id !== configId));
@@ -157,7 +155,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">API Integrations</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Manage API endpoints and configurations for this skill
           </p>
         </div>
@@ -167,7 +165,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
             size="sm"
             className="h-8 transition-all duration-180"
           >
-            <Plus className="h-4 w-4 mr-1" />
+            <Plus className="mr-1 h-4 w-4" />
             Add API
           </Button>
         )}
@@ -175,27 +173,23 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
 
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="text-sm text-muted-foreground">Loading...</div>
+          <div className="text-muted-foreground text-sm">Loading...</div>
         </div>
       ) : configs.length === 0 ? (
-        <Card className="p-8 text-center border-dashed transition-colors duration-180">
+        <Card className="border-dashed p-8 text-center transition-colors duration-180">
           <div className="flex flex-col items-center gap-3">
-            <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-              <Code className="h-6 w-6 text-muted-foreground" />
+            <div className="bg-muted flex h-12 w-12 items-center justify-center rounded-full">
+              <Code className="text-muted-foreground h-6 w-6" />
             </div>
             <div>
               <p className="font-medium">No API configurations yet</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Add your first API integration to get started
               </p>
             </div>
             {isOwner && (
-              <Button
-                onClick={() => setShowForm(true)}
-                size="sm"
-                className="mt-2"
-              >
-                <Plus className="h-4 w-4 mr-1" />
+              <Button onClick={() => setShowForm(true)} size="sm" className="mt-2">
+                <Plus className="mr-1 h-4 w-4" />
                 Add API Configuration
               </Button>
             )}
@@ -207,36 +201,33 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
             <Card
               key={config.id}
               className={cn(
-                "p-4 transition-all duration-180 hover:border-primary/50",
+                "hover:border-primary/50 p-4 transition-all duration-180",
                 "touch-manipulation"
               )}
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex items-center gap-2">
                     <Badge
                       variant="outline"
-                      className={cn(
-                        "font-mono text-xs",
-                        getMethodColor(config.method)
-                      )}
+                      className={cn("font-mono text-xs", getMethodColor(config.method))}
                     >
                       {config.method}
                     </Badge>
-                    <h4 className="font-medium truncate">{config.name}</h4>
+                    <h4 className="truncate font-medium">{config.name}</h4>
                   </div>
                   {config.description && (
-                    <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                    <p className="text-muted-foreground mb-2 line-clamp-2 text-sm">
                       {config.description}
                     </p>
                   )}
-                  <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                  <code className="bg-muted block truncate rounded px-2 py-1 text-xs">
                     {config.baseUrl}
                   </code>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 mt-4">
+              <div className="mt-4 flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -246,7 +237,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
                   }}
                   className="h-8 flex-1 transition-all duration-120"
                 >
-                  <Play className="h-3.5 w-3.5 mr-1" />
+                  <Play className="mr-1 h-3.5 w-3.5" />
                   Test
                 </Button>
                 {config.documentation && (
@@ -279,7 +270,7 @@ export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
                       variant="outline"
                       size="sm"
                       onClick={() => handleDelete(config.id)}
-                      className="h-8 text-destructive hover:bg-destructive/10 transition-all duration-120"
+                      className="text-destructive hover:bg-destructive/10 h-8 transition-all duration-120"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>

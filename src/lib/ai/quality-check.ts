@@ -4,7 +4,12 @@ import { loadPrompt, getSystemPrompt } from "./load-prompt";
 const qualityCheckPrompt = loadPrompt("src/lib/ai/quality-check.prompt.yml");
 
 // DelistReason enum values (matches Prisma schema)
-export type DelistReason = "TOO_SHORT" | "NOT_ENGLISH" | "LOW_QUALITY" | "NOT_LLM_INSTRUCTION" | "MANUAL";
+export type DelistReason =
+  | "TOO_SHORT"
+  | "NOT_ENGLISH"
+  | "LOW_QUALITY"
+  | "NOT_LLM_INSTRUCTION"
+  | "MANUAL";
 
 let openai: OpenAI | null = null;
 
@@ -14,7 +19,7 @@ function getOpenAIClient(): OpenAI {
     if (!apiKey) {
       throw new Error("OPENAI_API_KEY is not set");
     }
-    openai = new OpenAI({ 
+    openai = new OpenAI({
       apiKey,
       baseURL: process.env.OPENAI_BASE_URL || undefined,
     });
@@ -42,7 +47,7 @@ export interface QualityCheckResult {
  */
 function checkLength(content: string): QualityCheckResult | null {
   const trimmed = content.trim();
-  const wordCount = trimmed.split(/\s+/).filter(w => w.length > 0).length;
+  const wordCount = trimmed.split(/\s+/).filter((w) => w.length > 0).length;
 
   if (trimmed.length < MIN_CONTENT_LENGTH) {
     return {
@@ -75,7 +80,7 @@ export async function checkPromptQuality(
   description?: string | null
 ): Promise<QualityCheckResult> {
   console.log(`[Quality Check] Checking: "${title}" (${content.length} chars)`);
-  
+
   // First, run basic length checks (no AI needed)
   const lengthCheck = checkLength(content);
   if (lengthCheck) {
@@ -95,7 +100,7 @@ export async function checkPromptQuality(
       details: "AI quality check skipped - no API key configured",
     };
   }
-  
+
   console.log(`[Quality Check] Running AI check...`);
 
   try {
@@ -112,7 +117,7 @@ ${content}`;
       model: GENERATIVE_MODEL,
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: userMessage }
+        { role: "user", content: userMessage },
       ],
       temperature: 0.1, // Low temperature for consistent results
       max_tokens: 300,
@@ -121,10 +126,10 @@ ${content}`;
 
     const responseText = response.choices[0]?.message?.content || "{}";
     console.log(`[Quality Check] AI response:`, responseText);
-    
+
     try {
       const result = JSON.parse(responseText);
-      
+
       // Extra safety: only delist if confidence is high enough
       if (result.shouldDelist && result.confidence < 0.85) {
         return {

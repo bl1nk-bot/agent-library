@@ -110,3 +110,10 @@ vi.mock("@/lib/config", () => ({
     })
   ),
 }));
+
+// Mock navigator.clipboard reliably for jsdom
+Object.assign(navigator, {
+  clipboard: {
+    writeText: vi.fn(),
+  },
+});

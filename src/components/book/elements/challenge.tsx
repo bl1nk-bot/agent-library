@@ -49,14 +49,14 @@ export function PromptChallenge({
   // Timer
   useEffect(() => {
     if (!isStarted || timeLimit === 0 || result) return;
-    
+
     if (timeRemaining <= 0) {
       handleSubmit();
       return;
     }
 
     const timer = setInterval(() => {
-      setTimeRemaining(prev => prev - 1);
+      setTimeRemaining((prev) => prev - 1);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -94,7 +94,7 @@ export function PromptChallenge({
       });
 
       const data = await res.json();
-      
+
       if (!res.ok) {
         if (res.status === 429) {
           setError(`Rate limit reached. Try again in ${data.resetIn}s.`);
@@ -108,7 +108,7 @@ export function PromptChallenge({
       const baseResult = data.result as ChallengeResult;
       const hintPenalty = hintsUsed * 5; // -5 points per hint
       const adjustedScore = Math.max(0, baseResult.score - hintPenalty);
-      
+
       setResult({ ...baseResult, score: adjustedScore });
       setRateLimit({ remaining: data.remaining });
     } catch {
@@ -120,7 +120,7 @@ export function PromptChallenge({
 
   const handleShowHint = () => {
     if (hintsUsed < hints.length) {
-      setHintsUsed(prev => prev + 1);
+      setHintsUsed((prev) => prev + 1);
       setShowHints(true);
     }
   };
@@ -137,58 +137,60 @@ export function PromptChallenge({
     advanced: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
   };
 
-  const scoreColor = result?.score 
-    ? result.score >= 80 ? "text-green-600" 
-    : result.score >= 50 ? "text-amber-600" 
-    : "text-red-600"
+  const scoreColor = result?.score
+    ? result.score >= 80
+      ? "text-green-600"
+      : result.score >= 50
+        ? "text-amber-600"
+        : "text-red-600"
     : "";
 
   return (
-    <div className="my-6 border-2 border-primary/20 rounded-lg overflow-hidden">
-      <div className="px-4 py-3 bg-primary/5 border-b border-primary/20 flex items-center justify-between">
+    <div className="border-primary/20 my-6 overflow-hidden rounded-lg border-2">
+      <div className="bg-primary/5 border-primary/20 flex items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
-          <Trophy className="h-5 w-5 text-primary" />
+          <Trophy className="text-primary h-5 w-5" />
           <span className="font-semibold">{title}</span>
-          <span className={cn("px-2 py-0.5 text-xs rounded-full", difficultyColors[difficulty])}>
+          <span className={cn("rounded-full px-2 py-0.5 text-xs", difficultyColors[difficulty])}>
             {difficulty}
           </span>
         </div>
         {isStarted && timeLimit > 0 && !result && (
-          <div className={cn(
-            "flex items-center gap-1 font-mono text-sm",
-            timeRemaining <= 30 && "text-red-600 animate-pulse"
-          )}>
+          <div
+            className={cn(
+              "flex items-center gap-1 font-mono text-sm",
+              timeRemaining <= 30 && "animate-pulse text-red-600"
+            )}
+          >
             <Clock className="h-4 w-4" />
             {formatTime(timeRemaining)}
           </div>
         )}
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="space-y-4 p-4">
         {/* Task */}
         <div>
-          <p className="font-medium mb-2 m-0!">Your Task:</p>
-          <div className="p-3 bg-muted/50 rounded-lg text-sm">
-            {task}
-          </div>
+          <p className="m-0! mb-2 font-medium">Your Task:</p>
+          <div className="bg-muted/50 rounded-lg p-3 text-sm">{task}</div>
         </div>
 
         {/* Criteria */}
         <div>
-          <p className="font-medium mb-2 m-0!">Your prompt will be scored on:</p>
+          <p className="m-0! mb-2 font-medium">Your prompt will be scored on:</p>
           <ul className="space-y-1 text-sm">
             {criteria.map((c, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="text-primary font-mono">{i + 1}.</span>
-                <span className={cn(
-                  result?.criteriaScores?.[i]?.met === true && "text-green-600",
-                  result?.criteriaScores?.[i]?.met === false && "text-red-600"
-                )}>
+                <span
+                  className={cn(
+                    result?.criteriaScores?.[i]?.met === true && "text-green-600",
+                    result?.criteriaScores?.[i]?.met === false && "text-red-600"
+                  )}
+                >
                   {c}
                   {result?.criteriaScores?.[i] && (
-                    <span className="ml-2">
-                      {result.criteriaScores[i].met ? "✓" : "✗"}
-                    </span>
+                    <span className="ml-2">{result.criteriaScores[i].met ? "✓" : "✗"}</span>
                   )}
                 </span>
               </li>
@@ -198,14 +200,14 @@ export function PromptChallenge({
 
         {/* Not started state */}
         {!isStarted && (
-          <div className="text-center py-4">
-            <p className="text-muted-foreground mb-4 m-0!">
-              {timeLimit > 0 
+          <div className="py-4 text-center">
+            <p className="text-muted-foreground m-0! mb-4">
+              {timeLimit > 0
                 ? `You'll have ${formatTime(timeLimit)} to complete this challenge.`
                 : "Take your time to craft the best prompt."}
             </p>
             <Button onClick={handleStart} size="lg">
-              <Play className="h-4 w-4 mr-2" />
+              <Play className="mr-2 h-4 w-4" />
               Start Challenge
             </Button>
           </div>
@@ -215,13 +217,13 @@ export function PromptChallenge({
         {isStarted && !result && (
           <>
             <div>
-              <label className="text-sm font-medium mb-1 block">Your Prompt:</label>
+              <label className="mb-1 block text-sm font-medium">Your Prompt:</label>
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Write your prompt here..."
                 rows={6}
-                className="w-full px-3 py-2 text-sm border rounded-lg bg-background resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 font-mono"
+                className="bg-background focus:ring-primary/50 w-full resize-none rounded-lg border px-3 py-2 font-mono text-sm focus:ring-2 focus:outline-none"
                 autoFocus
               />
             </div>
@@ -231,15 +233,19 @@ export function PromptChallenge({
               <div>
                 <button
                   onClick={() => setShowHints(!showHints)}
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 text-sm"
                 >
-                  {showHints ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  {showHints ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
                   Hints ({hintsUsed}/{hints.length} used, -5 points each)
                 </button>
                 {showHints && (
                   <div className="mt-2 space-y-2">
                     {hints.slice(0, hintsUsed).map((hint, i) => (
-                      <div key={i} className="p-2 bg-amber-50 dark:bg-amber-950/30 rounded text-sm">
+                      <div key={i} className="rounded bg-amber-50 p-2 text-sm dark:bg-amber-950/30">
                         <strong>Hint {i + 1}:</strong> {hint}
                       </div>
                     ))}
@@ -256,14 +262,14 @@ export function PromptChallenge({
             <div className="flex items-center gap-2">
               <Button onClick={handleSubmit} disabled={!prompt.trim() || isSubmitting}>
                 {isSubmitting ? (
-                  <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                  <Loader2 className="mr-1 h-4 w-4 animate-spin" />
                 ) : (
-                  <Trophy className="h-4 w-4 mr-1" />
+                  <Trophy className="mr-1 h-4 w-4" />
                 )}
                 Submit for Scoring
               </Button>
               {rateLimit?.remaining !== undefined && (
-                <span className="text-xs text-muted-foreground">
+                <span className="text-muted-foreground text-xs">
                   {rateLimit.remaining} AI calls remaining
                 </span>
               )}
@@ -273,7 +279,7 @@ export function PromptChallenge({
 
         {/* Error */}
         {error && (
-          <div className="p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
+          <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300">
             {error}
           </div>
         )}
@@ -282,18 +288,22 @@ export function PromptChallenge({
         {result && (
           <div className="space-y-4">
             {/* Score */}
-            <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
+            <div className="bg-muted/30 flex items-center gap-4 rounded-lg p-4">
               <div className="text-center">
                 <div className={cn("text-5xl font-bold", scoreColor)}>{result.score}</div>
-                <div className="text-xs text-muted-foreground">/ 100</div>
+                <div className="text-muted-foreground text-xs">/ 100</div>
               </div>
               <div className="flex-1">
-                <p className="font-medium m-0!">
-                  {result.score >= 80 ? "🎉 Excellent!" : result.score >= 50 ? "👍 Good effort!" : "Keep practicing!"}
+                <p className="m-0! font-medium">
+                  {result.score >= 80
+                    ? "🎉 Excellent!"
+                    : result.score >= 50
+                      ? "👍 Good effort!"
+                      : "Keep practicing!"}
                 </p>
-                <p className="text-sm text-muted-foreground m-0!">{result.overallFeedback}</p>
+                <p className="text-muted-foreground m-0! text-sm">{result.overallFeedback}</p>
                 {hintsUsed > 0 && (
-                  <p className="text-xs text-amber-600 m-0! mt-1">
+                  <p className="m-0! mt-1 text-xs text-amber-600">
                     ({hintsUsed} hint{hintsUsed > 1 ? "s" : ""} used, -{hintsUsed * 5} points)
                   </p>
                 )}
@@ -302,16 +312,16 @@ export function PromptChallenge({
 
             {/* Criteria breakdown */}
             <div>
-              <p className="font-medium mb-2 m-0!">Criteria Breakdown:</p>
+              <p className="m-0! mb-2 font-medium">Criteria Breakdown:</p>
               <div className="space-y-2">
                 {result.criteriaScores.map((cs, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={cn(
-                      "p-2 rounded-lg text-sm",
-                      cs.met 
-                        ? "bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800"
-                        : "bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                      "rounded-lg p-2 text-sm",
+                      cs.met
+                        ? "border border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/30"
+                        : "border border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950/30"
                     )}
                   >
                     <div className="flex items-center gap-2">
@@ -327,8 +337,8 @@ export function PromptChallenge({
             {/* Suggestions */}
             {result.suggestions.length > 0 && (
               <div>
-                <p className="font-medium mb-2 m-0!">Suggestions for Improvement:</p>
-                <ul className="space-y-1 text-sm text-muted-foreground">
+                <p className="m-0! mb-2 font-medium">Suggestions for Improvement:</p>
+                <ul className="text-muted-foreground space-y-1 text-sm">
                   {result.suggestions.map((s, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-primary">•</span>
@@ -344,13 +354,17 @@ export function PromptChallenge({
               <div>
                 <button
                   onClick={() => setShowSolution(!showSolution)}
-                  className="flex items-center gap-1 text-sm font-medium hover:text-primary"
+                  className="hover:text-primary flex items-center gap-1 text-sm font-medium"
                 >
-                  {showSolution ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  {showSolution ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
                   {showSolution ? "Hide" : "Show"} Example Solution
                 </button>
                 {showSolution && (
-                  <pre className="mt-2 p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm whitespace-pre-wrap font-mono">
+                  <pre className="bg-primary/5 border-primary/20 mt-2 rounded-lg border p-3 font-mono text-sm whitespace-pre-wrap">
                     {exampleSolution}
                   </pre>
                 )}
@@ -359,7 +373,7 @@ export function PromptChallenge({
 
             {/* Retry */}
             <Button onClick={handleStart} variant="outline">
-              <RefreshCw className="h-4 w-4 mr-1" />
+              <RefreshCw className="mr-1 h-4 w-4" />
               Try Again
             </Button>
           </div>
@@ -415,7 +429,7 @@ export function BeforeAfterEditor({
       });
 
       const data = await res.json();
-      
+
       if (!res.ok) {
         if (res.status === 429) {
           setError(`Rate limit reached. Try again in ${data.resetIn}s.`);
@@ -440,34 +454,34 @@ export function BeforeAfterEditor({
   };
 
   return (
-    <div className="my-6 border rounded-lg overflow-hidden">
-      <div className="px-4 py-3 bg-muted/50 border-b">
+    <div className="my-6 overflow-hidden rounded-lg border">
+      <div className="bg-muted/50 border-b px-4 py-3">
         <span className="font-semibold">{title}</span>
       </div>
 
-      <div className="p-4 space-y-4">
-        <p className="text-sm text-muted-foreground m-0!">{task}</p>
+      <div className="space-y-4 p-4">
+        <p className="text-muted-foreground m-0! text-sm">{task}</p>
 
-        <div className="grid md:grid-cols-2 gap-4 mt-3">
+        <div className="mt-3 grid gap-4 md:grid-cols-2">
           {/* Original */}
           <div>
-            <label className="text-sm font-medium mb-1 block text-red-600 dark:text-red-400">
+            <label className="mb-1 block text-sm font-medium text-red-600 dark:text-red-400">
               Original (Weak) Prompt
             </label>
-            <pre className="mt-0! p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-sm whitespace-pre-wrap h-40 overflow-y-auto">
+            <pre className="mt-0! h-40 overflow-y-auto rounded-lg border border-red-200 bg-red-50 p-3 text-sm whitespace-pre-wrap dark:border-red-800 dark:bg-red-950/30">
               {badPrompt}
             </pre>
           </div>
 
           {/* User's version */}
           <div>
-            <label className="text-sm font-medium mb-1 block text-primary">
+            <label className="text-primary mb-1 block text-sm font-medium">
               Your Improved Version
             </label>
             <textarea
               value={userPrompt}
               onChange={(e) => setUserPrompt(e.target.value)}
-              className="w-full px-3 py-2 text-sm border rounded-lg bg-background resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 font-mono h-40"
+              className="bg-background focus:ring-primary/50 h-40 w-full resize-none rounded-lg border px-3 py-2 font-mono text-sm focus:ring-2 focus:outline-none"
             />
           </div>
         </div>
@@ -475,27 +489,23 @@ export function BeforeAfterEditor({
         <div className="flex items-center gap-2">
           <Button onClick={handleCompare} disabled={isComparing || userPrompt === badPrompt}>
             {isComparing ? (
-              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
             ) : (
-              <Play className="h-4 w-4 mr-1" />
+              <Play className="mr-1 h-4 w-4" />
             )}
             Compare with AI
           </Button>
           <Button onClick={handleReset} variant="outline">
-            <RefreshCw className="h-4 w-4 mr-1" />
+            <RefreshCw className="mr-1 h-4 w-4" />
             Reset
           </Button>
-          <Button 
-            onClick={() => setShowIdeal(!showIdeal)} 
-            variant="ghost"
-            className="ml-auto"
-          >
+          <Button onClick={() => setShowIdeal(!showIdeal)} variant="ghost" className="ml-auto">
             {showIdeal ? "Hide" : "Show"} Ideal Solution
           </Button>
         </div>
 
         {error && (
-          <div className="p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
+          <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300">
             {error}
           </div>
         )}
@@ -503,10 +513,10 @@ export function BeforeAfterEditor({
         {/* Ideal solution */}
         {showIdeal && (
           <div>
-            <label className="text-sm font-medium mb-1 block text-green-600 dark:text-green-400">
+            <label className="mb-1 block text-sm font-medium text-green-600 dark:text-green-400">
               Ideal Solution
             </label>
-            <pre className="p-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg text-sm whitespace-pre-wrap">
+            <pre className="rounded-lg border border-green-200 bg-green-50 p-3 text-sm whitespace-pre-wrap dark:border-green-800 dark:bg-green-950/30">
               {idealPrompt}
             </pre>
           </div>
@@ -514,21 +524,21 @@ export function BeforeAfterEditor({
 
         {/* Comparison results */}
         {comparison && (
-          <div className="space-y-4 p-4 bg-muted/30 rounded-lg">
+          <div className="bg-muted/30 space-y-4 rounded-lg p-4">
             <div className="flex items-center gap-2">
               <span className="font-medium">
-                {comparison.winner === 2 
-                  ? "🎉 Your version is better!" 
+                {comparison.winner === 2
+                  ? "🎉 Your version is better!"
                   : "The original might still be better. Keep improving!"}
               </span>
             </div>
-            
-            <p className="text-sm m-0!">{comparison.explanation}</p>
+
+            <p className="m-0! text-sm">{comparison.explanation}</p>
 
             {comparison.keyDifferences.length > 0 && (
               <div>
-                <p className="text-sm font-medium mb-1 m-0!">Key Differences:</p>
-                <ul className="text-sm space-y-1">
+                <p className="m-0! mb-1 text-sm font-medium">Key Differences:</p>
+                <ul className="space-y-1 text-sm">
                   {comparison.keyDifferences.map((d, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-primary">•</span>

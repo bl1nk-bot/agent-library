@@ -14,7 +14,7 @@ function getOpenAIClient(): OpenAI {
     if (!apiKey) {
       throw new Error("OPENAI_API_KEY is not set");
     }
-    openai = new OpenAI({ 
+    openai = new OpenAI({
       apiKey,
       baseURL: process.env.OPENAI_BASE_URL || undefined,
     });
@@ -31,24 +31,24 @@ const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";
  */
 export async function translateQueryToEnglish(query: string): Promise<string> {
   const client = getOpenAIClient();
-  
+
   try {
     const response = await client.chat.completions.create({
       model: TRANSLATION_MODEL,
       messages: [
         {
           role: "system",
-          content: getSystemPrompt(queryTranslatorPrompt)
+          content: getSystemPrompt(queryTranslatorPrompt),
         },
         {
           role: "user",
-          content: query
-        }
+          content: query,
+        },
       ],
       max_tokens: queryTranslatorPrompt.modelParameters?.maxTokens || 100,
       temperature: queryTranslatorPrompt.modelParameters?.temperature || 0,
     });
-    
+
     const translatedQuery = response.choices[0]?.message?.content?.trim();
     return translatedQuery || query;
   } catch (error) {
@@ -69,12 +69,12 @@ function containsNonEnglish(text: string): boolean {
 
 export async function generateEmbedding(text: string): Promise<number[]> {
   const client = getOpenAIClient();
-  
+
   const response = await client.embeddings.create({
     model: EMBEDDING_MODEL,
     input: text,
   });
-  
+
   return response.data[0].embedding;
 }
 
@@ -93,14 +93,10 @@ export async function generatePromptEmbedding(promptId: string): Promise<void> {
   if (prompt.isPrivate) return;
 
   // Combine title, description, and content for embedding
-  const textToEmbed = [
-    prompt.title,
-    prompt.description || "",
-    prompt.content,
-  ].join("\n\n").trim();
+  const textToEmbed = [prompt.title, prompt.description || "", prompt.content].join("\n\n").trim();
 
   const embedding = await generateEmbedding(textToEmbed);
-  
+
   await db.prompt.update({
     where: { id: promptId },
     data: { embedding },
@@ -109,7 +105,7 @@ export async function generatePromptEmbedding(promptId: string): Promise<void> {
 
 // Delay helper to avoid rate limits
 function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function generateAllEmbeddings(
@@ -122,7 +118,7 @@ export async function generateAllEmbeddings(
   }
 
   const prompts = await db.prompt.findMany({
-    where: { 
+    where: {
       ...(regenerate ? {} : { embedding: { equals: Prisma.DbNull } }),
       isPrivate: false,
       deletedAt: null,
@@ -142,12 +138,12 @@ export async function generateAllEmbeddings(
     } catch {
       failed++;
     }
-    
+
     // Report progress
     if (onProgress) {
       onProgress(i + 1, total, success, failed);
     }
-    
+
     // Rate limit: wait 1000ms between requests to avoid hitting API limits
     // (GitHub Models API and other providers have stricter rate limits)
     if (i < prompts.length - 1) {
@@ -162,13 +158,13 @@ function cosineSimilarity(a: number[], b: number[]): number {
   let dotProduct = 0;
   let normA = 0;
   let normB = 0;
-  
+
   for (let i = 0; i < a.length; i++) {
     dotProduct += a[i] * b[i];
     normA += a[i] * a[i];
     normB += b[i] * b[i];
   }
-  
+
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
@@ -271,7 +267,7 @@ export async function semanticSearch(
 
   // Calculate similarity scores and filter by threshold
   const SIMILARITY_THRESHOLD = 0.4; // Filter out results below this similarity
-  
+
   const scoredPrompts = prompts
     .map((prompt) => {
       const embedding = prompt.embedding as number[];
@@ -331,7 +327,7 @@ export async function findAndSaveRelatedPrompts(promptId: string): Promise<void>
 
   // Calculate similarity scores
   const SIMILARITY_THRESHOLD = 0.5;
-  
+
   const scoredPrompts = candidates
     .map((p) => ({
       id: p.id,

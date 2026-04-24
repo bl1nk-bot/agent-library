@@ -1,7 +1,7 @@
 Beyond structure, effective prompt engineering is guided by principles—fundamental truths that apply across models, tasks, and contexts. Master these principles, and you'll be able to adapt to any prompting challenge.
 
 <Callout type="info" title="The 8 Core Principles">
-These principles apply to every AI model and every task. Learn them once, use them everywhere.
+  These principles apply to every AI model and every task. Learn them once, use them everywhere.
 </Callout>
 
 ## Principle 1: Clarity Over Cleverness
@@ -10,18 +10,28 @@ The best prompts are clear, not clever. AI models are literal interpreters—the
 
 ### Be Explicit
 
-<Compare 
+<Compare
   before={{ label: "Implicit (problematic)", content: "Make this better." }}
-  after={{ label: "Explicit (effective)", content: "Improve this email by:\n1. Making the subject line more compelling\n2. Shortening paragraphs to 2-3 sentences max\n3. Adding a clear call-to-action at the end" }}
+  after={{
+    label: "Explicit (effective)",
+    content:
+      "Improve this email by:\n1. Making the subject line more compelling\n2. Shortening paragraphs to 2-3 sentences max\n3. Adding a clear call-to-action at the end",
+  }}
 />
 
 ### Avoid Ambiguity
 
 Words can have multiple meanings. Choose precise language.
 
-<Compare 
-  before={{ label: "Ambiguous", content: "Give me a short summary.\n(How short? 1 sentence? 1 paragraph? 1 page?)" }}
-  after={{ label: "Precise", content: "Summarize in exactly 3 bullet points, each under 20 words." }}
+<Compare
+  before={{
+    label: "Ambiguous",
+    content: "Give me a short summary.\n(How short? 1 sentence? 1 paragraph? 1 page?)",
+  }}
+  after={{
+    label: "Precise",
+    content: "Summarize in exactly 3 bullet points, each under 20 words.",
+  }}
 />
 
 ### State the Obvious
@@ -44,40 +54,48 @@ Vague inputs produce vague outputs. Specific inputs produce specific, useful out
 
 ### The Specificity Ladder
 
-<SpecificitySpectrum levels={[
-  { level: "Level 1", text: "Write about climate change" },
-  { level: "Level 2", text: "Write an article about climate change effects" },
-  { level: "Level 3", text: "Write a 500-word article about how climate change affects coral reefs" },
-  { level: "Level 4", text: "Write a 500-word article explaining how rising ocean temperatures cause coral bleaching, aimed at high school students, with 2 specific examples from the Great Barrier Reef, in an engaging but scientifically accurate tone" }
-]} />
+<SpecificitySpectrum
+  levels={[
+    { level: "Level 1", text: "Write about climate change" },
+    { level: "Level 2", text: "Write an article about climate change effects" },
+    {
+      level: "Level 3",
+      text: "Write a 500-word article about how climate change affects coral reefs",
+    },
+    {
+      level: "Level 4",
+      text: "Write a 500-word article explaining how rising ocean temperatures cause coral bleaching, aimed at high school students, with 2 specific examples from the Great Barrier Reef, in an engaging but scientifically accurate tone",
+    },
+  ]}
+/>
 
 Each level adds specificity and dramatically improves output quality.
 
 ### Specify These Elements
 
 <div className="my-4 grid gap-2">
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Audience</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Audience</span>
     <span className="text-muted-foreground">Who will read/use this?</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Length</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Length</span>
     <span className="text-muted-foreground">How long/short should it be?</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Tone</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Tone</span>
     <span className="text-muted-foreground">Formal? Casual? Technical?</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Format</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Format</span>
     <span className="text-muted-foreground">Prose? List? Table? Code?</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Scope</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Scope</span>
     <span className="text-muted-foreground">What to include/exclude?</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-24">Purpose</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-24 font-semibold">Purpose</span>
     <span className="text-muted-foreground">What should this accomplish?</span>
   </div>
 </div>
@@ -88,25 +106,29 @@ Models have no memory, no access to your files, and no knowledge of your situati
 
 ### Provide Sufficient Context
 
-<Compare 
+<Compare
   before={{ label: "Insufficient context", content: "Why isn't my function working?" }}
-  after={{ label: "Sufficient context", content: "I have a Python function that should filter a list of dictionaries by a specific key value. It's returning an empty list when it should return 3 items.\n\nFunction:\ndef filter_items(items, key, value):\n    return [item for item in items if item[key] = value]\n\nCall: filter_items(items, 'status', 'active')\nExpected: 2 items, Got: empty list" }}
+  after={{
+    label: "Sufficient context",
+    content:
+      "I have a Python function that should filter a list of dictionaries by a specific key value. It's returning an empty list when it should return 3 items.\n\nFunction:\ndef filter_items(items, key, value):\n    return [item for item in items if item[key] = value]\n\nCall: filter_items(items, 'status', 'active')\nExpected: 2 items, Got: empty list",
+  }}
 />
 
 ### The Context Checklist
 
 <Callout type="tip" title="Before You Submit">
-Ask yourself: Would a smart stranger understand this request? If not, add more context.
+  Ask yourself: Would a smart stranger understand this request? If not, add more context.
 </Callout>
 
-<Checklist 
+<Checklist
   title="Context Checklist"
   items={[
     { text: "Does the model know what I'm working on?" },
     { text: "Does it know my goal?" },
     { text: "Does it have all necessary information?" },
     { text: "Does it understand the constraints?" },
-    { text: "Would a smart stranger understand this request?" }
+    { text: "Would a smart stranger understand this request?" },
   ]}
 />
 
@@ -116,9 +138,13 @@ Don't just ask for an answer—guide the model toward the answer you want.
 
 ### Use Instructional Framing
 
-<Compare 
+<Compare
   before={{ label: "Just Asking", content: "What are the pros and cons of microservices?" }}
-  after={{ label: "Guiding", content: "List 5 advantages and 5 disadvantages of microservices architecture.\n\nFor each point:\n- State the point clearly in one sentence\n- Provide a brief explanation (2-3 sentences)\n- Give a concrete example\n\nConsider perspectives of: small startups, large enterprises, and teams transitioning from monoliths." }}
+  after={{
+    label: "Guiding",
+    content:
+      "List 5 advantages and 5 disadvantages of microservices architecture.\n\nFor each point:\n- State the point clearly in one sentence\n- Provide a brief explanation (2-3 sentences)\n- Give a concrete example\n\nConsider perspectives of: small startups, large enterprises, and teams transitioning from monoliths.",
+  }}
 />
 
 ### Provide Reasoning Scaffolds
@@ -131,11 +157,12 @@ For complex tasks, guide the reasoning process:
   prompt={`I need to choose between PostgreSQL and MongoDB for my e-commerce project.
 
 Think through this systematically:
+
 1. First, list the typical requirements for an e-commerce database
 2. Then, evaluate each database against each requirement
 3. Consider trade-offs specific to my use case
 4. Make a recommendation with clear justification`}
-/>
+   />
 
 ## Principle 5: Iterate and Refine
 
@@ -154,28 +181,28 @@ Prompt engineering is an iterative process. Your first prompt is rarely your bes
 ### Common Refinements
 
 <div className="my-4 grid gap-2">
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Too verbose</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Too verbose</span>
     <span className="text-muted-foreground">Add "Be concise" or length limits</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Too vague</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Too vague</span>
     <span className="text-muted-foreground">Add specific examples or constraints</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Wrong format</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Wrong format</span>
     <span className="text-muted-foreground">Specify exact output structure</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Missing aspects</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Missing aspects</span>
     <span className="text-muted-foreground">Add "Make sure to include..."</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Wrong tone</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Wrong tone</span>
     <span className="text-muted-foreground">Specify audience and style</span>
   </div>
-  <div className="flex gap-2 p-3 bg-muted/50 rounded-lg">
-    <span className="font-semibold min-w-32">Inaccurate</span>
+  <div className="bg-muted/50 flex gap-2 rounded-lg p-3">
+    <span className="min-w-32 font-semibold">Inaccurate</span>
     <span className="text-muted-foreground">Request citations or step-by-step reasoning</span>
   </div>
 </div>
@@ -183,6 +210,7 @@ Prompt engineering is an iterative process. Your first prompt is rarely your bes
 ### Keep a Prompt Journal
 
 Document what works:
+
 ```
 Task: Code review
 Version 1: "Review this code" → Too generic
@@ -199,9 +227,13 @@ Work with how models are trained, not against them.
 
 Frame requests as things a helpful assistant would naturally do:
 
-<Compare 
+<Compare
   before={{ label: "Against the grain", content: "I know you can't do this, but try to..." }}
-  after={{ label: "With the grain", content: "Help me understand...\nI'm working on X and need assistance with...\nCould you walk me through..." }}
+  after={{
+    label: "With the grain",
+    content:
+      "Help me understand...\nI'm working on X and need assistance with...\nCould you walk me through...",
+  }}
 />
 
 ### Models Excel at Patterns
@@ -214,7 +246,7 @@ If you need consistent output, show the pattern:
   prompt={`Recommend 3 science fiction books. Format each recommendation as:
 
 📚 **[Title]** by [Author]
-*[Genre] | [Publication Year]*
+_[Genre] | [Publication Year]_
 [2-sentence description]
 Why you'll love it: [1 sentence hook]
 
@@ -312,13 +344,13 @@ List any issues found.
 
 <PrinciplesSummary />
 
-<Quiz 
+<Quiz
   question="Which principle suggests you should include all relevant background information in your prompt?"
   options={[
     "Clarity Over Cleverness",
     "Specificity Yields Quality",
     "Context Is King",
-    "Iterate and Refine"
+    "Iterate and Refine",
   ]}
   correctIndex={2}
   explanation="Context Is King emphasizes that AI models have no memory between sessions and cannot read your mind. Including relevant background, constraints, and goals helps the model understand your needs."
@@ -340,33 +372,66 @@ Context: I'm working on {{context}}.
 Task: {{task}}
 
 Constraints:
+
 - Keep your response under {{length}} words
 - Focus only on {{focus}}
 
 Format: Return your answer as {{format}}.`}
-  blanks={[
-    { id: "role", correctAnswers: [], hint: "What professional role should the AI assume?", context: "A job title or professional role" },
-    { id: "expertise", correctAnswers: [], hint: "What specific domain knowledge is needed?", context: "A skill or domain that matches the role" },
-    { id: "context", correctAnswers: [], hint: "What's the project or situation?", context: "A project that someone with this expertise would work on" },
-    { id: "task", correctAnswers: [], hint: "What specific action should the AI take?", context: "An action appropriate for the role and context" },
-    { id: "length", correctAnswers: [], hint: "How long should the response be?", context: "A number (word count)" },
-    { id: "focus", correctAnswers: [], hint: "What aspect should be prioritized?", context: "A quality or aspect relevant to the task" },
-    { id: "format", correctAnswers: [], hint: "How should the output be structured?", context: "An output format type" }
-  ]}
-  explanation="A well-structured prompt includes: a clear role (Principle 1), sufficient context (Principle 3), specific task (Principle 2), constraints (Principle 4), and output format (Principle 5). The AI checks if your choices are internally consistent."
+blanks={[
+{ id: "role", correctAnswers: [], hint: "What professional role should the AI assume?", context: "A job title or professional role" },
+{ id: "expertise", correctAnswers: [], hint: "What specific domain knowledge is needed?", context: "A skill or domain that matches the role" },
+{ id: "context", correctAnswers: [], hint: "What's the project or situation?", context: "A project that someone with this expertise would work on" },
+{ id: "task", correctAnswers: [], hint: "What specific action should the AI take?", context: "An action appropriate for the role and context" },
+{ id: "length", correctAnswers: [], hint: "How long should the response be?", context: "A number (word count)" },
+{ id: "focus", correctAnswers: [], hint: "What aspect should be prioritized?", context: "A quality or aspect relevant to the task" },
+{ id: "format", correctAnswers: [], hint: "How should the output be structured?", context: "An output format type" }
+]}
+explanation="A well-structured prompt includes: a clear role (Principle 1), sufficient context (Principle 3), specific task (Principle 2), constraints (Principle 4), and output format (Principle 5). The AI checks if your choices are internally consistent."
 />
 
 <InteractiveChecklist
   title="Principles Checklist"
   items={[
-    { id: "clarity", label: "Clarity Over Cleverness", description: "Is your prompt explicit and unambiguous?" },
-    { id: "specificity", label: "Specificity Yields Quality", description: "Have you included audience, length, tone, and format?" },
-    { id: "context", label: "Context Is King", description: "Does the prompt include all necessary background information?" },
-    { id: "examples", label: "Examples Beat Explanations", description: "Have you shown what you want, not just described it?" },
-    { id: "constraints", label: "Constraints Focus Output", description: "Are there clear boundaries on scope and format?" },
-    { id: "iteration", label: "Iterate and Refine", description: "Are you prepared to improve based on results?" },
-    { id: "persona", label: "Persona Shapes Perspective", description: "Does the AI know what role to play?" },
-    { id: "verify", label: "Verify and Validate", description: "Have you built in checks for accuracy?" }
+    {
+      id: "clarity",
+      label: "Clarity Over Cleverness",
+      description: "Is your prompt explicit and unambiguous?",
+    },
+    {
+      id: "specificity",
+      label: "Specificity Yields Quality",
+      description: "Have you included audience, length, tone, and format?",
+    },
+    {
+      id: "context",
+      label: "Context Is King",
+      description: "Does the prompt include all necessary background information?",
+    },
+    {
+      id: "examples",
+      label: "Examples Beat Explanations",
+      description: "Have you shown what you want, not just described it?",
+    },
+    {
+      id: "constraints",
+      label: "Constraints Focus Output",
+      description: "Are there clear boundaries on scope and format?",
+    },
+    {
+      id: "iteration",
+      label: "Iterate and Refine",
+      description: "Are you prepared to improve based on results?",
+    },
+    {
+      id: "persona",
+      label: "Persona Shapes Perspective",
+      description: "Does the AI know what role to play?",
+    },
+    {
+      id: "verify",
+      label: "Verify and Validate",
+      description: "Have you built in checks for accuracy?",
+    },
   ]}
 />
 

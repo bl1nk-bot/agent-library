@@ -25,30 +25,33 @@ export function StoryScene({ panels, className }: StorySceneProps) {
   const isLast = currentPanel === panels.length - 1;
 
   return (
-    <div className={cn("my-6 pixel-panel overflow-hidden", className)}>
+    <div className={cn("pixel-panel my-6 overflow-hidden", className)}>
       {/* Story panel */}
-      <div className="p-4 min-h-[180px] flex items-center">
-        <div className="flex items-start gap-4 w-full">
+      <div className="flex min-h-[180px] items-center p-4">
+        <div className="flex w-full items-start gap-4">
           {panel.character === "promi" && (
             <div className="shrink-0">
-              <PixelRobot className="w-12 h-16" mood={panel.mood} />
+              <PixelRobot className="h-16 w-12" mood={panel.mood} />
             </div>
           )}
-          <div 
+          <div
             className={cn(
-              "flex-1 p-4 bg-white/80 border-2 border-[#D97706]",
+              "flex-1 border-2 border-[#D97706] bg-white/80 p-4",
               panel.highlight && "bg-[#FEF3C7]"
             )}
-            style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+            style={{
+              clipPath:
+                "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+            }}
           >
-            <p className="text-xl leading-relaxed m-0 text-[#2C1810]">{panel.text}</p>
+            <p className="m-0 text-xl leading-relaxed text-[#2C1810]">{panel.text}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation - pixel style */}
       {panels.length > 1 && (
-        <div className="flex items-center justify-between px-4 py-2 bg-[#4A3728] border-t-2 border-[#8B4513]">
+        <div className="flex items-center justify-between border-t-2 border-[#8B4513] bg-[#4A3728] px-4 py-2">
           <button
             onClick={() => setCurrentPanel((p) => p - 1)}
             disabled={isFirst}
@@ -64,12 +67,15 @@ export function StoryScene({ panels, className }: StorySceneProps) {
                 key={i}
                 onClick={() => setCurrentPanel(i)}
                 className={cn(
-                  "w-3 h-3 border-2",
-                  i === currentPanel 
-                    ? "bg-[#22C55E] border-[#16A34A]" 
-                    : "bg-[#4A3728] border-[#8B4513] hover:bg-[#5D4037]"
+                  "h-3 w-3 border-2",
+                  i === currentPanel
+                    ? "border-[#16A34A] bg-[#22C55E]"
+                    : "border-[#8B4513] bg-[#4A3728] hover:bg-[#5D4037]"
                 )}
-                style={{ clipPath: "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)" }}
+                style={{
+                  clipPath:
+                    "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
+                }}
               />
             ))}
           </div>
@@ -94,22 +100,30 @@ interface SinglePanelProps {
   highlight?: boolean;
 }
 
-export function Panel({ character = "promi", mood = "happy", children, highlight }: SinglePanelProps) {
+export function Panel({
+  character = "promi",
+  mood = "happy",
+  children,
+  highlight,
+}: SinglePanelProps) {
   return (
-    <div className="my-6 pixel-panel">
+    <div className="pixel-panel my-6">
       <div className="p-4">
         <div className="flex items-start gap-4">
           {character === "promi" && (
             <div className="shrink-0">
-              <PixelRobot className="w-12 h-16" mood={mood} />
+              <PixelRobot className="h-16 w-12" mood={mood} />
             </div>
           )}
-          <div 
+          <div
             className={cn(
-              "flex-1 p-4 bg-white/80 border-2 border-[#D97706]",
+              "flex-1 border-2 border-[#D97706] bg-white/80 p-4",
               highlight && "bg-[#FEF3C7]"
             )}
-            style={{ clipPath: "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)" }}
+            style={{
+              clipPath:
+                "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+            }}
           >
             <div className="text-xl leading-relaxed text-[#2C1810]">{children}</div>
           </div>

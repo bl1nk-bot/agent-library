@@ -76,5 +76,10 @@ export interface WidgetPlugin {
  * Type guard to check if an item is a widget prompt
  */
 export function isWidget(item: unknown): item is InjectedWidget {
-  return typeof item === "object" && item !== null && "isWidget" in item && (item as InjectedWidget).isWidget === true;
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "isWidget" in item &&
+    (item as InjectedWidget).isWidget === true
+  );
 }

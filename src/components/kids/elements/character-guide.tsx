@@ -25,16 +25,16 @@ const sizeClasses = {
   lg: "w-28 h-28 text-5xl",
 };
 
-export function PromiCharacter({ 
-  mood = "happy", 
+export function PromiCharacter({
+  mood = "happy",
   size = "md",
   className,
-  animate = true 
+  animate = true,
 }: PromiCharacterProps) {
   return (
-    <div 
+    <div
       className={cn(
-        "relative flex items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 border-4 border-primary/30",
+        "from-primary/20 border-primary/30 relative flex items-center justify-center rounded-full border-4 bg-gradient-to-br to-purple-500/20",
         sizeClasses[size],
         animate && "animate-float",
         className
@@ -45,9 +45,7 @@ export function PromiCharacter({
         <span className="relative">
           🤖
           {/* Mood indicator */}
-          <span className="absolute -bottom-1 -right-1 text-lg">
-            {moodEmojis[mood]}
-          </span>
+          <span className="absolute -right-1 -bottom-1 text-lg">{moodEmojis[mood]}</span>
         </span>
       </div>
     </div>
@@ -60,26 +58,22 @@ interface SpeechBubbleProps {
   className?: string;
 }
 
-export function SpeechBubble({ 
-  children, 
-  direction = "right",
-  className 
-}: SpeechBubbleProps) {
+export function SpeechBubble({ children, direction = "right", className }: SpeechBubbleProps) {
   return (
-    <div 
+    <div
       className={cn(
-        "relative p-4 bg-white dark:bg-card rounded-2xl shadow-lg border-2 border-primary/20",
+        "dark:bg-card border-primary/20 relative rounded-2xl border-2 bg-white p-4 shadow-lg",
         className
       )}
     >
       {children}
       {/* Speech bubble tail */}
-      <div 
+      <div
         className={cn(
-          "absolute w-4 h-4 bg-white dark:bg-card border-2 border-primary/20 rotate-45",
-          direction === "left" && "-left-2 top-1/2 -translate-y-1/2 border-r-0 border-t-0",
-          direction === "right" && "-right-2 top-1/2 -translate-y-1/2 border-l-0 border-b-0",
-          direction === "bottom" && "left-1/2 -bottom-2 -translate-x-1/2 border-l-0 border-t-0"
+          "dark:bg-card border-primary/20 absolute h-4 w-4 rotate-45 border-2 bg-white",
+          direction === "left" && "top-1/2 -left-2 -translate-y-1/2 border-t-0 border-r-0",
+          direction === "right" && "top-1/2 -right-2 -translate-y-1/2 border-b-0 border-l-0",
+          direction === "bottom" && "-bottom-2 left-1/2 -translate-x-1/2 border-t-0 border-l-0"
         )}
       />
     </div>
@@ -92,22 +86,18 @@ interface PromiWithMessageProps {
   promiPosition?: "left" | "right";
 }
 
-export function PromiWithMessage({ 
-  message, 
+export function PromiWithMessage({
+  message,
   mood = "happy",
-  promiPosition = "left" 
+  promiPosition = "left",
 }: PromiWithMessageProps) {
   return (
-    <div className={cn(
-      "flex items-start gap-4 my-6",
-      promiPosition === "right" && "flex-row-reverse"
-    )}>
+    <div
+      className={cn("my-6 flex items-start gap-4", promiPosition === "right" && "flex-row-reverse")}
+    >
       <PromiCharacter mood={mood} size="md" />
-      <SpeechBubble 
-        direction={promiPosition === "left" ? "left" : "right"}
-        className="flex-1"
-      >
-        <p className="text-base leading-relaxed m-0">{message}</p>
+      <SpeechBubble direction={promiPosition === "left" ? "left" : "right"} className="flex-1">
+        <p className="m-0 text-base leading-relaxed">{message}</p>
       </SpeechBubble>
     </div>
   );

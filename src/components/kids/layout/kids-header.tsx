@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import Link from "next/link";
@@ -18,7 +17,7 @@ export function KidsHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const total = getTotalLevels();
-  
+
   // Get current level from context (will be empty if not in a level)
   const levelSlug = useLevelSlug();
   const currentLevel = levelSlug ? getLevelBySlug(levelSlug) : null;
@@ -43,12 +42,12 @@ export function KidsHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="shrink-0 z-50 w-full bg-[#2C1810] border-b-4 border-[#8B4513]">
+    <header className="z-50 w-full shrink-0 border-b-4 border-[#8B4513] bg-[#2C1810]">
       <div className="container flex h-14 items-center justify-between px-4">
         {/* Logo */}
         <a href="/kids" className="flex items-center gap-2">
-          <PixelRobot className="w-8 h-10" />
-          <span className="text-[#FFD700] font-bold text-2xl pixel-text-shadow hidden sm:block">
+          <PixelRobot className="h-10 w-8" />
+          <span className="pixel-text-shadow hidden text-2xl font-bold text-[#FFD700] sm:block">
             {t("header.title")}
           </span>
         </a>
@@ -57,54 +56,53 @@ export function KidsHeader() {
         <div className="flex items-center gap-3">
           {/* Current level indicator */}
           {levelNumber && (
-            <div className="flex items-center gap-1 px-3 h-8 bg-[#FFD700] border-2 border-[#DAA520] pixel-border-sm">
-              <span className="text-[#8B4513] text-sm font-bold">
+            <div className="pixel-border-sm flex h-8 items-center gap-1 border-2 border-[#DAA520] bg-[#FFD700] px-3">
+              <span className="text-sm font-bold text-[#8B4513]">
                 {t("level.levelLabel", { number: levelNumber })}
               </span>
             </div>
           )}
 
           {/* Stars counter */}
-          <div className="flex items-center gap-1 px-3 h-8 bg-[#4A3728] border-2 border-[#8B4513] pixel-border-sm">
-            <PixelStar filled className="w-4 h-4" />
-            <span className="text-white text-sm">{stars}</span>
+          <div className="pixel-border-sm flex h-8 items-center gap-1 border-2 border-[#8B4513] bg-[#4A3728] px-3">
+            <PixelStar filled className="h-4 w-4" />
+            <span className="text-sm text-white">{stars}</span>
           </div>
 
           {/* Progress */}
-          <div className="hidden sm:flex items-center gap-1 px-3 h-8 bg-[#4A3728] border-2 border-[#8B4513] pixel-border-sm">
-            <span className="text-[#22C55E] text-sm">{completed}/{total}</span>
+          <div className="pixel-border-sm hidden h-8 items-center gap-1 border-2 border-[#8B4513] bg-[#4A3728] px-3 sm:flex">
+            <span className="text-sm text-[#22C55E]">
+              {completed}/{total}
+            </span>
           </div>
 
           {/* Nav buttons - desktop */}
-          <div className="hidden sm:flex items-center gap-2">
+          <div className="hidden items-center gap-2 sm:flex">
             <MusicButton />
             <SettingsButton />
-            <a 
-              href="/kids" 
-              className="pixel-btn px-3 py-1.5 text-sm h-8 flex items-center"
-            >
+            <a href="/kids" className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm">
               <PixelHomeIcon />
             </a>
-            <Link 
-              href="/kids/map" 
-              className="pixel-btn pixel-btn-green px-3 py-1.5 text-sm h-8 flex items-center"
+            <Link
+              href="/kids/map"
+              className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm"
             >
               <PixelMapIcon />
             </Link>
             {/* Back to main site */}
-            <a 
-              href="/" 
-              className="hidden md:flex pixel-btn pixel-btn-amber px-3 py-1.5 text-sm h-8 items-center"
+            <a
+              href="/"
+              className="pixel-btn pixel-btn-amber hidden h-8 items-center px-3 py-1.5 text-sm md:flex"
             >
               {t("header.mainSite")}
             </a>
           </div>
 
           {/* Mobile menu button */}
-          <div className="sm:hidden relative" ref={menuRef}>
+          <div className="relative sm:hidden" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="pixel-btn px-3 py-1.5 h-8 flex items-center"
+              className="pixel-btn flex h-8 items-center px-3 py-1.5"
               aria-label="Menu"
             >
               <PixelMenuIcon />
@@ -112,37 +110,39 @@ export function KidsHeader() {
 
             {/* Mobile dropdown menu */}
             {menuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 bg-[#2C1810] border-4 border-[#8B4513] rounded-lg shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="p-2 flex flex-col gap-2">
+              <div className="animate-in fade-in slide-in-from-top-2 absolute top-full right-0 z-50 mt-2 w-48 rounded-lg border-4 border-[#8B4513] bg-[#2C1810] shadow-xl duration-200">
+                <div className="flex flex-col gap-2 p-2">
                   {/* Progress - mobile only */}
-                  <div className="flex items-center justify-center gap-1 px-3 py-2 bg-[#4A3728] border-2 border-[#8B4513] pixel-border-sm">
-                    <span className="text-[#22C55E] text-sm">{completed}/{total}</span>
+                  <div className="pixel-border-sm flex items-center justify-center gap-1 border-2 border-[#8B4513] bg-[#4A3728] px-3 py-2">
+                    <span className="text-sm text-[#22C55E]">
+                      {completed}/{total}
+                    </span>
                   </div>
-                  
+
                   <div className="flex items-center justify-center gap-2">
                     <MusicButton />
                     <SettingsButton />
                   </div>
-                  
-                  <a 
-                    href="/kids" 
-                    className="pixel-btn px-3 py-2 text-sm flex items-center justify-center gap-2"
+
+                  <a
+                    href="/kids"
+                    className="pixel-btn flex items-center justify-center gap-2 px-3 py-2 text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <PixelHomeIcon />
                     {t("header.home")}
                   </a>
-                  <Link 
-                    href="/kids/map" 
-                    className="pixel-btn pixel-btn-green px-3 py-2 text-sm flex items-center justify-center gap-2"
+                  <Link
+                    href="/kids/map"
+                    className="pixel-btn pixel-btn-green flex items-center justify-center gap-2 px-3 py-2 text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <PixelMapIcon />
                     {t("level.map")}
                   </Link>
-                  <a 
-                    href="/" 
-                    className="pixel-btn pixel-btn-amber px-3 py-2 text-sm flex items-center justify-center"
+                  <a
+                    href="/"
+                    className="pixel-btn pixel-btn-amber flex items-center justify-center px-3 py-2 text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("header.mainSite")}
@@ -160,7 +160,7 @@ export function KidsHeader() {
 // Pixel art home icon
 function PixelHomeIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="7" y="1" width="2" height="2" fill="currentColor" />
       <rect x="5" y="3" width="6" height="2" fill="currentColor" />
       <rect x="3" y="5" width="10" height="2" fill="currentColor" />
@@ -174,7 +174,7 @@ function PixelHomeIcon() {
 // Pixel art pin/location icon
 function PixelMapIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       {/* Pin head - circle */}
       <rect x="5" y="1" width="6" height="2" fill="currentColor" />
       <rect x="4" y="2" width="8" height="2" fill="currentColor" />
@@ -193,7 +193,7 @@ function PixelMapIcon() {
 // Pixel art hamburger menu icon
 function PixelMenuIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="2" y="3" width="12" height="2" fill="currentColor" />
       <rect x="2" y="7" width="12" height="2" fill="currentColor" />
       <rect x="2" y="11" width="12" height="2" fill="currentColor" />

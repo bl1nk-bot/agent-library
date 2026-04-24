@@ -21,7 +21,11 @@ interface ProgressState {
   failed: number;
 }
 
-export function AISearchSettings({ enabled, promptsWithoutEmbeddings, totalPrompts }: AISearchSettingsProps) {
+export function AISearchSettings({
+  enabled,
+  promptsWithoutEmbeddings,
+  totalPrompts,
+}: AISearchSettingsProps) {
   const t = useTranslations("admin");
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState<ProgressState | null>(null);
@@ -48,19 +52,19 @@ export function AISearchSettings({ enabled, promptsWithoutEmbeddings, totalPromp
       if (!reader) throw new Error("No response body");
 
       const decoder = new TextDecoder();
-      
+
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const text = decoder.decode(value);
-        const lines = text.split("\n\n").filter(line => line.startsWith("data: "));
-        
+        const lines = text.split("\n\n").filter((line) => line.startsWith("data: "));
+
         for (const line of lines) {
           const jsonStr = line.replace("data: ", "");
           try {
             const data = JSON.parse(jsonStr);
-            
+
             if (data.done) {
               setResult({ success: data.success, failed: data.failed });
               toast.success(t("aiSearch.generateSuccess", { count: data.success }));
@@ -103,7 +107,9 @@ export function AISearchSettings({ enabled, promptsWithoutEmbeddings, totalPromp
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-sm">
-            <span className="text-muted-foreground">{t("aiSearch.promptsWithoutEmbeddings")}: </span>
+            <span className="text-muted-foreground">
+              {t("aiSearch.promptsWithoutEmbeddings")}:{" "}
+            </span>
             <span className="font-medium">{promptsWithoutEmbeddings}</span>
           </div>
         </div>
@@ -112,8 +118,10 @@ export function AISearchSettings({ enabled, promptsWithoutEmbeddings, totalPromp
         {progress && (
           <div className="space-y-2">
             <Progress value={progressPercent} className="h-2" />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{progress.current} / {progress.total}</span>
+            <div className="text-muted-foreground flex justify-between text-xs">
+              <span>
+                {progress.current} / {progress.total}
+              </span>
               <span>{progressPercent}%</span>
             </div>
             <div className="flex gap-4 text-xs">
@@ -144,22 +152,22 @@ export function AISearchSettings({ enabled, promptsWithoutEmbeddings, totalPromp
           >
             {isGenerating && !progress ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t("aiSearch.generating")}
               </>
             ) : isGenerating && progress ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {progress.current}/{progress.total}
               </>
             ) : (
               <>
-                <Sparkles className="h-4 w-4 mr-2" />
+                <Sparkles className="mr-2 h-4 w-4" />
                 {t("aiSearch.generateButton")}
               </>
             )}
           </Button>
-          
+
           <Button
             variant="outline"
             onClick={() => handleGenerateEmbeddings(true)}

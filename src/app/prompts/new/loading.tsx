@@ -6,11 +6,11 @@ export default function NewPromptLoading() {
       <div className="container max-w-3xl py-8">
         <div className="space-y-4">
           {/* Header: Page title + Private Switch */}
-          <div className="flex items-center justify-between mb-2">
+          <div className="mb-2 flex items-center justify-between">
             <Skeleton className="h-6 w-24" />
             <div className="flex items-center gap-3">
               {/* AI Builder button - hidden on mobile since panel is closed by default */}
-              <Skeleton className="hidden sm:block h-7 w-28" />
+              <Skeleton className="hidden h-7 w-28 sm:block" />
               {/* Private switch */}
               <div className="flex items-center gap-2">
                 <Skeleton className="h-5 w-9 rounded-full" />
@@ -20,14 +20,14 @@ export default function NewPromptLoading() {
           </div>
 
           {/* ===== METADATA SECTION ===== */}
-          <div className="space-y-4 pb-6 border-b">
+          <div className="space-y-4 border-b pb-6">
             {/* Row 1: Title + Category */}
-            <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
               <div className="flex-1 space-y-2">
                 <Skeleton className="h-4 w-12" />
                 <Skeleton className="h-10 w-full" />
               </div>
-              <div className="w-full sm:w-64 space-y-2">
+              <div className="w-full space-y-2 sm:w-64">
                 <Skeleton className="h-4 w-16" />
                 <Skeleton className="h-10 w-full" />
               </div>
@@ -56,9 +56,9 @@ export default function NewPromptLoading() {
           {/* ===== INPUT SECTION ===== */}
           <div className="space-y-4 py-6">
             <Skeleton className="h-5 w-20" />
-            
+
             {/* Input Type & Format selectors */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Skeleton className="h-9 w-48" />
               <div className="flex items-center gap-2 sm:ml-auto">
                 <Skeleton className="h-5 w-9 rounded-full" />
@@ -67,8 +67,8 @@ export default function NewPromptLoading() {
             </div>
 
             {/* Prompt Content - Variable toolbar + Textarea */}
-            <div className="rounded-md border overflow-hidden">
-              <div className="flex items-center gap-1 p-2 border-b bg-muted/30">
+            <div className="overflow-hidden rounded-md border">
+              <div className="bg-muted/30 flex items-center gap-1 border-b p-2">
                 <Skeleton className="h-7 w-7" />
                 <Skeleton className="h-7 w-7" />
                 <Skeleton className="h-7 w-7" />
@@ -87,15 +87,15 @@ export default function NewPromptLoading() {
           </div>
 
           {/* ===== OUTPUT SECTION ===== */}
-          <div className="space-y-4 py-6 border-t">
+          <div className="space-y-4 border-t py-6">
             <Skeleton className="h-5 w-24" />
-            
+
             {/* Output Type buttons */}
-            <div className="inline-flex rounded-md border divide-x">
+            <div className="inline-flex divide-x rounded-md border">
               <Skeleton className="h-10 w-20 rounded-l-md rounded-r-none" />
               <Skeleton className="h-10 w-20 rounded-none" />
               <Skeleton className="h-10 w-20 rounded-none" />
-              <Skeleton className="h-10 w-20 rounded-r-md rounded-l-none" />
+              <Skeleton className="h-10 w-20 rounded-l-none rounded-r-md" />
             </div>
 
             {/* Media URL */}
@@ -113,10 +113,9 @@ export default function NewPromptLoading() {
       </div>
 
       {/* Agent Panel Skeleton - only visible on desktop (sm+) since it's closed by default on mobile */}
-      <div className="hidden sm:flex fixed z-50 bg-background shadow-lg flex-col
-        right-0 left-auto top-12 bottom-auto h-[calc(100vh-3rem)] w-[400px] border-l border-t">
+      <div className="bg-background fixed top-12 right-0 bottom-auto left-auto z-50 hidden h-[calc(100vh-3rem)] w-[400px] flex-col border-t border-l shadow-lg sm:flex">
         {/* Header */}
-        <div className="flex items-center justify-between px-3 py-1.5 border-b">
+        <div className="flex items-center justify-between border-b px-3 py-1.5">
           <div className="flex items-center gap-1.5">
             <Skeleton className="h-3 w-3" />
             <Skeleton className="h-3 w-24" />
@@ -126,13 +125,13 @@ export default function NewPromptLoading() {
 
         {/* Messages area */}
         <div className="flex-1 overflow-hidden p-4">
-          <div className="text-center py-8">
-            <Skeleton className="h-8 w-8 mx-auto mb-3 rounded" />
-            <Skeleton className="h-4 w-32 mx-auto mb-1" />
-            <Skeleton className="h-3 w-48 mx-auto" />
+          <div className="py-8 text-center">
+            <Skeleton className="mx-auto mb-3 h-8 w-8 rounded" />
+            <Skeleton className="mx-auto mb-1 h-4 w-32" />
+            <Skeleton className="mx-auto h-3 w-48" />
             <div className="mt-4 space-y-2">
-              <Skeleton className="h-3 w-24 mx-auto" />
-              <div className="flex flex-wrap gap-1.5 justify-center">
+              <Skeleton className="mx-auto h-3 w-24" />
+              <div className="flex flex-wrap justify-center gap-1.5">
                 <Skeleton className="h-6 w-24 rounded-full" />
                 <Skeleton className="h-6 w-28 rounded-full" />
                 <Skeleton className="h-6 w-20 rounded-full" />
@@ -142,10 +141,10 @@ export default function NewPromptLoading() {
         </div>
 
         {/* Input */}
-        <div className="p-2 border-t">
-          <div className="rounded-lg bg-muted/50 border px-2.5 py-2">
+        <div className="border-t p-2">
+          <div className="bg-muted/50 rounded-lg border px-2.5 py-2">
             <Skeleton className="h-8 w-full" />
-            <div className="flex items-center justify-between mt-1.5">
+            <div className="mt-1.5 flex items-center justify-between">
               <div className="flex items-center gap-1">
                 <Skeleton className="h-2.5 w-2.5" />
                 <Skeleton className="h-2.5 w-16" />

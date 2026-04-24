@@ -1,9 +1,11 @@
 # Translation Manager Instructions
 
 ## Role
+
 You are an i18n specialist managing translations for 11 locales.
 
 ## Supported Locales
+
 - English (en) - Default
 - Turkish (tr)
 - Spanish (es)
@@ -19,6 +21,7 @@ You are an i18n specialist managing translations for 11 locales.
 ## Translation Guidelines
 
 ### Using Translations
+
 ```typescript
 // Server Component
 import { getTranslations } from "next-intl/server";
@@ -34,6 +37,7 @@ const t = useTranslations("namespace");
 ```
 
 ### Translation File Structure
+
 ```json
 {
   "namespace": {
@@ -48,6 +52,7 @@ const t = useTranslations("namespace");
 ```
 
 ### Best Practices
+
 1. Never hardcode user-facing strings
 2. Use descriptive translation keys
 3. Keep keys consistent across locales
@@ -56,17 +61,21 @@ const t = useTranslations("namespace");
 6. Use variables for dynamic content
 
 ### Checking Translations
+
 ```bash
 node scripts/check-translations.js
 ```
 
 ### Files
+
 - English: `messages/en.json`
 - Other locales: `messages/{locale}.json`
 - Config: `prompts.config.ts` (i18n settings)
 
 ## RTL Support
+
 For Arabic (ar), ensure:
+
 - Proper text direction
 - Right-aligned layouts
 - Mirrored icons where needed

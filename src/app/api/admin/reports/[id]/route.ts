@@ -7,10 +7,7 @@ const updateSchema = z.object({
   status: z.enum(["PENDING", "REVIEWED", "DISMISSED"]),
 });
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user || session.user.role !== "ADMIN") {

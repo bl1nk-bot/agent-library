@@ -10,12 +10,9 @@ const translateSchema = z.object({
 
 export async function POST(request: NextRequest) {
   const session = await auth();
-  
+
   if (!session?.user) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -27,16 +24,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ translatedContent });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     }
 
     console.error("Translation error:", error);
-    return NextResponse.json(
-      { error: "Failed to translate content" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to translate content" }, { status: 500 });
   }
 }

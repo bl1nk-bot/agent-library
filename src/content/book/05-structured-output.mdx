@@ -1,7 +1,7 @@
 Getting consistent, well-formatted output is essential for production applications and efficient workflows. This chapter covers techniques for controlling exactly how AI models format their responses.
 
 <Callout type="info" title="From Prose to Data">
-Structured output transforms AI responses from freeform text into actionable, parseable data.
+  Structured output transforms AI responses from freeform text into actionable, parseable data.
 </Callout>
 
 ## Why Structure Matters
@@ -24,7 +24,8 @@ Each tip should be bold, followed by a dash and explanation.`}
 />
 
 <Callout type="tip" title="List Best Practices">
-Specify the exact number of items you want, whether to include explanations, and if items should be bold or have a specific structure.
+  Specify the exact number of items you want, whether to include explanations, and if items should
+  be bold or have a specific structure.
 </Callout>
 
 ### Tables
@@ -41,7 +42,8 @@ Format as a markdown table with columns:
 />
 
 <Callout type="tip" title="Table Best Practices">
-Specify column names, expected data types (text, numbers, ratings), and how many rows you need. For complex comparisons, limit to 4-6 columns for readability.
+  Specify column names, expected data types (text, numbers, ratings), and how many rows you need.
+  For complex comparisons, limit to 4-6 columns for readability.
 </Callout>
 
 ### Headers and Sections
@@ -60,7 +62,8 @@ Structure your response with these sections:
 ```
 
 <Callout type="tip" title="Section Best Practices">
-List your sections in the order you want them. For consistency, specify what each section should contain (e.g., "Executive Summary: 2-3 sentences only").
+  List your sections in the order you want them. For consistency, specify what each section should
+  contain (e.g., "Executive Summary: 2-3 sentences only").
 </Callout>
 
 ### Emphasis with Uppercase Directives
@@ -69,14 +72,36 @@ Uppercase words act as strong signals to the model, emphasizing critical constra
 
 **Common Uppercase Directives:**
 
-<InfoGrid items={[
-  { label: "NEVER", description: "Absolute prohibition: \"NEVER include personal opinions\"", color: "red" },
-  { label: "ALWAYS", description: "Mandatory requirement: \"ALWAYS cite sources\"", color: "green" },
-  { label: "IMPORTANT", description: "Critical instruction: \"IMPORTANT: Keep responses under 100 words\"", color: "amber" },
-  { label: "DO NOT", description: "Strong prohibition: \"DO NOT make up statistics\"", color: "red" },
-  { label: "MUST", description: "Required action: \"Output MUST be valid JSON\"", color: "blue" },
-  { label: "ONLY", description: "Restriction: \"Return ONLY the code, no explanations\"", color: "purple" },
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "NEVER",
+      description: 'Absolute prohibition: "NEVER include personal opinions"',
+      color: "red",
+    },
+    {
+      label: "ALWAYS",
+      description: 'Mandatory requirement: "ALWAYS cite sources"',
+      color: "green",
+    },
+    {
+      label: "IMPORTANT",
+      description: 'Critical instruction: "IMPORTANT: Keep responses under 100 words"',
+      color: "amber",
+    },
+    {
+      label: "DO NOT",
+      description: 'Strong prohibition: "DO NOT make up statistics"',
+      color: "red",
+    },
+    { label: "MUST", description: 'Required action: "Output MUST be valid JSON"', color: "blue" },
+    {
+      label: "ONLY",
+      description: 'Restriction: "Return ONLY the code, no explanations"',
+      color: "purple",
+    },
+  ]}
+/>
 
 ```
 Summarize this article.
@@ -88,7 +113,8 @@ DO NOT include your own opinions or analysis.
 ```
 
 <Callout type="warning" title="Use Sparingly">
-If everything is uppercase or marked as critical, nothing stands out. Reserve these directives for genuinely important constraints.
+  If everything is uppercase or marked as critical, nothing stands out. Reserve these directives for
+  genuinely important constraints.
 </Callout>
 
 ## JSON Output
@@ -105,11 +131,11 @@ Start with a template showing the exact structure you want. Include field names,
   prompt={`Extract information from this text and return as JSON:
 
 {
-    "company_name": "string",
-    "founding_year": number,
-    "headquarters": "string",
-    "employees": number,
-    "industry": "string"
+"company_name": "string",
+"founding_year": number,
+"headquarters": "string",
+"employees": number,
+"industry": "string"
 }
 
 Text: "Apple Inc., founded in 1976, is headquartered in Cupertino, California. The technology giant employs approximately 164,000 people worldwide."`}
@@ -180,11 +206,12 @@ YAML is more human-readable than JSON, using indentation instead of brackets. It
   prompt={`Generate a GitHub Actions workflow for a Node.js project.
 
 Return as valid YAML:
+
 - Include: install, lint, test, build stages
 - Use Node.js 18
 - Cache npm dependencies
 - Run on push to main and pull requests`}
-/>
+  />
 
 ## XML Output
 
@@ -220,7 +247,7 @@ One paragraph overview
 
 [ISSUES]
 • CRITICAL: [issue] — [file:line]
-• WARNING: [issue] — [file:line]  
+• WARNING: [issue] — [file:line]
 • INFO: [issue] — [file:line]
 
 [METRICS]
@@ -237,7 +264,7 @@ Test Coverage: [estimated %]
 
 ### Fill-in-the-Blank Format
 
-Templates with blanks (___) guide the model to fill in specific fields while maintaining exact formatting. This approach is excellent for forms, briefs, and standardized documents where consistency matters.
+Templates with blanks (\_\_\_) guide the model to fill in specific fields while maintaining exact formatting. This approach is excellent for forms, briefs, and standardized documents where consistency matters.
 
 ```
 Complete this template for the given product:
@@ -267,6 +294,7 @@ Typed responses define categories or entity types that the model should recogniz
   prompt={`Extract entities from this text.
 
 Entity Types:
+
 - PERSON: Full names of people
 - ORG: Organization/company names
 - LOCATION: Cities, countries, addresses
@@ -313,16 +341,16 @@ Conditional formatting lets you define different output formats based on the inp
   prompt={`Classify this support ticket.
 
 If URGENT (system down, security issue, data loss):
-  Return: 🔴 URGENT | [Category] | [Suggested Action]
+Return: 🔴 URGENT | [Category] | [Suggested Action]
 
 If HIGH (affects multiple users, revenue impact):
-  Return: 🟠 HIGH | [Category] | [Suggested Action]
+Return: 🟠 HIGH | [Category] | [Suggested Action]
 
 If MEDIUM (single user affected, workaround exists):
-  Return: 🟡 MEDIUM | [Category] | [Suggested Action]
+Return: 🟡 MEDIUM | [Category] | [Suggested Action]
 
 If LOW (questions, feature requests):
-  Return: 🟢 LOW | [Category] | [Suggested Action]
+Return: 🟢 LOW | [Category] | [Suggested Action]
 
 Ticket: "I can't login to my account. I've tried resetting my password twice but still getting an error. This is blocking my entire team from accessing the dashboard."`}
 />
@@ -378,13 +406,13 @@ Extract contact information. Use null for missing fields.
 {
   "name": "string (required)",
   "email": "string or null",
-  "phone": "string or null", 
+  "phone": "string or null",
   "company": "string or null",
   "role": "string or null",
   "linkedin": "URL string or null"
 }
 
-IMPORTANT: 
+IMPORTANT:
 - Never invent information not in the source
 - Use null, not empty strings, for missing data
 - Phone numbers in E.164 format if possible
@@ -393,16 +421,17 @@ IMPORTANT:
 ## Summary
 
 <Callout type="tip" title="Key Techniques">
-Be explicit about format, use examples, specify types, handle edge cases with null values, and ask the model to validate its own output.
+  Be explicit about format, use examples, specify types, handle edge cases with null values, and ask
+  the model to validate its own output.
 </Callout>
 
-<Quiz 
+<Quiz
   question="What's the main advantage of structured output over unstructured text?"
   options={[
     "It uses fewer tokens",
     "It's easier for the AI to generate",
     "It can be parsed programmatically and validated",
-    "It always produces correct information"
+    "It always produces correct information",
   ]}
   correctIndex={2}
   explanation="Structured outputs like JSON can be parsed by code, compared across queries, integrated into workflows, and validated for completeness—things that are difficult or impossible with freeform text."

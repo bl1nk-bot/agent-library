@@ -39,16 +39,11 @@ export function RestorePromptButton({ promptId }: RestorePromptButtonProps) {
   };
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={handleRestore}
-      disabled={isRestoring}
-    >
+    <Button variant="outline" size="sm" onClick={handleRestore} disabled={isRestoring}>
       {isRestoring ? (
-        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <RotateCcw className="h-4 w-4 mr-2" />
+        <RotateCcw className="mr-2 h-4 w-4" />
       )}
       {t("restorePrompt")}
     </Button>

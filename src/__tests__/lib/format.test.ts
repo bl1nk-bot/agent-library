@@ -21,7 +21,7 @@ describe("prettifyJson", () => {
   });
 
   it("should prettify JSON arrays", () => {
-    const input = '[1,2,3,4,5]';
+    const input = "[1,2,3,4,5]";
     const expected = `[
   1,
   2,

@@ -104,10 +104,7 @@ describe("triggerWebhooks", () => {
       name: "Testing",
       slug: "testing",
     },
-    tags: [
-      { tag: { name: "test", slug: "test" } },
-      { tag: { name: "example", slug: "example" } },
-    ],
+    tags: [{ tag: { name: "test", slug: "test" } }, { tag: { name: "example", slug: "example" } }],
   };
 
   beforeEach(() => {

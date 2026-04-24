@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -14,6 +13,7 @@ export function Analytics({ gaId }: AnalyticsProps) {
 
   useEffect(() => {
     setHasConsent(getCookieConsent() === "accepted");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

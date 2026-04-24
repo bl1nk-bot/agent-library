@@ -1,4 +1,4 @@
-import { builder, templates } from 'prompts.chat';
+import { builder, templates } from "prompts.chat";
 
 // Create a prompt using the fluent builder API
 const prompt = builder()
@@ -8,7 +8,7 @@ const prompt = builder()
   .constraints([
     "Be concise and actionable",
     "Focus on critical issues first",
-    "Suggest modern TypeScript best practices"
+    "Suggest modern TypeScript best practices",
   ])
   .output("JSON with { bugs: [], suggestions: [], rating: number }")
   .variable("code", { required: true, description: "The code to review" })

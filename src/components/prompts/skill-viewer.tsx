@@ -114,20 +114,20 @@ function TreeNodeItem({
       <div>
         <div
           className={cn(
-            "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors hover:bg-muted"
+            "group hover:bg-muted flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors"
           )}
           style={{ paddingLeft: `${paddingLeft + 4}px` }}
           onClick={() => onToggleFolder(node.path)}
         >
           {isExpanded ? (
-            <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronDown className="text-muted-foreground h-3 w-3 shrink-0" />
           ) : (
-            <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronRight className="text-muted-foreground h-3 w-3 shrink-0" />
           )}
           {isExpanded ? (
-            <FolderOpen className="h-4 w-4 text-amber-500 shrink-0" />
+            <FolderOpen className="h-4 w-4 shrink-0 text-amber-500" />
           ) : (
-            <Folder className="h-4 w-4 text-amber-500 shrink-0" />
+            <Folder className="h-4 w-4 shrink-0 text-amber-500" />
           )}
           <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
         </div>
@@ -154,14 +154,14 @@ function TreeNodeItem({
   return (
     <div
       className={cn(
-        "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors",
+        "group flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors",
         isActive ? "bg-primary/10 text-primary" : "hover:bg-muted"
       )}
       style={{ paddingLeft: `${paddingLeft + 4}px` }}
       onClick={() => onOpenFile(node.path)}
     >
       <span className="w-3 shrink-0" />
-      <File className="h-4 w-4 text-muted-foreground shrink-0" />
+      <File className="text-muted-foreground h-4 w-4 shrink-0" />
       <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
     </div>
   );
@@ -186,10 +186,7 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
     () => files.find((f) => f.filename === activeFile),
     [files, activeFile]
   );
-  const activeLanguage = useMemo(
-    () => getLanguageFromFilename(activeFile),
-    [activeFile]
-  );
+  const activeLanguage = useMemo(() => getLanguageFromFilename(activeFile), [activeFile]);
 
   // Handle file opening (close sidebar on mobile)
   const handleOpenFile = useCallback((path: string) => {
@@ -255,7 +252,7 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
       const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch");
       const blob = await response.blob();
-      
+
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = downloadUrl;
@@ -265,7 +262,7 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
-      
+
       toast.success(t("downloadStarted"));
     } catch {
       toast.error(t("downloadFailed"));
@@ -275,32 +272,32 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row border rounded-lg overflow-hidden bg-background relative",
+        "bg-background relative flex flex-col overflow-hidden rounded-lg border md:flex-row",
         className
       )}
       style={{ height: "500px" }}
     >
       {/* Sidebar - File Tree */}
-      <div 
+      <div
         className={cn(
-          "w-full md:w-56 border-r bg-background flex flex-col shrink-0 md:relative",
+          "bg-background flex w-full shrink-0 flex-col border-r md:relative md:w-56",
           // Mobile: absolute positioning with slide-in animation and full height
-          "absolute md:static z-40 transition-transform duration-300 ease-in-out",
+          "absolute z-40 transition-transform duration-300 ease-in-out md:static",
           "h-full",
           sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
         aria-hidden={!sidebarOpen ? "true" : "false"}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center gap-2 px-3 h-10 border-b bg-muted">
-          <FolderOpen className="h-4 w-4 text-primary" />
+        <div className="bg-muted flex h-10 items-center gap-2 border-b px-3">
+          <FolderOpen className="text-primary h-4 w-4" />
           <span className="text-sm font-medium">{t("skillFiles")}</span>
           {/* Close button for mobile */}
           <Button
             type="button"
             variant="ghost"
             size="icon"
-            className="h-6 w-6 ml-auto md:hidden"
+            className="ml-auto h-6 w-6 md:hidden"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >
@@ -324,14 +321,16 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
         </div>
 
         {/* Sidebar Footer - File Count */}
-        <div className="px-3 py-2 border-t bg-muted text-xs text-muted-foreground flex items-center justify-between">
-          <span>{files.length} {files.length === 1 ? t("file") : t("files")}</span>
+        <div className="bg-muted text-muted-foreground flex items-center justify-between border-t px-3 py-2 text-xs">
+          <span>
+            {files.length} {files.length === 1 ? t("file") : t("files")}
+          </span>
           {promptId && (
             <Button
               type="button"
               variant="ghost"
               size="sm"
-              className="h-6 text-xs gap-1"
+              className="h-6 gap-1 text-xs"
               onClick={handleDownloadSkill}
             >
               <Package className="h-3 w-3" />
@@ -342,24 +341,24 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
       </div>
 
       {/* Main Editor Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* Tab/File Header */}
-        <div className="flex items-center justify-between border-b bg-muted px-3 h-10">
-          <div className="flex items-center gap-2 min-w-0">
+        <div className="bg-muted flex h-10 items-center justify-between border-b px-3">
+          <div className="flex min-w-0 items-center gap-2">
             {/* Menu button for mobile */}
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="h-7 w-7 md:hidden shrink-0"
+              className="h-7 w-7 shrink-0 md:hidden"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open sidebar"
               aria-expanded={sidebarOpen}
             >
               <Menu className="h-4 w-4" />
             </Button>
-            <File className="h-4 w-4 text-muted-foreground shrink-0" />
-            <span className="text-xs font-mono truncate">{activeFile}</span>
+            <File className="text-muted-foreground h-4 w-4 shrink-0" />
+            <span className="truncate font-mono text-xs">{activeFile}</span>
           </div>
           <div className="flex items-center gap-1">
             <Button
@@ -390,7 +389,7 @@ export function SkillViewer({ content, className, promptId, promptSlug }: SkillV
         </div>
 
         {/* Monaco Editor (read-only) */}
-        <div className="flex-1 min-h-0">
+        <div className="min-h-0 flex-1">
           <Editor
             height="100%"
             language={activeLanguage}

@@ -10,14 +10,8 @@
   "repository": "https://github.com/bl1nk-bot/agent-library",
   "license": "MIT",
   "keywords": ["prompts", "ai", "skills", "chatgpt", "claude", "llm"],
-  "commands": [
-    "./commands/prompts.md",
-    "./commands/skills.md"
-  ],
-  "agents": [
-    "./agents/prompt-manager.md",
-    "./agents/skill-manager.md"
-  ],
+  "commands": ["./commands/prompts.md", "./commands/skills.md"],
+  "agents": ["./agents/prompt-manager.md", "./agents/skill-manager.md"],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json"
 }

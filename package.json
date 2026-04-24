@@ -12,7 +12,8 @@
     "build": "prisma generate --no-engine && bun exec next build",
     "db:deploy": "prisma migrate deploy",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
@@ -21,7 +22,13 @@
     "db:resetadmin": "npx tsx prisma/reset-admin.ts",
     "db:setup": "prisma generate && prisma migrate dev && prisma db seed",
     "setup": "node scripts/setup.js",
+    "env:sync": "node scripts/sync-env.js",
+    "i18n:check": "node scripts/check-translations.js",
+    "generate:icons": "npx tsx scripts/generate-icons.ts",
     "generate:examples": "npx tsx scripts/generate-examples.ts",
+    "typecheck": "npx tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "postinstall": "prisma generate --no-engine",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -54,7 +61,7 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@sentry/nextjs": "^10.32.1",
+    "@sentry/nextjs": "^10.40.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/d3": "^7.4.3",
     "@vercel/analytics": "^1.6.1",
@@ -65,14 +72,14 @@
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.3.1",
-    "fast-xml-parser": "^5.3.4",
+    "fast-xml-parser": "^5.7.1",
     "framer-motion": "^12.29.2",
     "jszip": "^3.10.1",
     "lucide-react": "^0.556.0",
     "mdx": "^0.3.1",
-    "next": "^16.1.6",
+    "next": "^16.1.7",
     "next-auth": "^5.0.0-beta.30",
-    "next-intl": "^4.5.8",
+    "next-intl": "^4.9.1",
     "next-themes": "^0.4.6",
     "openai": "^6.10.0",
     "pino": "^10.1.0",
@@ -82,11 +89,12 @@
     "react-dom": "19.2.0",
     "react-hook-form": "^7.68.0",
     "react-markdown": "^10.1.0",
+    "react-tweet": "^3.2.1",
     "remark-gfm": "^4.0.1",
     "sharp": "^0.33.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
-    "yaml": "^2.8.2",
+    "yaml": "^2.8.3",
     "zod": "^4.1.13"
   },
   "devDependencies": {
@@ -107,9 +115,15 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-security": "^4.0.0",
+    "form-data": "^2.5.4",
     "jsdom": "^25.0.1",
+    "minimist": "^1.2.8",
     "picocolors": "^1.1.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.0.0-insiders.f7d2598",
     "prisma": "^6.19.1",
     "tailwindcss": "^4",
     "to-ico": "^1.1.5",
@@ -119,9 +133,16 @@
     "vitest": "^2.1.8"
   },
   "overrides": {
-    "esbuild": "0.27.2"
+    "esbuild": "0.27.2",
+    "minimist": "^1.2.8",
+    "form-data": "^2.5.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": "^2.5.4"
+    }
   },
   "engines": {
-    "node": "24.x"
+    "node": "^24.x"
   }
 }

@@ -1,11 +1,13 @@
 # Security Reviewer Instructions
 
 ## Role
+
 You are a security specialist focused on vulnerability assessment.
 
 ## Security Focus Areas
 
 ### OWASP Top 10
+
 1. **Injection** - SQL, NoSQL, Command injection
 2. **Broken Authentication** - Session management
 3. **Sensitive Data Exposure** - PII, credentials
@@ -20,24 +22,28 @@ You are a security specialist focused on vulnerability assessment.
 ## Review Checklist
 
 ### Authentication & Authorization
+
 - [ ] Verify session management
 - [ ] Check for proper auth guards
 - [ ] Validate role-based access
 - [ ] Review OAuth implementations
 
 ### Input Validation
+
 - [ ] All user input validated with Zod
 - [ ] SQL injection prevention
 - [ ] XSS prevention (sanitization)
 - [ ] CSRF token validation
 
 ### Data Protection
+
 - [ ] No secrets in code
 - [ ] Proper encryption
 - [ ] Secure headers
 - [ ] Rate limiting
 
 ### Code Review Points
+
 1. Check `src/lib/security.ts` for utilities
 2. Review API routes for auth checks
 3. Validate form submissions
@@ -47,10 +53,11 @@ You are a security specialist focused on vulnerability assessment.
 ## Common Vulnerabilities
 
 ### SQL Injection
+
 ```typescript
 // ❌ Bad
 const user = await db.user.findMany({
-  where: { email: userInput } // Unsafe
+  where: { email: userInput }, // Unsafe
 });
 
 // ✅ Good
@@ -58,6 +65,7 @@ const validated = z.string().email().parse(userInput);
 ```
 
 ### XSS Prevention
+
 ```typescript
 // ❌ Bad
 <div dangerouslySetInnerHTML={{ __html: userInput }} />
@@ -67,12 +75,14 @@ const validated = z.string().email().parse(userInput);
 ```
 
 ## Tools
+
 - ESLint with security plugins
 - `npm audit` for dependencies
 - Prisma for SQL injection prevention
 - Next.js built-in protections
 
 ## Files to Review
+
 - API routes: `src/app/api/`
 - Auth: `src/lib/auth/`
 - Security: `src/lib/security.ts`

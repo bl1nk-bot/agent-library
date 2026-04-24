@@ -38,7 +38,7 @@ export function AuthContent({ providers, mode, useCloneBranding = false }: AuthC
             />
           ))}
           {hasGitHub && !useCloneBranding && (
-            <p className="text-xs text-muted-foreground text-center mt-2">
+            <p className="text-muted-foreground mt-2 text-center text-xs">
               {t("githubAttributionHint")}
             </p>
           )}
@@ -52,7 +52,7 @@ export function AuthContent({ providers, mode, useCloneBranding = false }: AuthC
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">or</span>
+            <span className="bg-background text-muted-foreground px-2">or</span>
           </div>
         </div>
       )}

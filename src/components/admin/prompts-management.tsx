@@ -4,7 +4,26 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Upload, Trash2, Loader2, CheckCircle, AlertCircle, Sparkles, Download, RefreshCw, Link2, Search, ExternalLink, Eye, EyeOff, Star, Flag, ChevronLeft, ChevronRight, Filter } from "lucide-react";
+import {
+  Upload,
+  Trash2,
+  Loader2,
+  CheckCircle,
+  AlertCircle,
+  Sparkles,
+  Download,
+  RefreshCw,
+  Link2,
+  Search,
+  ExternalLink,
+  Eye,
+  EyeOff,
+  Star,
+  Flag,
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
@@ -93,12 +112,18 @@ interface PromptsManagementProps {
   totalPrompts: number;
 }
 
-export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, totalPublicPrompts, promptsWithoutSlugs, totalPrompts }: PromptsManagementProps) {
+export function PromptsManagement({
+  aiSearchEnabled,
+  promptsWithoutEmbeddings,
+  totalPublicPrompts,
+  promptsWithoutSlugs,
+  totalPrompts,
+}: PromptsManagementProps) {
   const router = useRouter();
   const t = useTranslations("admin");
   const tCommon = useTranslations("common");
   const branding = useBranding();
-  
+
   // Disable import/delete community prompts on main site (not clones)
   const canModifyCommunityPrompts = branding.useCloneBranding;
   const [loading, setLoading] = useState(false);
@@ -108,12 +133,17 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
   const [showConfirm, setShowConfirm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
-  const [embeddingResult, setEmbeddingResult] = useState<{ success: number; failed: number } | null>(null);
+  const [embeddingResult, setEmbeddingResult] = useState<{
+    success: number;
+    failed: number;
+  } | null>(null);
   const [embeddingProgress, setEmbeddingProgress] = useState<ProgressState | null>(null);
   const [slugResult, setSlugResult] = useState<{ success: number; failed: number } | null>(null);
   const [slugProgress, setSlugProgress] = useState<ProgressState | null>(null);
   const [generatingRelated, setGeneratingRelated] = useState(false);
-  const [relatedResult, setRelatedResult] = useState<{ success: number; failed: number } | null>(null);
+  const [relatedResult, setRelatedResult] = useState<{ success: number; failed: number } | null>(
+    null
+  );
   const [relatedProgress, setRelatedProgress] = useState<ProgressState | null>(null);
 
   // Prompts list state
@@ -153,7 +183,6 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
   useEffect(() => {
     fetchPrompts(currentPage, searchQuery, promptFilter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, promptFilter, fetchPrompts]);
 
   const handleSearch = () => {
@@ -205,7 +234,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
       }
 
       setImportResult(data);
-      
+
       if (data.imported > 0) {
         toast.success(t("prompts.importSuccess", { count: data.imported }));
         router.refresh();
@@ -260,19 +289,19 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
       if (!reader) throw new Error("No response body");
 
       const decoder = new TextDecoder();
-      
+
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const text = decoder.decode(value);
-        const lines = text.split("\n\n").filter(line => line.startsWith("data: "));
-        
+        const lines = text.split("\n\n").filter((line) => line.startsWith("data: "));
+
         for (const line of lines) {
           const jsonStr = line.replace("data: ", "");
           try {
             const data = JSON.parse(jsonStr);
-            
+
             if (data.done) {
               setEmbeddingResult({ success: data.success, failed: data.failed });
               toast.success(t("prompts.embeddingsSuccess", { count: data.success }));
@@ -323,19 +352,19 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
       if (!reader) throw new Error("No response body");
 
       const decoder = new TextDecoder();
-      
+
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const text = decoder.decode(value);
-        const lines = text.split("\n\n").filter(line => line.startsWith("data: "));
-        
+        const lines = text.split("\n\n").filter((line) => line.startsWith("data: "));
+
         for (const line of lines) {
           const jsonStr = line.replace("data: ", "");
           try {
             const data = JSON.parse(jsonStr);
-            
+
             if (data.done) {
               setRelatedResult({ success: data.success, failed: data.failed });
               toast.success(t("prompts.relatedSuccess", { count: data.success }));
@@ -380,19 +409,19 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
       if (!reader) throw new Error("No response body");
 
       const decoder = new TextDecoder();
-      
+
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const text = decoder.decode(value);
-        const lines = text.split("\n\n").filter(line => line.startsWith("data: "));
-        
+        const lines = text.split("\n\n").filter((line) => line.startsWith("data: "));
+
         for (const line of lines) {
           const jsonStr = line.replace("data: ", "");
           try {
             const data = JSON.parse(jsonStr);
-            
+
             if (data.done) {
               setSlugResult({ success: data.success, failed: data.failed });
               toast.success(t("prompts.slugsSuccess", { count: data.success }));
@@ -420,18 +449,18 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">{t("prompts.title")}</h3>
-          <p className="text-sm text-muted-foreground">{t("prompts.description")}</p>
+          <p className="text-muted-foreground text-sm">{t("prompts.description")}</p>
         </div>
       </div>
 
-      <div className="rounded-md border p-3 sm:p-4 space-y-3">
+      <div className="space-y-3 rounded-md border p-3 sm:p-4">
         {/* Import Row */}
         {canModifyCommunityPrompts && (
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <span className="text-sm text-muted-foreground flex-1">{t("import.fileInfo")}</span>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span className="text-muted-foreground flex-1 text-sm">{t("import.fileInfo")}</span>
             <div className="flex gap-2">
               <Button
                 size="sm"
@@ -440,7 +469,14 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                 disabled={loading || deleting || generating}
                 className="flex-1 sm:flex-none"
               >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Upload className="h-4 w-4 mr-2" />{t("prompts.import")}</>}
+                {loading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <Upload className="mr-2 h-4 w-4" />
+                    {t("prompts.import")}
+                  </>
+                )}
               </Button>
               <Button
                 size="sm"
@@ -449,15 +485,21 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                 disabled={loading || deleting || generating}
                 className="text-destructive hover:text-destructive"
               >
-                {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                {deleting ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>
         )}
 
         {/* Export Row */}
-        <div className={`flex flex-col sm:flex-row sm:items-center gap-2 ${canModifyCommunityPrompts ? "pt-3 border-t" : ""}`}>
-          <span className="text-sm text-muted-foreground flex-1">{t("prompts.exportInfo")}</span>
+        <div
+          className={`flex flex-col gap-2 sm:flex-row sm:items-center ${canModifyCommunityPrompts ? "border-t pt-3" : ""}`}
+        >
+          <span className="text-muted-foreground flex-1 text-sm">{t("prompts.exportInfo")}</span>
           <Button
             size="sm"
             variant="outline"
@@ -465,23 +507,36 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
             disabled={loading || deleting || generating}
             className="w-full sm:w-auto"
           >
-            <Download className="h-4 w-4 mr-2" />{t("prompts.export")}
+            <Download className="mr-2 h-4 w-4" />
+            {t("prompts.export")}
           </Button>
         </div>
 
         {importResult && (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            {importResult.imported > 0 ? <CheckCircle className="h-4 w-4 text-green-500" /> : <AlertCircle className="h-4 w-4 text-amber-500" />}
-            <span>{t("prompts.importResult", { imported: importResult.imported, skipped: importResult.skipped })}</span>
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            {importResult.imported > 0 ? (
+              <CheckCircle className="h-4 w-4 text-green-500" />
+            ) : (
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+            )}
+            <span>
+              {t("prompts.importResult", {
+                imported: importResult.imported,
+                skipped: importResult.skipped,
+              })}
+            </span>
           </div>
         )}
 
         {/* AI Embeddings Row */}
         {aiSearchEnabled && (
           <>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 pt-3 border-t">
-              <span className="text-sm text-muted-foreground flex-1">
-                {t("aiSearch.title")} <span className="tabular-nums">({promptsWithoutEmbeddings} {t("prompts.pending")})</span>
+            <div className="flex flex-col gap-2 border-t pt-3 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground flex-1 text-sm">
+                {t("aiSearch.title")}{" "}
+                <span className="tabular-nums">
+                  ({promptsWithoutEmbeddings} {t("prompts.pending")})
+                </span>
               </span>
               <div className="flex gap-2">
                 <Button
@@ -494,9 +549,16 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                   {generating && !embeddingProgress ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : generating && embeddingProgress ? (
-                    <><Loader2 className="h-4 w-4 animate-spin mr-2" />{embeddingProgress.current}/{embeddingProgress.total}</>
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {embeddingProgress.current}/{embeddingProgress.total}
+                    </>
                   ) : (
-                    <><Sparkles className="h-4 w-4 mr-2" /><span className="hidden xs:inline">{t("prompts.generateEmbeddings")}</span><span className="xs:hidden">Generate</span></>
+                    <>
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      <span className="xs:inline hidden">{t("prompts.generateEmbeddings")}</span>
+                      <span className="xs:hidden">Generate</span>
+                    </>
                   )}
                 </Button>
                 <Button
@@ -514,46 +576,75 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
             {/* Progress bar */}
             {embeddingProgress && (
               <div className="space-y-2">
-                <Progress value={Math.round((embeddingProgress.current / embeddingProgress.total) * 100)} className="h-2" />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>{embeddingProgress.current} / {embeddingProgress.total}</span>
-                  <span>{Math.round((embeddingProgress.current / embeddingProgress.total) * 100)}%</span>
+                <Progress
+                  value={Math.round((embeddingProgress.current / embeddingProgress.total) * 100)}
+                  className="h-2"
+                />
+                <div className="text-muted-foreground flex justify-between text-xs">
+                  <span>
+                    {embeddingProgress.current} / {embeddingProgress.total}
+                  </span>
+                  <span>
+                    {Math.round((embeddingProgress.current / embeddingProgress.total) * 100)}%
+                  </span>
                 </div>
                 <div className="flex gap-4 text-xs">
                   <span className="text-green-600">✓ {embeddingProgress.success}</span>
-                  {embeddingProgress.failed > 0 && <span className="text-red-600">✗ {embeddingProgress.failed}</span>}
+                  {embeddingProgress.failed > 0 && (
+                    <span className="text-red-600">✗ {embeddingProgress.failed}</span>
+                  )}
                 </div>
               </div>
             )}
 
             {embeddingResult && !embeddingProgress && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                {embeddingResult.failed === 0 ? <CheckCircle className="h-4 w-4 text-green-500" /> : <AlertCircle className="h-4 w-4 text-amber-500" />}
-                <span>{t("prompts.embeddingsResult", { success: embeddingResult.success, failed: embeddingResult.failed })}</span>
+              <div className="text-muted-foreground flex items-center gap-2 text-sm">
+                {embeddingResult.failed === 0 ? (
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                ) : (
+                  <AlertCircle className="h-4 w-4 text-amber-500" />
+                )}
+                <span>
+                  {t("prompts.embeddingsResult", {
+                    success: embeddingResult.success,
+                    failed: embeddingResult.failed,
+                  })}
+                </span>
               </div>
             )}
           </>
         )}
 
         {/* URL Slugs Row */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 pt-3 border-t">
-          <span className="text-sm text-muted-foreground flex-1">
-            {t("prompts.slugsTitle")} <span className="tabular-nums">({promptsWithoutSlugs} {t("prompts.pending")})</span>
+        <div className="flex flex-col gap-2 border-t pt-3 sm:flex-row sm:items-center">
+          <span className="text-muted-foreground flex-1 text-sm">
+            {t("prompts.slugsTitle")}{" "}
+            <span className="tabular-nums">
+              ({promptsWithoutSlugs} {t("prompts.pending")})
+            </span>
           </span>
           <div className="flex gap-2">
             <Button
               size="sm"
               variant="outline"
               onClick={() => handleGenerateSlugs(false)}
-              disabled={loading || deleting || generating || generatingSlugs || promptsWithoutSlugs === 0}
+              disabled={
+                loading || deleting || generating || generatingSlugs || promptsWithoutSlugs === 0
+              }
               className="flex-1 sm:flex-none"
             >
               {generatingSlugs && !slugProgress ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : generatingSlugs && slugProgress ? (
-                <><Loader2 className="h-4 w-4 animate-spin mr-2" />{slugProgress.current}/{slugProgress.total}</>
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {slugProgress.current}/{slugProgress.total}
+                </>
               ) : (
-                <><Link2 className="h-4 w-4 mr-2" />{t("prompts.generateSlugs")}</>
+                <>
+                  <Link2 className="mr-2 h-4 w-4" />
+                  {t("prompts.generateSlugs")}
+                </>
               )}
             </Button>
             <Button
@@ -571,30 +662,43 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
         {/* Slug Progress bar */}
         {slugProgress && (
           <div className="space-y-2">
-            <Progress value={Math.round((slugProgress.current / slugProgress.total) * 100)} className="h-2" />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{slugProgress.current} / {slugProgress.total}</span>
+            <Progress
+              value={Math.round((slugProgress.current / slugProgress.total) * 100)}
+              className="h-2"
+            />
+            <div className="text-muted-foreground flex justify-between text-xs">
+              <span>
+                {slugProgress.current} / {slugProgress.total}
+              </span>
               <span>{Math.round((slugProgress.current / slugProgress.total) * 100)}%</span>
             </div>
             <div className="flex gap-4 text-xs">
               <span className="text-green-600">✓ {slugProgress.success}</span>
-              {slugProgress.failed > 0 && <span className="text-red-600">✗ {slugProgress.failed}</span>}
+              {slugProgress.failed > 0 && (
+                <span className="text-red-600">✗ {slugProgress.failed}</span>
+              )}
             </div>
           </div>
         )}
 
         {slugResult && !slugProgress && (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            {slugResult.failed === 0 ? <CheckCircle className="h-4 w-4 text-green-500" /> : <AlertCircle className="h-4 w-4 text-amber-500" />}
-            <span>{t("prompts.slugsResult", { success: slugResult.success, failed: slugResult.failed })}</span>
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            {slugResult.failed === 0 ? (
+              <CheckCircle className="h-4 w-4 text-green-500" />
+            ) : (
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+            )}
+            <span>
+              {t("prompts.slugsResult", { success: slugResult.success, failed: slugResult.failed })}
+            </span>
           </div>
         )}
 
         {/* Related Prompts Row */}
         {aiSearchEnabled && (
           <>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 pt-3 border-t">
-              <span className="text-sm text-muted-foreground flex-1">
+            <div className="flex flex-col gap-2 border-t pt-3 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground flex-1 text-sm">
                 {t("prompts.relatedTitle")}
               </span>
               <Button
@@ -607,9 +711,15 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                 {generatingRelated && !relatedProgress ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : generatingRelated && relatedProgress ? (
-                  <><Loader2 className="h-4 w-4 animate-spin mr-2" />{relatedProgress.current}/{relatedProgress.total}</>
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {relatedProgress.current}/{relatedProgress.total}
+                  </>
                 ) : (
-                  <><Sparkles className="h-4 w-4 mr-2" />{t("prompts.regenerateRelated")}</>
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    {t("prompts.regenerateRelated")}
+                  </>
                 )}
               </Button>
             </div>
@@ -617,22 +727,40 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
             {/* Related Progress bar */}
             {relatedProgress && (
               <div className="space-y-2">
-                <Progress value={Math.round((relatedProgress.current / relatedProgress.total) * 100)} className="h-2" />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>{relatedProgress.current} / {relatedProgress.total}</span>
-                  <span>{Math.round((relatedProgress.current / relatedProgress.total) * 100)}%</span>
+                <Progress
+                  value={Math.round((relatedProgress.current / relatedProgress.total) * 100)}
+                  className="h-2"
+                />
+                <div className="text-muted-foreground flex justify-between text-xs">
+                  <span>
+                    {relatedProgress.current} / {relatedProgress.total}
+                  </span>
+                  <span>
+                    {Math.round((relatedProgress.current / relatedProgress.total) * 100)}%
+                  </span>
                 </div>
                 <div className="flex gap-4 text-xs">
                   <span className="text-green-600">✓ {relatedProgress.success}</span>
-                  {relatedProgress.failed > 0 && <span className="text-red-600">✗ {relatedProgress.failed}</span>}
+                  {relatedProgress.failed > 0 && (
+                    <span className="text-red-600">✗ {relatedProgress.failed}</span>
+                  )}
                 </div>
               </div>
             )}
 
             {relatedResult && !relatedProgress && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                {relatedResult.failed === 0 ? <CheckCircle className="h-4 w-4 text-green-500" /> : <AlertCircle className="h-4 w-4 text-amber-500" />}
-                <span>{t("prompts.relatedResult", { success: relatedResult.success, failed: relatedResult.failed })}</span>
+              <div className="text-muted-foreground flex items-center gap-2 text-sm">
+                {relatedResult.failed === 0 ? (
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                ) : (
+                  <AlertCircle className="h-4 w-4 text-amber-500" />
+                )}
+                <span>
+                  {t("prompts.relatedResult", {
+                    success: relatedResult.success,
+                    failed: relatedResult.failed,
+                  })}
+                </span>
               </div>
             )}
           </>
@@ -660,7 +788,10 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("prompts.cancel")}</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90 text-white">
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-destructive hover:bg-destructive/90 text-white"
+            >
               {t("prompts.delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -669,15 +800,15 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
       {/* Prompts List Section */}
       <div className="mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="text-lg font-semibold">{t("promptsList.title")}</h3>
-            <p className="text-sm text-muted-foreground">{t("promptsList.description")}</p>
+            <p className="text-muted-foreground text-sm">{t("promptsList.description")}</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
             <Select value={promptFilter} onValueChange={handleFilterChange}>
               <SelectTrigger className="w-full sm:w-[140px]">
-                <Filter className="h-4 w-4 mr-2" />
+                <Filter className="mr-2 h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -692,17 +823,26 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
             </Select>
             <div className="flex gap-2">
               <div className="relative flex-1 sm:flex-none">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
                 <Input
                   placeholder={tCommon("search")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="pl-9 w-full sm:w-[200px]"
+                  className="w-full pl-9 sm:w-[200px]"
                 />
               </div>
-              <Button size="icon" variant="outline" onClick={handleSearch} disabled={loadingPrompts}>
-                {loadingPrompts ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={handleSearch}
+                disabled={loadingPrompts}
+              >
+                {loadingPrompts ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Search className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>
@@ -712,50 +852,48 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
         <div className="space-y-3">
           {loadingPrompts && prompts.length === 0 ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              <Loader2 className="text-muted-foreground h-8 w-8 animate-spin" />
             </div>
           ) : prompts.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
+            <div className="text-muted-foreground py-12 text-center">
               {t("promptsList.noPrompts")}
             </div>
           ) : (
             prompts.map((prompt) => (
-              <div
-                key={prompt.id}
-                className="rounded-lg border bg-card p-4 space-y-3"
-              >
+              <div key={prompt.id} className="bg-card space-y-3 rounded-lg border p-4">
                 {/* Header Row */}
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-medium truncate">{prompt.title}</h4>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h4 className="truncate font-medium">{prompt.title}</h4>
                       {prompt.isFeatured && (
-                        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 flex-shrink-0" />
+                        <Star className="h-4 w-4 flex-shrink-0 fill-yellow-500 text-yellow-500" />
                       )}
                       {prompt.isPrivate && (
                         <Badge variant="secondary" className="text-xs">
-                          <EyeOff className="h-3 w-3 mr-1" />
+                          <EyeOff className="mr-1 h-3 w-3" />
                           {t("promptsList.private")}
                         </Badge>
                       )}
                       {prompt.isUnlisted && (
                         <Badge variant="outline" className="text-xs">
-                          <Eye className="h-3 w-3 mr-1" />
+                          <Eye className="mr-1 h-3 w-3" />
                           {t("promptsList.unlisted")}
                         </Badge>
                       )}
                       {prompt._count.reports > 0 && (
                         <Badge variant="destructive" className="text-xs">
-                          <Flag className="h-3 w-3 mr-1" />
+                          <Flag className="mr-1 h-3 w-3" />
                           {prompt._count.reports}
                         </Badge>
                       )}
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {prompt.type} • {prompt.viewCount} {t("promptsList.views")} • {prompt._count.votes} {t("promptsList.votes")}
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      {prompt.type} • {prompt.viewCount} {t("promptsList.views")} •{" "}
+                      {prompt._count.votes} {t("promptsList.votes")}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex flex-shrink-0 items-center gap-2">
                     {prompt.id && (
                       <Link href={`/prompts/${prompt.id}`} target="_blank" prefetch={false}>
                         <Button size="icon" variant="ghost" className="h-8 w-8">
@@ -766,7 +904,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
                       onClick={() => setPromptToDelete(prompt)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -776,7 +914,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
                 {/* Author & Category Row */}
                 <div className="flex items-center justify-between gap-3 text-sm">
-                  <div className="flex items-center gap-2 min-w-0">
+                  <div className="flex min-w-0 items-center gap-2">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src={prompt.author.avatar || undefined} />
                       <AvatarFallback className="text-xs">
@@ -788,15 +926,17 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
                     </span>
                   </div>
                   {prompt.category && (
-                    <Badge variant="secondary" className="text-xs truncate max-w-[150px]">
+                    <Badge variant="secondary" className="max-w-[150px] truncate text-xs">
                       {prompt.category.name}
                     </Badge>
                   )}
                 </div>
 
                 {/* Date Row */}
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{t("promptsList.created")}: {new Date(prompt.createdAt).toLocaleDateString()}</span>
+                <div className="text-muted-foreground flex items-center justify-between text-xs">
+                  <span>
+                    {t("promptsList.created")}: {new Date(prompt.createdAt).toLocaleDateString()}
+                  </span>
                   <span className="font-mono text-[10px] opacity-50">{prompt.id.slice(0, 8)}</span>
                 </div>
               </div>
@@ -806,8 +946,8 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
 
         {/* Pagination */}
         {pagination && pagination.totalPages > 1 && (
-          <div className="flex items-center justify-between mt-4 pt-4 border-t">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-4 flex items-center justify-between border-t pt-4">
+            <p className="text-muted-foreground text-sm">
               {t("promptsList.showing", {
                 from: (pagination.page - 1) * pagination.limit + 1,
                 to: Math.min(pagination.page * pagination.limit, pagination.total),
@@ -824,7 +964,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <span className="text-sm tabular-nums px-2">
+              <span className="px-2 text-sm tabular-nums">
                 {currentPage} / {pagination.totalPages}
               </span>
               <Button
@@ -842,7 +982,10 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
       </div>
 
       {/* Delete Single Prompt Confirmation Dialog */}
-      <AlertDialog open={!!promptToDelete} onOpenChange={(open) => !open && setPromptToDelete(null)}>
+      <AlertDialog
+        open={!!promptToDelete}
+        onOpenChange={(open) => !open && setPromptToDelete(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("promptsList.deleteConfirmTitle")}</AlertDialogTitle>
@@ -850,7 +993,7 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
               {t("promptsList.deleteConfirmDescription", { title: promptToDelete?.title || "" })}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+          <AlertDialogFooter className="flex-col gap-2 sm:flex-row">
             <AlertDialogCancel disabled={deletingPrompt}>{tCommon("cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeletePrompt}
@@ -858,9 +1001,9 @@ export function PromptsManagement({ aiSearchEnabled, promptsWithoutEmbeddings, t
               className="bg-destructive hover:bg-destructive/90 text-white"
             >
               {deletingPrompt ? (
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                <Trash2 className="h-4 w-4 mr-2" />
+                <Trash2 className="mr-2 h-4 w-4" />
               )}
               {tCommon("delete")}
             </AlertDialogAction>

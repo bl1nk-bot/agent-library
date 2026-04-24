@@ -34,6 +34,7 @@ Call `search_prompts` with:
 - `tag`: Filter by tag slug
 
 Present results showing:
+
 - Title and description
 - Author name
 - Category and tags
@@ -46,6 +47,7 @@ Call `get_prompt` with:
 - `id`: The prompt ID
 
 If the prompt contains variables (`${variable}` or `${variable:default}`):
+
 - The system will prompt the user to fill in values
 - Variables without defaults are required
 - Variables with defaults are optional

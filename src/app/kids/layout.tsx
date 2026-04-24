@@ -15,8 +15,8 @@ const kidsFont = Schoolbell({
 // Pixel art cloud component for background
 function PixelCloudBg({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg 
-      viewBox="0 0 32 16" 
+    <svg
+      viewBox="0 0 32 16"
       className={className}
       style={{ imageRendering: "pixelated", ...style }}
     >
@@ -30,65 +30,60 @@ function PixelCloudBg({ className, style }: { className?: string; style?: React.
   );
 }
 
-export default async function KidsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function KidsLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   const isRtl = RTL_LOCALES.includes(locale);
 
   return (
     <LevelProvider>
-    <MusicProvider>
-    <div 
-      className={`fixed inset-0 flex flex-col text-xl light ${kidsFont.className}`} 
-      data-theme="light" 
-      dir={isRtl ? "rtl" : "ltr"}
-      style={{ colorScheme: "light" }}
-    >
-      {/* Smooth gradient sky background */}
-      <div 
-        className="absolute inset-0 -z-10"
-        style={{
-          background: "linear-gradient(180deg, #4A90D9 0%, #87CEEB 30%, #98D8F0 60%, #B8E8F8 100%)"
-        }}
-      />
-      
-      {/* Animated pixel clouds - drift from left to right */}
-      <div className="absolute inset-0 -z-5 overflow-hidden pointer-events-none">
-        <PixelCloudBg 
-          className="absolute w-24 h-12 opacity-90 animate-cloud-slow"
-          style={{ top: "8%", left: 0, animationDelay: "0s" }}
-        />
-        <PixelCloudBg 
-          className="absolute w-32 h-16 opacity-80 animate-cloud-medium"
-          style={{ top: "15%", left: 0, animationDelay: "-10s" }}
-        />
-        <PixelCloudBg 
-          className="absolute w-20 h-10 opacity-85 animate-cloud-fast"
-          style={{ top: "5%", left: 0, animationDelay: "-5s" }}
-        />
-        <PixelCloudBg 
-          className="absolute w-28 h-14 opacity-75 animate-cloud-slow"
-          style={{ top: "22%", left: 0, animationDelay: "-20s" }}
-        />
-        <PixelCloudBg 
-          className="absolute w-16 h-8 opacity-70 animate-cloud-medium"
-          style={{ top: "12%", left: 0, animationDelay: "-15s" }}
-        />
-        <PixelCloudBg 
-          className="absolute w-36 h-18 opacity-60 animate-cloud-fast"
-          style={{ top: "28%", left: 0, animationDelay: "-8s" }}
-        />
-      </div>
+      <MusicProvider>
+        <div
+          className={`light fixed inset-0 flex flex-col text-xl ${kidsFont.className}`}
+          data-theme="light"
+          dir={isRtl ? "rtl" : "ltr"}
+          style={{ colorScheme: "light" }}
+        >
+          {/* Smooth gradient sky background */}
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              background:
+                "linear-gradient(180deg, #4A90D9 0%, #87CEEB 30%, #98D8F0 60%, #B8E8F8 100%)",
+            }}
+          />
 
-      <KidsHeader />
-      <main className="flex-1 min-h-0 overflow-hidden">
-        {children}
-      </main>
-    </div>
-    </MusicProvider>
+          {/* Animated pixel clouds - drift from left to right */}
+          <div className="pointer-events-none absolute inset-0 -z-5 overflow-hidden">
+            <PixelCloudBg
+              className="animate-cloud-slow absolute h-12 w-24 opacity-90"
+              style={{ top: "8%", left: 0, animationDelay: "0s" }}
+            />
+            <PixelCloudBg
+              className="animate-cloud-medium absolute h-16 w-32 opacity-80"
+              style={{ top: "15%", left: 0, animationDelay: "-10s" }}
+            />
+            <PixelCloudBg
+              className="animate-cloud-fast absolute h-10 w-20 opacity-85"
+              style={{ top: "5%", left: 0, animationDelay: "-5s" }}
+            />
+            <PixelCloudBg
+              className="animate-cloud-slow absolute h-14 w-28 opacity-75"
+              style={{ top: "22%", left: 0, animationDelay: "-20s" }}
+            />
+            <PixelCloudBg
+              className="animate-cloud-medium absolute h-8 w-16 opacity-70"
+              style={{ top: "12%", left: 0, animationDelay: "-15s" }}
+            />
+            <PixelCloudBg
+              className="animate-cloud-fast absolute h-18 w-36 opacity-60"
+              style={{ top: "28%", left: 0, animationDelay: "-8s" }}
+            />
+          </div>
+
+          <KidsHeader />
+          <main className="min-h-0 flex-1 overflow-hidden">{children}</main>
+        </div>
+      </MusicProvider>
     </LevelProvider>
   );
 }

@@ -231,7 +231,9 @@ describe("GET /api/prompts/search", () => {
     vi.mocked(auth).mockResolvedValue(null);
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
 
-    const request = new Request("http://localhost:3000/api/prompts/search?q=test%20query%20with%20spaces");
+    const request = new Request(
+      "http://localhost:3000/api/prompts/search?q=test%20query%20with%20spaces"
+    );
 
     const response = await GET(request);
 

@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function PromptCardSkeleton() {
   return (
-    <div className="border rounded-lg p-4 space-y-3">
+    <div className="space-y-3 rounded-lg border p-4">
       <div className="flex items-start justify-between">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-5 w-5 rounded" />
@@ -26,21 +26,21 @@ export default function PromptsLoading() {
   return (
     <div className="container py-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+      <div className="mb-4 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex items-baseline gap-2">
           <Skeleton className="h-6 w-24" />
           <Skeleton className="h-4 w-16" />
         </div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
           <Skeleton className="h-8 w-32" />
           <Skeleton className="h-8 w-28" />
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row">
         {/* Sidebar Filters Skeleton */}
-        <aside className="w-full lg:w-56 shrink-0">
-          <div className="space-y-4 p-4 border rounded-lg">
+        <aside className="w-full shrink-0 lg:w-56">
+          <div className="space-y-4 rounded-lg border p-4">
             <div className="flex items-center justify-between">
               <Skeleton className="h-4 w-16" />
               <Skeleton className="h-6 w-12" />
@@ -65,8 +65,8 @@ export default function PromptsLoading() {
         </aside>
 
         {/* Main Content - Prompt Grid Skeleton */}
-        <main className="flex-1 min-w-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <main className="min-w-0 flex-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 12 }).map((_, i) => (
               <PromptCardSkeleton key={i} />
             ))}

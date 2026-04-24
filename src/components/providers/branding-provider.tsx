@@ -20,11 +20,7 @@ interface BrandingProviderProps {
 }
 
 export function BrandingProvider({ children, branding }: BrandingProviderProps) {
-  return (
-    <BrandingContext.Provider value={branding}>
-      {children}
-    </BrandingContext.Provider>
-  );
+  return <BrandingContext.Provider value={branding}>{children}</BrandingContext.Provider>;
 }
 
 export function useBranding(): BrandingContextValue {

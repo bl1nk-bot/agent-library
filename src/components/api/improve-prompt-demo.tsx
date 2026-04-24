@@ -71,9 +71,7 @@ export function ImprovePromptDemo() {
       setResult(data);
       toast.success("Prompt improved successfully!");
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to improve prompt"
-      );
+      toast.error(error instanceof Error ? error.message : "Failed to improve prompt");
     } finally {
       setIsLoading(false);
     }
@@ -158,48 +156,35 @@ export function ImprovePromptDemo() {
       </div>
 
       {result && (
-        <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
+        <div className="bg-muted/30 space-y-4 rounded-lg border p-4">
           <div className="flex items-center justify-between">
             <h3 className="font-medium">Improved Prompt</h3>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                Model: {result.model}
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleCopy}
-                className="h-8 gap-1"
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
+              <span className="text-muted-foreground text-xs">Model: {result.model}</span>
+              <Button variant="ghost" size="sm" onClick={handleCopy} className="h-8 gap-1">
+                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 Copy
               </Button>
             </div>
           </div>
 
-          <div className="rounded-md bg-background p-4">
-            <pre className="whitespace-pre-wrap text-sm">{result.improved}</pre>
+          <div className="bg-background rounded-md p-4">
+            <pre className="text-sm whitespace-pre-wrap">{result.improved}</pre>
           </div>
 
           {result.inspirations.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-sm font-medium text-muted-foreground">
+              <h4 className="text-muted-foreground text-sm font-medium">
                 Inspired by similar prompts:
               </h4>
               <div className="flex flex-wrap gap-2">
                 {result.inspirations.map((ins, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs"
+                    className="bg-primary/10 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs"
                   >
                     {ins.title}
-                    <span className="text-muted-foreground">
-                      ({ins.similarity}%)
-                    </span>
+                    <span className="text-muted-foreground">({ins.similarity}%)</span>
                   </span>
                 ))}
               </div>
@@ -208,7 +193,7 @@ export function ImprovePromptDemo() {
         </div>
       )}
 
-      <div className="rounded-lg bg-muted p-4 font-mono text-sm overflow-x-auto">
+      <div className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm">
         <p className="text-muted-foreground mb-2"># API Request</p>
         <pre>{`curl -X POST ${typeof window !== "undefined" ? window.location.origin : ""}/api/improve-prompt \\
   -H "Content-Type: application/json" \\

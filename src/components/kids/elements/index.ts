@@ -1,5 +1,5 @@
-export { PromiCharacter, PromiWithMessage } from './character-guide';
-export { Section, LevelSlides } from './level-slides';
+export { PromiCharacter, PromiWithMessage } from "./character-guide";
+export { Section, LevelSlides } from "./level-slides";
 export { StoryScene, Panel } from "./story-scene";
 export { ProgressMap } from "./progress-map";
 export { PromptVsMistake } from "./prompt-vs-mistake";

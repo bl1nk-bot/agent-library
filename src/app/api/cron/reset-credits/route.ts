@@ -4,11 +4,11 @@ import { db } from "@/lib/db";
 /**
  * Cron job endpoint to reset daily generation credits for all users.
  * Should be called daily via external cron service (e.g., Vercel Cron, GitHub Actions).
- * 
+ *
  * Requires CRON_SECRET environment variable for authentication.
- * 
+ *
  * Cron Notation: 0 0 * * * (Every day at midnight)
- * 
+ *
  * Example cron call:
  * curl -X POST https://your-domain.com/api/cron/reset-credits \
  *   -H "Authorization: Bearer YOUR_CRON_SECRET"
@@ -20,19 +20,13 @@ export async function POST(request: NextRequest) {
 
   if (!cronSecret) {
     console.error("CRON_SECRET is not configured");
-    return NextResponse.json(
-      { error: "Cron secret not configured" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Cron secret not configured" }, { status: 500 });
   }
 
   const providedSecret = authHeader?.replace("Bearer ", "");
 
   if (providedSecret !== cronSecret) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -53,10 +47,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error resetting daily credits:", error);
-    return NextResponse.json(
-      { error: "Failed to reset credits" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to reset credits" }, { status: 500 });
   }
 }
 

@@ -1,16 +1,21 @@
 AI can accelerate research workflows from literature review to data analysis. This chapter covers prompting techniques for academic and professional research.
 
 <Callout type="info" title="AI in Research">
-AI can assist with synthesis, analysis, and writing—but cannot replace critical thinking, ethical judgment, or domain expertise. Always verify claims and cite original sources.
+  AI can assist with synthesis, analysis, and writing—but cannot replace critical thinking, ethical
+  judgment, or domain expertise. Always verify claims and cite original sources.
 </Callout>
 
 ## Literature & Information Review
 
 ### Do's and Don'ts: Research Prompts
 
-<Compare 
+<Compare
   before={{ label: "❌ Vague request", content: "Summarize this paper for me." }}
-  after={{ label: "✓ Structured request", content: "Summarize this paper for my literature review on machine learning in healthcare.\n\nProvide:\n1. Main thesis (1-2 sentences)\n2. Methodology\n3. Key findings (bullets)\n4. Limitations\n5. Relevance to my research\n\nReading level: Graduate student" }}
+  after={{
+    label: "✓ Structured request",
+    content:
+      "Summarize this paper for my literature review on machine learning in healthcare.\n\nProvide:\n1. Main thesis (1-2 sentences)\n2. Methodology\n3. Key findings (bullets)\n4. Limitations\n5. Relevance to my research\n\nReading level: Graduate student",
+  }}
 />
 
 ### Paper Summarization
@@ -20,6 +25,7 @@ AI can assist with synthesis, analysis, and writing—but cannot replace critica
 [paper abstract or full text]
 
 Provide:
+
 1. **Main thesis** - Central argument (1-2 sentences)
 2. **Methodology** - How they approached it
 3. **Key findings** - Most important results (bullet points)
@@ -38,6 +44,7 @@ Paper 2: \${paper2:Jones 2022 - noted collaboration challenges}
 Paper 3: \${paper3:Chen 2023 - hybrid model showed best outcomes}
 
 Analyze:
+
 1. **Common themes** - What do they agree on?
 2. **Contradictions** - Where do they disagree?
 3. **Gaps** - What's not addressed?
@@ -51,17 +58,20 @@ Format as: Literature review paragraph suitable for \${outputType:thesis}`} />
 <TryIt compact prompt={`Help me develop research questions for \${topic:AI adoption in healthcare}.
 
 Context:
+
 - Field: \${field:health informatics}
 - Current knowledge: \${currentKnowledge:AI tools exist but adoption is slow}
 - Gap identified: \${gap:limited understanding of physician resistance factors}
 - My interest: \${interest:organizational change management}
 
 Generate:
+
 1. **Primary RQ** - Main question to answer
 2. **Sub-questions** - Supporting inquiries (3-4)
 3. **Hypotheses** - Testable predictions (if applicable)
 
 Criteria: Questions should be:
+
 - Answerable with available methods
 - Significant to the field
 - Appropriately scoped`} />
@@ -69,7 +79,9 @@ Criteria: Questions should be:
 ## Data Analysis
 
 <Callout type="warning" title="AI Cannot Analyze Your Actual Data">
-AI can guide methodology and help interpret results, but it cannot access or process your actual datasets. Never paste sensitive research data into prompts. Use AI for **guidance**, not computation.
+  AI can guide methodology and help interpret results, but it cannot access or process your actual
+  datasets. Never paste sensitive research data into prompts. Use AI for **guidance**, not
+  computation.
 </Callout>
 
 ### Statistical Analysis Guidance
@@ -77,12 +89,14 @@ AI can guide methodology and help interpret results, but it cannot access or pro
 <TryIt compact prompt={`Help me analyze this data:
 
 Data description:
+
 - Variables: \${variables:age (continuous), treatment group (categorical: A/B/C), outcome score (continuous)}
 - Sample size: \${sampleSize:n=150 (50 per group)}
 - Research question: \${researchQuestion:Does treatment type affect outcome scores?}
 - Data characteristics: \${characteristics:normally distributed, no missing values}
 
 Advise on:
+
 1. **Appropriate tests** - Which statistical tests to use
 2. **Assumptions to check** - Prerequisites
 3. **How to interpret results** - What different outcomes mean
@@ -116,11 +130,13 @@ Results:
 \${results:paste statistical output or data summary here}
 
 Context:
+
 - Research question: \${researchQuestion:Does X predict Y?}
 - Hypothesis: \${hypothesis:X positively predicts Y}
 - Expected results: \${expectedResults:significant positive correlation}
 
 Provide:
+
 1. **Plain language interpretation** - What does this mean?
 2. **Statistical significance** - What the p-values tell us
 3. **Practical significance** - Real-world meaning
@@ -135,21 +151,27 @@ Provide:
 <TryIt compact prompt={`Conduct a PESTLE analysis for \${subject:electric vehicle industry in Europe}.
 
 **Political** factors:
+
 - Government policies, regulations, political stability
 
 **Economic** factors:
+
 - Economic growth, inflation, exchange rates, unemployment
 
 **Social** factors:
+
 - Demographics, cultural trends, lifestyle changes
 
 **Technological** factors:
+
 - Innovation, R&D, automation, technology changes
 
 **Legal** factors:
+
 - Legislation, regulatory bodies, employment law
 
 **Environmental** factors:
+
 - Climate, sustainability, environmental regulations
 
 For each: Current state + trends + implications`} />
@@ -162,13 +184,11 @@ Problem statement:
 \${problemStatement:Monthly churn rate rose from 3% to 3.6% between Q3 and Q4}
 
 Using 5 Whys:
-1. Why? First level cause
-   2. Why? Deeper cause
-      3. Why? Deeper still
-         4. Why? Approaching root
-            5. Why? Root cause
+
+1. Why? First level cause 2. Why? Deeper cause 3. Why? Deeper still 4. Why? Approaching root 5. Why? Root cause
 
 Alternative: Fishbone diagram categories
+
 - People
 - Process
 - Equipment
@@ -183,9 +203,11 @@ Provide: Root cause(s) + recommended actions`} />
 <TryIt compact prompt={`Conduct a gap analysis for \${subject:our customer support operations}.
 
 **Current State:**
+
 - \${currentState:Average response time 24 hours, CSAT 3.2/5}
 
 **Desired State:**
+
 - \${desiredState:Response time under 4 hours, CSAT 4.5/5}
 
 **Gap Identification:**
@@ -195,6 +217,7 @@ Provide: Root cause(s) + recommended actions`} />
 
 **Action Plan:**
 For each high-priority gap:
+
 - Specific actions
 - Resources needed
 - Timeline
@@ -209,6 +232,7 @@ For each high-priority gap:
 Main claim: \${thesis:Organizations should adopt permanent remote/hybrid policies for knowledge workers}
 
 Required:
+
 1. **Premises** - Supporting claims that lead to conclusion
 2. **Evidence** - Data/sources for each premise
 3. **Counterarguments** - Opposing views
@@ -216,6 +240,7 @@ Required:
 5. **Logical flow** - How it all connects
 
 Check for:
+
 - Logical fallacies
 - Unsupported claims
 - Gaps in reasoning`} />
@@ -242,6 +267,7 @@ Key findings:
 \${findings:1. Significant positive correlation (r=0.45) between X and Y\n2. No significant difference between groups on secondary measure}
 
 Structure:
+
 1. **Summary** - Brief restatement of main findings
 2. **Interpretation** - What the findings mean
 3. **Context** - How findings relate to existing literature
@@ -262,6 +288,7 @@ Source: \${source:paste citation or link here}
 Content summary: \${summary:brief description of what the source claims}
 
 Assess using CRAAP criteria:
+
 - **Currency**: When published? Updated? Current enough?
 - **Relevance**: Relates to my topic? Appropriate level?
 - **Authority**: Author credentials? Publisher reputation?
@@ -278,6 +305,7 @@ How to use: Recommendations for incorporation`} />
 \${text:paste the text you want to analyze}
 
 Identify:
+
 1. **Main claim** - What's being argued
 2. **Supporting evidence** - What backs it up
 3. **Assumptions** - Unstated premises
@@ -292,29 +320,40 @@ Provide: Fair, balanced assessment`} />
 
 ### Act as a Research Assistant
 
-<TryIt compact prompt={`I want you to act as a research assistant. Help me explore topics, find information, synthesize sources, and develop arguments. Ask clarifying questions, suggest relevant areas to investigate, and help me think critically about evidence. Be thorough but acknowledge the limits of your knowledge.`} />
+<TryIt
+  compact
+  prompt={`I want you to act as a research assistant. Help me explore topics, find information, synthesize sources, and develop arguments. Ask clarifying questions, suggest relevant areas to investigate, and help me think critically about evidence. Be thorough but acknowledge the limits of your knowledge.`}
+/>
 
 ### Act as a Data Analyst
 
-<TryIt compact prompt={`I want you to act as a data analyst. I will describe datasets and research questions, and you will suggest analysis approaches, help interpret results, and identify potential issues. Focus on sound methodology and clear communication of findings.`} />
+<TryIt
+  compact
+  prompt={`I want you to act as a data analyst. I will describe datasets and research questions, and you will suggest analysis approaches, help interpret results, and identify potential issues. Focus on sound methodology and clear communication of findings.`}
+/>
 
 ### Act as a Peer Reviewer
 
-<TryIt compact prompt={`I want you to act as an academic peer reviewer. I will share manuscripts or sections, and you will provide constructive feedback on methodology, argument, writing, and contribution to the field. Be rigorous but supportive, noting both strengths and areas for improvement.`} />
+<TryIt
+  compact
+  prompt={`I want you to act as an academic peer reviewer. I will share manuscripts or sections, and you will provide constructive feedback on methodology, argument, writing, and contribution to the field. Be rigorous but supportive, noting both strengths and areas for improvement.`}
+/>
 
 ## Summary
 
 <Callout type="tip" title="Key Techniques">
-Clearly state research context and goals, specify the analytical framework to use, request acknowledgment of limitations, ask for evidence-based reasoning, and maintain academic rigor and honesty.
+  Clearly state research context and goals, specify the analytical framework to use, request
+  acknowledgment of limitations, ask for evidence-based reasoning, and maintain academic rigor and
+  honesty.
 </Callout>
 
-<Quiz 
+<Quiz
   question="What's the most important thing to remember when using AI for research?"
   options={[
     "AI can replace the need for primary sources",
     "AI analysis is always accurate and up-to-date",
     "Always verify AI claims independently and cite original sources",
-    "AI can access and analyze your actual datasets"
+    "AI can access and analyze your actual datasets",
   ]}
   correctIndex={2}
   explanation="AI can assist with synthesis and structure, but it can hallucinate citations, have outdated information, and cannot access your actual data. Always verify claims against primary sources and maintain academic integrity."

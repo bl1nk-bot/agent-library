@@ -65,12 +65,10 @@ export default async function CollectionPage() {
 
   return (
     <div className="container py-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-lg font-semibold">{t("title")}</h1>
-          <p className="text-sm text-muted-foreground">
-            {t("description")}
-          </p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" asChild>
@@ -91,12 +89,10 @@ export default async function CollectionPage() {
       {prompts.length > 0 ? (
         <PromptList prompts={prompts} currentPage={1} totalPages={1} />
       ) : (
-        <div className="text-center py-12 border rounded-lg bg-muted/30">
-          <Bookmark className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <h2 className="font-medium mb-1">{t("emptyTitle")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("emptyDescription")}
-          </p>
+        <div className="bg-muted/30 rounded-lg border py-12 text-center">
+          <Bookmark className="text-muted-foreground mx-auto mb-3 h-10 w-10" />
+          <h2 className="mb-1 font-medium">{t("emptyTitle")}</h2>
+          <p className="text-muted-foreground mb-4 text-sm">{t("emptyDescription")}</p>
           <Button variant="outline" size="sm" asChild>
             <Link href="/prompts">{t("browsePrompts")}</Link>
           </Button>

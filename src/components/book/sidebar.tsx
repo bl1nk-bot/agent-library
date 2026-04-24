@@ -17,7 +17,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
     <nav className="space-y-4 pr-4">
       {parts.map((part) => (
         <div key={part.slug}>
-          <h4 className="mb-1 text-sm font-medium text-foreground">
+          <h4 className="text-foreground mb-1 text-sm font-medium">
             {part.number === 0 ? part.title : `${part.number}. ${part.title}`}
           </h4>
           <div className="space-y-0.5">
@@ -30,7 +30,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   href={href}
                   onClick={onNavigate}
                   className={cn(
-                    "block py-1 px-2 text-sm rounded-md transition-colors",
+                    "block rounded-md px-2 py-1 text-sm transition-colors",
                     isActive
                       ? "bg-accent text-accent-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
@@ -66,7 +66,7 @@ export function MobileTOCButton() {
               The Interactive Book of Prompting
             </SheetTitle>
           </SheetHeader>
-          <ScrollArea className="h-[calc(100vh-8rem)] mt-4">
+          <ScrollArea className="mt-4 h-[calc(100vh-8rem)]">
             <SidebarContent onNavigate={() => setOpen(false)} />
           </ScrollArea>
         </SheetContent>
@@ -79,13 +79,13 @@ export function BookSidebar() {
   return (
     <>
       {/* Desktop: Static sidebar */}
-      <aside className="hidden lg:block w-56 shrink-0">
+      <aside className="hidden w-56 shrink-0 lg:block">
         <div className="sticky top-20">
           {/* Header */}
-          <div className="mb-4 pb-4 border-b">
+          <div className="mb-4 border-b pb-4">
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-primary inline-flex items-center gap-2 text-sm font-semibold transition-colors"
             >
               <Book className="h-4 w-4" />
               <span>The Interactive Book of Prompting</span>

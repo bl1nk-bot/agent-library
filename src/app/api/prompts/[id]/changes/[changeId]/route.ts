@@ -46,11 +46,11 @@ export async function PATCH(
     // Get change request
     const changeRequest = await db.changeRequest.findUnique({
       where: { id: changeId },
-      select: { 
-        id: true, 
-        promptId: true, 
-        status: true, 
-        proposedContent: true, 
+      select: {
+        id: true,
+        promptId: true,
+        status: true,
+        proposedContent: true,
         proposedTitle: true,
         authorId: true,
         reason: true,
@@ -123,7 +123,7 @@ export async function PATCH(
       const nextVersion = (latestVersion?.version ?? 0) + 1;
 
       // Build change note with contributor info
-      const changeNote = changeRequest.reason 
+      const changeNote = changeRequest.reason
         ? `Contribution by @${changeRequest.author.username}: ${changeRequest.reason}`
         : `Contribution by @${changeRequest.author.username}`;
 

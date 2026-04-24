@@ -951,7 +951,8 @@
     "noNotifications": "暂无通知",
     "markAllRead": "全部标为已读",
     "commentedOnPrompt": "评论了你的提示词",
-    "repliedToComment": "回复了你的评论"
+    "repliedToComment": "回复了你的评论",
+    "unreadCount": "{count} 条未读通知"
   },
   "comments": {
     "comments": "评论",
@@ -1470,16 +1471,34 @@
     "viewAllContributors": "在此查看所有贡献者"
   },
   "kids": {
-    "header": { "title": "Promi的提示词学校", "levels": "关卡", "home": "首页", "map": "地图", "mainSite": "主站" },
+    "header": {
+      "title": "Promi的提示词学校",
+      "levels": "关卡",
+      "home": "首页",
+      "map": "地图",
+      "mainSite": "主站"
+    },
     "home": {
       "badge": "儿童学习",
       "title": "学习与AI对话！",
       "subtitle": "和机器人Promi一起踏上有趣的冒险，学习如何写出精彩的提示词！",
-      "promiIntro": { "greeting": "你好，我是Promi！🤖", "message": "我是一个需要你帮助的友好机器人！你愿意帮我更好地理解提示词吗？" },
+      "promiIntro": {
+        "greeting": "你好，我是Promi！🤖",
+        "message": "我是一个需要你帮助的友好机器人！你愿意帮我更好地理解提示词吗？"
+      },
       "features": {
-        "games": { "title": "趣味游戏", "description": "通过拖放游戏和测验来学习" },
-        "stories": { "title": "精彩故事", "description": "跟随Promi经历激动人心的冒险" },
-        "stars": { "title": "赚取星星", "description": "收集星星，解锁新关卡" }
+        "games": {
+          "title": "趣味游戏",
+          "description": "通过拖放游戏和测验来学习"
+        },
+        "stories": {
+          "title": "精彩故事",
+          "description": "跟随Promi经历激动人心的冒险"
+        },
+        "stars": {
+          "title": "赚取星星",
+          "description": "收集星星，解锁新关卡"
+        }
       },
       "startButton": "开始游戏！",
       "ageNote": "适合8-14岁会读写的儿童",
@@ -1492,40 +1511,221 @@
       "next": "下一步",
       "completeFirst": "请先完成活动再继续"
     },
-    "map": { "title": "世界地图", "subtitle": "选择一个关卡，开始你的冒险！", "worldLevels": "{count}个关卡", "levelNumber": "关卡{number}", "locked": "完成上一关以解锁" },
-    "worlds": { "1": { "title": "新手村" }, "2": { "title": "清晰城堡" }, "3": { "title": "上下文洞穴" }, "4": { "title": "创意峡谷" }, "5": { "title": "大师山" } },
-    "levels": {
-      "1_1_meet_promi": { "title": "认识Promi！", "description": "和你的机器人朋友打招呼，了解什么是AI" },
-      "1_2_first_words": { "title": "Promi的第一句话", "description": "写下你的第一个提示词来帮助Promi理解" },
-      "1_3_being_clear": { "title": "表达清晰", "description": "了解为什么清晰的指令效果更好" },
-      "2_1_missing_details": { "title": "缺失的细节", "description": "发现为什么细节很重要" },
-      "2_2_who_and_what": { "title": "谁和什么", "description": "添加角色和物品" },
-      "2_3_when_and_where": { "title": "何时何地", "description": "学习添加时间和地点" },
-      "2_4_detail_detective": { "title": "细节侦探", "description": "成为添加细节的专家" },
-      "3_1_setting_the_scene": { "title": "设置场景", "description": "了解为什么背景信息有帮助" },
-      "3_2_show_dont_tell": { "title": "展示而非告诉", "description": "用例子展示你想要什么" },
-      "3_3_format_finder": { "title": "格式发现者", "description": "请求列表、故事、诗歌等！" },
-      "3_4_context_champion": { "title": "上下文冠军", "description": "结合所有上下文技巧" },
-      "4_1_pretend_time": { "title": "角色扮演时间！", "description": "学习角色扮演提示词" },
-      "4_2_story_starters": { "title": "故事开端", "description": "与AI一起创作精彩故事" },
-      "4_3_character_creator": { "title": "角色创造者", "description": "给AI一个个性" },
-      "4_4_world_builder": { "title": "世界建造者", "description": "创造富有想象力的世界" },
-      "5_1_perfect_prompt": { "title": "完美提示词", "description": "结合清晰度、细节和上下文" },
-      "5_2_fix_it_up": { "title": "修复它！", "description": "找到并改进弱提示词" },
-      "5_3_prompt_remix": { "title": "提示词混音", "description": "重写提示词以获得不同结果" },
-      "5_4_graduation_day": { "title": "毕业日", "description": "最终挑战 - 成为大师！" }
+    "map": {
+      "title": "世界地图",
+      "subtitle": "选择一个关卡，开始你的冒险！",
+      "worldLevels": "{count}个关卡",
+      "levelNumber": "关卡{number}",
+      "locked": "完成上一关以解锁"
     },
-    "level": { "backToMap": "返回地图", "levelLabel": "关卡{number}", "comingSoon": "此关卡即将推出！", "previous": "上一关", "next": "下一关", "map": "地图" },
-    "levelComplete": { "title": "关卡完成！", "nextLevel": "下一关", "backToMap": "返回地图", "allDone": "返回地图" },
-    "quiz": { "goodLabel": "很棒的提示词！", "badLabel": "不是最好的", "correct": "答对了！", "incorrect": "不错的尝试！", "tryAgain": "再试一次" },
-    "magicWords": { "title": "拖动魔法词语！✨", "dragOrTap": "🎯 拖动或点击词语：", "check": "检查！", "retry": "重试", "correct": "正确", "tryAgain": "再试一次！" },
-    "dragDrop": { "title": "构建提示词！", "instruction": "用箭头移动或点击两个块来交换！", "result": "结果", "check": "检查！", "retry": "重试", "success": "完美！你构建了一个很棒的提示词！", "almost": "差不多了！继续调整顺序。", "tapToSwap": "点击另一块来交换！" },
-    "promptParts": { "title": "排序提示词部分！", "instruction": "点击每个块，然后选择类型！", "score": "分数", "pickCategory": "这是什么类型？", "success": "你正确排序了所有部分！", "retry": "再试一次", "types": { "role": "角色", "task": "任务", "context": "上下文", "constraint": "约束" } },
-    "exampleMatcher": { "title": "模式匹配器", "instruction": "看模式并选择接下来是什么！", "pattern": "模式：", "check": "检查！", "retry": "再试一次", "correct": "答对了！🎉", "tryAgain": "不太对 - 再看看模式！" },
-    "promptDoctor": { "title": "提示词医生", "health": "提示词健康", "sick": "生病的提示词", "healthy": "健康的提示词！", "diagnose": "点击问题来修复：", "success": "提示词现在好多了！", "retry": "重新开始" },
-    "stepByStep": { "title": "逐步思考", "problem": "问题：", "withoutMagic": "没有魔法词语：", "addMagicWords": "添加魔法词语！", "magicWordsActive": "魔法词语已添加！", "nextStep": "显示下一步", "withMagic": "逐步思考：", "retry": "再试一次" },
-    "promptLab": { "title": "提示词实验室", "progress": "改进", "yourPrompt": "你的提示词：", "aiSays": "AI回应：", "addDetails": "添加改进：", "success": "你的提示词现在非常具体！", "retry": "重新开始" },
-    "wordPredictor": { "title": "AI如何思考", "instruction": "AI猜测最可能的下一个词。你能像AI一样思考吗？", "aiThinks": "AI正在阅读：", "thinkingDefault": "嗯，哪个词在这里最有意义？", "check": "检查我的答案！", "correct": "你像AI一样思考！", "tryAgain": "不太对！AI选择最可能的词。", "retry": "再试一次" },
-    "settings": { "title": "设置", "music": "音乐", "language": "语言", "progress": "你的进度", "stars": "星星", "completed": "已完成", "resetTitle": "重置进度", "resetButton": "重置全部", "resetWarning": "这将删除所有星星和进度。确定吗？", "resetConfirm": "是的，重置全部", "resetComplete": "进度已重置！正在重新加载...", "cancel": "取消" }
+    "worlds": {
+      "1": {
+        "title": "新手村"
+      },
+      "2": {
+        "title": "清晰城堡"
+      },
+      "3": {
+        "title": "上下文洞穴"
+      },
+      "4": {
+        "title": "创意峡谷"
+      },
+      "5": {
+        "title": "大师山"
+      }
+    },
+    "levels": {
+      "1_1_meet_promi": {
+        "title": "认识Promi！",
+        "description": "和你的机器人朋友打招呼，了解什么是AI"
+      },
+      "1_2_first_words": {
+        "title": "Promi的第一句话",
+        "description": "写下你的第一个提示词来帮助Promi理解"
+      },
+      "1_3_being_clear": {
+        "title": "表达清晰",
+        "description": "了解为什么清晰的指令效果更好"
+      },
+      "2_1_missing_details": {
+        "title": "缺失的细节",
+        "description": "发现为什么细节很重要"
+      },
+      "2_2_who_and_what": {
+        "title": "谁和什么",
+        "description": "添加角色和物品"
+      },
+      "2_3_when_and_where": {
+        "title": "何时何地",
+        "description": "学习添加时间和地点"
+      },
+      "2_4_detail_detective": {
+        "title": "细节侦探",
+        "description": "成为添加细节的专家"
+      },
+      "3_1_setting_the_scene": {
+        "title": "设置场景",
+        "description": "了解为什么背景信息有帮助"
+      },
+      "3_2_show_dont_tell": {
+        "title": "展示而非告诉",
+        "description": "用例子展示你想要什么"
+      },
+      "3_3_format_finder": {
+        "title": "格式发现者",
+        "description": "请求列表、故事、诗歌等！"
+      },
+      "3_4_context_champion": {
+        "title": "上下文冠军",
+        "description": "结合所有上下文技巧"
+      },
+      "4_1_pretend_time": {
+        "title": "角色扮演时间！",
+        "description": "学习角色扮演提示词"
+      },
+      "4_2_story_starters": {
+        "title": "故事开端",
+        "description": "与AI一起创作精彩故事"
+      },
+      "4_3_character_creator": {
+        "title": "角色创造者",
+        "description": "给AI一个个性"
+      },
+      "4_4_world_builder": {
+        "title": "世界建造者",
+        "description": "创造富有想象力的世界"
+      },
+      "5_1_perfect_prompt": {
+        "title": "完美提示词",
+        "description": "结合清晰度、细节和上下文"
+      },
+      "5_2_fix_it_up": {
+        "title": "修复它！",
+        "description": "找到并改进弱提示词"
+      },
+      "5_3_prompt_remix": {
+        "title": "提示词混音",
+        "description": "重写提示词以获得不同结果"
+      },
+      "5_4_graduation_day": {
+        "title": "毕业日",
+        "description": "最终挑战 - 成为大师！"
+      }
+    },
+    "level": {
+      "backToMap": "返回地图",
+      "levelLabel": "关卡{number}",
+      "comingSoon": "此关卡即将推出！",
+      "previous": "上一关",
+      "next": "下一关",
+      "map": "地图"
+    },
+    "levelComplete": {
+      "title": "关卡完成！",
+      "nextLevel": "下一关",
+      "backToMap": "返回地图",
+      "allDone": "返回地图"
+    },
+    "quiz": {
+      "goodLabel": "很棒的提示词！",
+      "badLabel": "不是最好的",
+      "correct": "答对了！",
+      "incorrect": "不错的尝试！",
+      "tryAgain": "再试一次"
+    },
+    "magicWords": {
+      "title": "拖动魔法词语！✨",
+      "dragOrTap": "🎯 拖动或点击词语：",
+      "check": "检查！",
+      "retry": "重试",
+      "correct": "正确",
+      "tryAgain": "再试一次！"
+    },
+    "dragDrop": {
+      "title": "构建提示词！",
+      "instruction": "用箭头移动或点击两个块来交换！",
+      "result": "结果",
+      "check": "检查！",
+      "retry": "重试",
+      "success": "完美！你构建了一个很棒的提示词！",
+      "almost": "差不多了！继续调整顺序。",
+      "tapToSwap": "点击另一块来交换！"
+    },
+    "promptParts": {
+      "title": "排序提示词部分！",
+      "instruction": "点击每个块，然后选择类型！",
+      "score": "分数",
+      "pickCategory": "这是什么类型？",
+      "success": "你正确排序了所有部分！",
+      "retry": "再试一次",
+      "types": {
+        "role": "角色",
+        "task": "任务",
+        "context": "上下文",
+        "constraint": "约束"
+      }
+    },
+    "exampleMatcher": {
+      "title": "模式匹配器",
+      "instruction": "看模式并选择接下来是什么！",
+      "pattern": "模式：",
+      "check": "检查！",
+      "retry": "再试一次",
+      "correct": "答对了！🎉",
+      "tryAgain": "不太对 - 再看看模式！"
+    },
+    "promptDoctor": {
+      "title": "提示词医生",
+      "health": "提示词健康",
+      "sick": "生病的提示词",
+      "healthy": "健康的提示词！",
+      "diagnose": "点击问题来修复：",
+      "success": "提示词现在好多了！",
+      "retry": "重新开始"
+    },
+    "stepByStep": {
+      "title": "逐步思考",
+      "problem": "问题：",
+      "withoutMagic": "没有魔法词语：",
+      "addMagicWords": "添加魔法词语！",
+      "magicWordsActive": "魔法词语已添加！",
+      "nextStep": "显示下一步",
+      "withMagic": "逐步思考：",
+      "retry": "再试一次"
+    },
+    "promptLab": {
+      "title": "提示词实验室",
+      "progress": "改进",
+      "yourPrompt": "你的提示词：",
+      "aiSays": "AI回应：",
+      "addDetails": "添加改进：",
+      "success": "你的提示词现在非常具体！",
+      "retry": "重新开始"
+    },
+    "wordPredictor": {
+      "title": "AI如何思考",
+      "instruction": "AI猜测最可能的下一个词。你能像AI一样思考吗？",
+      "aiThinks": "AI正在阅读：",
+      "thinkingDefault": "嗯，哪个词在这里最有意义？",
+      "check": "检查我的答案！",
+      "correct": "你像AI一样思考！",
+      "tryAgain": "不太对！AI选择最可能的词。",
+      "retry": "再试一次"
+    },
+    "settings": {
+      "title": "设置",
+      "music": "音乐",
+      "language": "语言",
+      "progress": "你的进度",
+      "stars": "星星",
+      "completed": "已完成",
+      "resetTitle": "重置进度",
+      "resetButton": "重置全部",
+      "resetWarning": "这将删除所有星星和进度。确定吗？",
+      "resetConfirm": "是的，重置全部",
+      "resetComplete": "进度已重置！正在重新加载...",
+      "cancel": "取消"
+    }
   }
 }

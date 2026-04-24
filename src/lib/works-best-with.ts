@@ -10,7 +10,7 @@ export interface PromptMCPConfig {
 export const AI_MODELS = {
   // OpenAI
   "gpt-5-*": { name: "GPT-5.*", provider: "OpenAI" },
-  "o3": { name: "o3", provider: "OpenAI" },
+  o3: { name: "o3", provider: "OpenAI" },
   "gpt-4o": { name: "GPT-4o", provider: "OpenAI" },
   "o4-mini": { name: "o4-mini", provider: "OpenAI" },
 
@@ -36,15 +36,15 @@ export const AI_MODELS = {
   "nano-banana": { name: "Nano Banana", provider: "Google" },
   "nano-banana-pro": { name: "Nano Banana Pro", provider: "Google" },
   "dall-e-3": { name: "DALL·E 3", provider: "OpenAI" },
-  "midjourney": { name: "Midjourney", provider: "Midjourney" },
+  midjourney: { name: "Midjourney", provider: "Midjourney" },
   "stable-diffusion": { name: "Stable Diffusion", provider: "Stability AI" },
-  "flux": { name: "Flux", provider: "Black Forest Labs" },
+  flux: { name: "Flux", provider: "Black Forest Labs" },
 
   // Video Generation
   "sora 2": { name: "Sora 2", provider: "OpenAI" },
   "runway-gen4": { name: "Runway Gen-4", provider: "Runway" },
-  "veo": { name: "Veo", provider: "Google" },
-  "kling": { name: "Kling", provider: "Kuaishou" },
+  veo: { name: "Veo", provider: "Google" },
+  kling: { name: "Kling", provider: "Kuaishou" },
 } as const;
 
 export type AIModelSlug = keyof typeof AI_MODELS;

@@ -27,7 +27,10 @@ const getCategories = unstable_cache(
     });
 
     // Get all category IDs (parents + children)
-    const allCategoryIds = categories.flatMap((c) => [c.id, ...c.children.map((child) => child.id)]);
+    const allCategoryIds = categories.flatMap((c) => [
+      c.id,
+      ...c.children.map((child) => child.id),
+    ]);
 
     // Count visible prompts per category in one query
     const counts = await db.prompt.groupBy({
@@ -76,28 +79,26 @@ export default async function CategoriesPage() {
     <div className="container py-6">
       <div className="mb-6">
         <h1 className="text-lg font-semibold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("description")}</p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
 
       {rootCategories.length === 0 ? (
-        <div className="text-center py-12 border rounded-lg bg-muted/30">
-          <FolderOpen className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <p className="text-sm text-muted-foreground">{t("noCategories")}</p>
+        <div className="bg-muted/30 rounded-lg border py-12 text-center">
+          <FolderOpen className="text-muted-foreground mx-auto mb-3 h-10 w-10" />
+          <p className="text-muted-foreground text-sm">{t("noCategories")}</p>
         </div>
       ) : (
         <div className="divide-y">
           {rootCategories.map((category) => (
             <section key={category.id} className="py-6 first:pt-0">
               {/* Main Category Header */}
-              <div className="flex items-start gap-3 mb-3">
-                {category.icon && (
-                  <span className="text-xl mt-0.5">{category.icon}</span>
-                )}
+              <div className="mb-3 flex items-start gap-3">
+                {category.icon && <span className="mt-0.5 text-xl">{category.icon}</span>}
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Link
                       href={`/categories/${category.slug}`}
-                      className="font-semibold hover:underline inline-flex items-center gap-1"
+                      className="inline-flex items-center gap-1 font-semibold hover:underline"
                     >
                       {category.name}
                       <ChevronRight className="h-4 w-4" />
@@ -110,14 +111,12 @@ export default async function CategoriesPage() {
                         iconOnly
                       />
                     )}
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       {category.promptCount} {t("prompts")}
                     </span>
                   </div>
                   {category.description && (
-                    <p className="text-sm text-muted-foreground mt-0.5">
-                      {category.description}
-                    </p>
+                    <p className="text-muted-foreground mt-0.5 text-sm">{category.description}</p>
                   )}
                 </div>
               </div>
@@ -128,12 +127,10 @@ export default async function CategoriesPage() {
                   {category.children.map((child) => (
                     <div
                       key={child.id}
-                      className="group py-2 px-3 -mx-3 rounded-md hover:bg-muted/50 transition-colors"
+                      className="group hover:bg-muted/50 -mx-3 rounded-md px-3 py-2 transition-colors"
                     >
                       <div className="flex items-center gap-2">
-                        {child.icon && (
-                          <span className="text-sm">{child.icon}</span>
-                        )}
+                        {child.icon && <span className="text-sm">{child.icon}</span>}
                         <Link
                           href={`/categories/${child.slug}`}
                           className="text-sm font-medium hover:underline"
@@ -148,12 +145,10 @@ export default async function CategoriesPage() {
                             iconOnly
                           />
                         )}
-                        <span className="text-xs text-muted-foreground">
-                          {child.promptCount}
-                        </span>
+                        <span className="text-muted-foreground text-xs">{child.promptCount}</span>
                       </div>
                       {child.description && (
-                        <p className="text-xs text-muted-foreground mt-1 ml-6 line-clamp-1">
+                        <p className="text-muted-foreground mt-1 ml-6 line-clamp-1 text-xs">
                           {child.description}
                         </p>
                       )}

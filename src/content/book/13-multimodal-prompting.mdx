@@ -3,33 +3,67 @@ For most of history, computers worked with one type of data at a time: text in o
 **Multimodal AI** changes everything. These models can process multiple types of information together—analyzing an image while reading your question about it, or generating images from your text descriptions. This chapter teaches you how to communicate effectively with these powerful systems.
 
 <Callout type="info" title="What Does Multimodal Mean?">
-"Multi" means many, and "modal" refers to modes or types of data. A multimodal model can work with multiple modalities: text, images, audio, video, or even code. Instead of separate tools for each type, one model understands them all together.
+  "Multi" means many, and "modal" refers to modes or types of data. A multimodal model can work with
+  multiple modalities: text, images, audio, video, or even code. Instead of separate tools for each
+  type, one model understands them all together.
 </Callout>
 
 ## Why Multimodal Matters
 
 Traditional AI required you to describe everything in words. Want to ask about an image? You'd have to describe it first. Want to analyze a document? You'd need to transcribe it manually. Multimodal models eliminate these barriers.
 
-<InfoGrid items={[
-  { label: "See and Understand", description: "Upload an image and ask questions about it directly—no description needed", example: "\"What's wrong with this circuit diagram?\"", color: "blue" },
-  { label: "Create from Words", description: "Describe what you want and generate images, audio, or video", example: "\"A sunset over mountains in watercolor style\"", color: "purple" },
-  { label: "Combine Everything", description: "Mix text, images, and other media in a single conversation", example: "\"Compare these two designs and tell me which is better for mobile\"", color: "green" },
-  { label: "Analyze Documents", description: "Extract information from photos of documents, receipts, or screenshots", example: "\"Extract all the line items from this invoice photo\"", color: "amber" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "See and Understand",
+      description: "Upload an image and ask questions about it directly—no description needed",
+      example: '"What\'s wrong with this circuit diagram?"',
+      color: "blue",
+    },
+    {
+      label: "Create from Words",
+      description: "Describe what you want and generate images, audio, or video",
+      example: '"A sunset over mountains in watercolor style"',
+      color: "purple",
+    },
+    {
+      label: "Combine Everything",
+      description: "Mix text, images, and other media in a single conversation",
+      example: '"Compare these two designs and tell me which is better for mobile"',
+      color: "green",
+    },
+    {
+      label: "Analyze Documents",
+      description: "Extract information from photos of documents, receipts, or screenshots",
+      example: '"Extract all the line items from this invoice photo"',
+      color: "amber",
+    },
+  ]}
+/>
 
 ## Why Prompting Matters Even More for Multimodal
 
 With text-only models, the AI receives exactly what you type. But with multimodal models, the AI must interpret visual or audio information—and interpretation requires guidance.
 
-<Compare 
-  before={{ label: "Vague multimodal prompt", content: "What do you see in this image?\n\n[image of a complex dashboard]" }}
-  after={{ label: "Guided multimodal prompt", content: "This is a screenshot of our analytics dashboard. Focus on:\n1. The conversion rate graph in the top-right\n2. Any error indicators or warnings\n3. Whether the data looks normal or anomalous\n\n[image of a complex dashboard]" }}
+<Compare
+  before={{
+    label: "Vague multimodal prompt",
+    content: "What do you see in this image?\n\n[image of a complex dashboard]",
+  }}
+  after={{
+    label: "Guided multimodal prompt",
+    content:
+      "This is a screenshot of our analytics dashboard. Focus on:\n1. The conversion rate graph in the top-right\n2. Any error indicators or warnings\n3. Whether the data looks normal or anomalous\n\n[image of a complex dashboard]",
+  }}
 />
 
 **Without guidance**, the model might describe colors, layout, or irrelevant details. **With guidance**, it focuses on what actually matters to you.
 
 <Callout type="warning" title="The Interpretation Gap">
-When you look at an image, you instantly know what's important based on your context and goals. The AI doesn't have this context unless you provide it. A photo of a crack in a wall could be: a structural engineering concern, an artistic texture, or irrelevant background. Your prompt determines how the AI interprets it.
+  When you look at an image, you instantly know what's important based on your context and goals.
+  The AI doesn't have this context unless you provide it. A photo of a crack in a wall could be: a
+  structural engineering concern, an artistic texture, or irrelevant background. Your prompt
+  determines how the AI interprets it.
 </Callout>
 
 ## The Multimodal Landscape
@@ -40,27 +74,77 @@ Different models have different capabilities. Here's what's available in 2025:
 
 These models accept various media types and produce text analysis or responses.
 
-<InfoGrid items={[
-  { label: "GPT-4o / GPT-5", description: "Text + Images + Audio → Text. OpenAI's flagship with 128K context, strong creative and reasoning abilities, reduced hallucination rates.", color: "green" },
-  { label: "Claude 4 Sonnet/Opus", description: "Text + Images → Text. Anthropic's safety-focused model with advanced reasoning, excellent for coding and complex multi-step tasks.", color: "purple" },
-  { label: "Gemini 2.5", description: "Text + Images + Audio + Video → Text. Google's model with 1M token context, self-fact-checking, fast processing for coding and research.", color: "blue" },
-  { label: "LLaMA 4 Scout", description: "Text + Images + Video → Text. Meta's open-source model with massive 10M token context for long documents and codebases.", color: "cyan" },
-  { label: "Grok 4", description: "Text + Images → Text. xAI's model with real-time data access and social media integration for up-to-date responses.", color: "red" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "GPT-4o / GPT-5",
+      description:
+        "Text + Images + Audio → Text. OpenAI's flagship with 128K context, strong creative and reasoning abilities, reduced hallucination rates.",
+      color: "green",
+    },
+    {
+      label: "Claude 4 Sonnet/Opus",
+      description:
+        "Text + Images → Text. Anthropic's safety-focused model with advanced reasoning, excellent for coding and complex multi-step tasks.",
+      color: "purple",
+    },
+    {
+      label: "Gemini 2.5",
+      description:
+        "Text + Images + Audio + Video → Text. Google's model with 1M token context, self-fact-checking, fast processing for coding and research.",
+      color: "blue",
+    },
+    {
+      label: "LLaMA 4 Scout",
+      description:
+        "Text + Images + Video → Text. Meta's open-source model with massive 10M token context for long documents and codebases.",
+      color: "cyan",
+    },
+    {
+      label: "Grok 4",
+      description:
+        "Text + Images → Text. xAI's model with real-time data access and social media integration for up-to-date responses.",
+      color: "red",
+    },
+  ]}
+/>
 
 ### Generation Models (Text → Media)
 
 These models create images, audio, or video from text descriptions.
 
-<InfoGrid items={[
-  { label: "DALL-E 3", description: "Text → Images. OpenAI's image generator with high accuracy to prompt descriptions.", color: "amber" },
-  { label: "Midjourney", description: "Text + Images → Images. Known for artistic quality, style control, and aesthetic outputs.", color: "pink" },
-  { label: "Sora", description: "Text → Video. OpenAI's video generation model for creating clips from descriptions.", color: "red" },
-  { label: "Whisper", description: "Audio → Text. OpenAI's speech-to-text with high accuracy across languages.", color: "cyan" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "DALL-E 3",
+      description:
+        "Text → Images. OpenAI's image generator with high accuracy to prompt descriptions.",
+      color: "amber",
+    },
+    {
+      label: "Midjourney",
+      description:
+        "Text + Images → Images. Known for artistic quality, style control, and aesthetic outputs.",
+      color: "pink",
+    },
+    {
+      label: "Sora",
+      description:
+        "Text → Video. OpenAI's video generation model for creating clips from descriptions.",
+      color: "red",
+    },
+    {
+      label: "Whisper",
+      description: "Audio → Text. OpenAI's speech-to-text with high accuracy across languages.",
+      color: "cyan",
+    },
+  ]}
+/>
 
 <Callout type="info" title="Rapid Evolution">
-The multimodal landscape changes quickly. New models launch frequently, and existing models gain capabilities through updates. Always check the latest documentation for current features and limitations.
+  The multimodal landscape changes quickly. New models launch frequently, and existing models gain
+  capabilities through updates. Always check the latest documentation for current features and
+  limitations.
 </Callout>
 
 ## Image Understanding Prompts
@@ -98,27 +182,27 @@ When you need to process image analysis programmatically, request JSON output.
   prompt={`Analyze this image and return a JSON object with the following structure:
 
 {
-  "summary": "One sentence description",
-  "objects": ["List of main objects visible"],
-  "people": {
-    "count": "number or 'none'",
-    "activities": ["What they're doing, if any"]
-  },
-  "text_detected": ["Any text visible in the image"],
-  "colors": {
-    "dominant": ["Top 3 colors"],
-    "mood": "Warm/Cool/Neutral"
-  },
-  "setting": {
-    "type": "indoor/outdoor/unknown",
-    "description": "More specific location description"
-  },
-  "technical": {
-    "quality": "high/medium/low",
-    "lighting": "Description of lighting",
-    "composition": "Description of framing/composition"
-  },
-  "confidence": "high/medium/low"
+"summary": "One sentence description",
+"objects": ["List of main objects visible"],
+"people": {
+"count": "number or 'none'",
+"activities": ["What they're doing, if any"]
+},
+"text_detected": ["Any text visible in the image"],
+"colors": {
+"dominant": ["Top 3 colors"],
+"mood": "Warm/Cool/Neutral"
+},
+"setting": {
+"type": "indoor/outdoor/unknown",
+"description": "More specific location description"
+},
+"technical": {
+"quality": "high/medium/low",
+"lighting": "Description of lighting",
+"composition": "Description of framing/composition"
+},
+"confidence": "high/medium/low"
 }
 
 Image to analyze: \${imageDescription}`}
@@ -137,16 +221,18 @@ Comparing multiple images requires clear labeling and specific comparison criter
 **Image B**: \${imageB}
 
 Analyze each image on these criteria:
+
 1. \${criterion1} (importance: high)
-2. \${criterion2} (importance: medium)  
+2. \${criterion2} (importance: medium)
 3. \${criterion3} (importance: low)
 
 Provide:
+
 - Side-by-side comparison for each criterion
 - Strengths and weaknesses of each
 - Clear recommendation with reasoning
 - Any concerns or caveats`}
-/>
+  />
 
 ## Document and Screenshot Analysis
 
@@ -164,22 +250,22 @@ Scanned documents, photos of receipts, and PDFs as images can all be processed. 
 Extract all information into structured JSON format:
 
 {
-  "document_type": "detected type",
-  "date": "if present",
-  "key_fields": {
-    "field_name": "value"
-  },
-  "line_items": [
-    {"description": "", "amount": ""}
-  ],
-  "totals": {
-    "subtotal": "",
-    "tax": "",
-    "total": ""
-  },
-  "handwritten_notes": ["any handwritten text"],
-  "unclear_sections": ["areas that were hard to read"],
-  "confidence": "high/medium/low"
+"document_type": "detected type",
+"date": "if present",
+"key_fields": {
+"field_name": "value"
+},
+"line_items": [
+{"description": "", "amount": ""}
+],
+"totals": {
+"subtotal": "",
+"tax": "",
+"total": ""
+},
+"handwritten_notes": ["any handwritten text"],
+"unclear_sections": ["areas that were hard to read"],
+"confidence": "high/medium/low"
 }
 
 IMPORTANT: If any text is unclear, note it in "unclear_sections" rather than guessing. Mark confidence as "low" if significant portions were hard to read.
@@ -199,20 +285,24 @@ Screenshots are goldmines for debugging, UX review, and documentation. Guide the
 Analyze this interface:
 
 **Identification**
+
 - What screen/page/state is this?
 - What is the user likely trying to accomplish here?
 
 **UI Elements**
+
 - Key interactive elements (buttons, forms, menus)
 - Current state (anything selected, filled in, or expanded?)
 - Any error messages, warnings, or notifications?
 
 **UX Assessment**
+
 - Is the layout clear and intuitive?
 - Any confusing elements or unclear labels?
 - Accessibility concerns (contrast, text size, etc.)?
 
 **Issues Detected**
+
 - Visual bugs or misalignments?
 - Truncated text or overflow issues?
 - Inconsistent styling?
@@ -237,7 +327,7 @@ Please provide:
 1. **Plain Language Explanation**: What does this error actually mean?
 
 2. **Likely Causes** (ranked by probability):
-   - Most likely: 
+   - Most likely:
    - Also possible:
    - Less common:
 
@@ -249,7 +339,7 @@ Please provide:
 4. **Prevention**: How to avoid this error in the future
 
 5. **Red Flags**: When this error might indicate a more serious problem`}
-/>
+   />
 
 ## Image Generation Prompts
 
@@ -259,14 +349,46 @@ Generating images from text descriptions is an art form. The more specific and s
 
 Effective image generation prompts have several components:
 
-<InfoGrid items={[
-  { label: "Subject", description: "What is the main focus of the image?", example: "A golden retriever playing in autumn leaves", color: "blue" },
-  { label: "Style", description: "What artistic style or medium?", example: "Watercolor painting, digital art, photorealistic", color: "purple" },
-  { label: "Composition", description: "How is the scene arranged?", example: "Close-up portrait, wide landscape, bird's eye view", color: "green" },
-  { label: "Lighting", description: "What's the light source and quality?", example: "Soft morning light, dramatic shadows, neon glow", color: "amber" },
-  { label: "Mood", description: "What feeling should it evoke?", example: "Peaceful, energetic, mysterious, nostalgic", color: "pink" },
-  { label: "Details", description: "Specific elements to include or avoid", example: "Include: flowers. Avoid: text, watermarks", color: "cyan" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "Subject",
+      description: "What is the main focus of the image?",
+      example: "A golden retriever playing in autumn leaves",
+      color: "blue",
+    },
+    {
+      label: "Style",
+      description: "What artistic style or medium?",
+      example: "Watercolor painting, digital art, photorealistic",
+      color: "purple",
+    },
+    {
+      label: "Composition",
+      description: "How is the scene arranged?",
+      example: "Close-up portrait, wide landscape, bird's eye view",
+      color: "green",
+    },
+    {
+      label: "Lighting",
+      description: "What's the light source and quality?",
+      example: "Soft morning light, dramatic shadows, neon glow",
+      color: "amber",
+    },
+    {
+      label: "Mood",
+      description: "What feeling should it evoke?",
+      example: "Peaceful, energetic, mysterious, nostalgic",
+      color: "pink",
+    },
+    {
+      label: "Details",
+      description: "Specific elements to include or avoid",
+      example: "Include: flowers. Avoid: text, watermarks",
+      color: "cyan",
+    },
+  ]}
+/>
 
 ### Basic Image Generation
 
@@ -281,11 +403,13 @@ Effective image generation prompts have several components:
 **Medium**: \${medium} (e.g., oil painting, digital art, photograph)
 
 **Composition**:
+
 - Framing: \${framing} (close-up, medium shot, wide angle)
 - Perspective: \${perspective} (eye level, low angle, overhead)
 - Focus: \${focusArea}
 
 **Lighting**:
+
 - Source: \${lightSource}
 - Quality: \${lightQuality} (soft, harsh, diffused)
 - Time of day: \${timeOfDay}
@@ -321,6 +445,7 @@ For complex scenes, describe layers from foreground to background.
 \${background}
 
 **Atmospheric Details**:
+
 - Weather/Air: \${weather}
 - Lighting: \${lighting}
 - Time: \${timeOfDay}
@@ -354,6 +479,7 @@ Basic transcription is just the start. With good prompts, you can get speaker id
 [00:15] **Speaker 2 (Name/Role)**: Their response here.
 
 **Instructions**:
+
 - Include timestamps at natural breaks (every 30-60 seconds or at speaker changes)
 - Mark unclear sections as [inaudible] or [unclear: best guess?]
 - Note non-speech sounds in brackets: [laughter], [phone ringing], [long pause]
@@ -380,20 +506,24 @@ Provide:
 What is this recording about? What's the main takeaway?
 
 **2. Speakers**
+
 - How many distinct speakers?
 - Characteristics (if discernible): tone, speaking style, expertise level
 
 **3. Content Breakdown**
+
 - Main topics discussed (with approximate timestamps)
 - Key points made
 - Questions raised
 
 **4. Emotional Analysis**
+
 - Overall tone (formal, casual, tense, friendly)
 - Notable emotional moments
 - Energy level throughout
 
 **5. Actionable Items**
+
 - Decisions made
 - Action items mentioned
 - Follow-ups needed
@@ -402,9 +532,10 @@ What is this recording about? What's the main takeaway?
 Pull out 2-3 significant quotes with timestamps
 
 **7. Audio Quality**
+
 - Overall clarity
 - Any issues (background noise, interruptions, technical problems)`}
-/>
+  />
 
 ## Video Prompting
 
@@ -428,17 +559,20 @@ What is this video about? What's the main message or purpose?
 | 0:00 | ... | ... |
 
 **3. Visual Analysis**
+
 - Setting/Location: Where does this take place?
 - People: Who appears? What are they doing?
 - Objects: Key items or props featured
 - Visual style: Quality, editing, graphics used
 
 **4. Audio Analysis**
+
 - Speech: Main points made (if any dialogue)
 - Music: Type, mood, how it's used
 - Sound effects: Notable audio elements
 
 **5. Production Quality**
+
 - Video quality and editing
 - Pacing and structure
 - Effectiveness for its purpose
@@ -463,24 +597,25 @@ Video type: \${videoType}
 Video description: \${videoDescription}
 
 **Information to Extract**:
+
 1. \${extractItem1}
 2. \${extractItem2}
 3. \${extractItem3}
 
 **Output Format**:
 {
-  "video_summary": "Brief description",
-  "duration": "estimated length",
-  "extracted_data": [
-    {
-      "timestamp": "MM:SS",
-      "item": "What was found",
-      "details": "Additional context",
-      "confidence": "high/medium/low"
-    }
-  ],
-  "items_not_found": ["List anything requested but not present"],
-  "additional_observations": "Anything relevant not explicitly requested"
+"video_summary": "Brief description",
+"duration": "estimated length",
+"extracted_data": [
+{
+"timestamp": "MM:SS",
+"item": "What was found",
+"details": "Additional context",
+"confidence": "high/medium/low"
+}
+],
+"items_not_found": ["List anything requested but not present"],
+"additional_observations": "Anything relevant not explicitly requested"
 }`}
 />
 
@@ -503,6 +638,7 @@ Check if images and their descriptions match—essential for e-commerce, content
 Evaluate:
 
 **1. Accuracy Match**
+
 - Does the image show what the text describes?
 - Score: [1-10] with explanation
 
@@ -518,6 +654,7 @@ What's visible in the image but not described in the text?
 What's described in text but can't be verified from the image?
 
 **5. Recommendations**
+
 - For the text: [improvements to match image]
 - For the image: [improvements to match text]
 
@@ -546,10 +683,12 @@ One of the most powerful combinations for developers: seeing the visual bug alon
 Please help me:
 
 **1. Root Cause Analysis**
+
 - What in the code is causing this visual issue?
 - Which specific line(s) are responsible?
 
 **2. Explanation**
+
 - Why does this code produce this visual result?
 - What's the underlying mechanism?
 
@@ -559,9 +698,10 @@ Please help me:
 \`\`\`
 
 **4. Prevention**
+
 - How to avoid this type of bug in the future
 - Any related issues to check for`}
-/>
+  />
 
 ### Multi-Image Decision Making
 
@@ -577,6 +717,7 @@ When choosing between options, structured comparison helps make better decisions
 **Option C**: \${optionC}
 
 **My Criteria** (in order of importance):
+
 1. \${criterion1} (weight: high)
 2. \${criterion2} (weight: medium)
 3. \${criterion3} (weight: low)
@@ -591,6 +732,7 @@ Provide:
 | \${criterion3} | ... | ... | ... |
 
 **Weighted Scores**
+
 - Option A: X/10
 - Option B: X/10
 - Option C: X/10
@@ -599,9 +741,10 @@ Provide:
 Based on your stated priorities, I recommend [Option] because...
 
 **Caveats**
+
 - If [condition], consider [alternative] instead
 - Watch out for [potential issue]`}
-/>
+  />
 
 ## Best Practices for Multimodal Prompts
 
@@ -609,21 +752,65 @@ Getting great results from multimodal AI requires understanding both its capabil
 
 ### What Makes Multimodal Prompts Effective
 
-<InfoGrid items={[
-  { label: "Provide Context", description: "Tell the model what the media is and why you're analyzing it", example: "\"This is a product photo for our e-commerce site...\"", color: "green" },
-  { label: "Be Specific", description: "Ask about particular elements rather than general impressions", example: "\"Focus on the pricing table in the top-right corner\"", color: "green" },
-  { label: "Reference Locations", description: "Point to specific areas using spatial language", example: "\"In the bottom-left quadrant...\"", color: "green" },
-  { label: "State Your Goal", description: "Explain what you'll use the analysis for", example: "\"I need to decide if this image works for our mobile app\"", color: "green" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "Provide Context",
+      description: "Tell the model what the media is and why you're analyzing it",
+      example: '"This is a product photo for our e-commerce site..."',
+      color: "green",
+    },
+    {
+      label: "Be Specific",
+      description: "Ask about particular elements rather than general impressions",
+      example: '"Focus on the pricing table in the top-right corner"',
+      color: "green",
+    },
+    {
+      label: "Reference Locations",
+      description: "Point to specific areas using spatial language",
+      example: '"In the bottom-left quadrant..."',
+      color: "green",
+    },
+    {
+      label: "State Your Goal",
+      description: "Explain what you'll use the analysis for",
+      example: '"I need to decide if this image works for our mobile app"',
+      color: "green",
+    },
+  ]}
+/>
 
 ### Common Pitfalls to Avoid
 
-<InfoGrid items={[
-  { label: "Assuming Perfect Vision", description: "Models may miss small details, especially in low-resolution images", example: "Don't ask about 8pt text in a compressed screenshot", color: "red" },
-  { label: "Expecting Perfect OCR", description: "Handwriting, unusual fonts, and complex layouts can cause errors", example: "Verify extracted text from receipts and forms", color: "red" },
-  { label: "Ignoring Content Policies", description: "Models have restrictions on certain types of content", example: "Won't identify specific individuals or analyze inappropriate content", color: "red" },
-  { label: "Skipping Verification", description: "Always verify critical information extracted from media", example: "Double-check numbers, dates, and names from document extraction", color: "red" }
-]} />
+<InfoGrid
+  items={[
+    {
+      label: "Assuming Perfect Vision",
+      description: "Models may miss small details, especially in low-resolution images",
+      example: "Don't ask about 8pt text in a compressed screenshot",
+      color: "red",
+    },
+    {
+      label: "Expecting Perfect OCR",
+      description: "Handwriting, unusual fonts, and complex layouts can cause errors",
+      example: "Verify extracted text from receipts and forms",
+      color: "red",
+    },
+    {
+      label: "Ignoring Content Policies",
+      description: "Models have restrictions on certain types of content",
+      example: "Won't identify specific individuals or analyze inappropriate content",
+      color: "red",
+    },
+    {
+      label: "Skipping Verification",
+      description: "Always verify critical information extracted from media",
+      example: "Double-check numbers, dates, and names from document extraction",
+      color: "red",
+    },
+  ]}
+/>
 
 ### Handling Limitations Gracefully
 
@@ -635,15 +822,18 @@ Getting great results from multimodal AI requires understanding both its capabil
 **Instructions for Handling Uncertainty**:
 
 IF YOU CAN'T SEE SOMETHING CLEARLY:
+
 - Don't guess or make up details
 - Say: "I can see [what's visible] but cannot clearly make out [unclear element]"
 - Suggest what additional information would help
 
 IF CONTENT SEEMS RESTRICTED:
+
 - Explain what you can and cannot analyze
 - Focus on permitted aspects of the analysis
 
 IF ASKED ABOUT PEOPLE:
+
 - Describe actions, positions, and general characteristics
 - Do not attempt to identify specific individuals
 - Focus on: number of people, activities, expressions, attire
@@ -652,13 +842,13 @@ IF ASKED ABOUT PEOPLE:
 [Proceed with analysis, applying these guidelines]`}
 />
 
-<Quiz 
+<Quiz
   question="Why does prompting matter MORE for multimodal models than for text-only models?"
   options={[
     "Multimodal models are less intelligent and need more help",
     "Images and audio are inherently ambiguous—the AI needs context to know what aspects matter",
     "Multimodal models can only process one type of input at a time",
-    "Text prompts don't work with multimodal models"
+    "Text prompts don't work with multimodal models",
   ]}
   correctIndex={1}
   explanation="When you look at an image, you instantly know what's important based on your goals. The AI doesn't have this context—a photo of a wall crack could be an engineering concern, an artistic texture, or irrelevant background. Your prompt determines how the AI interprets and focuses on the media you provide."

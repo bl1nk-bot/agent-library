@@ -17,21 +17,24 @@ export function HeroPromptInput() {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const examplePrompts = useMemo(() => [
-    t("examples.codeReview"),
-    t("examples.emailWriter"),
-    t("examples.studyPlanner"),
-    t("examples.recipeGenerator"),
-    t("examples.interviewCoach"),
-  ], [t]);
-  
+  const examplePrompts = useMemo(
+    () => [
+      t("examples.codeReview"),
+      t("examples.emailWriter"),
+      t("examples.studyPlanner"),
+      t("examples.recipeGenerator"),
+      t("examples.interviewCoach"),
+    ],
+    [t]
+  );
+
   const [displayText, setDisplayText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   const animationRef = useRef<NodeJS.Timeout | null>(null);
 
   const clearAnimation = useCallback(() => {
@@ -76,7 +79,15 @@ export function HeroPromptInput() {
     }
 
     return clearAnimation;
-  }, [displayText, isAnimating, isFocused, currentPromptIndex, isDeleting, clearAnimation, examplePrompts]);
+  }, [
+    displayText,
+    isAnimating,
+    isFocused,
+    currentPromptIndex,
+    isDeleting,
+    clearAnimation,
+    examplePrompts,
+  ]);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -130,8 +141,8 @@ export function HeroPromptInput() {
     <form onSubmit={handleSubmit} className="w-full max-w-lg">
       <div
         className={cn(
-          "rounded-xl bg-muted/50 border px-4 py-3 backdrop-blur-sm transition-all duration-200 shadow-sm",
-          isFocused && "border-foreground/30 ring-1 ring-ring"
+          "bg-muted/50 rounded-xl border px-4 py-3 shadow-sm backdrop-blur-sm transition-all duration-200",
+          isFocused && "border-foreground/30 ring-ring ring-1"
         )}
       >
         {/* Textarea area with animated text overlay */}
@@ -141,15 +152,15 @@ export function HeroPromptInput() {
             <button
               type="button"
               onClick={handleAnimatedTextClick}
-              className="absolute inset-0 flex items-start text-start cursor-pointer hover:opacity-80 transition-opacity"
+              className="absolute inset-0 flex cursor-pointer items-start text-start transition-opacity hover:opacity-80"
             >
-              <span className="text-base text-muted-foreground">
+              <span className="text-muted-foreground text-base">
                 {displayText}
-                <span className="inline-block w-0.5 h-5 bg-primary ms-0.5 animate-pulse align-middle" />
+                <span className="bg-primary ms-0.5 inline-block h-5 w-0.5 animate-pulse align-middle" />
               </span>
             </button>
           )}
-          
+
           {/* Actual textarea */}
           <textarea
             ref={textareaRef}
@@ -160,16 +171,16 @@ export function HeroPromptInput() {
             onKeyDown={handleKeyDown}
             placeholder={isFocused ? t("placeholder") : ""}
             className={cn(
-              "min-h-[44px] max-h-[100px] w-full resize-none text-base bg-transparent border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0 outline-none placeholder:text-muted-foreground",
-              !isFocused && isAnimating && "text-transparent caret-transparent pointer-events-none"
+              "placeholder:text-muted-foreground max-h-[100px] min-h-[44px] w-full resize-none border-0 bg-transparent p-0 text-base outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
+              !isFocused && isAnimating && "pointer-events-none text-transparent caret-transparent"
             )}
             aria-label={t("ariaLabel")}
           />
         </div>
 
         {/* Bottom row: Bot icon + model name + submit button */}
-        <div className="flex items-center justify-between mt-2">
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <div className="mt-2 flex items-center justify-between">
+          <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
             <Bot className="h-3 w-3" />
             <span>{t("modelName")}</span>
           </div>
@@ -183,10 +194,8 @@ export function HeroPromptInput() {
           </Button>
         </div>
       </div>
-      
-      <p className="text-sm text-muted-foreground mt-3 text-center">
-        {t("hint")}
-      </p>
+
+      <p className="text-muted-foreground mt-3 text-center text-sm">{t("hint")}</p>
     </form>
   );
 }

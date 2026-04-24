@@ -31,10 +31,7 @@ export async function POST(request: Request) {
 
     // Prevent self-reporting (except for relist requests)
     if (prompt.authorId === session.user.id && reason !== "RELIST_REQUEST") {
-      return NextResponse.json(
-        { error: "You cannot report your own prompt" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "You cannot report your own prompt" }, { status: 400 });
     }
 
     // Check if user already reported this prompt
@@ -47,10 +44,7 @@ export async function POST(request: Request) {
     });
 
     if (existingReport) {
-      return NextResponse.json(
-        { error: "You have already reported this prompt" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "You have already reported this prompt" }, { status: 400 });
     }
 
     // Create the report
@@ -66,15 +60,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: "Invalid request data" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid request data" }, { status: 400 });
     }
     console.error("Report creation error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

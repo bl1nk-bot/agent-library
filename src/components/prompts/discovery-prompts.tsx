@@ -47,7 +47,13 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const [featuredPromptsRaw, todaysMostUpvotedRaw, latestPromptsRaw, recentlyUpdatedRaw, mostContributedRaw] = await Promise.all([
+  const [
+    featuredPromptsRaw,
+    todaysMostUpvotedRaw,
+    latestPromptsRaw,
+    recentlyUpdatedRaw,
+    mostContributedRaw,
+  ] = await Promise.all([
     db.prompt.findMany({
       where: {
         isPrivate: false,
@@ -117,7 +123,7 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
     }),
   ]);
 
-  const mapPrompt = (p: typeof featuredPromptsRaw[0]) => ({
+  const mapPrompt = (p: (typeof featuredPromptsRaw)[0]) => ({
     ...p,
     voteCount: p._count?.votes ?? 0,
     contributorCount: p._count?.contributors ?? 0,
@@ -134,11 +140,11 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
     <div className={isHomepage ? "flex flex-col" : "container py-6"}>
       {/* Featured Prompts Section */}
       {featuredPrompts.length > 0 && (
-        <section className={isHomepage ? "py-12 border-b" : "pb-8 mb-8 border-b"}>
+        <section className={isHomepage ? "border-b py-12" : "mb-8 border-b pb-8"}>
           <div className={isHomepage ? "container" : ""}>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                <Star className="h-5 w-5 fill-yellow-500 text-yellow-500" />
                 <h2 className="text-xl font-semibold">{tDiscovery("featuredPrompts")}</h2>
               </div>
               <Button variant="ghost" size="sm" asChild>
@@ -159,9 +165,9 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
 
       {/* Today's Most Upvoted Section */}
       {todaysMostUpvoted.length > 0 && (
-        <section className={isHomepage ? "py-12 border-b" : "pb-8 mb-8 border-b"}>
+        <section className={isHomepage ? "border-b py-12" : "mb-8 border-b pb-8"}>
           <div className={isHomepage ? "container" : ""}>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Flame className="h-5 w-5 text-orange-500" />
                 <h2 className="text-xl font-semibold">{tDiscovery("todaysMostUpvoted")}</h2>
@@ -184,11 +190,11 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
 
       {/* Latest Prompts Section */}
       {latestPrompts.length > 0 && (
-        <section className={isHomepage ? "py-12 border-b" : "pb-8 mb-8 border-b"}>
+        <section className={isHomepage ? "border-b py-12" : "mb-8 border-b pb-8"}>
           <div className={isHomepage ? "container" : ""}>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-muted-foreground" />
+                <Clock className="text-muted-foreground h-5 w-5" />
                 <h2 className="text-xl font-semibold">{tDiscovery("latestPrompts")}</h2>
               </div>
               <Button variant="ghost" size="sm" asChild>
@@ -209,9 +215,9 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
 
       {/* Recently Updated Section */}
       {recentlyUpdated.length > 0 && (
-        <section className={isHomepage ? "py-12 border-b" : "pb-8 mb-8 border-b"}>
+        <section className={isHomepage ? "border-b py-12" : "mb-8 border-b pb-8"}>
           <div className={isHomepage ? "container" : ""}>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <RefreshCw className="h-5 w-5 text-blue-500" />
                 <h2 className="text-xl font-semibold">{tDiscovery("recentlyUpdated")}</h2>
@@ -234,9 +240,9 @@ export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsP
 
       {/* Most Contributed Section */}
       {mostContributed.length > 0 && (
-        <section className={isHomepage ? "py-12 border-b" : "pb-8"}>
+        <section className={isHomepage ? "border-b py-12" : "pb-8"}>
           <div className={isHomepage ? "container" : ""}>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-green-500" />
                 <h2 className="text-xl font-semibold">{tDiscovery("mostContributed")}</h2>

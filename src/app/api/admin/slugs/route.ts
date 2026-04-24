@@ -18,9 +18,7 @@ export async function POST(request: Request) {
     const regenerateAll = searchParams.get("regenerate") === "true";
 
     // Get prompts that need slug generation
-    const whereClause = regenerateAll
-      ? { deletedAt: null }
-      : { slug: null, deletedAt: null };
+    const whereClause = regenerateAll ? { deletedAt: null } : { slug: null, deletedAt: null };
 
     const prompts = await db.prompt.findMany({
       where: whereClause,
@@ -44,15 +42,15 @@ export async function POST(request: Request) {
 
         for (let i = 0; i < prompts.length; i++) {
           const prompt = prompts[i];
-          
+
           try {
             const slug = await generatePromptSlug(prompt.title);
-            
+
             await db.prompt.update({
               where: { id: prompt.id },
               data: { slug },
             });
-            
+
             success++;
           } catch (error) {
             console.error(`Failed to generate slug for prompt ${prompt.id}:`, error);

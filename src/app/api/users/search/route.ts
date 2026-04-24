@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export async function GET(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session?.user) {
       return NextResponse.json(
         { error: "unauthorized", message: "You must be logged in" },

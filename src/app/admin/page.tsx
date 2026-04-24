@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -38,7 +37,7 @@ export default async function AdminPage() {
     db.tag.count(),
     isAISearchEnabled(),
   ]);
-  
+
   // Count prompts without embeddings and total public prompts
   let promptsWithoutEmbeddings = 0;
   let totalPublicPrompts = 0;
@@ -135,15 +134,15 @@ export default async function AdminPage() {
     <div className="container py-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("description")}</p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t("stats.users")}</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{userCount}</div>
@@ -152,7 +151,7 @@ export default async function AdminPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t("stats.prompts")}</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <FileText className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{promptCount}</div>
@@ -161,7 +160,7 @@ export default async function AdminPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t("stats.categories")}</CardTitle>
-            <FolderTree className="h-4 w-4 text-muted-foreground" />
+            <FolderTree className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{categoryCount}</div>
@@ -170,7 +169,7 @@ export default async function AdminPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t("stats.tags")}</CardTitle>
-            <Tags className="h-4 w-4 text-muted-foreground" />
+            <Tags className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{tagCount}</div>
@@ -188,15 +187,15 @@ export default async function AdminPage() {
           prompts: t("tabs.prompts"),
           reports: t("tabs.reports"),
         }}
-        pendingReportsCount={reports.filter(r => r.status === "PENDING").length}
+        pendingReportsCount={reports.filter((r) => r.status === "PENDING").length}
         children={{
           users: <UsersTable />,
           categories: <CategoriesTable categories={categories} />,
           tags: <TagsTable tags={tags} />,
           webhooks: <WebhooksTable webhooks={webhooks} />,
           prompts: (
-            <PromptsManagement 
-              aiSearchEnabled={aiSearchEnabled} 
+            <PromptsManagement
+              aiSearchEnabled={aiSearchEnabled}
               promptsWithoutEmbeddings={promptsWithoutEmbeddings}
               totalPublicPrompts={totalPublicPrompts}
               promptsWithoutSlugs={promptsWithoutSlugs}

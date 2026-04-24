@@ -38,7 +38,10 @@ export async function GET(request: NextRequest) {
 
     // Build filter conditions
     type WhereCondition = {
-      OR?: Array<{ title?: { contains: string; mode: "insensitive" }; content?: { contains: string; mode: "insensitive" } }>;
+      OR?: Array<{
+        title?: { contains: string; mode: "insensitive" };
+        content?: { contains: string; mode: "insensitive" };
+      }>;
       isUnlisted?: boolean;
       isPrivate?: boolean;
       isFeatured?: boolean;
@@ -47,7 +50,7 @@ export async function GET(request: NextRequest) {
     };
 
     const filterConditions: WhereCondition = {};
-    
+
     switch (filter) {
       case "unlisted":
         filterConditions.isUnlisted = true;

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ export function CtaSection({ config, showRegisterButton, isOAuth, t, tNav }: Cta
   return (
     <section className="py-12">
       <div className="container">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-6 rounded-lg border bg-muted/30">
+        <div className="bg-muted/30 flex flex-col gap-4 rounded-lg border p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <Image
               src={config.branding.logo}
@@ -29,11 +28,11 @@ export function CtaSection({ config, showRegisterButton, isOAuth, t, tNav }: Cta
               alt={config.branding.name}
               width={48}
               height={48}
-              className="h-12 w-12 hidden dark:block"
+              className="hidden h-12 w-12 dark:block"
             />
             <div>
               <h2 className="font-semibold">{t("readyToStart")}</h2>
-              <p className="text-sm text-muted-foreground">{t("freeAndOpen")}</p>
+              <p className="text-muted-foreground text-sm">{t("freeAndOpen")}</p>
             </div>
           </div>
           {showRegisterButton && (

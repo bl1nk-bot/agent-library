@@ -12,18 +12,24 @@ initializePlugins();
 // Generate a unique username from email or name
 async function generateUsername(email: string, name?: string | null): Promise<string> {
   // Try to use the part before @ in email
-  let baseUsername = email.split("@")[0].toLowerCase().replace(/[^a-z0-9_]/g, "");
-  
+  let baseUsername = email
+    .split("@")[0]
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, "");
+
   // If too short, use name
   if (baseUsername.length < 3 && name) {
-    baseUsername = name.toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 15);
+    baseUsername = name
+      .toLowerCase()
+      .replace(/[^a-z0-9_]/g, "")
+      .slice(0, 15);
   }
-  
+
   // Ensure minimum length
   if (baseUsername.length < 3) {
     baseUsername = "user";
   }
-  
+
   // Check if username exists and append number if needed
   let username = baseUsername;
   let counter = 1;
@@ -31,34 +37,34 @@ async function generateUsername(email: string, name?: string | null): Promise<st
     username = `${baseUsername}${counter}`;
     counter++;
   }
-  
+
   return username;
 }
 
 // Custom adapter that wraps PrismaAdapter to add username
 function CustomPrismaAdapter(): Adapter {
   const prismaAdapter = PrismaAdapter(db);
-  
+
   return {
     ...prismaAdapter,
     async createUser(data: AdapterUser & { username?: string; githubUsername?: string }) {
       // Use GitHub username if provided, otherwise generate one
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       let username = (data as any).username;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       const githubUsername = (data as any).githubUsername; // Immutable GitHub username
-      
+
       if (!username) {
         username = await generateUsername(data.email, data.name);
       } else {
         username = username.toLowerCase();
-        
+
         // Check if there's an unclaimed account with this username
         const unclaimedEmail = `${username}@unclaimed.prompts.chat`;
         const unclaimedUser = await db.user.findUnique({
           where: { email: unclaimedEmail },
         });
-        
+
         if (unclaimedUser) {
           // Claim this account - update with real user info
           const claimedUser = await db.user.update({
@@ -71,13 +77,13 @@ function CustomPrismaAdapter(): Adapter {
               githubUsername: githubUsername || undefined, // Store immutable GitHub username
             },
           });
-          
+
           return {
             ...claimedUser,
             image: claimedUser.avatar,
           } as AdapterUser;
         }
-        
+
         // Ensure GitHub username is unique, append number if taken
         const baseUsername = username;
         let finalUsername = baseUsername;
@@ -88,7 +94,7 @@ function CustomPrismaAdapter(): Adapter {
         }
         username = finalUsername;
       }
-      
+
       const user = await db.user.create({
         data: {
           name: data.name,
@@ -99,7 +105,7 @@ function CustomPrismaAdapter(): Adapter {
           githubUsername: githubUsername || undefined, // Store immutable GitHub username
         },
       });
-      
+
       return {
         ...user,
         image: user.avatar,
@@ -126,7 +132,7 @@ function getConfiguredProviders(config: Awaited<ReturnType<typeof getConfig>>): 
 async function buildAuthConfig() {
   const config = await getConfig();
   const providerIds = getConfiguredProviders(config);
-  
+
   const authProviders = providerIds
     .map((id) => {
       const plugin = getAuthPlugin(id);
@@ -154,13 +160,19 @@ async function buildAuthConfig() {
       error: "/login",
     },
     callbacks: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       async jwt({ token, user, trigger }: { token: any; user?: any; trigger?: string }) {
         // On sign in, look up the actual database user by email to ensure correct ID
         if (user && user.email) {
           const dbUser = await db.user.findUnique({
             where: { email: user.email },
-            select: { id: true, role: true, username: true, locale: true, name: true, avatar: true },
+            select: {
+              id: true,
+              role: true,
+              username: true,
+              locale: true,
+              name: true,
+              avatar: true,
+            },
           });
 
           if (dbUser) {
@@ -177,7 +189,14 @@ async function buildAuthConfig() {
         if (token.id && !user) {
           const dbUser = await db.user.findUnique({
             where: { id: token.id as string },
-            select: { id: true, role: true, username: true, locale: true, name: true, avatar: true },
+            select: {
+              id: true,
+              role: true,
+              username: true,
+              locale: true,
+              name: true,
+              avatar: true,
+            },
           });
 
           // User no longer exists - invalidate token
@@ -197,7 +216,7 @@ async function buildAuthConfig() {
 
         return token;
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       async session({ session, token }: { session: any; token: any }) {
         // If token is null/invalid, return empty session
         if (!token) {

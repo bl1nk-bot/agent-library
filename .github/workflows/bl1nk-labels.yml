@@ -1,0 +1,101 @@
+name: Bl1nk Labels Automation
+
+on:
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, edited, synchronize]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue/PR number"
+        required: true
+        type: number
+      preset:
+        description: "Override with preset"
+        required: false
+        type: choice
+        options:
+          - ""
+          - feature
+          - hotfix
+          - docs-translate
+          - mobile-ui
+      add_labels:
+        description: "Add labels (space-separated, e.g. agent:claude type:feat)"
+        required: false
+        type: string
+      remove_labels:
+        description: "Remove labels (space-separated)"
+        required: false
+        type: string
+
+jobs:
+  # Job 1: Apply auto‑labels to issues and PRs based on content
+  auto-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up scripts
+        run: chmod +x .github/scripts/auto-label.sh
+
+      - name: Run auto-label (from title/body)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/auto-label.sh
+
+      - name: Apply preset override
+        if: ${{ github.event.inputs.preset != '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/auto-label.sh --preset "${{ github.event.inputs.preset }}"
+
+      - name: Apply custom labels
+        if: ${{ github.event.inputs.add_labels != '' || github.event.inputs.remove_labels != '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          declare -a ADD_ARGS
+          declare -a REMOVE_ARGS
+
+          if [[ -n "${{ github.event.inputs.add_labels }}" ]]; then
+            mapfile -t LABELS < <(echo "${{ github.event.inputs.add_labels }}" | tr ' ' '\n')
+            for label in "${LABELS[@]}"; do
+              ADD_ARGS+=("--add-label" "$label")
+            done
+          fi
+
+          if [[ -n "${{ github.event.inputs.remove_labels }}" ]]; then
+            mapfile -t LABELS < <(echo "${{ github.event.inputs.remove_labels }}" | tr ' ' '\n')
+            for label in "${LABELS[@]}"; do
+              REMOVE_ARGS+=("--remove-label" "$label")
+            done
+          fi
+
+          .github/scripts/auto-label.sh "${ADD_ARGS[@]}" "${REMOVE_ARGS[@]}"
+
+  # Job 2: Sync labels from linked issue to PR
+  sync-pr-labels:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up scripts
+        run: chmod +x .github/scripts/sync-pr-labels.sh
+
+      - name: Sync labels from linked issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: .github/scripts/sync-pr-labels.sh

@@ -32,18 +32,14 @@ export function SkillImportButton() {
       <Button
         size="sm"
         variant="outline"
-        className="h-8 text-xs w-full sm:w-auto"
+        className="h-8 w-full text-xs sm:w-auto"
         onClick={() => setOpen(true)}
       >
-        <Upload className="h-3.5 w-3.5 mr-1" />
+        <Upload className="mr-1 h-3.5 w-3.5" />
         Import Skill
       </Button>
 
-      <SkillImportDialog
-        open={open}
-        onOpenChange={setOpen}
-        onImport={handleImport}
-      />
+      <SkillImportDialog open={open} onOpenChange={setOpen} onImport={handleImport} />
     </>
   );
 }

@@ -125,9 +125,7 @@ describe("GET /api/prompts", () => {
     expect(db.prompt.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
         where: expect.objectContaining({
-          OR: expect.arrayContaining([
-            expect.objectContaining({ title: expect.any(Object) }),
-          ]),
+          OR: expect.arrayContaining([expect.objectContaining({ title: expect.any(Object) })]),
         }),
       })
     );

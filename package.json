@@ -12,7 +12,8 @@
     "build": "prisma generate --no-engine && bun exec next build",
     "db:deploy": "prisma migrate deploy",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
@@ -21,7 +22,13 @@
     "db:resetadmin": "npx tsx prisma/reset-admin.ts",
     "db:setup": "prisma generate && prisma migrate dev && prisma db seed",
     "setup": "node scripts/setup.js",
+    "env:sync": "node scripts/sync-env.js",
+    "i18n:check": "node scripts/check-translations.js",
+    "generate:icons": "npx tsx scripts/generate-icons.ts",
     "generate:examples": "npx tsx scripts/generate-examples.ts",
+    "typecheck": "npx tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "postinstall": "prisma generate --no-engine",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -107,9 +114,15 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-security": "^4.0.0",
+    "form-data": "^2.5.4",
     "jsdom": "^25.0.1",
+    "minimist": "^1.2.8",
     "picocolors": "^1.1.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.0.0-insiders.f7d2598",
     "prisma": "^6.19.1",
     "tailwindcss": "^4",
     "to-ico": "^1.1.5",
@@ -119,9 +132,16 @@
     "vitest": "^2.1.8"
   },
   "overrides": {
-    "esbuild": "0.27.2"
+    "esbuild": "0.27.2",
+    "minimist": "^1.2.8",
+    "form-data": "^2.5.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": "^2.5.4"
+    }
   },
   "engines": {
-    "node": "24.x"
+    "node": "^24.x"
   }
 }

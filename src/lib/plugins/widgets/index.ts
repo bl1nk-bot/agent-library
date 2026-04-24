@@ -5,10 +5,7 @@ import { bookWidget } from "./book";
 export * from "./types";
 
 // Registry of all widget plugins
-const widgetPlugins: WidgetPlugin[] = [
-  coderabbitWidget,
-  bookWidget,
-];
+const widgetPlugins: WidgetPlugin[] = [coderabbitWidget, bookWidget];
 
 /**
  * Get all registered widget plugins
@@ -42,28 +39,25 @@ export function getWidgetPrompt(pluginId: string, promptId: string): WidgetPromp
 /**
  * Calculate all insertion positions for a widget based on its positioning config
  */
-function getWidgetInsertionPositions(
-  widget: WidgetPrompt,
-  totalItems: number
-): number[] {
+function getWidgetInsertionPositions(widget: WidgetPrompt, totalItems: number): number[] {
   const config = widget.positioning;
   const mode = config?.mode ?? "once";
   // Support legacy `position` field, fallback to positioning.position, then default to 2
   const startPosition = config?.position ?? widget.position ?? 2;
-  
+
   if (mode === "once") {
     const maxCount = config?.maxCount ?? 1;
     return maxCount > 0 ? [startPosition] : [];
   }
-  
+
   // Repeat mode
   const repeatEvery = config?.repeatEvery ?? 30;
   const maxCount = config?.maxCount; // undefined = unlimited
   const positions: number[] = [];
-  
+
   let currentPosition = startPosition;
   let count = 0;
-  
+
   // Generate positions until we exceed the total items or hit maxCount
   while (currentPosition <= totalItems + positions.length) {
     if (maxCount !== undefined && count >= maxCount) break;
@@ -71,18 +65,18 @@ function getWidgetInsertionPositions(
     currentPosition += repeatEvery;
     count++;
   }
-  
+
   return positions;
 }
 
 /**
  * Inject widget prompts into a list of items.
  * Each widget defines its own shouldInject logic and positioning strategy.
- * 
+ *
  * Positioning modes:
  * - "once": Insert widget once at the specified position (default)
  * - "repeat": Insert widget every N items (configured via repeatEvery)
- * 
+ *
  * @param items - The original list of items
  * @param context - Context passed to each widget's shouldInject function
  * @returns A new array with widget prompts injected, marked with { isWidget: true }
@@ -92,7 +86,7 @@ export function injectWidgets<T>(
   context: WidgetContext = {}
 ): (T | (WidgetPrompt & { isWidget: true }))[] {
   const widgetPrompts = getWidgetPrompts();
-  
+
   if (widgetPrompts.length === 0 || items.length === 0) {
     return items;
   }
@@ -112,19 +106,19 @@ export function injectWidgets<T>(
 
   // Collect all insertions: { position, widget }
   const insertions: { position: number; widget: WidgetPrompt }[] = [];
-  
+
   for (const widget of widgetsToInject) {
     const positions = getWidgetInsertionPositions(widget, items.length);
     for (const position of positions) {
       insertions.push({ position, widget });
     }
   }
-  
+
   // Sort insertions by position (ascending) for correct offset calculation
   insertions.sort((a, b) => a.position - b.position);
 
   const result: (T | (WidgetPrompt & { isWidget: true }))[] = [...items];
-  
+
   // Inject widgets at their calculated positions
   let offset = 0;
   for (const { position, widget } of insertions) {

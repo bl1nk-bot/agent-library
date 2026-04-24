@@ -8,10 +8,7 @@ import { z } from "zod";
  * GET /api/prompts/[id]/api-config
  * Fetch all API configurations for a prompt
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -21,10 +18,7 @@ export async function GET(
     });
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt not found" }, { status: 404 });
     }
 
     // Fetch API configs
@@ -36,10 +30,7 @@ export async function GET(
     return NextResponse.json(apiConfigs);
   } catch (error) {
     console.error("[v0] Error fetching API configs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch API configurations" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch API configurations" }, { status: 500 });
   }
 }
 
@@ -47,10 +38,7 @@ export async function GET(
  * POST /api/prompts/[id]/api-config
  * Create a new API configuration
  */
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
@@ -73,10 +61,7 @@ export async function POST(
     });
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt not found or unauthorized" }, { status: 404 });
     }
 
     // Create API config
@@ -97,9 +82,6 @@ export async function POST(
     }
 
     console.error("[v0] Error creating API config:", error);
-    return NextResponse.json(
-      { error: "Failed to create API configuration" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create API configuration" }, { status: 500 });
   }
 }

@@ -5,4 +5,4 @@ export {
   EXAMPLE_IMAGE,
   EXAMPLE_CHAT,
   DEFAULT_CODE,
-} from './generated';
+} from "./generated";

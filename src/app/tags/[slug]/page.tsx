@@ -115,37 +115,37 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
       <div className="mb-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 -ml-2">
           <Link href="/tags">
-            <ArrowLeft className="h-4 w-4 mr-1.5" />
+            <ArrowLeft className="mr-1.5 h-4 w-4" />
             {t("allTags")}
           </Link>
         </Button>
 
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div
-              className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: tag.color }}
-            />
+            <div className="h-4 w-4 rounded-full" style={{ backgroundColor: tag.color }} />
             <h1 className="text-xl font-semibold">{tag.name}</h1>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-muted-foreground text-sm">
               {total} {t("prompts")}
             </span>
           </div>
-          {config.features.mcp !== false && <McpServerPopup initialTags={[slug]} showOfficialBranding={!config.homepage?.useCloneBranding} />}
+          {config.features.mcp !== false && (
+            <McpServerPopup
+              initialTags={[slug]}
+              showOfficialBranding={!config.homepage?.useCloneBranding}
+            />
+          )}
         </div>
       </div>
 
       {/* Prompts Grid */}
       {prompts.length === 0 ? (
-        <div className="text-center py-12 border rounded-lg bg-muted/30">
-          <Tag className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <p className="text-sm text-muted-foreground">
-            {tPrompts("noPrompts")}
-          </p>
+        <div className="bg-muted/30 rounded-lg border py-12 text-center">
+          <Tag className="text-muted-foreground mx-auto mb-3 h-10 w-10" />
+          <p className="text-muted-foreground text-sm">{tPrompts("noPrompts")}</p>
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
+          <div className="columns-1 gap-4 md:columns-2 lg:columns-3">
             {prompts.map((prompt) => (
               <PromptCard key={prompt.id} prompt={prompt} />
             ))}
@@ -162,14 +162,12 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                 asChild={page > 1}
               >
                 {page > 1 ? (
-                  <Link href={`/tags/${slug}?page=${page - 1}`}>
-                    {tPrompts("previous")}
-                  </Link>
+                  <Link href={`/tags/${slug}?page=${page - 1}`}>{tPrompts("previous")}</Link>
                 ) : (
                   <span>{tPrompts("previous")}</span>
                 )}
               </Button>
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {page} / {totalPages}
               </span>
               <Button
@@ -180,9 +178,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                 asChild={page < totalPages}
               >
                 {page < totalPages ? (
-                  <Link href={`/tags/${slug}?page=${page + 1}`}>
-                    {tPrompts("next")}
-                  </Link>
+                  <Link href={`/tags/${slug}?page=${page + 1}`}>{tPrompts("next")}</Link>
                 ) : (
                   <span>{tPrompts("next")}</span>
                 )}

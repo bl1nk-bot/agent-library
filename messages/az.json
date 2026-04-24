@@ -951,7 +951,8 @@
     "noNotifications": "Bildiriş yoxdur",
     "markAllRead": "Hamısını oxunmuş işarələ",
     "commentedOnPrompt": "promptunuza şərh yazdı",
-    "repliedToComment": "şərhinizə cavab verdi"
+    "repliedToComment": "şərhinizə cavab verdi",
+    "unreadCount": "{count} oxunmamış bildiriş"
   },
   "promptmasters": {
     "title": "Promptmasterlər",
@@ -1470,16 +1471,34 @@
     "viewAllContributors": "Bütün töhfəçilərə baxın"
   },
   "kids": {
-    "header": { "title": "Promi-in Prompt Məktəbi", "levels": "səviyyə", "home": "Ana Səhifə", "map": "Xəritə", "mainSite": "Əsas Sayt" },
+    "header": {
+      "title": "Promi-in Prompt Məktəbi",
+      "levels": "səviyyə",
+      "home": "Ana Səhifə",
+      "map": "Xəritə",
+      "mainSite": "Əsas Sayt"
+    },
     "home": {
       "badge": "Uşaqlar üçün Öyrənmə",
       "title": "AI ilə Danışmağı Öyrən!",
       "subtitle": "Robot Promi ilə birlikdə əyləncəli bir macəraya çıx və möhtəşəm promptlar yazmağı öyrən!",
-      "promiIntro": { "greeting": "Salam, mən Promi-əm! 🤖", "message": "Mən SƏNİN köməyinə ehtiyacı olan dost robotam! Promptları daha yaxşı başa düşməyimə kömək edərsən?" },
+      "promiIntro": {
+        "greeting": "Salam, mən Promi-əm! 🤖",
+        "message": "Mən SƏNİN köməyinə ehtiyacı olan dost robotam! Promptları daha yaxşı başa düşməyimə kömək edərsən?"
+      },
       "features": {
-        "games": { "title": "Əyləncəli Oyunlar", "description": "Sürüklə-burax oyunları və testlərlə öyrən" },
-        "stories": { "title": "Gözəl Hekayələr", "description": "Promi ilə həyəcanlı macəralara çıx" },
-        "stars": { "title": "Ulduz Qazan", "description": "Ulduzlar topla və yeni səviyyələri aç" }
+        "games": {
+          "title": "Əyləncəli Oyunlar",
+          "description": "Sürüklə-burax oyunları və testlərlə öyrən"
+        },
+        "stories": {
+          "title": "Gözəl Hekayələr",
+          "description": "Promi ilə həyəcanlı macəralara çıx"
+        },
+        "stars": {
+          "title": "Ulduz Qazan",
+          "description": "Ulduzlar topla və yeni səviyyələri aç"
+        }
       },
       "startButton": "Oynamağa Başla!",
       "ageNote": "Oxumaq və yazmaq bilən 8-14 yaşlı uşaqlar üçün ən uyğun",
@@ -1492,40 +1511,221 @@
       "next": "İrəli",
       "completeFirst": "Davam etmək üçün əvvəlcə fəaliyyəti tamamla"
     },
-    "map": { "title": "Dünya Xəritəsi", "subtitle": "Bir səviyyə seç və macərana başla!", "worldLevels": "{count} səviyyə", "levelNumber": "Səviyyə {number}", "locked": "Açmaq üçün əvvəlki səviyyəni tamamla" },
-    "worlds": { "1": { "title": "Başlanğıc Kəndi" }, "2": { "title": "Aydınlıq Qalası" }, "3": { "title": "Kontekst Mağaraları" }, "4": { "title": "Yaradıcılıq Kanyonu" }, "5": { "title": "Ustad Dağı" } },
-    "levels": {
-      "1_1_meet_promi": { "title": "Promi ilə Tanış Ol!", "description": "Robot dostunla salamlaş və AI-nin nə olduğunu öyrən" },
-      "1_2_first_words": { "title": "Promi-in İlk Sözləri", "description": "İlk promptunu yazaraq Promi-ə başa düşməyə kömək et" },
-      "1_3_being_clear": { "title": "Aydın Ol", "description": "Niyə aydın təlimatların daha yaxşı işlədiyini öyrən" },
-      "2_1_missing_details": { "title": "İtkin Detallar", "description": "Detalların niyə vacib olduğunu kəşf et" },
-      "2_2_who_and_what": { "title": "Kim və Nə", "description": "Personajlar və obyektlər əlavə et" },
-      "2_3_when_and_where": { "title": "Nə Vaxt və Harada", "description": "Vaxt və yer əlavə etməyi öyrən" },
-      "2_4_detail_detective": { "title": "Detal Detektivi", "description": "Detal əlavə etmə mütəxəssisi ol" },
-      "3_1_setting_the_scene": { "title": "Səhnəni Qurmaq", "description": "Kontekstin niyə kömək etdiyini öyrən" },
-      "3_2_show_dont_tell": { "title": "Göstər, Demə", "description": "İstədiyini göstərmək üçün nümunələr istifadə et" },
-      "3_3_format_finder": { "title": "Format Tapıcı", "description": "Siyahılar, hekayələr, şeirlər istə!" },
-      "3_4_context_champion": { "title": "Kontekst Çempionu", "description": "Bütün kontekst texnikalarını birləşdir" },
-      "4_1_pretend_time": { "title": "Rol Oynamaq Vaxtı!", "description": "Rol oynama promptlarını öyrən" },
-      "4_2_story_starters": { "title": "Hekayə Başlanğıcları", "description": "AI ilə möhtəşəm hekayələr yarat" },
-      "4_3_character_creator": { "title": "Personaj Yaradıcısı", "description": "AI-yə şəxsiyyət ver" },
-      "4_4_world_builder": { "title": "Dünya Qurucusu", "description": "Xəyali dünyalar yarat" },
-      "5_1_perfect_prompt": { "title": "Mükəmməl Prompt", "description": "Aydınlıq, detallar və konteksti birləşdir" },
-      "5_2_fix_it_up": { "title": "Düzəlt!", "description": "Zəif promptları tap və yaxşılaşdır" },
-      "5_3_prompt_remix": { "title": "Prompt Remiks", "description": "Fərqli nəticələr üçün promptları yenidən yaz" },
-      "5_4_graduation_day": { "title": "Məzuniyyət Günü", "description": "Son çağırış - Usta ol!" }
+    "map": {
+      "title": "Dünya Xəritəsi",
+      "subtitle": "Bir səviyyə seç və macərana başla!",
+      "worldLevels": "{count} səviyyə",
+      "levelNumber": "Səviyyə {number}",
+      "locked": "Açmaq üçün əvvəlki səviyyəni tamamla"
     },
-    "level": { "backToMap": "Xəritəyə Qayıt", "levelLabel": "Səviyyə {number}", "comingSoon": "Bu səviyyə tezliklə gəlir!", "previous": "Əvvəlki", "next": "Növbəti", "map": "Xəritə" },
-    "levelComplete": { "title": "Səviyyə Tamamlandı!", "nextLevel": "Növbəti Səviyyə", "backToMap": "Xəritəyə Qayıt", "allDone": "Xəritəyə Qayıt" },
-    "quiz": { "goodLabel": "Əla prompt!", "badLabel": "Ən yaxşısı deyil", "correct": "Düzdür!", "incorrect": "Yaxşı cəhd!", "tryAgain": "Yenidən cəhd et" },
-    "magicWords": { "title": "Sehrli sözləri sürüklə! ✨", "dragOrTap": "🎯 Sözləri sürüklə və ya toxun:", "check": "Yoxla!", "retry": "Yenidən", "correct": "düzgün", "tryAgain": "Yenidən cəhd et!" },
-    "dragDrop": { "title": "Promptu qur!", "instruction": "Hərəkət etmək üçün oxlardan istifadə et və ya iki parçaya toxun!", "result": "Nəticə", "check": "Yoxla!", "retry": "Yenidən", "success": "Mükəmməl! Əla prompt qurdun!", "almost": "Demək olar! Sıralamağa davam et.", "tapToSwap": "Dəyişdirmək üçün başqa parçaya toxun!" },
-    "promptParts": { "title": "Prompt Hissələrini Sırala!", "instruction": "Hər parçaya toxun, sonra növü seç!", "score": "Xal", "pickCategory": "Bu hansı növdür?", "success": "Bütün hissələri düzgün sıraladın!", "retry": "Yenidən cəhd et", "types": { "role": "Rol", "task": "Tapşırıq", "context": "Kontekst", "constraint": "Məhdudiyyət" } },
-    "exampleMatcher": { "title": "Nümunə Uyğunlaşdırıcı", "instruction": "Nümunəyə bax və sonra nə gəldiyini seç!", "pattern": "Nümunə:", "check": "Yoxla!", "retry": "Yenidən cəhd et", "correct": "Düzdür! 🎉", "tryAgain": "Tam deyil - nümunəyə yenidən bax!" },
-    "promptDoctor": { "title": "Prompt Həkimi", "health": "Prompt Sağlamlığı", "sick": "Xəstə Prompt", "healthy": "Sağlam Prompt!", "diagnose": "Düzəltmək üçün problemə toxun:", "success": "Prompt indi yaxşıdır!", "retry": "Yenidən başla" },
-    "stepByStep": { "title": "Addım-addım Düşün", "problem": "Problem:", "withoutMagic": "Sehrli sözlər olmadan:", "addMagicWords": "Sehrli Sözləri Əlavə Et!", "magicWordsActive": "Sehrli sözlər əlavə edildi!", "nextStep": "Növbəti Addımı Göstər", "withMagic": "Addım-addım düşünmə ilə:", "retry": "Yenidən cəhd et" },
-    "promptLab": { "title": "Prompt Laboratoriyası", "progress": "Təkmilləşdirmələr", "yourPrompt": "Sənin Promptun:", "aiSays": "AI Cavabı:", "addDetails": "Təkmilləşdirmə əlavə et:", "success": "Promptun indi çox spesifikdir!", "retry": "Yenidən başla" },
-    "wordPredictor": { "title": "AI Necə Düşünür", "instruction": "AI ən çox ehtimal olunan növbəti sözü təxmin edir. AI kimi düşünə bilərsən?", "aiThinks": "AI oxuyur:", "thinkingDefault": "Hmm, burada hansı söz ən məntiqli olardı?", "check": "Cavabımı yoxla!", "correct": "AI kimi düşünürsən!", "tryAgain": "Tam deyil! AI ən çox ehtimal olunan sözü seçir.", "retry": "Yenidən cəhd et" },
-    "settings": { "title": "Tənzimləmələr", "music": "Musiqi", "language": "Dil", "progress": "Tərəqqin", "stars": "Ulduzlar", "completed": "Tamamlandı", "resetTitle": "Tərəqqini Sıfırla", "resetButton": "Hamısını Sıfırla", "resetWarning": "Bu bütün ulduzları və tərəqqini siləcək. Əminsən?", "resetConfirm": "Bəli, Hamısını Sıfırla", "resetComplete": "Tərəqqi sıfırlandı! Yenidən yüklənir...", "cancel": "Ləğv et" }
+    "worlds": {
+      "1": {
+        "title": "Başlanğıc Kəndi"
+      },
+      "2": {
+        "title": "Aydınlıq Qalası"
+      },
+      "3": {
+        "title": "Kontekst Mağaraları"
+      },
+      "4": {
+        "title": "Yaradıcılıq Kanyonu"
+      },
+      "5": {
+        "title": "Ustad Dağı"
+      }
+    },
+    "levels": {
+      "1_1_meet_promi": {
+        "title": "Promi ilə Tanış Ol!",
+        "description": "Robot dostunla salamlaş və AI-nin nə olduğunu öyrən"
+      },
+      "1_2_first_words": {
+        "title": "Promi-in İlk Sözləri",
+        "description": "İlk promptunu yazaraq Promi-ə başa düşməyə kömək et"
+      },
+      "1_3_being_clear": {
+        "title": "Aydın Ol",
+        "description": "Niyə aydın təlimatların daha yaxşı işlədiyini öyrən"
+      },
+      "2_1_missing_details": {
+        "title": "İtkin Detallar",
+        "description": "Detalların niyə vacib olduğunu kəşf et"
+      },
+      "2_2_who_and_what": {
+        "title": "Kim və Nə",
+        "description": "Personajlar və obyektlər əlavə et"
+      },
+      "2_3_when_and_where": {
+        "title": "Nə Vaxt və Harada",
+        "description": "Vaxt və yer əlavə etməyi öyrən"
+      },
+      "2_4_detail_detective": {
+        "title": "Detal Detektivi",
+        "description": "Detal əlavə etmə mütəxəssisi ol"
+      },
+      "3_1_setting_the_scene": {
+        "title": "Səhnəni Qurmaq",
+        "description": "Kontekstin niyə kömək etdiyini öyrən"
+      },
+      "3_2_show_dont_tell": {
+        "title": "Göstər, Demə",
+        "description": "İstədiyini göstərmək üçün nümunələr istifadə et"
+      },
+      "3_3_format_finder": {
+        "title": "Format Tapıcı",
+        "description": "Siyahılar, hekayələr, şeirlər istə!"
+      },
+      "3_4_context_champion": {
+        "title": "Kontekst Çempionu",
+        "description": "Bütün kontekst texnikalarını birləşdir"
+      },
+      "4_1_pretend_time": {
+        "title": "Rol Oynamaq Vaxtı!",
+        "description": "Rol oynama promptlarını öyrən"
+      },
+      "4_2_story_starters": {
+        "title": "Hekayə Başlanğıcları",
+        "description": "AI ilə möhtəşəm hekayələr yarat"
+      },
+      "4_3_character_creator": {
+        "title": "Personaj Yaradıcısı",
+        "description": "AI-yə şəxsiyyət ver"
+      },
+      "4_4_world_builder": {
+        "title": "Dünya Qurucusu",
+        "description": "Xəyali dünyalar yarat"
+      },
+      "5_1_perfect_prompt": {
+        "title": "Mükəmməl Prompt",
+        "description": "Aydınlıq, detallar və konteksti birləşdir"
+      },
+      "5_2_fix_it_up": {
+        "title": "Düzəlt!",
+        "description": "Zəif promptları tap və yaxşılaşdır"
+      },
+      "5_3_prompt_remix": {
+        "title": "Prompt Remiks",
+        "description": "Fərqli nəticələr üçün promptları yenidən yaz"
+      },
+      "5_4_graduation_day": {
+        "title": "Məzuniyyət Günü",
+        "description": "Son çağırış - Usta ol!"
+      }
+    },
+    "level": {
+      "backToMap": "Xəritəyə Qayıt",
+      "levelLabel": "Səviyyə {number}",
+      "comingSoon": "Bu səviyyə tezliklə gəlir!",
+      "previous": "Əvvəlki",
+      "next": "Növbəti",
+      "map": "Xəritə"
+    },
+    "levelComplete": {
+      "title": "Səviyyə Tamamlandı!",
+      "nextLevel": "Növbəti Səviyyə",
+      "backToMap": "Xəritəyə Qayıt",
+      "allDone": "Xəritəyə Qayıt"
+    },
+    "quiz": {
+      "goodLabel": "Əla prompt!",
+      "badLabel": "Ən yaxşısı deyil",
+      "correct": "Düzdür!",
+      "incorrect": "Yaxşı cəhd!",
+      "tryAgain": "Yenidən cəhd et"
+    },
+    "magicWords": {
+      "title": "Sehrli sözləri sürüklə! ✨",
+      "dragOrTap": "🎯 Sözləri sürüklə və ya toxun:",
+      "check": "Yoxla!",
+      "retry": "Yenidən",
+      "correct": "düzgün",
+      "tryAgain": "Yenidən cəhd et!"
+    },
+    "dragDrop": {
+      "title": "Promptu qur!",
+      "instruction": "Hərəkət etmək üçün oxlardan istifadə et və ya iki parçaya toxun!",
+      "result": "Nəticə",
+      "check": "Yoxla!",
+      "retry": "Yenidən",
+      "success": "Mükəmməl! Əla prompt qurdun!",
+      "almost": "Demək olar! Sıralamağa davam et.",
+      "tapToSwap": "Dəyişdirmək üçün başqa parçaya toxun!"
+    },
+    "promptParts": {
+      "title": "Prompt Hissələrini Sırala!",
+      "instruction": "Hər parçaya toxun, sonra növü seç!",
+      "score": "Xal",
+      "pickCategory": "Bu hansı növdür?",
+      "success": "Bütün hissələri düzgün sıraladın!",
+      "retry": "Yenidən cəhd et",
+      "types": {
+        "role": "Rol",
+        "task": "Tapşırıq",
+        "context": "Kontekst",
+        "constraint": "Məhdudiyyət"
+      }
+    },
+    "exampleMatcher": {
+      "title": "Nümunə Uyğunlaşdırıcı",
+      "instruction": "Nümunəyə bax və sonra nə gəldiyini seç!",
+      "pattern": "Nümunə:",
+      "check": "Yoxla!",
+      "retry": "Yenidən cəhd et",
+      "correct": "Düzdür! 🎉",
+      "tryAgain": "Tam deyil - nümunəyə yenidən bax!"
+    },
+    "promptDoctor": {
+      "title": "Prompt Həkimi",
+      "health": "Prompt Sağlamlığı",
+      "sick": "Xəstə Prompt",
+      "healthy": "Sağlam Prompt!",
+      "diagnose": "Düzəltmək üçün problemə toxun:",
+      "success": "Prompt indi yaxşıdır!",
+      "retry": "Yenidən başla"
+    },
+    "stepByStep": {
+      "title": "Addım-addım Düşün",
+      "problem": "Problem:",
+      "withoutMagic": "Sehrli sözlər olmadan:",
+      "addMagicWords": "Sehrli Sözləri Əlavə Et!",
+      "magicWordsActive": "Sehrli sözlər əlavə edildi!",
+      "nextStep": "Növbəti Addımı Göstər",
+      "withMagic": "Addım-addım düşünmə ilə:",
+      "retry": "Yenidən cəhd et"
+    },
+    "promptLab": {
+      "title": "Prompt Laboratoriyası",
+      "progress": "Təkmilləşdirmələr",
+      "yourPrompt": "Sənin Promptun:",
+      "aiSays": "AI Cavabı:",
+      "addDetails": "Təkmilləşdirmə əlavə et:",
+      "success": "Promptun indi çox spesifikdir!",
+      "retry": "Yenidən başla"
+    },
+    "wordPredictor": {
+      "title": "AI Necə Düşünür",
+      "instruction": "AI ən çox ehtimal olunan növbəti sözü təxmin edir. AI kimi düşünə bilərsən?",
+      "aiThinks": "AI oxuyur:",
+      "thinkingDefault": "Hmm, burada hansı söz ən məntiqli olardı?",
+      "check": "Cavabımı yoxla!",
+      "correct": "AI kimi düşünürsən!",
+      "tryAgain": "Tam deyil! AI ən çox ehtimal olunan sözü seçir.",
+      "retry": "Yenidən cəhd et"
+    },
+    "settings": {
+      "title": "Tənzimləmələr",
+      "music": "Musiqi",
+      "language": "Dil",
+      "progress": "Tərəqqin",
+      "stars": "Ulduzlar",
+      "completed": "Tamamlandı",
+      "resetTitle": "Tərəqqini Sıfırla",
+      "resetButton": "Hamısını Sıfırla",
+      "resetWarning": "Bu bütün ulduzları və tərəqqini siləcək. Əminsən?",
+      "resetConfirm": "Bəli, Hamısını Sıfırla",
+      "resetComplete": "Tərəqqi sıfırlandı! Yenidən yüklənir...",
+      "cancel": "Ləğv et"
+    }
   }
 }

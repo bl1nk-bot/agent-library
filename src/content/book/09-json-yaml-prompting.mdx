@@ -1,7 +1,8 @@
 Structured data formats like JSON and YAML are essential for building applications that consume AI outputs programmatically. This chapter covers techniques for reliable structured output generation.
 
 <Callout type="info" title="From Text to Data">
-JSON and YAML transform AI outputs from freeform text into structured, type-safe data that code can consume directly.
+  JSON and YAML transform AI outputs from freeform text into structured, type-safe data that code
+  can consume directly.
 </Callout>
 
 ## Why Structured Formats?
@@ -14,9 +15,13 @@ JSON (JavaScript Object Notation) is the most common format for programmatic AI 
 
 ### Do's and Don'ts: Requesting JSON
 
-<Compare 
+<Compare
   before={{ label: "❌ Don't: Vague request", content: "Give me the user info as JSON." }}
-  after={{ label: "✓ Do: Show the schema", content: "Extract user info as JSON matching this schema:\n\n{\n  \"name\": \"string\",\n  \"age\": number,\n  \"email\": \"string\"\n}\n\nReturn ONLY valid JSON, no markdown." }}
+  after={{
+    label: "✓ Do: Show the schema",
+    content:
+      'Extract user info as JSON matching this schema:\n\n{\n  "name": "string",\n  "age": number,\n  "email": "string"\n}\n\nReturn ONLY valid JSON, no markdown.',
+  }}
 />
 
 ### Simple JSON Output
@@ -36,6 +41,7 @@ Text: "Contact John Smith, 34 years old, at john@example.com"
 ```
 
 Output:
+
 ```json
 {
   "name": "John Smith",
@@ -67,20 +73,21 @@ Parse this order into JSON:
   "total": number
 }
 
-Order: "Order #12345 for Jane Doe (jane@email.com): 2x Widget ($10 each), 
+Order: "Order #12345 for Jane Doe (jane@email.com): 2x Widget ($10 each),
 1x Gadget ($25). Total: $45"
 ```
 
 ### Ensuring Valid JSON
 
 <Callout type="warning" title="Common Failure Point">
-Models often wrap JSON in markdown code blocks or add explanatory text. Be explicit about wanting raw JSON only.
+  Models often wrap JSON in markdown code blocks or add explanatory text. Be explicit about wanting
+  raw JSON only.
 </Callout>
 
 Add explicit instructions:
 
 ```
-CRITICAL: Return ONLY valid JSON. No markdown, no explanation, 
+CRITICAL: Return ONLY valid JSON. No markdown, no explanation,
 no additional text before or after the JSON object.
 
 If a field cannot be determined, use null.
@@ -111,6 +118,7 @@ Requirements: Production server on port 443 with SSL, PostgreSQL database
 ```
 
 Output:
+
 ```yaml
 server:
   host: "0.0.0.0"
@@ -149,12 +157,12 @@ TypeScript interfaces are familiar to developers and precisely describe optional
   prompt={`Extract data according to this type definition:
 
 interface ChatPersona {
-    name?: string;
-    role?: string;
-    tone?: "professional" | "casual" | "friendly" | "technical";
-    expertise?: string[];
-    personality?: string[];
-    background?: string;
+name?: string;
+role?: string;
+tone?: "professional" | "casual" | "friendly" | "technical";
+expertise?: string[];
+personality?: string[];
+background?: string;
 }
 
 Return as JSON matching this interface.
@@ -165,7 +173,8 @@ Description: "A senior software engineer named Alex who reviews code. They're an
 ### JSON Schema Definition
 
 <Callout type="info" title="Industry Standard">
-JSON Schema is a formal specification for describing JSON structure. It's supported by many validation libraries and API tools.
+  JSON Schema is a formal specification for describing JSON structure. It's supported by many
+  validation libraries and API tools.
 </Callout>
 
 JSON Schema provides constraints like min/max values, required fields, and regex patterns:
@@ -181,19 +190,19 @@ Extract data according to this JSON Schema:
     "title": { "type": "string" },
     "author": { "type": "string" },
     "year": { "type": "integer", "minimum": 1000, "maximum": 2100 },
-    "genres": { 
-      "type": "array", 
+    "genres": {
+      "type": "array",
       "items": { "type": "string" }
     },
-    "rating": { 
-      "type": "number", 
-      "minimum": 0, 
-      "maximum": 5 
+    "rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
     }
   }
 }
 
-Book: "1984 by George Orwell (1949) - A dystopian masterpiece. 
+Book: "1984 by George Orwell (1949) - A dystopian masterpiece.
 Genres: Science Fiction, Political Fiction. Rated 4.8/5"
 ```
 
@@ -211,7 +220,7 @@ Extract exactly 3 key points as JSON:
 {
   "key_points": [
     "string (first point)",
-    "string (second point)", 
+    "string (second point)",
     "string (third point)"
   ]
 }
@@ -247,9 +256,16 @@ Enums restrict values to a predefined set. This is crucial for classification ta
 
 ### Do's and Don'ts: Enum Values
 
-<Compare 
-  before={{ label: "❌ Don't: Open-ended categories", content: "Classify this text into a category.\n\n{\n  \"category\": \"string\"\n}" }}
-  after={{ label: "✓ Do: Restrict to valid values", content: "Classify this text. Category MUST be exactly one of:\n- \"technical\"\n- \"business\"\n- \"creative\"\n- \"personal\"\n\n{\n  \"category\": \"one of the values above\"\n}" }}
+<Compare
+  before={{
+    label: "❌ Don't: Open-ended categories",
+    content: 'Classify this text into a category.\n\n{\n  "category": "string"\n}',
+  }}
+  after={{
+    label: "✓ Do: Restrict to valid values",
+    content:
+      'Classify this text. Category MUST be exactly one of:\n- "technical"\n- "business"\n- "creative"\n- "personal"\n\n{\n  "category": "one of the values above"\n}',
+  }}
 />
 
 ### String Enums
@@ -259,7 +275,7 @@ List allowed values explicitly. Use "MUST be one of" language to enforce strict 
 ```
 Classify this text. The category MUST be one of these exact values:
 - "technical"
-- "business" 
+- "business"
 - "creative"
 - "personal"
 
@@ -296,9 +312,17 @@ Real-world text often lacks some information. Define how the model should handle
 
 ### Do's and Don'ts: Missing Information
 
-<Compare 
-  before={{ label: "❌ Don't: Let AI guess", content: "Extract all company details as JSON:\n{\n  \"revenue\": number,\n  \"employees\": number\n}" }}
-  after={{ label: "✓ Do: Explicitly allow null", content: "Extract company details. Use null for any field NOT explicitly mentioned. Do NOT invent or estimate values.\n\n{\n  \"revenue\": \"number or null\",\n  \"employees\": \"number or null\"\n}" }}
+<Compare
+  before={{
+    label: "❌ Don't: Let AI guess",
+    content:
+      'Extract all company details as JSON:\n{\n  "revenue": number,\n  "employees": number\n}',
+  }}
+  after={{
+    label: "✓ Do: Explicitly allow null",
+    content:
+      'Extract company details. Use null for any field NOT explicitly mentioned. Do NOT invent or estimate values.\n\n{\n  "revenue": "number or null",\n  "employees": "number or null"\n}',
+  }}
 />
 
 ### Null Values
@@ -306,7 +330,7 @@ Real-world text often lacks some information. Define how the model should handle
 Explicitly allow null and instruct the model not to invent information. This is safer than having the model guess.
 
 ```
-Extract information. Use null for any field that cannot be 
+Extract information. Use null for any field that cannot be
 determined from the text. Do NOT invent information.
 
 {
@@ -321,6 +345,7 @@ Text: "Apple, headquartered in Cupertino, was founded in 1976."
 ```
 
 Output:
+
 ```json
 {
   "company": "Apple",
@@ -395,9 +420,16 @@ YAML shines for DevOps configurations. The model knows standard patterns for com
 
 ### Do's and Don'ts: YAML Configs
 
-<Compare 
-  before={{ label: "❌ Don't: Vague requirements", content: "Generate a docker-compose file for my app." }}
-  after={{ label: "✓ Do: Specify components and needs", content: "Generate docker-compose.yml for:\n- Node.js app (port 3000)\n- PostgreSQL database\n- Redis cache\n\nInclude: health checks, volume persistence, environment from .env file" }}
+<Compare
+  before={{
+    label: "❌ Don't: Vague requirements",
+    content: "Generate a docker-compose file for my app.",
+  }}
+  after={{
+    label: "✓ Do: Specify components and needs",
+    content:
+      "Generate docker-compose.yml for:\n- Node.js app (port 3000)\n- PostgreSQL database\n- Redis cache\n\nInclude: health checks, volume persistence, environment from .env file",
+  }}
 />
 
 ### Docker Compose
@@ -487,10 +519,10 @@ Error format:
 
 ## JSON vs YAML: When to Use Which
 
-<div className="my-4 grid md:grid-cols-2 gap-4">
-  <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-lg border border-amber-200 dark:border-amber-800">
-    <div className="font-semibold text-amber-700 dark:text-amber-300 mb-2">Use JSON When</div>
-    <div className="text-sm space-y-1">
+<div className="my-4 grid gap-4 md:grid-cols-2">
+  <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
+    <div className="mb-2 font-semibold text-amber-700 dark:text-amber-300">Use JSON When</div>
+    <div className="space-y-1 text-sm">
       <p className="m-0!">Programmatic parsing needed</p>
       <p className="m-0!">API responses</p>
       <p className="m-0!">Strict type requirements</p>
@@ -498,9 +530,9 @@ Error format:
       <p className="m-0!">Compact representation</p>
     </div>
   </div>
-  <div className="p-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
-    <div className="font-semibold text-purple-700 dark:text-purple-300 mb-2">Use YAML When</div>
-    <div className="text-sm space-y-1">
+  <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-800 dark:bg-purple-950/30">
+    <div className="mb-2 font-semibold text-purple-700 dark:text-purple-300">Use YAML When</div>
+    <div className="space-y-1 text-sm">
       <p className="m-0!">Human readability matters</p>
       <p className="m-0!">Configuration files</p>
       <p className="m-0!">Comments are needed</p>
@@ -530,26 +562,29 @@ The platform will:
 ## Common Pitfalls
 
 <Callout type="warning" title="Debug These First">
-These three issues cause most JSON parsing failures. Check for them when your code can't parse AI output.
+  These three issues cause most JSON parsing failures. Check for them when your code can't parse AI
+  output.
 </Callout>
 
 ### 1. Markdown Code Blocks
 
 **Problem:** Model wraps JSON in ```json blocks
 
-**Solution:** 
-```
+**Solution:**
+
+````
 Return ONLY the JSON object. Do not wrap in markdown code blocks.
 Do not include ```json or ``` markers.
-```
+````
 
 ### 2. Trailing Commas
 
 **Problem:** Invalid JSON due to trailing commas
 
 **Solution:**
+
 ```
-Ensure valid JSON syntax. No trailing commas after the last 
+Ensure valid JSON syntax. No trailing commas after the last
 element in arrays or objects.
 ```
 
@@ -558,6 +593,7 @@ element in arrays or objects.
 **Problem:** Quotes or special characters break JSON
 
 **Solution:**
+
 ```
 Properly escape special characters in strings:
 - \" for quotes
@@ -568,16 +604,18 @@ Properly escape special characters in strings:
 ## Summary
 
 <Callout type="tip" title="Key Techniques">
-Define schemas explicitly using TypeScript interfaces or JSON Schema. Specify types and constraints, handle nulls and defaults, request self-validation, and choose the right format for your use case.
+  Define schemas explicitly using TypeScript interfaces or JSON Schema. Specify types and
+  constraints, handle nulls and defaults, request self-validation, and choose the right format for
+  your use case.
 </Callout>
 
-<Quiz 
+<Quiz
   question="When should you prefer YAML over JSON for AI outputs?"
   options={[
     "When building REST APIs",
     "When the output needs to be human-readable and may include comments",
     "When working with JavaScript applications",
-    "When you need the most compact representation"
+    "When you need the most compact representation",
   ]}
   correctIndex={1}
   explanation="YAML is preferred when human readability matters, such as configuration files, DevOps manifests, and documentation. It also supports comments, unlike JSON."

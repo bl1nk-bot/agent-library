@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ 
-    prompt?: string; 
-    title?: string; 
+  searchParams: Promise<{
+    prompt?: string;
+    title?: string;
     content?: string;
     type?: "TEXT" | "IMAGE" | "VIDEO" | "AUDIO";
     format?: "JSON" | "YAML";
@@ -56,22 +56,24 @@ export default async function NewPromptPage({ searchParams }: PageProps) {
     <div className="container max-w-3xl py-8">
       <Alert className="mb-6">
         <Info className="h-4 w-4" />
-        <AlertDescription>
-          {t("createInfo")}
-        </AlertDescription>
+        <AlertDescription>{t("createInfo")}</AlertDescription>
       </Alert>
-      <PromptForm 
-        categories={categories} 
-        tags={tags} 
+      <PromptForm
+        categories={categories}
+        tags={tags}
         aiGenerationEnabled={aiGenerationEnabled}
         aiModelName={aiModelName}
         initialPromptRequest={initialPromptRequest}
-        initialData={(title || content || type || format) ? { 
-          title: title || "", 
-          content: content || "",
-          type: type || "TEXT",
-          structuredFormat: format || undefined,
-        } : undefined}
+        initialData={
+          title || content || type || format
+            ? {
+                title: title || "",
+                content: content || "",
+                type: type || "TEXT",
+                structuredFormat: format || undefined,
+              }
+            : undefined
+        }
       />
     </div>
   );

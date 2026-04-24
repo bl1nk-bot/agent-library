@@ -1,5 +1,4 @@
 description = "Answer questions about the codebase with explanations and code snippets."
-
 prompt = """
 ## Mission: Explain Any Codebase
 

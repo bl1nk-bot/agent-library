@@ -131,10 +131,10 @@ export function HeroCategories() {
       setLastChangedIdx(randomPosition);
 
       setTimeout(() => {
-        setVisibleItems(prev => {
+        setVisibleItems((prev) => {
           const newItems = [...prev];
           // Find an industry not currently visible
-          const available = INDUSTRIES.filter(ind => !prev.includes(ind));
+          const available = INDUSTRIES.filter((ind) => !prev.includes(ind));
           if (available.length > 0) {
             newItems[randomPosition] = available[Math.floor(Math.random() * available.length)];
           } else {
@@ -143,7 +143,7 @@ export function HeroCategories() {
           }
           return newItems;
         });
-        
+
         // Flash the cell
         setIsFlashing(true);
         setTimeout(() => {
@@ -162,25 +162,25 @@ export function HeroCategories() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 w-full">
+    <div className="flex w-full flex-col items-center gap-4">
       <form onSubmit={handleSearch} className="w-full max-w-lg">
         <div className="relative">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-            <Search className="h-5 w-5 text-muted-foreground" />
+          <div className="pointer-events-none absolute top-1/2 left-4 z-10 -translate-y-1/2">
+            <Search className="text-muted-foreground h-5 w-5" />
           </div>
           <Input
             type="text"
             placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 h-12 text-base bg-background/80 backdrop-blur-md border-2 border-primary/30 rounded-xl shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="bg-background/80 border-primary/30 focus:border-primary focus:ring-primary/20 h-12 w-full rounded-xl border-2 pr-4 pl-12 text-base shadow-sm backdrop-blur-md focus:ring-2"
           />
         </div>
       </form>
-      
-      <p className="text-sm text-muted-foreground">{t("prefix")}</p>
-      
-      <div className="grid grid-cols-3 gap-3 w-full max-w-md">
+
+      <p className="text-muted-foreground text-sm">{t("prefix")}</p>
+
+      <div className="grid w-full max-w-md grid-cols-3 gap-3">
         {visibleItems.map((industry, idx) => (
           <button
             key={idx}
@@ -189,23 +189,21 @@ export function HeroCategories() {
               animationDelay: `${idx * 0.15}s`,
             }}
             className={cn(
-              "px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap truncate",
-              "hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:-translate-y-0.5",
+              "truncate px-2 py-2 text-xs font-medium whitespace-nowrap sm:px-4 sm:py-3 sm:text-sm",
+              "hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 hover:shadow-lg",
               "cursor-pointer transition-all duration-200",
-              "border border-border/30 rounded-lg backdrop-blur-md",
-              "shadow-md animate-float",
-              changingIdx === idx && !isFlashing && "opacity-0 scale-95",
-              changingIdx === idx && isFlashing 
-                ? "bg-primary/40 scale-105" 
-                : "bg-background/80"
+              "border-border/30 rounded-lg border backdrop-blur-md",
+              "animate-float shadow-md",
+              changingIdx === idx && !isFlashing && "scale-95 opacity-0",
+              changingIdx === idx && isFlashing ? "bg-primary/40 scale-105" : "bg-background/80"
             )}
           >
             {t(industry)}
           </button>
         ))}
       </div>
-      
-      <p className="text-sm text-muted-foreground">{t("clickToExplore")}</p>
+
+      <p className="text-muted-foreground text-sm">{t("clickToExplore")}</p>
     </div>
   );
 }

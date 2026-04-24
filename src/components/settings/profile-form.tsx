@@ -7,12 +7,28 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, BadgeCheck, ExternalLink, X, Plus, Trash2, Globe, Github, Linkedin, Instagram, Youtube, Twitch, Heart, ChevronUp, ChevronDown } from "lucide-react";
+import {
+  Loader2,
+  BadgeCheck,
+  ExternalLink,
+  X,
+  Plus,
+  Trash2,
+  Globe,
+  Github,
+  Linkedin,
+  Instagram,
+  Youtube,
+  Twitch,
+  Heart,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
 
 function XTwitterIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
 }
@@ -22,13 +38,31 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { CustomLink, CustomLinkType } from "@/components/user/profile-links";
 import { toast } from "sonner";
 import { analyticsProfile } from "@/lib/analytics";
 
 const customLinkSchema = z.object({
-  type: z.enum(["website", "github", "twitter", "linkedin", "instagram", "youtube", "twitch", "discord", "mastodon", "bluesky", "sponsor"]),
+  type: z.enum([
+    "website",
+    "github",
+    "twitter",
+    "linkedin",
+    "instagram",
+    "youtube",
+    "twitch",
+    "discord",
+    "mastodon",
+    "bluesky",
+    "sponsor",
+  ]),
   url: z.string().url("Please enter a valid URL"),
   label: z.string().max(30).optional(),
 });
@@ -112,11 +146,17 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
 
   const addLink = () => {
     if (customLinks.length >= 5) return;
-    form.setValue("customLinks", [...customLinks, { type: "website" as CustomLinkType, url: "", label: "" }]);
+    form.setValue("customLinks", [
+      ...customLinks,
+      { type: "website" as CustomLinkType, url: "", label: "" },
+    ]);
   };
 
   const removeLink = (index: number) => {
-    form.setValue("customLinks", customLinks.filter((_, i) => i !== index));
+    form.setValue(
+      "customLinks",
+      customLinks.filter((_, i) => i !== index)
+    );
   };
 
   const updateLink = (index: number, field: keyof CustomLink, value: string) => {
@@ -177,9 +217,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
       <Card>
         <CardHeader>
           <CardTitle className="text-base">{t("title")}</CardTitle>
-          <CardDescription>
-            {t("updateInfo")}
-          </CardDescription>
+          <CardDescription>{t("updateInfo")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Avatar Preview */}
@@ -199,7 +237,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                 className="mt-1"
               />
               {form.formState.errors.avatar && (
-                <p className="text-xs text-destructive mt-1">
+                <p className="text-destructive mt-1 text-xs">
                   {form.formState.errors.avatar.message}
                 </p>
               )}
@@ -209,15 +247,9 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
           {/* Name */}
           <div className="space-y-2">
             <Label htmlFor="name">{t("displayName")}</Label>
-            <Input
-              id="name"
-              placeholder={t("namePlaceholder")}
-              {...form.register("name")}
-            />
+            <Input id="name" placeholder={t("namePlaceholder")} {...form.register("name")} />
             {form.formState.errors.name && (
-              <p className="text-xs text-destructive">
-                {form.formState.errors.name.message}
-              </p>
+              <p className="text-destructive text-xs">{form.formState.errors.name.message}</p>
             )}
           </div>
 
@@ -225,7 +257,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
           <div className="space-y-2">
             <Label htmlFor="username">{t("username")}</Label>
             <div className="flex items-center">
-              <span className="text-muted-foreground text-sm mr-1">@</span>
+              <span className="text-muted-foreground mr-1 text-sm">@</span>
               <Input
                 id="username"
                 placeholder={t("usernamePlaceholder")}
@@ -233,78 +265,76 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
               />
             </div>
             {form.formState.errors.username && (
-              <p className="text-xs text-destructive">
-                {form.formState.errors.username.message}
-              </p>
+              <p className="text-destructive text-xs">{form.formState.errors.username.message}</p>
             )}
             <div className="flex items-center justify-between">
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 {t("profileUrl")}: /{form.watch("username") || user.username}
               </p>
-              {showVerifiedSection && !user.verified && hasMounted && isVerifiedSectionDismissed && (
-                <button
-                  type="button"
-                  onClick={() => handleDismissVerifiedSection(false)}
-                  className="inline-flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 hover:underline"
-                >
-                  <BadgeCheck className="h-3 w-3" />
-                  {tSettings("getVerifiedTitle")}
-                </button>
-              )}
+              {showVerifiedSection &&
+                !user.verified &&
+                hasMounted &&
+                isVerifiedSectionDismissed && (
+                  <button
+                    type="button"
+                    onClick={() => handleDismissVerifiedSection(false)}
+                    className="inline-flex items-center gap-1 text-xs text-amber-600 hover:underline dark:text-amber-400"
+                  >
+                    <BadgeCheck className="h-3 w-3" />
+                    {tSettings("getVerifiedTitle")}
+                  </button>
+                )}
             </div>
           </div>
 
           {/* Verified Status */}
-          {showVerifiedSection && (
-            user.verified ? (
-              <div className="flex items-center gap-2 p-3 rounded-lg border border-blue-500/30 bg-blue-500/5">
-                <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
+          {showVerifiedSection &&
+            (user.verified ? (
+              <div className="flex items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/5 p-3">
+                <BadgeCheck className="h-5 w-5 shrink-0 text-blue-500" />
                 <div>
                   <p className="text-sm font-medium">{tSettings("verifiedTitle")}</p>
-                  <p className="text-xs text-muted-foreground">{tSettings("verifiedThankYou")}</p>
+                  <p className="text-muted-foreground text-xs">{tSettings("verifiedThankYou")}</p>
                 </div>
               </div>
-            ) : hasMounted && !isVerifiedSectionDismissed && (
-              <div className="relative p-4 rounded-lg border-2 border-amber-500/50 bg-gradient-to-r from-amber-500/10 to-yellow-500/10">
-                <button
-                  type="button"
-                  onClick={() => handleDismissVerifiedSection(true)}
-                  className="absolute top-2 right-2 p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-                <div className="flex items-center gap-2 mb-1">
-                  <BadgeCheck className="h-5 w-5 text-blue-500" />
-                  <p className="text-sm font-semibold">{tSettings("getVerifiedTitle")}</p>
+            ) : (
+              hasMounted &&
+              !isVerifiedSectionDismissed && (
+                <div className="relative rounded-lg border-2 border-amber-500/50 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 p-4">
+                  <button
+                    type="button"
+                    onClick={() => handleDismissVerifiedSection(true)}
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted absolute top-2 right-2 rounded-md p-1 transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                  <div className="mb-1 flex items-center gap-2">
+                    <BadgeCheck className="h-5 w-5 text-blue-500" />
+                    <p className="text-sm font-semibold">{tSettings("getVerifiedTitle")}</p>
+                  </div>
+                  <p className="text-muted-foreground mb-3 pr-6 text-sm">
+                    {tSettings("getVerifiedDescription")}
+                  </p>
+                  <a
+                    href="https://donate.stripe.com/aFa9AS5RJeAR23nej0dMI03"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600"
+                  >
+                    <BadgeCheck className="h-4 w-4" />
+                    {tSettings("getVerifiedButton")}
+                    <span className="text-blue-100">({tSettings("verifiedBadgePrice")})</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3 pr-6">{tSettings("getVerifiedDescription")}</p>
-                <a
-                  href="https://donate.stripe.com/aFa9AS5RJeAR23nej0dMI03"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-                >
-                  <BadgeCheck className="h-4 w-4" />
-                  {tSettings("getVerifiedButton")}
-                  <span className="text-blue-100">({tSettings("verifiedBadgePrice")})</span>
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-            )
-          )}
+              )
+            ))}
 
           {/* Email (read-only) */}
           <div className="space-y-2">
             <Label htmlFor="email">{t("email")}</Label>
-            <Input
-              id="email"
-              value={user.email}
-              disabled
-              className="bg-muted"
-            />
-            <p className="text-xs text-muted-foreground">
-              {t("emailCannotChange")}
-            </p>
+            <Input id="email" value={user.email} disabled className="bg-muted" />
+            <p className="text-muted-foreground text-xs">{t("emailCannotChange")}</p>
           </div>
 
           {/* Bio */}
@@ -320,11 +350,9 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
             />
             <div className="flex justify-between">
               {form.formState.errors.bio && (
-                <p className="text-xs text-destructive">
-                  {form.formState.errors.bio.message}
-                </p>
+                <p className="text-destructive text-xs">{form.formState.errors.bio.message}</p>
               )}
-              <p className="text-xs text-muted-foreground ml-auto">
+              <p className="text-muted-foreground ml-auto text-xs">
                 {t("bioCharCount", { count: bioValue.length })}
               </p>
             </div>
@@ -335,12 +363,12 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
             <div className="flex items-center justify-between">
               <div>
                 <Label>{t("customLinks")}</Label>
-                <p className="text-xs text-muted-foreground">{t("customLinksDescription")}</p>
+                <p className="text-muted-foreground text-xs">{t("customLinksDescription")}</p>
               </div>
             </div>
-            
+
             {customLinks.map((link, index) => (
-              <div key={index} className="flex gap-2 items-start">
+              <div key={index} className="flex items-start gap-2">
                 <div className="flex flex-col">
                   <Button
                     type="button"
@@ -348,7 +376,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     size="icon"
                     onClick={() => moveLink(index, "up")}
                     disabled={index === 0}
-                    className="h-6 w-6 shrink-0 text-muted-foreground hover:text-foreground disabled:opacity-30"
+                    className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
                   >
                     <ChevronUp className="h-4 w-4" />
                   </Button>
@@ -358,7 +386,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     size="icon"
                     onClick={() => moveLink(index, "down")}
                     disabled={index === customLinks.length - 1}
-                    className="h-6 w-6 shrink-0 text-muted-foreground hover:text-foreground disabled:opacity-30"
+                    className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
                   >
                     <ChevronDown className="h-4 w-4" />
                   </Button>
@@ -398,13 +426,13 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                   variant="ghost"
                   size="icon"
                   onClick={() => removeLink(index)}
-                  className="shrink-0 text-muted-foreground hover:text-destructive"
+                  className="text-muted-foreground hover:text-destructive shrink-0"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
             ))}
-            
+
             {customLinks.length < 5 && (
               <Button
                 type="button"
@@ -413,12 +441,12 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                 onClick={addLink}
                 className="w-full"
               >
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 {t("addLink")}
               </Button>
             )}
             {customLinks.length >= 5 && (
-              <p className="text-xs text-muted-foreground text-center">{t("maxLinksReached")}</p>
+              <p className="text-muted-foreground text-center text-xs">{t("maxLinksReached")}</p>
             )}
           </div>
         </CardContent>
@@ -426,7 +454,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
 
       <div className="flex justify-end">
         <Button type="submit" disabled={isLoading}>
-          {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {t("saveChanges")}
         </Button>
       </div>

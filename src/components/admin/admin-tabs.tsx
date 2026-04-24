@@ -58,33 +58,33 @@ export function AdminTabs({ translations, pendingReportsCount, children }: Admin
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4">
-      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+      <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
         <TabsList className="w-max sm:w-auto">
-          <TabsTrigger value="users" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="users" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <Users className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.users}</span>
           </TabsTrigger>
-          <TabsTrigger value="categories" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="categories" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <FolderTree className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.categories}</span>
           </TabsTrigger>
-          <TabsTrigger value="tags" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="tags" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <Tags className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.tags}</span>
           </TabsTrigger>
-          <TabsTrigger value="webhooks" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="webhooks" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <Webhook className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.webhooks}</span>
           </TabsTrigger>
-          <TabsTrigger value="prompts" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="prompts" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <FileText className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.prompts}</span>
           </TabsTrigger>
-          <TabsTrigger value="reports" className="gap-1.5 sm:gap-2 px-2.5 sm:px-3">
+          <TabsTrigger value="reports" className="gap-1.5 px-2.5 sm:gap-2 sm:px-3">
             <Flag className="h-4 w-4" />
             <span className="hidden sm:inline">{translations.reports}</span>
             {pendingReportsCount > 0 && (
-              <span className="ml-1 px-1.5 py-0.5 text-xs bg-destructive text-white rounded-full">
+              <span className="bg-destructive ml-1 rounded-full px-1.5 py-0.5 text-xs text-white">
                 {pendingReportsCount}
               </span>
             )}

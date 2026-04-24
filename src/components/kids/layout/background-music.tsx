@@ -23,7 +23,7 @@ export function useMusicContext() {
 // Pixel art speaker icons
 function PixelSpeakerOn() {
   return (
-    <svg viewBox="0 0 16 16" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="2" y="5" width="3" height="6" fill="currentColor" />
       <rect x="5" y="4" width="2" height="8" fill="currentColor" />
       <rect x="7" y="3" width="2" height="10" fill="currentColor" />
@@ -36,7 +36,7 @@ function PixelSpeakerOn() {
 
 function PixelSpeakerOff() {
   return (
-    <svg viewBox="0 0 16 16" className="w-5 h-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="2" y="5" width="3" height="6" fill="currentColor" />
       <rect x="5" y="4" width="2" height="8" fill="currentColor" />
       <rect x="7" y="3" width="2" height="10" fill="currentColor" />
@@ -59,11 +59,11 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedEnabled = localStorage.getItem(MUSIC_ENABLED_KEY);
     const savedVolume = localStorage.getItem(MUSIC_VOLUME_KEY);
-    
+
     if (savedVolume) {
       setVolume(parseFloat(savedVolume));
     }
-    
+
     // Default to enabled if not set
     if (savedEnabled === null || savedEnabled === "true") {
       setIsPlaying(true);
@@ -78,7 +78,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       audio.volume = volume;
       audioRef.current = audio;
     }
-    
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -98,9 +98,9 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   // Handle play/pause
   useEffect(() => {
     localStorage.setItem(MUSIC_ENABLED_KEY, isPlaying.toString());
-    
+
     if (!audioRef.current) return;
-    
+
     if (isPlaying && hasInteracted) {
       audioRef.current.play().catch(() => {
         // Autoplay blocked, will retry on user interaction
@@ -139,11 +139,11 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
 export function MusicButton() {
   const context = useMusicContext();
-  
+
   // Fallback for when not wrapped in provider
   const [localPlaying, setLocalPlaying] = useState(false);
   const localAudioRef = useRef<HTMLAudioElement | null>(null);
-  
+
   const isPlaying = context?.isPlaying ?? localPlaying;
   const setIsPlaying = context?.setIsPlaying ?? setLocalPlaying;
 
@@ -157,7 +157,7 @@ export function MusicButton() {
         localAudioRef.current.loop = true;
         localAudioRef.current.volume = 0.3;
       }
-      
+
       if (localPlaying) {
         localAudioRef.current.pause();
         setLocalPlaying(false);
@@ -171,7 +171,7 @@ export function MusicButton() {
   return (
     <button
       onClick={toggleMusic}
-      className="pixel-btn pixel-btn-amber px-2 py-1.5 h-8 flex items-center"
+      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5"
       aria-label={isPlaying ? "Mute music" : "Play music"}
       title={isPlaying ? "Mute music" : "Play music"}
     >
@@ -183,20 +183,18 @@ export function MusicButton() {
 // Volume slider component for settings
 export function MusicVolumeSlider() {
   const context = useMusicContext();
-  
+
   if (!context) return null;
-  
+
   const { volume, setVolume, isPlaying, setIsPlaying } = context;
-  
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-colors ${
-            isPlaying 
-              ? "bg-[#22C55E] text-white" 
-              : "bg-gray-200 text-gray-600"
+          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+            isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
         >
           {isPlaying ? "🔊 On" : "🔇 Off"}
@@ -209,7 +207,7 @@ export function MusicVolumeSlider() {
         max="100"
         value={volume * 100}
         onChange={(e) => setVolume(parseInt(e.target.value) / 100)}
-        className="w-full h-2 bg-[#D4A574] rounded-lg appearance-none cursor-pointer accent-[#8B4513]"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513]"
       />
     </div>
   );

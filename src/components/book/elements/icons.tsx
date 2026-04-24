@@ -1,6 +1,16 @@
 "use client";
 
-import { Lock, User, ClipboardList, Settings, CheckCircle, X, Star, Lightbulb, Target } from "lucide-react";
+import {
+  Lock,
+  User,
+  ClipboardList,
+  Settings,
+  CheckCircle,
+  X,
+  Star,
+  Lightbulb,
+  Target,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function IconLock({ className }: { className?: string }) {

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
-const DEFAULT_RESPONSE = { 
+const DEFAULT_RESPONSE = {
   pendingChangeRequests: 0,
   unreadComments: 0,
   commentNotifications: [],
@@ -54,14 +54,16 @@ export async function GET() {
     });
 
     // Get prompt titles for notifications
-    const promptIds = [...new Set(commentNotifications.map(n => n.promptId).filter(Boolean))] as string[];
+    const promptIds = [
+      ...new Set(commentNotifications.map((n) => n.promptId).filter(Boolean)),
+    ] as string[];
     const prompts = await db.prompt.findMany({
       where: { id: { in: promptIds } },
       select: { id: true, title: true },
     });
-    const promptMap = new Map(prompts.map(p => [p.id, p.title]));
+    const promptMap = new Map(prompts.map((p) => [p.id, p.title]));
 
-    const formattedNotifications = commentNotifications.map(n => ({
+    const formattedNotifications = commentNotifications.map((n) => ({
       id: n.id,
       type: n.type,
       createdAt: n.createdAt,
@@ -70,7 +72,7 @@ export async function GET() {
       promptTitle: n.promptId ? promptMap.get(n.promptId) : null,
     }));
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       pendingChangeRequests: pendingCount,
       unreadComments: commentNotifications.length,
       commentNotifications: formattedNotifications,

@@ -70,7 +70,9 @@ describe("getPromptChangesUrl", () => {
   });
 
   it("should return changes URL with ID and slug", () => {
-    expect(getPromptChangesUrl("abc123", "my-prompt")).toBe("/prompts/abc123_my-prompt/changes/new");
+    expect(getPromptChangesUrl("abc123", "my-prompt")).toBe(
+      "/prompts/abc123_my-prompt/changes/new"
+    );
   });
 
   it("should return changes URL with just ID when slug is null", () => {

@@ -7,10 +7,7 @@ const globalForPrisma = globalThis as unknown as {
 // Configure Prisma for serverless environments with connection pooling
 const prismaClientSingleton = () => {
   return new PrismaClient({
-    log:
-      process.env.NODE_ENV === "development"
-        ? ["query", "error", "warn"]
-        : ["error"],
+    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
     datasourceUrl: process.env.DATABASE_URL,
   });
 };

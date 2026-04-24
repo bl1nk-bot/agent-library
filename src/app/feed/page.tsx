@@ -34,49 +34,50 @@ export default async function FeedPage() {
   const subscribedCategoryIds = subscriptions.map((s) => s.categoryId);
 
   // Fetch prompts from subscribed categories
-  const promptsRaw = subscribedCategoryIds.length > 0
-    ? await db.prompt.findMany({
-        where: {
-          isPrivate: false,
-          isUnlisted: false,
-          deletedAt: null,
-          categoryId: { in: subscribedCategoryIds },
-        },
-        orderBy: { createdAt: "desc" },
-        take: 30,
-        include: {
-          author: {
-            select: {
-              id: true,
-              name: true,
-              username: true,
-              avatar: true,
-              verified: true,
-            },
+  const promptsRaw =
+    subscribedCategoryIds.length > 0
+      ? await db.prompt.findMany({
+          where: {
+            isPrivate: false,
+            isUnlisted: false,
+            deletedAt: null,
+            categoryId: { in: subscribedCategoryIds },
           },
-          category: {
-            include: {
-              parent: {
-                select: { id: true, name: true, slug: true },
+          orderBy: { createdAt: "desc" },
+          take: 30,
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                avatar: true,
+                verified: true,
+              },
+            },
+            category: {
+              include: {
+                parent: {
+                  select: { id: true, name: true, slug: true },
+                },
+              },
+            },
+            tags: {
+              include: {
+                tag: true,
+              },
+            },
+            _count: {
+              select: {
+                votes: true,
+                contributors: true,
+                outgoingConnections: { where: { label: { not: "related" } } },
+                incomingConnections: { where: { label: { not: "related" } } },
               },
             },
           },
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          _count: {
-            select: {
-              votes: true,
-              contributors: true,
-              outgoingConnections: { where: { label: { not: "related" } } },
-              incomingConnections: { where: { label: { not: "related" } } },
-            },
-          },
-        },
-      })
-    : [];
+        })
+      : [];
 
   const prompts = promptsRaw.map((p) => ({
     ...p,
@@ -96,12 +97,10 @@ export default async function FeedPage() {
 
   return (
     <div className="container py-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-lg font-semibold">{t("yourFeed")}</h1>
-          <p className="text-sm text-muted-foreground">
-            {t("feedDescription")}
-          </p>
+          <p className="text-muted-foreground text-sm">{t("feedDescription")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" asChild>
@@ -121,7 +120,7 @@ export default async function FeedPage() {
 
       {/* Subscribed Categories */}
       {subscriptions.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="mb-6 flex flex-wrap gap-2">
           {subscriptions.map(({ category }) => (
             <Link key={category.id} href={`/categories/${category.slug}`}>
               <Badge variant="secondary" className="gap-1">
@@ -137,20 +136,18 @@ export default async function FeedPage() {
       {prompts.length > 0 ? (
         <PromptList prompts={prompts} currentPage={1} totalPages={1} />
       ) : (
-        <div className="text-center py-12 border rounded-lg bg-muted/30">
-          <FolderOpen className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <h2 className="font-medium mb-1">{t("noPromptsInFeed")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("subscribeToCategories")}
-          </p>
+        <div className="bg-muted/30 rounded-lg border py-12 text-center">
+          <FolderOpen className="text-muted-foreground mx-auto mb-3 h-10 w-10" />
+          <h2 className="mb-1 font-medium">{t("noPromptsInFeed")}</h2>
+          <p className="text-muted-foreground mb-4 text-sm">{t("subscribeToCategories")}</p>
 
           {/* Category suggestions */}
-          <div className="flex flex-wrap justify-center gap-2 max-w-md mx-auto">
+          <div className="mx-auto flex max-w-md flex-wrap justify-center gap-2">
             {categories.slice(0, 6).map((category) => (
               <Link key={category.id} href={`/categories/${category.slug}`}>
-                <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+                <Badge variant="outline" className="hover:bg-accent cursor-pointer">
                   {category.name}
-                  <span className="ml-1 text-muted-foreground">({category._count.prompts})</span>
+                  <span className="text-muted-foreground ml-1">({category._count.prompts})</span>
                 </Badge>
               </Link>
             ))}

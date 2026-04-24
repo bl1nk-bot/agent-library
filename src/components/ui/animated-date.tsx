@@ -24,10 +24,10 @@ export function AnimatedDate({ date, relativeText, locale = "en" }: AnimatedDate
     <div
       onMouseEnter={() => setShowExact(true)}
       onMouseLeave={() => setShowExact(false)}
-      className="flex items-center gap-1 cursor-default"
+      className="flex cursor-default items-center gap-1"
     >
       <Calendar className="h-4 w-4" />
-      <span className="relative overflow-hidden h-5 text-left">
+      <span className="relative h-5 overflow-hidden text-left">
         <span
           className={`block transition-transform duration-300 ease-in-out ${
             showExact ? "-translate-y-full" : "translate-y-0"

@@ -25,12 +25,19 @@ function FAQItem({ question, answer }: FAQItemProps) {
     <div className="border-b last:border-b-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between py-4 text-left font-medium hover:text-primary transition-colors"
+        className="hover:text-primary flex w-full items-center justify-between py-4 text-left font-medium transition-colors"
       >
         {question}
-        <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform duration-200", isOpen && "rotate-180")} />
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 shrink-0 transition-transform duration-200",
+            isOpen && "rotate-180"
+          )}
+        />
       </button>
-      <div className={cn("overflow-hidden transition-all duration-200", isOpen ? "pb-4" : "max-h-0")}>
+      <div
+        className={cn("overflow-hidden transition-all duration-200", isOpen ? "pb-4" : "max-h-0")}
+      >
         <p className="text-muted-foreground whitespace-pre-line">{answer}</p>
       </div>
     </div>
@@ -53,13 +60,11 @@ function SupportForm({ t }: SupportFormProps) {
   };
 
   return (
-    <section className="border rounded-lg p-6 bg-muted/30">
-      <h2 className="text-lg font-semibold mb-2">{t("contact.title")}</h2>
-      <p className="text-muted-foreground mb-6">
-        {t("contact.description")}
-      </p>
+    <section className="bg-muted/30 rounded-lg border p-6">
+      <h2 className="mb-2 text-lg font-semibold">{t("contact.title")}</h2>
+      <p className="text-muted-foreground mb-6">{t("contact.description")}</p>
 
-      <div className="space-y-4 mb-6">
+      <div className="mb-6 space-y-4">
         <div className="space-y-2">
           <Label htmlFor="issue-title">{t("contact.form.title")}</Label>
           <Input
@@ -83,9 +88,9 @@ function SupportForm({ t }: SupportFormProps) {
       </div>
 
       <Button asChild>
-        <a 
-          href={buildGitHubUrl()} 
-          target="_blank" 
+        <a
+          href={buildGitHubUrl()}
+          target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2"
         >
@@ -120,17 +125,17 @@ export default function SupportPage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">{t("title")}</h1>
+        <h1 className="mb-2 text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
       <section className="mb-10">
-        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
           <MessageCircleQuestion className="h-5 w-5" />
           {t("faq.title")}
         </h2>
-        
-        <div className="border rounded-lg px-4">
+
+        <div className="rounded-lg border px-4">
           {faqItems.map((item, index) => (
             <FAQItem key={index} question={item.question} answer={item.answer} />
           ))}

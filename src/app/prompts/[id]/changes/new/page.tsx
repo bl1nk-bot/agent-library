@@ -25,7 +25,7 @@ function extractPromptId(idParam: string): string {
 export default async function NewChangeRequestPage({ params }: NewChangeRequestPageProps) {
   const session = await auth();
   const t = await getTranslations("changeRequests");
-  
+
   if (!session?.user) {
     redirect("/login");
   }
@@ -66,19 +66,17 @@ export default async function NewChangeRequestPage({ params }: NewChangeRequestP
       <div className="mb-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 -ml-2">
           <Link href={`/prompts/${id}`}>
-            <ArrowLeft className="h-4 w-4 mr-1.5" />
+            <ArrowLeft className="mr-1.5 h-4 w-4" />
             {t("backToPrompt")}
           </Link>
         </Button>
         <h1 className="text-xl font-semibold">{t("create")}</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          {prompt.title}
-        </p>
+        <p className="text-muted-foreground mt-1 text-sm">{prompt.title}</p>
       </div>
 
       {/* Form */}
-      <ChangeRequestForm 
-        promptId={prompt.id} 
+      <ChangeRequestForm
+        promptId={prompt.id}
         currentContent={prompt.content}
         currentTitle={prompt.title}
         promptType={prompt.type}

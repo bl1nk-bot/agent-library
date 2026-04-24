@@ -17,10 +17,12 @@ function slugify(text: string): string {
 
 async function getFiles(dir: string): Promise<string[]> {
   const dirents = await fs.promises.readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(dirents.map((dirent) => {
-    const res = path.resolve(dir, dirent.name);
-    return dirent.isDirectory() ? getFiles(res) : res;
-  }));
+  const files = await Promise.all(
+    dirents.map((dirent) => {
+      const res = path.resolve(dir, dirent.name);
+      return dirent.isDirectory() ? getFiles(res) : res;
+    })
+  );
   return Array.prototype.concat(...files);
 }
 
@@ -42,7 +44,7 @@ async function main() {
   }
 
   const allFiles = await getFiles(agentsDir);
-  const jsonFiles = allFiles.filter(f => f.endsWith(".json"));
+  const jsonFiles = allFiles.filter((f) => f.endsWith(".json"));
 
   console.log(`📊 Found ${jsonFiles.length} JSON files to process`);
 
@@ -55,8 +57,8 @@ async function main() {
       const data = JSON.parse(content);
 
       if (data.type !== "agent" && !data.identifier) {
-          skippedCount++;
-          continue;
+        skippedCount++;
+        continue;
       }
 
       const identifier = data.identifier;
@@ -73,13 +75,13 @@ async function main() {
       // 1. Ensure Category
       let category = await prisma.category.findUnique({ where: { slug: categorySlug } });
       if (!category) {
-          category = await prisma.category.create({
-              data: {
-                  name: meta.category || "General",
-                  slug: categorySlug,
-                  order: 10
-              }
-          });
+        category = await prisma.category.create({
+          data: {
+            name: meta.category || "General",
+            slug: categorySlug,
+            order: 10,
+          },
+        });
       }
 
       // 2. Slug
@@ -87,54 +89,54 @@ async function main() {
 
       // 3. Upsert Prompt
       const prompt = await prisma.prompt.upsert({
-          where: { identifier: identifier },
-          update: {
-              title,
-              description,
-              content: systemPrompt,
-              avatar,
-              agentConfig: config,
-              type: "AGENT",
-              categoryId: category.id,
-          },
-          create: {
-              title,
-              slug: `${slug}-${identifier.substring(0, 8)}`, // Ensure uniqueness if title is common
-              identifier,
-              description,
-              content: systemPrompt,
-              avatar,
-              agentConfig: config,
-              type: "AGENT",
-              authorId: admin.id,
-              categoryId: category.id,
-          }
+        where: { identifier: identifier },
+        update: {
+          title,
+          description,
+          content: systemPrompt,
+          avatar,
+          agentConfig: config,
+          type: "AGENT",
+          categoryId: category.id,
+        },
+        create: {
+          title,
+          slug: `${slug}-${identifier.substring(0, 8)}`, // Ensure uniqueness if title is common
+          identifier,
+          description,
+          content: systemPrompt,
+          avatar,
+          agentConfig: config,
+          type: "AGENT",
+          authorId: admin.id,
+          categoryId: category.id,
+        },
       });
 
       // 4. Tags
       for (const tagName of tags) {
-          const tagSlug = slugify(tagName);
-          let tag = await prisma.tag.findUnique({ where: { slug: tagSlug } });
-          if (!tag) {
-              tag = await prisma.tag.create({
-                  data: { name: tagName, slug: tagSlug }
-              });
-          }
-
-          // Connect tag
-          await prisma.promptTag.upsert({
-              where: {
-                  promptId_tagId: {
-                      promptId: prompt.id,
-                      tagId: tag.id
-                  }
-              },
-              update: {},
-              create: {
-                  promptId: prompt.id,
-                  tagId: tag.id
-              }
+        const tagSlug = slugify(tagName);
+        let tag = await prisma.tag.findUnique({ where: { slug: tagSlug } });
+        if (!tag) {
+          tag = await prisma.tag.create({
+            data: { name: tagName, slug: tagSlug },
           });
+        }
+
+        // Connect tag
+        await prisma.promptTag.upsert({
+          where: {
+            promptId_tagId: {
+              promptId: prompt.id,
+              tagId: tag.id,
+            },
+          },
+          update: {},
+          create: {
+            promptId: prompt.id,
+            tagId: tag.id,
+          },
+        });
       }
 
       successCount++;
@@ -151,7 +153,7 @@ async function main() {
 }
 
 main()
-  .catch(e => {
+  .catch((e) => {
     console.error(e);
     process.exit(1);
   })

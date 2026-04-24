@@ -126,13 +126,13 @@ export function TagsTable({ tags }: TagsTableProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">{t("title")}</h3>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <Button size="sm" onClick={openCreateDialog}>
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="mr-2 h-4 w-4" />
           {t("add")}
         </Button>
       </div>
@@ -151,7 +151,7 @@ export function TagsTable({ tags }: TagsTableProps) {
           <TableBody>
             {tags.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                <TableCell colSpan={5} className="text-muted-foreground py-8 text-center">
                   {t("noTags")}
                 </TableCell>
               </TableRow>
@@ -160,20 +160,20 @@ export function TagsTable({ tags }: TagsTableProps) {
                 <TableRow key={tag.id}>
                   <TableCell>
                     <span
-                      className="inline-flex items-center px-2 py-0.5 rounded text-sm font-medium"
+                      className="inline-flex items-center rounded px-2 py-0.5 text-sm font-medium"
                       style={{ backgroundColor: tag.color + "20", color: tag.color }}
                     >
                       {tag.name}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{tag.slug}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm">{tag.slug}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <div
-                        className="w-6 h-6 rounded border"
+                        className="h-6 w-6 rounded border"
                         style={{ backgroundColor: tag.color }}
                       />
-                      <span className="text-sm text-muted-foreground">{tag.color}</span>
+                      <span className="text-muted-foreground text-sm">{tag.color}</span>
                     </div>
                   </TableCell>
                   <TableCell className="text-center">{tag._count.prompts}</TableCell>
@@ -186,14 +186,14 @@ export function TagsTable({ tags }: TagsTableProps) {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => openEditDialog(tag)}>
-                          <Pencil className="h-4 w-4 mr-2" />
+                          <Pencil className="mr-2 h-4 w-4" />
                           {t("edit")}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="text-destructive"
                           onClick={() => setDeleteId(tag.id)}
                         >
-                          <Trash2 className="h-4 w-4 mr-2" />
+                          <Trash2 className="mr-2 h-4 w-4" />
                           {t("delete")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -207,11 +207,19 @@ export function TagsTable({ tags }: TagsTableProps) {
       </div>
 
       {/* Create/Edit Dialog */}
-      <Dialog open={isCreating || !!editTag} onOpenChange={() => { setIsCreating(false); setEditTag(null); }}>
+      <Dialog
+        open={isCreating || !!editTag}
+        onOpenChange={() => {
+          setIsCreating(false);
+          setEditTag(null);
+        }}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{editTag ? t("editTitle") : t("createTitle")}</DialogTitle>
-            <DialogDescription>{editTag ? t("editDescription") : t("createDescription")}</DialogDescription>
+            <DialogDescription>
+              {editTag ? t("editDescription") : t("createDescription")}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -238,7 +246,7 @@ export function TagsTable({ tags }: TagsTableProps) {
                   type="color"
                   value={formData.color}
                   onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                  className="w-12 h-10 p-1 cursor-pointer"
+                  className="h-10 w-12 cursor-pointer p-1"
                 />
                 <Input
                   value={formData.color}
@@ -250,7 +258,13 @@ export function TagsTable({ tags }: TagsTableProps) {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => { setIsCreating(false); setEditTag(null); }}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsCreating(false);
+                setEditTag(null);
+              }}
+            >
               {t("cancel")}
             </Button>
             <Button onClick={handleSubmit} disabled={loading || !formData.name || !formData.slug}>
@@ -272,7 +286,7 @@ export function TagsTable({ tags }: TagsTableProps) {
             <AlertDialogAction
               onClick={handleDelete}
               disabled={loading}
-              className="bg-destructive text-white hover:bg-destructive/90"
+              className="bg-destructive hover:bg-destructive/90 text-white"
             >
               {t("delete")}
             </AlertDialogAction>

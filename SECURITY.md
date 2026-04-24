@@ -19,6 +19,6 @@ Please report vulnerabilities via email to **security@bl1nk.site**.
 
 ## Disclosure Policy
 
-*   We will investigate and respond to the report within 48 hours.
-*   We ask that you do not disclose the vulnerability publicly until we have had a chance to fix it.
-*   We will notify you when the vulnerability is fixed.
+- We will investigate and respond to the report within 48 hours.
+- We ask that you do not disclose the vulnerability publicly until we have had a chance to fix it.
+- We will notify you when the vulnerability is fixed.

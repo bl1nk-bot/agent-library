@@ -23,11 +23,7 @@ interface SkillImportDialogProps {
 
 type ImportMethod = "upload" | "official" | "github" | null;
 
-export function SkillImportDialog({
-  open,
-  onOpenChange,
-  onImport,
-}: SkillImportDialogProps) {
+export function SkillImportDialog({ open, onOpenChange, onImport }: SkillImportDialogProps) {
   const t = useTranslations("prompts");
   const tCommon = useTranslations("common");
   const [selectedMethod, setSelectedMethod] = useState<ImportMethod>(null);
@@ -114,12 +110,10 @@ export function SkillImportDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t("importSkill")}</DialogTitle>
-            <DialogDescription>
-              {t("importSkillDescription")}
-            </DialogDescription>
+            <DialogDescription>{t("importSkillDescription")}</DialogDescription>
           </DialogHeader>
 
           {!selectedMethod ? (
@@ -130,20 +124,18 @@ export function SkillImportDialog({
                   onClick={method.action}
                   disabled={isLoading}
                   className={cn(
-                    "group relative flex items-center gap-4 p-4 rounded-lg border-2 transition-all duration-180",
+                    "group relative flex items-center gap-4 rounded-lg border-2 p-4 transition-all duration-180",
                     "bg-muted/30 border-border hover:border-primary/50 hover:bg-muted/50",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    "focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none",
                     "touch-manipulation"
                   )}
                 >
-                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-lg bg-background border transition-colors duration-180 group-hover:border-primary/50">
-                    <method.icon className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground group-hover:text-primary transition-colors duration-180" />
+                  <div className="bg-background group-hover:border-primary/50 flex h-12 w-12 items-center justify-center rounded-lg border transition-colors duration-180 sm:h-14 sm:w-14">
+                    <method.icon className="text-muted-foreground group-hover:text-primary h-6 w-6 transition-colors duration-180 sm:h-7 sm:w-7" />
                   </div>
                   <div className="flex-1 text-left">
-                    <div className="font-medium text-sm sm:text-base mb-0.5">
-                      {method.title}
-                    </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">
+                    <div className="mb-0.5 text-sm font-medium sm:text-base">{method.title}</div>
+                    <div className="text-muted-foreground text-xs sm:text-sm">
                       {method.description}
                     </div>
                   </div>
@@ -184,14 +176,8 @@ export function SkillImportDialog({
             </div>
           ) : selectedMethod === "official" ? (
             <div className="py-4">
-              <p className="text-sm text-muted-foreground mb-4">
-                Official skills coming soon...
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => setSelectedMethod(null)}
-                className="w-full"
-              >
+              <p className="text-muted-foreground mb-4 text-sm">Official skills coming soon...</p>
+              <Button variant="outline" onClick={() => setSelectedMethod(null)} className="w-full">
                 {tCommon("back")}
               </Button>
             </div>

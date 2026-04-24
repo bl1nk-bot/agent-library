@@ -23,11 +23,7 @@ interface ApiConfigFormProps {
   onCancel: () => void;
 }
 
-export function ApiConfigForm({
-  initialData,
-  onSave,
-  onCancel,
-}: ApiConfigFormProps) {
+export function ApiConfigForm({ initialData, onSave, onCancel }: ApiConfigFormProps) {
   const t = useTranslations("common");
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
@@ -43,9 +39,7 @@ export function ApiConfigForm({
     Object.entries(formData.headers).map(([key, value]) => ({ key, value }))
   );
 
-  const [queryParams, setQueryParams] = useState<
-    Array<{ key: string; value: string }>
-  >(
+  const [queryParams, setQueryParams] = useState<Array<{ key: string; value: string }>>(
     Object.entries(formData.queryParams).map(([key, value]) => ({ key, value }))
   );
 
@@ -85,35 +79,25 @@ export function ApiConfigForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="flex items-center gap-3">
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={onCancel}
-          className="h-8 w-8 p-0"
-        >
+        <Button type="button" variant="ghost" size="sm" onClick={onCancel} className="h-8 w-8 p-0">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
           <h3 className="text-lg font-semibold">
             {initialData ? "Edit API Configuration" : "New API Configuration"}
           </h3>
-          <p className="text-sm text-muted-foreground">
-            Configure your API endpoint details
-          </p>
+          <p className="text-muted-foreground text-sm">Configure your API endpoint details</p>
         </div>
       </div>
 
-      <Card className="p-6 space-y-4">
+      <Card className="space-y-4 p-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="name">Name *</Label>
             <Input
               id="name"
               value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="e.g., Get User Data"
               required
             />
@@ -123,9 +107,7 @@ export function ApiConfigForm({
             <Label htmlFor="method">Method *</Label>
             <Select
               value={formData.method}
-              onValueChange={(value) =>
-                setFormData({ ...formData, method: value })
-              }
+              onValueChange={(value) => setFormData({ ...formData, method: value })}
             >
               <SelectTrigger id="method">
                 <SelectValue />
@@ -147,9 +129,7 @@ export function ApiConfigForm({
             id="baseUrl"
             type="url"
             value={formData.baseUrl}
-            onChange={(e) =>
-              setFormData({ ...formData, baseUrl: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, baseUrl: e.target.value })}
             placeholder="https://api.example.com/endpoint"
             required
           />
@@ -160,9 +140,7 @@ export function ApiConfigForm({
           <Textarea
             id="description"
             value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             placeholder="Describe what this API does..."
             rows={3}
           />
@@ -174,17 +152,15 @@ export function ApiConfigForm({
             id="documentation"
             type="url"
             value={formData.documentation}
-            onChange={(e) =>
-              setFormData({ ...formData, documentation: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, documentation: e.target.value })}
             placeholder="https://docs.example.com"
           />
         </div>
       </Card>
 
-      <Card className="p-6 space-y-4">
+      <Card className="space-y-4 p-6">
         <div>
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <Label>Headers</Label>
             <Button
               type="button"
@@ -193,7 +169,7 @@ export function ApiConfigForm({
               onClick={() => setHeaders([...headers, { key: "", value: "" }])}
               className="h-7 text-xs"
             >
-              <Plus className="h-3 w-3 mr-1" />
+              <Plus className="mr-1 h-3 w-3" />
               Add Header
             </Button>
           </div>
@@ -224,9 +200,7 @@ export function ApiConfigForm({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() =>
-                    setHeaders(headers.filter((_, i) => i !== index))
-                  }
+                  onClick={() => setHeaders(headers.filter((_, i) => i !== index))}
                   className="h-9 w-9 p-0"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -237,18 +211,16 @@ export function ApiConfigForm({
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <Label>Query Parameters</Label>
             <Button
               type="button"
               variant="outline"
               size="sm"
-              onClick={() =>
-                setQueryParams([...queryParams, { key: "", value: "" }])
-              }
+              onClick={() => setQueryParams([...queryParams, { key: "", value: "" }])}
               className="h-7 text-xs"
             >
-              <Plus className="h-3 w-3 mr-1" />
+              <Plus className="mr-1 h-3 w-3" />
               Add Parameter
             </Button>
           </div>
@@ -279,9 +251,7 @@ export function ApiConfigForm({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() =>
-                    setQueryParams(queryParams.filter((_, i) => i !== index))
-                  }
+                  onClick={() => setQueryParams(queryParams.filter((_, i) => i !== index))}
                   className="h-9 w-9 p-0"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -292,13 +262,8 @@ export function ApiConfigForm({
         </div>
       </Card>
 
-      <div className="flex gap-2 justify-end">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
+      <div className="flex justify-end gap-2">
+        <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
           {t("cancel")}
         </Button>
         <Button type="submit" disabled={isSubmitting}>

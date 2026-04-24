@@ -22,17 +22,18 @@ const updatePromptSchema = z.object({
   requiredMediaType: z.enum(["IMAGE", "VIDEO", "DOCUMENT"]).optional().nullable(),
   requiredMediaCount: z.number().int().min(1).max(10).optional().nullable(),
   bestWithModels: z.array(z.string()).max(3).optional(),
-  bestWithMCP: z.array(z.object({
-    command: z.string(),
-    tools: z.array(z.string()).optional(),
-  })).optional(),
+  bestWithMCP: z
+    .array(
+      z.object({
+        command: z.string(),
+        tools: z.array(z.string()).optional(),
+      })
+    )
+    .optional(),
 });
 
 // Get single prompt
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await auth();
@@ -116,10 +117,7 @@ export async function GET(
 }
 
 // Update prompt
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await auth();
@@ -161,7 +159,16 @@ export async function PATCH(
       );
     }
 
-    const { tagIds, contributorIds, categoryId, mediaUrl, title, bestWithModels, bestWithMCP, ...data } = parsed.data;
+    const {
+      tagIds,
+      contributorIds,
+      categoryId,
+      mediaUrl,
+      title,
+      bestWithModels,
+      bestWithMCP,
+      ...data
+    } = parsed.data;
 
     // Regenerate slug if title changed
     let newSlug: string | undefined;
@@ -253,26 +260,31 @@ export async function PATCH(
     if (contentChanged && !prompt.isPrivate && !prompt.isUnlisted) {
       const checkTitle = title || prompt.title;
       const checkContent = data.content || prompt.content;
-      const checkDescription = data.description !== undefined ? data.description : prompt.description;
-      
+      const checkDescription =
+        data.description !== undefined ? data.description : prompt.description;
+
       console.log(`[Quality Check] Starting check for updated prompt ${id}`);
-      checkPromptQuality(checkTitle, checkContent, checkDescription).then(async (result) => {
-        console.log(`[Quality Check] Result for prompt ${id}:`, JSON.stringify(result));
-        if (result.shouldDelist && result.reason) {
-          console.log(`[Quality Check] Auto-delisting prompt ${id}: ${result.reason} - ${result.details}`);
-          await db.prompt.update({
-            where: { id },
-            data: {
-              isUnlisted: true,
-              unlistedAt: new Date(),
-              delistReason: result.reason,
-            },
-          });
-          console.log(`[Quality Check] Prompt ${id} delisted successfully`);
-        }
-      }).catch((err) => {
-        console.error("[Quality Check] Failed to run quality check for prompt:", id, err);
-      });
+      checkPromptQuality(checkTitle, checkContent, checkDescription)
+        .then(async (result) => {
+          console.log(`[Quality Check] Result for prompt ${id}:`, JSON.stringify(result));
+          if (result.shouldDelist && result.reason) {
+            console.log(
+              `[Quality Check] Auto-delisting prompt ${id}: ${result.reason} - ${result.details}`
+            );
+            await db.prompt.update({
+              where: { id },
+              data: {
+                isUnlisted: true,
+                unlistedAt: new Date(),
+                delistReason: result.reason,
+              },
+            });
+            console.log(`[Quality Check] Prompt ${id} delisted successfully`);
+          }
+        })
+        .catch((err) => {
+          console.error("[Quality Check] Failed to run quality check for prompt:", id, err);
+        });
     }
 
     // Revalidate prompts cache
@@ -291,10 +303,7 @@ export async function PATCH(
 // Soft delete prompt
 // - Admins can delete any prompt
 // - Owners can delete their own delisted prompts (auto-delisted for quality issues)
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await auth();
@@ -309,10 +318,10 @@ export async function DELETE(
     // Check if prompt exists and get ownership/delist status
     const existing = await db.prompt.findUnique({
       where: { id },
-      select: { 
-        id: true, 
-        deletedAt: true, 
-        authorId: true, 
+      select: {
+        id: true,
+        deletedAt: true,
+        authorId: true,
         isUnlisted: true,
         delistReason: true,
       },
@@ -340,11 +349,11 @@ export async function DELETE(
     // Admins can delete any prompt
     if (!isAdmin && !(isOwner && isDelisted)) {
       return NextResponse.json(
-        { 
-          error: "forbidden", 
-          message: isOwner 
+        {
+          error: "forbidden",
+          message: isOwner
             ? "You can only delete prompts that have been delisted for quality issues. Contact an admin for other deletions."
-            : "Prompts are released under CC0 and cannot be deleted. Contact an admin if there is an issue." 
+            : "Prompts are released under CC0 and cannot be deleted. Contact an admin if there is an issue.",
         },
         { status: 403 }
       );
@@ -361,11 +370,10 @@ export async function DELETE(
     revalidateTag("categories", "max");
     revalidateTag("tags", "max");
 
-    return NextResponse.json({ 
-      success: true, 
-      message: isOwner && isDelisted 
-        ? "Delisted prompt deleted successfully" 
-        : "Prompt soft deleted" 
+    return NextResponse.json({
+      success: true,
+      message:
+        isOwner && isDelisted ? "Delisted prompt deleted successfully" : "Prompt soft deleted",
     });
   } catch (error) {
     console.error("Delete prompt error:", error);

@@ -47,15 +47,15 @@ function convertVariables(str: string): string {
  */
 function yamlEscape(str: string): string {
   if (str.includes("\n") || str.includes(":") || str.includes("#") || str.startsWith(" ")) {
-    return `|\n${str.split("\n").map(line => `    ${line}`).join("\n")}`;
+    return `|\n${str
+      .split("\n")
+      .map((line) => `    ${line}`)
+      .join("\n")}`;
   }
   return str;
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: idParam } = await params;
   const { id, format, fileType } = parseIdParam(idParam);
 
@@ -77,9 +77,7 @@ export async function GET(
 
   if (format === "yml") {
     // YAML format (only for regular prompts, not skills)
-    const lines = [
-      `name: ${prompt.title}`,
-    ];
+    const lines = [`name: ${prompt.title}`];
     if (prompt.description) {
       lines.push(`description: ${prompt.description}`);
     }
@@ -89,7 +87,7 @@ export async function GET(
       `  temperature: 0.5`,
       `messages:`,
       `  - role: system`,
-      `    content: ${yamlEscape(convertVariables(prompt.content))}`,
+      `    content: ${yamlEscape(convertVariables(prompt.content))}`
     );
     output = lines.join("\n");
     contentType = "text/yaml; charset=utf-8";
@@ -101,7 +99,9 @@ export async function GET(
         `name: ${prompt.title}`,
         prompt.description ? `description: ${prompt.description}` : null,
         "---",
-      ].filter(Boolean).join("\n");
+      ]
+        .filter(Boolean)
+        .join("\n");
       output = `${frontmatter}\n\n${prompt.content}`;
     } else {
       // Format as markdown with YAML frontmatter
@@ -110,7 +110,9 @@ export async function GET(
         `name: ${prompt.title}`,
         prompt.description ? `description: ${prompt.description}` : null,
         "---",
-      ].filter(Boolean).join("\n");
+      ]
+        .filter(Boolean)
+        .join("\n");
       output = `${frontmatter}\n${prompt.content}`;
     }
     contentType = "text/plain; charset=utf-8";

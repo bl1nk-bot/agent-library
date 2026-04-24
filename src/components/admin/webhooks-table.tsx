@@ -8,10 +8,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Plus, MoreHorizontal, Pencil, Trash2, Slack, X, Play } from "lucide-react";
 import { SLACK_PRESET_PAYLOAD, WEBHOOK_PLACEHOLDERS } from "@/lib/webhook";
 import { CodeEditor } from "@/components/ui/code-editor";
@@ -96,14 +122,8 @@ function HeadersEditor({
           </Button>
         </div>
       ))}
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={addHeader}
-        className="w-full"
-      >
-        <Plus className="h-4 w-4 mr-2" />
+      <Button type="button" variant="outline" size="sm" onClick={addHeader} className="w-full">
+        <Plus className="mr-2 h-4 w-4" />
         Add Header
       </Button>
     </div>
@@ -203,9 +223,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
 
       if (response.ok) {
         const updatedWebhook = await response.json();
-        setWebhooks((prev) =>
-          prev.map((w) => (w.id === updatedWebhook.id ? updatedWebhook : w))
-        );
+        setWebhooks((prev) => prev.map((w) => (w.id === updatedWebhook.id ? updatedWebhook : w)));
         setIsEditOpen(false);
         setEditingWebhook(null);
         resetForm();
@@ -244,9 +262,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
 
       if (response.ok) {
         setWebhooks((prev) =>
-          prev.map((w) =>
-            w.id === webhook.id ? { ...w, isEnabled: !w.isEnabled } : w
-          )
+          prev.map((w) => (w.id === webhook.id ? { ...w, isEnabled: !w.isEnabled } : w))
         );
       }
     } catch (error) {
@@ -346,10 +362,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
         <Label>{t("events")}</Label>
         <div className="flex flex-wrap gap-3">
           {EVENTS.map((event) => (
-            <label
-              key={event.value}
-              className="flex items-center gap-2 cursor-pointer"
-            >
+            <label key={event.value} className="flex cursor-pointer items-center gap-2">
               <input
                 type="checkbox"
                 checked={formData.events.includes(event.value)}
@@ -392,13 +405,13 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
           debounceMs={300}
         />
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">{t("placeholders")}:</p>
+          <p className="text-muted-foreground text-xs">{t("placeholders")}:</p>
           <div className="flex flex-wrap gap-1">
             {PLACEHOLDER_LIST.map((placeholder) => (
               <Badge
                 key={placeholder}
                 variant="secondary"
-                className="text-xs font-mono cursor-pointer hover:bg-accent"
+                className="hover:bg-accent cursor-pointer font-mono text-xs"
                 onClick={() => {
                   const newPayload = formData.payload + placeholder;
                   setFormData((prev) => ({ ...prev, payload: newPayload }));
@@ -415,9 +428,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
         <Switch
           id="isEnabled"
           checked={formData.isEnabled}
-          onCheckedChange={(checked) =>
-            setFormData((prev) => ({ ...prev, isEnabled: checked }))
-          }
+          onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, isEnabled: checked }))}
         />
         <Label htmlFor="isEnabled">{t("enabled")}</Label>
       </div>
@@ -426,41 +437,44 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">{t("title")}</h3>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => { resetForm(); setIsCreateOpen(true); }}>
-              <Plus className="h-4 w-4 mr-2" />
+            <Button
+              onClick={() => {
+                resetForm();
+                setIsCreateOpen(true);
+              }}
+            >
+              <Plus className="mr-2 h-4 w-4" />
               {t("add")}
             </Button>
           </DialogTrigger>
-            <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{t("addTitle")}</DialogTitle>
-                <DialogDescription>{t("addDescription")}</DialogDescription>
-              </DialogHeader>
-              <WebhookForm />
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setIsCreateOpen(false)}>
-                  {t("cancel")}
-                </Button>
-                <Button onClick={handleCreate} disabled={isLoading}>
-                  {t("create")}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
+            <DialogHeader>
+              <DialogTitle>{t("addTitle")}</DialogTitle>
+              <DialogDescription>{t("addDescription")}</DialogDescription>
+            </DialogHeader>
+            <WebhookForm />
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>
+                {t("cancel")}
+              </Button>
+              <Button onClick={handleCreate} disabled={isLoading}>
+                {t("create")}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="rounded-md border">
         {webhooks.length === 0 ? (
-          <div className="text-center py-8 text-muted-foreground">
-            {t("empty")}
-          </div>
+          <div className="text-muted-foreground py-8 text-center">{t("empty")}</div>
         ) : (
           <Table>
             <TableHeader>
@@ -476,7 +490,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
               {webhooks.map((webhook) => (
                 <TableRow key={webhook.id}>
                   <TableCell className="font-medium">{webhook.name}</TableCell>
-                  <TableCell className="max-w-[200px] truncate text-xs font-mono">
+                  <TableCell className="max-w-[200px] truncate font-mono text-xs">
                     {webhook.url}
                   </TableCell>
                   <TableCell>
@@ -503,18 +517,18 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => handleTest(webhook)}>
-                          <Play className="h-4 w-4 mr-2" />
+                          <Play className="mr-2 h-4 w-4" />
                           {t("test")}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => openEditDialog(webhook)}>
-                          <Pencil className="h-4 w-4 mr-2" />
+                          <Pencil className="mr-2 h-4 w-4" />
                           {t("edit")}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => handleDelete(webhook.id)}
                           className="text-destructive"
                         >
-                          <Trash2 className="h-4 w-4 mr-2" />
+                          <Trash2 className="mr-2 h-4 w-4" />
                           {t("delete")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -529,7 +543,7 @@ export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps)
 
       {/* Edit Dialog */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
           <DialogHeader>
             <DialogTitle>{t("editTitle")}</DialogTitle>
             <DialogDescription>{t("editDescription")}</DialogDescription>

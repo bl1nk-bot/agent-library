@@ -18,16 +18,16 @@ const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o";
 // Extract valid method names from TYPE_DEFINITIONS for each builder type
 function extractValidMethods(): Map<string, Set<string>> {
   const builderMethods = new Map<string, Set<string>>();
-  
+
   // Match class methods: methodName(params): ReturnType
   const classPatterns = [
-    { name: 'video', regex: /export class VideoPromptBuilder \{([\s\S]*?)^\s*\}/m },
-    { name: 'audio', regex: /export class AudioPromptBuilder \{([\s\S]*?)^\s*\}/m },
-    { name: 'image', regex: /export class ImagePromptBuilder \{([\s\S]*?)^\s*\}/m },
-    { name: 'chat', regex: /export class ChatPromptBuilder \{([\s\S]*?)^\s*\}/m },
-    { name: 'builder', regex: /export class PromptBuilder \{([\s\S]*?)^\s*\}/m },
+    { name: "video", regex: /export class VideoPromptBuilder \{([\s\S]*?)^\s*\}/m },
+    { name: "audio", regex: /export class AudioPromptBuilder \{([\s\S]*?)^\s*\}/m },
+    { name: "image", regex: /export class ImagePromptBuilder \{([\s\S]*?)^\s*\}/m },
+    { name: "chat", regex: /export class ChatPromptBuilder \{([\s\S]*?)^\s*\}/m },
+    { name: "builder", regex: /export class PromptBuilder \{([\s\S]*?)^\s*\}/m },
   ];
-  
+
   for (const { name, regex } of classPatterns) {
     const match = TYPE_DEFINITIONS.match(regex);
     if (match) {
@@ -40,7 +40,7 @@ function extractValidMethods(): Map<string, Set<string>> {
       builderMethods.set(name, methods);
     }
   }
-  
+
   return builderMethods;
 }
 
@@ -58,13 +58,13 @@ function detectBuilderType(code: string): string | null {
 function removeInvalidMethods(code: string, validMethods: Set<string>): string {
   // Match chained method calls: .methodName( or .methodName({ or .methodName([
   // We need to remove entire method calls including their arguments
-  const lines = code.split('\n');
+  const lines = code.split("\n");
   const cleanedLines: string[] = [];
-  
+
   let i = 0;
   while (i < lines.length) {
     const line = lines[i];
-    
+
     // Check if line contains a method call
     const methodMatch = line.match(/^\s*\.(\w+)\s*\(/);
     if (methodMatch) {
@@ -74,46 +74,46 @@ function removeInvalidMethods(code: string, validMethods: Set<string>): string {
         let bracketCount = 0;
         let foundOpen = false;
         let skipUntil = i;
-        
+
         for (let j = i; j < lines.length; j++) {
           const checkLine = lines[j];
           for (const char of checkLine) {
-            if (char === '(' || char === '{' || char === '[') {
+            if (char === "(" || char === "{" || char === "[") {
               bracketCount++;
               foundOpen = true;
-            } else if (char === ')' || char === '}' || char === ']') {
+            } else if (char === ")" || char === "}" || char === "]") {
               bracketCount--;
             }
           }
           skipUntil = j;
           if (foundOpen && bracketCount === 0) break;
         }
-        
+
         i = skipUntil + 1;
         continue;
       }
     }
-    
+
     cleanedLines.push(line);
     i++;
   }
-  
-  return cleanedLines.join('\n');
+
+  return cleanedLines.join("\n");
 }
 
 // Validate and clean generated code
 function validateAndCleanCode(code: string): string {
   const validMethodsMap = extractValidMethods();
   const builderType = detectBuilderType(code);
-  
+
   if (!builderType) return code;
-  
+
   const validMethods = validMethodsMap.get(builderType);
   if (!validMethods || validMethods.size === 0) return code;
-  
+
   // Add common methods that are valid for all builders
-  validMethods.add('build');
-  
+  validMethods.add("build");
+
   return removeInvalidMethods(code, validMethods);
 }
 
@@ -137,33 +137,43 @@ function checkRateLimit(userId: string): { allowed: boolean; remaining: number; 
   }
 
   userLimit.count++;
-  return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - userLimit.count, resetIn: userLimit.resetAt - now };
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT_MAX_REQUESTS - userLimit.count,
+    resetIn: userLimit.resetAt - now,
+  };
 }
 
 export async function POST() {
   const session = await auth();
   if (!session?.user) {
-    return new Response(JSON.stringify({ error: "Unauthorized. Please log in to generate examples." }), {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: "Unauthorized. Please log in to generate examples." }),
+      {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 
   // Check rate limit
   const userId = session.user.id || session.user.email || "anonymous";
   const rateLimit = checkRateLimit(userId);
   if (!rateLimit.allowed) {
-    return new Response(JSON.stringify({ 
-      error: "Rate limit exceeded. You can generate one example per minute.",
-      resetIn: Math.ceil(rateLimit.resetIn / 1000)
-    }), {
-      status: 429,
-      headers: { 
-        "Content-Type": "application/json",
-        "X-RateLimit-Remaining": "0",
-        "X-RateLimit-Reset": String(Math.ceil(rateLimit.resetIn / 1000)),
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        error: "Rate limit exceeded. You can generate one example per minute.",
+        resetIn: Math.ceil(rateLimit.resetIn / 1000),
+      }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "X-RateLimit-Remaining": "0",
+          "X-RateLimit-Reset": String(Math.ceil(rateLimit.resetIn / 1000)),
+        },
+      }
+    );
   }
 
   const config = await getConfig();
@@ -207,8 +217,8 @@ ${DEFAULT_CODE}
 `;
 
     // Build messages with interpolated variables
-    const systemMessage = generateExamplePrompt.messages.find(m => m.role === "system");
-    const userMessage = generateExamplePrompt.messages.find(m => m.role === "user");
+    const systemMessage = generateExamplePrompt.messages.find((m) => m.role === "system");
+    const userMessage = generateExamplePrompt.messages.find((m) => m.role === "user");
 
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {

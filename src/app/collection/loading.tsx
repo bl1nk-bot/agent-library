@@ -4,7 +4,7 @@ export default function CollectionLoading() {
   return (
     <div className="container py-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <Skeleton className="h-6 w-32" />
         <Skeleton className="h-9 w-28" />
       </div>
@@ -12,7 +12,7 @@ export default function CollectionLoading() {
       {/* Collection Items */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="border rounded-lg p-4 space-y-3">
+          <div key={i} className="space-y-3 rounded-lg border p-4">
             <div className="flex items-center gap-2">
               <Skeleton className="h-6 w-6 rounded-full" />
               <Skeleton className="h-4 w-24" />

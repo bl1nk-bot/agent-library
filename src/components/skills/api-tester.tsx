@@ -53,14 +53,11 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
         }
       }
 
-      const response = await fetch(
-        `/api/prompts/${promptId}/api-config/${config.id}/test`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ testData: parsedData }),
-        }
-      );
+      const response = await fetch(`/api/prompts/${promptId}/api-config/${config.id}/test`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ testData: parsedData }),
+      });
 
       const data = await response.json();
       setResult(data);
@@ -108,13 +105,7 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={onClose}
-          className="h-8 w-8 p-0"
-        >
+        <Button type="button" variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="flex-1">
@@ -134,17 +125,15 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
             </Badge>
             <h3 className="text-lg font-semibold">{config.name}</h3>
           </div>
-          <code className="text-sm text-muted-foreground">{config.baseUrl}</code>
+          <code className="text-muted-foreground text-sm">{config.baseUrl}</code>
         </div>
       </div>
 
       {/* Request Section */}
-      <Card className="p-6 space-y-4">
+      <Card className="space-y-4 p-6">
         <div>
           <Label className="text-base font-semibold">Request</Label>
-          <p className="text-sm text-muted-foreground">
-            Test your API with sample data
-          </p>
+          <p className="text-muted-foreground text-sm">Test your API with sample data</p>
         </div>
 
         {["POST", "PUT", "PATCH"].includes(config.method) && (
@@ -164,28 +153,25 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
         <Button
           onClick={handleTest}
           disabled={isTesting}
-          className="w-full sm:w-auto transition-all duration-180"
+          className="w-full transition-all duration-180 sm:w-auto"
         >
-          <Play className="h-4 w-4 mr-2" />
+          <Play className="mr-2 h-4 w-4" />
           {isTesting ? "Testing..." : "Test API"}
         </Button>
       </Card>
 
       {/* Response Section */}
       {result && (
-        <Card className="p-6 space-y-4">
+        <Card className="space-y-4 p-6">
           <div className="flex items-center justify-between">
             <div>
               <Label className="text-base font-semibold">Response</Label>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge
-                  variant={result.success ? "default" : "destructive"}
-                  className="text-xs"
-                >
+              <div className="mt-1 flex items-center gap-2">
+                <Badge variant={result.success ? "default" : "destructive"} className="text-xs">
                   {result.status || "Error"}
                 </Badge>
                 {result.responseTime && (
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <div className="text-muted-foreground flex items-center gap-1 text-xs">
                     <Clock className="h-3 w-3" />
                     {result.responseTime}ms
                   </div>
@@ -193,31 +179,20 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
               </div>
             </div>
             {result.data !== undefined && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={copyResponse}
-                className="h-8"
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
+              <Button variant="outline" size="sm" onClick={copyResponse} className="h-8">
+                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
               </Button>
             )}
           </div>
 
           <div className="space-y-3">
             {result.error ? (
-              <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-md">
-                <p className="text-sm text-destructive font-mono">
-                  {result.error}
-                </p>
+              <div className="bg-destructive/10 border-destructive/20 rounded-md border p-4">
+                <p className="text-destructive font-mono text-sm">{result.error}</p>
               </div>
             ) : (
               <div className="space-y-2">
-                <pre className="p-4 bg-muted rounded-md overflow-x-auto text-xs font-mono max-h-96">
+                <pre className="bg-muted max-h-96 overflow-x-auto rounded-md p-4 font-mono text-xs">
                   {typeof result.data === "string"
                     ? result.data
                     : JSON.stringify(result.data, null, 2)}
@@ -229,9 +204,9 @@ export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
       )}
 
       {/* cURL Command */}
-      <Card className="p-6 space-y-3">
+      <Card className="space-y-3 p-6">
         <Label className="text-base font-semibold">cURL Command</Label>
-        <pre className="p-4 bg-muted rounded-md overflow-x-auto text-xs font-mono">
+        <pre className="bg-muted overflow-x-auto rounded-md p-4 font-mono text-xs">
           {generateCurlCommand()}
         </pre>
       </Card>

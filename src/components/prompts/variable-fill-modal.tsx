@@ -6,12 +6,7 @@ import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { RunPromptButton } from "@/components/prompts/run-prompt-button";
 import { analyticsPrompt } from "@/lib/analytics";
@@ -60,14 +55,14 @@ function getUniqueVariables(variables: Variable[]): { name: string; defaultValue
   return Array.from(seen.entries()).map(([name, defaultValue]) => ({ name, defaultValue }));
 }
 
-export function VariableFillModal({ 
-  content, 
-  open, 
-  onOpenChange, 
+export function VariableFillModal({
+  content,
+  open,
+  onOpenChange,
   mode,
   promptId,
   categoryName,
-  parentCategoryName
+  parentCategoryName,
 }: VariableFillModalProps) {
   const t = useTranslations("common");
 
@@ -123,7 +118,7 @@ export function VariableFillModal({
         <div className="space-y-3 py-2">
           {uniqueVariables.map(({ name, defaultValue }) => (
             <div key={name} className="space-y-1">
-              <Label htmlFor={`modal-var-${name}`} className="text-xs text-muted-foreground">
+              <Label htmlFor={`modal-var-${name}`} className="text-muted-foreground text-xs">
                 {name}
               </Label>
               <Input
@@ -139,11 +134,16 @@ export function VariableFillModal({
         <div className="flex justify-end gap-2 pt-2">
           {mode === "copy" ? (
             <Button onClick={handleCopy} size="sm">
-              <Copy className="h-4 w-4 mr-1.5" />
+              <Copy className="mr-1.5 h-4 w-4" />
               {t("copy")}
             </Button>
           ) : (
-            <RunPromptButton content={finalContent} size="sm" categoryName={categoryName} parentCategoryName={parentCategoryName} />
+            <RunPromptButton
+              content={finalContent}
+              size="sm"
+              categoryName={categoryName}
+              parentCategoryName={parentCategoryName}
+            />
           )}
         </div>
       </DialogContent>
@@ -177,7 +177,7 @@ export function renderContentWithVariables(content: string): React.ReactNode {
     parts.push(
       <span
         key={keyIndex++}
-        className="inline-block px-1 py-0.5 mx-0.5 rounded bg-primary/15 text-primary text-[10px] font-medium"
+        className="bg-primary/15 text-primary mx-0.5 inline-block rounded px-1 py-0.5 text-[10px] font-medium"
       >
         {defaultValue || name}
       </span>

@@ -41,11 +41,16 @@ interface VersionCompareModalProps {
   structuredFormat?: string | null;
 }
 
-export function VersionCompareModal({ versions, currentContent, promptType, structuredFormat }: VersionCompareModalProps) {
+export function VersionCompareModal({
+  versions,
+  currentContent,
+  promptType,
+  structuredFormat,
+}: VersionCompareModalProps) {
   const isStructured = promptType === "STRUCTURED";
   const t = useTranslations("prompts");
   const [open, setOpen] = useState(false);
-  
+
   // Add current version to the list
   const allVersions = useMemo(() => {
     const current = {
@@ -65,13 +70,17 @@ export function VersionCompareModal({ versions, currentContent, promptType, stru
   const contentA = useMemo(() => {
     const v = allVersions.find((v) => v.id === versionA);
     const content = v?.content || "";
-    return isStructured && structuredFormat?.toLowerCase() === "json" ? prettifyJson(content) : content;
+    return isStructured && structuredFormat?.toLowerCase() === "json"
+      ? prettifyJson(content)
+      : content;
   }, [allVersions, versionA, isStructured, structuredFormat]);
 
   const contentB = useMemo(() => {
     const v = allVersions.find((v) => v.id === versionB);
     const content = v?.content || "";
-    return isStructured && structuredFormat?.toLowerCase() === "json" ? prettifyJson(content) : content;
+    return isStructured && structuredFormat?.toLowerCase() === "json"
+      ? prettifyJson(content)
+      : content;
   }, [allVersions, versionB, isStructured, structuredFormat]);
 
   const versionALabel = useMemo(() => {
@@ -96,7 +105,7 @@ export function VersionCompareModal({ versions, currentContent, promptType, stru
           <span className="hidden sm:inline">{t("compare")}</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+      <DialogContent className="flex max-h-[90vh] max-w-4xl flex-col">
         <DialogHeader>
           <DialogTitle>{t("compareVersions")}</DialogTitle>
         </DialogHeader>
@@ -104,7 +113,7 @@ export function VersionCompareModal({ versions, currentContent, promptType, stru
         {/* Version selectors */}
         <div className="flex items-center gap-4 py-2">
           <div className="flex-1 space-y-1.5">
-            <Label className="text-xs text-muted-foreground">{t("compareFrom")}</Label>
+            <Label className="text-muted-foreground text-xs">{t("compareFrom")}</Label>
             <Select value={versionA} onValueChange={setVersionA}>
               <SelectTrigger>
                 <SelectValue />
@@ -124,7 +133,7 @@ export function VersionCompareModal({ versions, currentContent, promptType, stru
           </div>
 
           <div className="flex-1 space-y-1.5">
-            <Label className="text-xs text-muted-foreground">{t("compareTo")}</Label>
+            <Label className="text-muted-foreground text-xs">{t("compareTo")}</Label>
             <Select value={versionB} onValueChange={setVersionB}>
               <SelectTrigger>
                 <SelectValue />
@@ -141,23 +150,30 @@ export function VersionCompareModal({ versions, currentContent, promptType, stru
         </div>
 
         {/* Diff view */}
-        <div className="flex-1 min-h-0 overflow-hidden">
+        <div className="min-h-0 flex-1 overflow-hidden">
           {versionA && versionB ? (
             <div className="h-full">
-              <div className="text-xs text-muted-foreground mb-2">
-                {t("comparing")} <span className="font-medium text-red-600 dark:text-red-400">{versionALabel}</span>
+              <div className="text-muted-foreground mb-2 text-xs">
+                {t("comparing")}{" "}
+                <span className="font-medium text-red-600 dark:text-red-400">{versionALabel}</span>
                 {" → "}
-                <span className="font-medium text-green-600 dark:text-green-400">{versionBLabel}</span>
+                <span className="font-medium text-green-600 dark:text-green-400">
+                  {versionBLabel}
+                </span>
               </div>
               <DiffView
                 original={contentA}
                 modified={contentB}
                 className="max-h-[calc(90vh-220px)]"
-                language={isStructured ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json" : undefined}
+                language={
+                  isStructured
+                    ? (structuredFormat?.toLowerCase() as "json" | "yaml") || "json"
+                    : undefined
+                }
               />
             </div>
           ) : (
-            <div className="flex items-center justify-center h-full text-muted-foreground">
+            <div className="text-muted-foreground flex h-full items-center justify-center">
               {t("selectVersionsToCompare")}
             </div>
           )}

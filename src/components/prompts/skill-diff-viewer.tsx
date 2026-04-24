@@ -39,10 +39,7 @@ interface TreeNode {
 }
 
 // Build a tree structure from flat file paths with diff status
-function buildDiffFileTree(
-  originalFiles: SkillFile[],
-  modifiedFiles: SkillFile[]
-): TreeNode[] {
+function buildDiffFileTree(originalFiles: SkillFile[], modifiedFiles: SkillFile[]): TreeNode[] {
   const originalMap = new Map(originalFiles.map((f) => [f.filename, f.content]));
   const modifiedMap = new Map(modifiedFiles.map((f) => [f.filename, f.content]));
 
@@ -140,33 +137,34 @@ function TreeNodeItem({
     unchanged: "text-muted-foreground",
   };
 
-  const StatusIcon = node.status === "added" 
-    ? Plus 
-    : node.status === "removed" 
-    ? Minus 
-    : node.status === "modified" 
-    ? Edit2 
-    : null;
+  const StatusIcon =
+    node.status === "added"
+      ? Plus
+      : node.status === "removed"
+        ? Minus
+        : node.status === "modified"
+          ? Edit2
+          : null;
 
   if (node.isFolder) {
     return (
       <div>
         <div
           className={cn(
-            "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors hover:bg-muted"
+            "group hover:bg-muted flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors"
           )}
           style={{ paddingLeft: `${paddingLeft + 4}px` }}
           onClick={() => onToggleFolder(node.path)}
         >
           {isExpanded ? (
-            <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronDown className="text-muted-foreground h-3 w-3 shrink-0" />
           ) : (
-            <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronRight className="text-muted-foreground h-3 w-3 shrink-0" />
           )}
           {isExpanded ? (
-            <FolderOpen className="h-4 w-4 text-amber-500 shrink-0" />
+            <FolderOpen className="h-4 w-4 shrink-0 text-amber-500" />
           ) : (
-            <Folder className="h-4 w-4 text-amber-500 shrink-0" />
+            <Folder className="h-4 w-4 shrink-0 text-amber-500" />
           )}
           <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
         </div>
@@ -193,7 +191,7 @@ function TreeNodeItem({
   return (
     <div
       className={cn(
-        "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors",
+        "group flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors",
         isActive ? "bg-primary/10 text-primary" : "hover:bg-muted",
         node.status && statusColors[node.status]
       )}
@@ -203,9 +201,7 @@ function TreeNodeItem({
       <span className="w-3 shrink-0" />
       <File className="h-4 w-4 shrink-0" />
       <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
-      {StatusIcon && (
-        <StatusIcon className="h-3 w-3 mr-1 shrink-0" />
-      )}
+      {StatusIcon && <StatusIcon className="mr-1 h-3 w-3 shrink-0" />}
     </div>
   );
 }
@@ -223,12 +219,15 @@ export function SkillDiffViewer({ original, modified, className }: SkillDiffView
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
 
   // Handle file change with editor remount
-  const handleFileChange = useCallback((filename: string) => {
-    if (filename !== activeFile) {
-      setEditorKey((k) => k + 1); // Force new editor instance
-      setActiveFile(filename);
-    }
-  }, [activeFile]);
+  const handleFileChange = useCallback(
+    (filename: string) => {
+      if (filename !== activeFile) {
+        setEditorKey((k) => k + 1); // Force new editor instance
+        setActiveFile(filename);
+      }
+    },
+    [activeFile]
+  );
 
   // Build tree structure with diff status
   const fileTree = useMemo(
@@ -246,10 +245,7 @@ export function SkillDiffViewer({ original, modified, className }: SkillDiffView
     [modifiedFiles, activeFile]
   );
 
-  const activeLanguage = useMemo(
-    () => getLanguageFromFilename(activeFile),
-    [activeFile]
-  );
+  const activeLanguage = useMemo(() => getLanguageFromFilename(activeFile), [activeFile]);
 
   // Toggle folder expansion
   const toggleFolder = useCallback((folderPath: string) => {
@@ -266,7 +262,9 @@ export function SkillDiffViewer({ original, modified, className }: SkillDiffView
 
   // Count changes
   const changeCount = useMemo(() => {
-    let added = 0, removed = 0, modified = 0;
+    let added = 0,
+      removed = 0,
+      modified = 0;
     const origMap = new Map(originalFiles.map((f) => [f.filename, f.content]));
     const modMap = new Map(modifiedFiles.map((f) => [f.filename, f.content]));
 
@@ -282,34 +280,40 @@ export function SkillDiffViewer({ original, modified, className }: SkillDiffView
 
   return (
     <div
-      className={cn(
-        "flex border rounded-lg overflow-hidden bg-background",
-        className
-      )}
+      className={cn("bg-background flex overflow-hidden rounded-lg border", className)}
       style={{ height: "500px" }}
     >
       {/* Sidebar - File Tree */}
-      <div className="w-56 border-r bg-muted/30 flex flex-col shrink-0">
+      <div className="bg-muted/30 flex w-56 shrink-0 flex-col border-r">
         {/* Sidebar Header */}
-        <div className="flex items-center gap-2 px-3 py-2 border-b bg-muted/50">
-          <FolderOpen className="h-4 w-4 text-primary" />
+        <div className="bg-muted/50 flex items-center gap-2 border-b px-3 py-2">
+          <FolderOpen className="text-primary h-4 w-4" />
           <span className="text-sm font-medium">{t("skillFiles")}</span>
         </div>
 
         {/* Change Summary */}
-        <div className="flex items-center gap-2 px-3 py-1.5 border-b bg-muted/30 text-xs">
+        <div className="bg-muted/30 flex items-center gap-2 border-b px-3 py-1.5 text-xs">
           {changeCount.added > 0 && (
-            <Badge variant="outline" className="text-green-600 border-green-600/30 bg-green-500/10 text-[10px] px-1.5 py-0">
+            <Badge
+              variant="outline"
+              className="border-green-600/30 bg-green-500/10 px-1.5 py-0 text-[10px] text-green-600"
+            >
               +{changeCount.added}
             </Badge>
           )}
           {changeCount.removed > 0 && (
-            <Badge variant="outline" className="text-red-600 border-red-600/30 bg-red-500/10 text-[10px] px-1.5 py-0">
+            <Badge
+              variant="outline"
+              className="border-red-600/30 bg-red-500/10 px-1.5 py-0 text-[10px] text-red-600"
+            >
               -{changeCount.removed}
             </Badge>
           )}
           {changeCount.modified > 0 && (
-            <Badge variant="outline" className="text-amber-600 border-amber-600/30 bg-amber-500/10 text-[10px] px-1.5 py-0">
+            <Badge
+              variant="outline"
+              className="border-amber-600/30 bg-amber-500/10 px-1.5 py-0 text-[10px] text-amber-600"
+            >
               ~{changeCount.modified}
             </Badge>
           )}
@@ -332,17 +336,17 @@ export function SkillDiffViewer({ original, modified, className }: SkillDiffView
       </div>
 
       {/* Main Diff Editor Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* Tab/File Header */}
-        <div className="flex items-center justify-between border-b bg-muted/30 px-3 py-1.5">
-          <div className="flex items-center gap-2 min-w-0">
-            <File className="h-4 w-4 text-muted-foreground shrink-0" />
-            <span className="text-xs font-mono truncate">{activeFile}</span>
+        <div className="bg-muted/30 flex items-center justify-between border-b px-3 py-1.5">
+          <div className="flex min-w-0 items-center gap-2">
+            <File className="text-muted-foreground h-4 w-4 shrink-0" />
+            <span className="truncate font-mono text-xs">{activeFile}</span>
           </div>
         </div>
 
         {/* Monaco Diff Editor */}
-        <div className="flex-1 min-h-0">
+        <div className="min-h-0 flex-1">
           <DiffEditor
             key={`${editorKey}-${activeFile}`}
             height="100%"

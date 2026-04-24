@@ -65,11 +65,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const userId = session?.user?.id;
 
     const filteredOutgoing = outgoingConnections.filter(
-      (c: typeof outgoingConnections[number]) => !c.target.isPrivate || c.target.authorId === userId
+      (c: (typeof outgoingConnections)[number]) =>
+        !c.target.isPrivate || c.target.authorId === userId
     );
 
     const filteredIncoming = incomingConnections.filter(
-      (c: typeof incomingConnections[number]) => !c.source.isPrivate || c.source.authorId === userId
+      (c: (typeof incomingConnections)[number]) =>
+        !c.source.isPrivate || c.source.authorId === userId
     );
 
     return NextResponse.json({
@@ -78,10 +80,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     });
   } catch (error) {
     console.error("Failed to fetch connections:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch connections" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch connections" }, { status: 500 });
   }
 }
 
@@ -104,16 +103,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     });
 
     if (!sourcePrompt) {
-      return NextResponse.json(
-        { error: "Source prompt not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Source prompt not found" }, { status: 404 });
     }
 
-    if (
-      sourcePrompt.authorId !== session.user.id &&
-      session.user.role !== "ADMIN"
-    ) {
+    if (sourcePrompt.authorId !== session.user.id && session.user.role !== "ADMIN") {
       return NextResponse.json(
         { error: "You can only add connections to your own prompts" },
         { status: 403 }
@@ -127,17 +120,11 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     });
 
     if (!targetPrompt) {
-      return NextResponse.json(
-        { error: "Target prompt not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Target prompt not found" }, { status: 404 });
     }
 
     // Verify user owns the target prompt (users can only connect their own prompts)
-    if (
-      targetPrompt.authorId !== session.user.id &&
-      session.user.role !== "ADMIN"
-    ) {
+    if (targetPrompt.authorId !== session.user.id && session.user.role !== "ADMIN") {
       return NextResponse.json(
         { error: "You can only connect to your own prompts" },
         { status: 403 }
@@ -146,10 +133,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
     // Prevent self-connection
     if (id === targetId) {
-      return NextResponse.json(
-        { error: "Cannot connect a prompt to itself" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Cannot connect a prompt to itself" }, { status: 400 });
     }
 
     // Check if connection already exists
@@ -158,10 +142,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     });
 
     if (existing) {
-      return NextResponse.json(
-        { error: "Connection already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Connection already exists" }, { status: 400 });
     }
 
     // Calculate order if not provided
@@ -199,9 +180,6 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
     console.error("Failed to create connection:", error);
-    return NextResponse.json(
-      { error: "Failed to create connection" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create connection" }, { status: 500 });
   }
 }

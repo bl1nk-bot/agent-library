@@ -26,10 +26,7 @@ export async function POST() {
     // Check if AI search is enabled
     const config = await getConfig();
     if (!config.features.aiSearch) {
-      return NextResponse.json(
-        { error: "AI search is not enabled" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "AI search is not enabled" }, { status: 400 });
     }
 
     // Get all public prompts with embeddings
@@ -92,9 +89,6 @@ export async function POST() {
     });
   } catch (error) {
     console.error("Related prompts generation error:", error);
-    return NextResponse.json(
-      { error: "Failed to generate related prompts" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to generate related prompts" }, { status: 500 });
   }
 }

@@ -29,7 +29,7 @@ const languages = [
   { code: "ru", name: "Русский" },
   { code: "he", name: "עברית" },
   { code: "el", name: "Ελληνικά" },
-  { code: "th", name: "ไทย" }
+  { code: "th", name: "ไทย" },
 ];
 
 export function LanguageSwitcher() {
@@ -45,10 +45,7 @@ export function LanguageSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="max-h-[300px] overflow-y-auto">
         {languages.map((lang) => (
-          <DropdownMenuItem
-            key={lang.code}
-            onClick={() => setLocale(lang.code)}
-          >
+          <DropdownMenuItem key={lang.code} onClick={() => setLocale(lang.code)}>
             {lang.name}
           </DropdownMenuItem>
         ))}

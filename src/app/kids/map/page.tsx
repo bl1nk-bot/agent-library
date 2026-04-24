@@ -11,7 +11,7 @@ export default async function KidsMapPage() {
   const t = await getTranslations("kids");
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden">
       <ProgressMap />
     </div>
   );

@@ -1,8 +1,8 @@
 /**
  * Media Generators Plugin Registry
- * 
+ *
  * Manages AI-powered media generation plugins for images and videos.
- * 
+ *
  * To add a new plugin:
  * 1. Create your plugin file (e.g., ./my-provider.ts) implementing MediaGeneratorPlugin
  * 2. Import and add it to the `plugins` array below
@@ -10,7 +10,12 @@
 
 import { wiroGeneratorPlugin } from "./wiro";
 import { falGeneratorPlugin } from "./fal";
-import type { MediaGeneratorPlugin, MediaGeneratorModel, MediaType, WebSocketHandler } from "./types";
+import type {
+  MediaGeneratorPlugin,
+  MediaGeneratorModel,
+  MediaType,
+  WebSocketHandler,
+} from "./types";
 
 export * from "./types";
 
@@ -51,10 +56,26 @@ export function getEnabledMediaGeneratorPlugins(): MediaGeneratorPlugin[] {
 /**
  * Get all available models from enabled generators
  */
-export function getAvailableModels(type?: MediaType): Array<MediaGeneratorModel & { provider: string; providerName: string; providerLogo?: string; providerLogoDark?: string }> {
+export function getAvailableModels(
+  type?: MediaType
+): Array<
+  MediaGeneratorModel & {
+    provider: string;
+    providerName: string;
+    providerLogo?: string;
+    providerLogoDark?: string;
+  }
+> {
   initializeMediaGenerators();
 
-  const models: Array<MediaGeneratorModel & { provider: string; providerName: string; providerLogo?: string; providerLogoDark?: string }> = [];
+  const models: Array<
+    MediaGeneratorModel & {
+      provider: string;
+      providerName: string;
+      providerLogo?: string;
+      providerLogoDark?: string;
+    }
+  > = [];
 
   for (const plugin of getEnabledMediaGeneratorPlugins()) {
     const pluginModels = plugin.getModels();

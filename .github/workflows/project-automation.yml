@@ -6,12 +6,18 @@ on:
   pull_request:
     types: [opened]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   add-to-project:
     name: Add to Project
     runs-on: ubuntu-latest
+    if: vars.PROJECT_URL != '' && secrets.ADD_TO_PROJECT_PAT != ''
     steps:
       - uses: actions/add-to-project@v1.0.2
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
           # คุณต้องตั้งค่า PROJECT_URL ใน Repository Secrets หรือ Variables
           # ตัวอย่าง: https://github.com/users/bl1nk-bot/projects/1

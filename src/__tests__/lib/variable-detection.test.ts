@@ -203,9 +203,7 @@ describe("detectVariables", () => {
       const result = detectVariables(text);
       expect(result[0].startIndex).toBe(6);
       expect(result[0].endIndex).toBe(14);
-      expect(text.slice(result[0].startIndex, result[0].endIndex)).toBe(
-        "[[name]]"
-      );
+      expect(text.slice(result[0].startIndex, result[0].endIndex)).toBe("[[name]]");
     });
 
     it("should sort results by position", () => {

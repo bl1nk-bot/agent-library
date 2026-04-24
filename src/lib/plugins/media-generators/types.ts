@@ -1,6 +1,6 @@
 /**
  * Media Generator Plugin Types
- * 
+ *
  * Interface definitions for AI-powered media generation plugins.
  */
 
@@ -55,7 +55,9 @@ export interface PollStatusResult {
 // WebSocket handler types (client-side)
 export interface WebSocketCallbacks {
   setProgress: (value: number | ((prev: number) => number)) => void;
-  setStatus: (status: "idle" | "confirming" | "starting" | "queued" | "processing" | "completed" | "error") => void;
+  setStatus: (
+    status: "idle" | "confirming" | "starting" | "queued" | "processing" | "completed" | "error"
+  ) => void;
   setStatusMessage: (key: GenerationStatusKey) => void;
   setError: (error: string | null) => void;
   onComplete: (outputUrls: string[]) => void;

@@ -128,20 +128,20 @@ function TreeNodeItem({
       <div>
         <div
           className={cn(
-            "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors hover:bg-muted"
+            "group hover:bg-muted flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors"
           )}
           style={{ paddingLeft: `${paddingLeft + 4}px` }}
           onClick={() => onToggleFolder(node.path)}
         >
           {isExpanded ? (
-            <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronDown className="text-muted-foreground h-3 w-3 shrink-0" />
           ) : (
-            <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />
+            <ChevronRight className="text-muted-foreground h-3 w-3 shrink-0" />
           )}
           {isExpanded ? (
-            <FolderOpen className="h-4 w-4 text-amber-500 shrink-0" />
+            <FolderOpen className="h-4 w-4 shrink-0 text-amber-500" />
           ) : (
-            <Folder className="h-4 w-4 text-amber-500 shrink-0" />
+            <Folder className="h-4 w-4 shrink-0 text-amber-500" />
           )}
           <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
         </div>
@@ -170,14 +170,14 @@ function TreeNodeItem({
   return (
     <div
       className={cn(
-        "group flex items-center gap-1 py-1 rounded-md cursor-pointer text-sm transition-colors",
+        "group flex cursor-pointer items-center gap-1 rounded-md py-1 text-sm transition-colors",
         isActive ? "bg-primary/10 text-primary" : "hover:bg-muted"
       )}
       style={{ paddingLeft: `${paddingLeft + 4}px` }}
       onClick={() => onOpenFile(node.path)}
     >
       <span className="w-3 shrink-0" /> {/* Spacer for alignment */}
-      <File className="h-4 w-4 text-muted-foreground shrink-0" />
+      <File className="text-muted-foreground h-4 w-4 shrink-0" />
       <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
       {node.path !== DEFAULT_SKILL_FILE && (
         <button
@@ -185,10 +185,10 @@ function TreeNodeItem({
             e.stopPropagation();
             onDeleteFile(node.path);
           }}
-          className="opacity-0 group-hover:opacity-100 p-0.5 hover:bg-destructive/10 rounded transition-opacity mr-1"
+          className="hover:bg-destructive/10 mr-1 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100"
           title={t("deleteFile")}
         >
-          <Trash2 className="h-3 w-3 text-destructive" />
+          <Trash2 className="text-destructive h-3 w-3" />
         </button>
       )}
     </div>
@@ -200,7 +200,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const monacoRef = useRef<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -253,10 +253,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
     () => files.find((f) => f.filename === activeFile),
     [files, activeFile]
   );
-  const activeLanguage = useMemo(
-    () => getLanguageFromFilename(activeFile),
-    [activeFile]
-  );
+  const activeLanguage = useMemo(() => getLanguageFromFilename(activeFile), [activeFile]);
 
   // Debounced onChange to parent
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -296,9 +293,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const handleEditorChange = useCallback(
     (newContent: string | undefined) => {
       const content = newContent || "";
-      const newFiles = files.map((f) =>
-        f.filename === activeFile ? { ...f, content } : f
-      );
+      const newFiles = files.map((f) => (f.filename === activeFile ? { ...f, content } : f));
       updateFiles(newFiles);
     },
     [files, activeFile, updateFiles]
@@ -307,9 +302,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   // Open a file in a tab
   const openFile = useCallback((filename: string) => {
     setActiveFile(filename);
-    setOpenTabs((prev) =>
-      prev.includes(filename) ? prev : [...prev, filename]
-    );
+    setOpenTabs((prev) => (prev.includes(filename) ? prev : [...prev, filename]));
   }, []);
 
   // Close a tab
@@ -375,76 +368,89 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   useEffect(() => {
     if (value === prevValueRef.current) return;
 
-    const parsed = parseSkillFiles(value);
+    // Instead of setting state synchronously inside an effect,
+    // we use a microtask to schedule the state updates
+    // This helps avoid cascading renders warnings
+    Promise.resolve().then(() => {
+      const parsed = parseSkillFiles(value);
 
-    setFiles(parsed);
-    prevValueRef.current = value;
+      setFiles(parsed);
+      prevValueRef.current = value;
 
-    // Ensure active file exists
-    if (!parsed.some((f) => f.filename === activeFile)) {
-      setActiveFile(DEFAULT_SKILL_FILE);
-      setOpenTabs([DEFAULT_SKILL_FILE]);
-    }
+      // Ensure active file exists
+      if (!parsed.some((f) => f.filename === activeFile)) {
+        setActiveFile(DEFAULT_SKILL_FILE);
+        setOpenTabs([DEFAULT_SKILL_FILE]);
+      }
+    });
   }, [value, activeFile]);
 
-  const handleEditorMount: OnMount = useCallback((editor, monaco) => {
-    editorRef.current = editor;
-    monacoRef.current = monaco;
-    
-    // Register both themes
-    applyMonacoTheme(monaco, "dark");
-    applyMonacoTheme(monaco, "light");
+  const handleEditorMount: OnMount = useCallback(
+    (editor, monaco) => {
+      editorRef.current = editor;
+      monacoRef.current = monaco;
 
-    // Initial theme set
-    const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
-    monaco.editor.setTheme(theme);
-    
-    // Mobile-specific optimizations
-    if (window.innerWidth < 768) {
-      editor.updateOptions({
-        mouseWheelZoom: false,
-        fastScrollSensitivity: 2,
-      });
-    }
-  }, [resolvedTheme]);
+      // Register both themes
+      applyMonacoTheme(monaco, "dark");
+      applyMonacoTheme(monaco, "light");
+
+      // Initial theme set
+      const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
+      monaco.editor.setTheme(theme);
+
+      // Mobile-specific optimizations
+      if (window.innerWidth < 768) {
+        editor.updateOptions({
+          mouseWheelZoom: false,
+          fastScrollSensitivity: 2,
+        });
+      }
+    },
+    [resolvedTheme]
+  );
 
   // React to theme changes
   useEffect(() => {
     if (monacoRef.current) {
-        const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
-        monacoRef.current.editor.setTheme(theme);
+      const theme = resolvedTheme === "dark" ? "enhanced-dark" : "enhanced-light";
+      monacoRef.current.editor.setTheme(theme);
     }
   }, [resolvedTheme]);
 
   // File icon based on extension
   const getFileIcon = (filename: string) => {
     const ext = filename.split(".").pop()?.toLowerCase();
-    if (ext === 'md') return <FileText className="h-4 w-4 text-muted-foreground" />;
-    if (ext === 'json' || ext === 'js' || ext === 'ts') return <Code className="h-4 w-4 text-muted-foreground" />;
-    return <File className="h-4 w-4 text-muted-foreground" />;
+    if (ext === "md") return <FileText className="text-muted-foreground h-4 w-4" />;
+    if (ext === "json" || ext === "json" || ext === "js" || ext === "ts")
+      return <Code className="text-muted-foreground h-4 w-4" />;
+    return <File className="text-muted-foreground h-4 w-4" />;
   };
 
   return (
     <div
       className={cn(
-        "flex border rounded-lg overflow-hidden bg-background transition-opacity duration-180",
+        "bg-background flex overflow-hidden rounded-lg border transition-opacity duration-180",
         className
       )}
-      style={{ 
+      style={{
         height: isMobile ? "600px" : "500px",
-        WebkitTouchCallout: 'none',
+        WebkitTouchCallout: "none",
       }}
     >
       {/* Sidebar - File Tree */}
-      <div className={cn(
-        "border-r bg-muted/30 flex flex-col transition-all duration-180",
-        isMobile ? (isSidebarOpen ? "w-56" : "w-12") : "w-56"
-      )}>
+      <div
+        className={cn(
+          "bg-muted/30 flex flex-col border-r transition-all duration-180",
+          isMobile ? (isSidebarOpen ? "w-56" : "w-12") : "w-56"
+        )}
+      >
         {/* Sidebar Header */}
-        <div className={cn(
-          "flex items-center justify-between px-3 py-2 border-b bg-muted/50 transition-all duration-180",
-          isMobile && !isSidebarOpen && "px-2"
-        )}>
+        <div
+          className={cn(
+            "bg-muted/50 flex items-center justify-between border-b px-3 py-2 transition-all duration-180",
+            isMobile && !isSidebarOpen && "px-2"
+          )}
+        >
           {isMobile && !isSidebarOpen ? (
             <Button
               type="button"
@@ -454,12 +460,12 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
               onClick={() => setIsSidebarOpen(true)}
               title={t("skillFiles")}
             >
-              <FolderOpen className="h-4 w-4 text-primary" />
+              <FolderOpen className="text-primary h-4 w-4" />
             </Button>
           ) : (
             <>
               <div className="flex items-center gap-2 text-sm font-medium">
-                <FolderOpen className="h-4 w-4 text-primary" />
+                <FolderOpen className="text-primary h-4 w-4" />
                 {!isMobile && <span>{t("skillFiles")}</span>}
               </div>
               <Button
@@ -500,38 +506,37 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
 
         {/* Sidebar Footer - File Count */}
         {(!isMobile || isSidebarOpen) && (
-          <div className="px-3 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
+          <div className="bg-muted/50 text-muted-foreground border-t px-3 py-2 text-xs">
             {files.length} {files.length === 1 ? t("file") : t("files")}
           </div>
         )}
       </div>
 
       {/* Main Editor Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* Tabs */}
-        <div className="flex items-center border-b bg-muted/30 overflow-x-auto scrollbar-thin">
+        <div className="bg-muted/30 scrollbar-thin flex items-center overflow-x-auto border-b">
           {openTabs.map((filename) => (
             <div
               key={filename}
               className={cn(
-                "flex items-center gap-1.5 border-r cursor-pointer text-xs font-mono whitespace-nowrap",
+                "flex cursor-pointer items-center gap-1.5 border-r font-mono text-xs whitespace-nowrap",
                 "transition-all duration-120",
                 isMobile ? "px-2 py-2.5" : "px-3 py-2",
                 activeFile === filename
-                  ? "bg-background border-b-2 border-b-primary -mb-px"
+                  ? "bg-background border-b-primary -mb-px border-b-2"
                   : "bg-muted/50 hover:bg-muted"
               )}
               onClick={() => setActiveFile(filename)}
             >
               {getFileIcon(filename)}
-              <span className={cn(
-                "truncate",
-                isMobile ? "max-w-[80px]" : "max-w-[120px]"
-              )}>{filename}</span>
+              <span className={cn("truncate", isMobile ? "max-w-[80px]" : "max-w-[120px]")}>
+                {filename}
+              </span>
               {filename !== DEFAULT_SKILL_FILE && (
                 <button
                   onClick={(e) => closeTab(filename, e)}
-                  className="ml-1 p-0.5 hover:bg-muted rounded transition-opacity duration-120"
+                  className="hover:bg-muted ml-1 rounded p-0.5 transition-opacity duration-120"
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -541,7 +546,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
         </div>
 
         {/* Monaco Editor */}
-        <div className="flex-1 min-h-0">
+        <div className="min-h-0 flex-1">
           <Editor
             height="100%"
             language={activeLanguage}
@@ -577,15 +582,10 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
               }}
               autoFocus
             />
-            {filenameError && (
-              <p className="text-sm text-destructive mt-2">{filenameError}</p>
-            )}
+            {filenameError && <p className="text-destructive mt-2 text-sm">{filenameError}</p>}
           </div>
           <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowNewFileDialog(false)}
-            >
+            <Button variant="outline" onClick={() => setShowNewFileDialog(false)}>
               {tCommon("cancel")}
             </Button>
             <Button onClick={confirmAddFile}>{t("addFile")}</Button>
@@ -594,10 +594,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={!!fileToDelete}
-        onOpenChange={(open) => !open && setFileToDelete(null)}
-      >
+      <Dialog open={!!fileToDelete} onOpenChange={(open) => !open && setFileToDelete(null)}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t("deleteFileConfirm")}</DialogTitle>

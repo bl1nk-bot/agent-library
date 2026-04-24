@@ -1,6 +1,6 @@
 /**
  * Google Analytics Event Tracking Utility
- * 
+ *
  * Provides typed functions for tracking user interactions throughout the app.
  * Events are only sent if GOOGLE_ANALYTICS_ID is configured.
  */

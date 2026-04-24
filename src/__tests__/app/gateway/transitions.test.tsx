@@ -7,7 +7,7 @@ describe("Gateway Page Transitions", () => {
     const { container } = render(<GatewayPage />);
     // Framer motion adds specific style attributes or classes
     // Here we just check if the render doesn't crash and we can identify motion elements
-    const motionDiv = container.querySelector(".motion-div-check"); 
+    const motionDiv = container.querySelector(".motion-div-check");
     // I will add a specific class for testing purposes in the implementation
     expect(motionDiv).toBeDefined();
   });

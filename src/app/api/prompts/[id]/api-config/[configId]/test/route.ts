@@ -37,10 +37,7 @@ export async function POST(
     });
 
     if (!apiConfig) {
-      return NextResponse.json(
-        { error: "API configuration not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "API configuration not found" }, { status: 404 });
     }
 
     // Verify user is the author
@@ -65,11 +62,9 @@ export async function POST(
     // Build URL with query params
     const url = new URL(apiConfig.baseUrl);
     if (apiConfig.queryParams) {
-      Object.entries(apiConfig.queryParams as Record<string, string>).forEach(
-        ([key, value]) => {
-          url.searchParams.append(key, value);
-        }
-      );
+      Object.entries(apiConfig.queryParams as Record<string, string>).forEach(([key, value]) => {
+        url.searchParams.append(key, value);
+      });
     }
 
     // Security: Validate URL for SSRF protection
@@ -130,10 +125,7 @@ export async function POST(
           receivedLength += value.length;
           if (receivedLength > MAX_SIZE) {
             await reader.cancel();
-            return NextResponse.json(
-              { error: "Response too large" },
-              { status: 413 }
-            );
+            return NextResponse.json({ error: "Response too large" }, { status: 413 });
           }
           chunks.push(value);
         }
@@ -160,10 +152,7 @@ export async function POST(
       }
     } catch (error) {
       console.error("[v0] Error reading response:", error);
-       return NextResponse.json(
-        { error: "Failed to read response body" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to read response body" }, { status: 500 });
     }
 
     return NextResponse.json({

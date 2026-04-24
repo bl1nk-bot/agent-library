@@ -63,7 +63,7 @@ export default async function EditPromptPage({ params }: EditPromptPageProps) {
   // Check if user is the author or admin
   const isAuthor = prompt.authorId === session.user.id;
   const isAdmin = session.user.role === "ADMIN";
-  
+
   if (!isAuthor && !isAdmin) {
     redirect(`/prompts/${id}`);
   }
@@ -87,8 +87,15 @@ export default async function EditPromptPage({ params }: EditPromptPageProps) {
     title: prompt.title,
     description: prompt.description || "",
     content: prompt.content,
-    type: ((prompt.type === "IMAGE" || prompt.type === "VIDEO" || prompt.type === "AUDIO" || prompt.type === "SKILL") ? prompt.type : "TEXT") as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "SKILL",
-    structuredFormat: prompt.structuredFormat ? (prompt.structuredFormat as "JSON" | "YAML") : undefined,
+    type: (prompt.type === "IMAGE" ||
+    prompt.type === "VIDEO" ||
+    prompt.type === "AUDIO" ||
+    prompt.type === "SKILL"
+      ? prompt.type
+      : "TEXT") as "TEXT" | "IMAGE" | "VIDEO" | "AUDIO" | "SKILL",
+    structuredFormat: prompt.structuredFormat
+      ? (prompt.structuredFormat as "JSON" | "YAML")
+      : undefined,
     categoryId: prompt.categoryId || undefined,
     tagIds: prompt.tags.map((t) => t.tagId),
     isPrivate: prompt.isPrivate,
@@ -97,7 +104,9 @@ export default async function EditPromptPage({ params }: EditPromptPageProps) {
     requiredMediaType: (prompt.requiredMediaType as "IMAGE" | "VIDEO" | "DOCUMENT") || "IMAGE",
     requiredMediaCount: prompt.requiredMediaCount || 1,
     bestWithModels: (prompt as unknown as { bestWithModels?: string[] }).bestWithModels || [],
-    bestWithMCP: (prompt as unknown as { bestWithMCP?: { command: string; tools?: string[] }[] }).bestWithMCP || [],
+    bestWithMCP:
+      (prompt as unknown as { bestWithMCP?: { command: string; tools?: string[] }[] })
+        .bestWithMCP || [],
   };
 
   // Check if AI generation is enabled

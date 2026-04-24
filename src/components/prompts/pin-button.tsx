@@ -73,9 +73,9 @@ export function PinButton({ promptId, initialPinned, iconOnly = false }: PinButt
       disabled={isLoading}
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <Pin className={`h-4 w-4 mr-2 ${isPinned ? "fill-current" : ""}`} />
+        <Pin className={`mr-2 h-4 w-4 ${isPinned ? "fill-current" : ""}`} />
       )}
       {isPinned ? t("unpin") : t("pin")}
     </Button>

@@ -73,7 +73,7 @@ async function main() {
 
   // Create admin user for assigning prompts
   const password = await bcrypt.hash("password123", 12);
-  
+
   const admin = await prisma.user.upsert({
     where: { email: "admin@prompts.chat" },
     update: {},
@@ -153,7 +153,10 @@ async function main() {
   console.log(`✅ Created ${tagMap.size} tags`);
 
   // Extract unique authors from remote prompts and create users
-  const authorMap = new Map<string, { username: string; name: string | null; avatar: string | null; verified: boolean }>();
+  const authorMap = new Map<
+    string,
+    { username: string; name: string | null; avatar: string | null; verified: boolean }
+  >();
   for (const prompt of remotePrompts) {
     if (!authorMap.has(prompt.author.username)) {
       authorMap.set(prompt.author.username, {
@@ -174,7 +177,7 @@ async function main() {
       userIdMap.set(username, admin.id);
       continue;
     }
-    
+
     const user = await prisma.user.upsert({
       where: { username },
       update: { name: author.name, avatar: author.avatar },
@@ -223,7 +226,9 @@ async function main() {
       JSON: "JSON",
       YAML: "YAML",
     };
-    const structuredFormat = remotePrompt.structuredFormat ? formatMap[remotePrompt.structuredFormat] : null;
+    const structuredFormat = remotePrompt.structuredFormat
+      ? formatMap[remotePrompt.structuredFormat]
+      : null;
 
     // Check if prompt already exists
     const existingPrompt = await prisma.prompt.findFirst({
@@ -255,8 +260,8 @@ async function main() {
           categoryId: categoryId,
           tags: {
             create: remotePrompt.tags
-              .filter(tag => tagIdMap.has(tag.slug))
-              .map(tag => ({ tagId: tagIdMap.get(tag.slug)! })),
+              .filter((tag) => tagIdMap.has(tag.slug))
+              .map((tag) => ({ tagId: tagIdMap.get(tag.slug)! })),
           },
         },
       });

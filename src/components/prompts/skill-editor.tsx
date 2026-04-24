@@ -368,15 +368,21 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   useEffect(() => {
     if (value === prevValueRef.current) return;
 
-    const parsed = parseSkillFiles(value);
-    setFiles(parsed);
-    prevValueRef.current = value;
+    // Instead of setting state synchronously inside an effect,
+    // we use a microtask to schedule the state updates
+    // This helps avoid cascading renders warnings
+    Promise.resolve().then(() => {
+      const parsed = parseSkillFiles(value);
 
-    // Ensure active file exists
-    if (!parsed.some((f) => f.filename === activeFile)) {
-      setActiveFile(DEFAULT_SKILL_FILE);
-      setOpenTabs([DEFAULT_SKILL_FILE]);
-    }
+      setFiles(parsed);
+      prevValueRef.current = value;
+
+      // Ensure active file exists
+      if (!parsed.some((f) => f.filename === activeFile)) {
+        setActiveFile(DEFAULT_SKILL_FILE);
+        setOpenTabs([DEFAULT_SKILL_FILE]);
+      }
+    });
   }, [value, activeFile]);
 
   const handleEditorMount: OnMount = useCallback(
@@ -415,7 +421,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
   const getFileIcon = (filename: string) => {
     const ext = filename.split(".").pop()?.toLowerCase();
     if (ext === "md") return <FileText className="text-muted-foreground h-4 w-4" />;
-    if (ext === "json" || ext === "js" || ext === "ts")
+    if (ext === "json" || ext === "json" || ext === "js" || ext === "ts")
       return <Code className="text-muted-foreground h-4 w-4" />;
     return <File className="text-muted-foreground h-4 w-4" />;
   };

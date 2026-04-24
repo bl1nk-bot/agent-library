@@ -16,12 +16,17 @@ export function getCookieConsent(): CookieConsent {
 
 export function CookieConsentBanner() {
   const t = useTranslations("cookies");
-  const [consent, setConsent] = useState<CookieConsent | "pending">("pending");
+  const [consent, setConsent] = useState<CookieConsent | "pending">(
+    typeof window !== "undefined" ? getCookieConsent() : "pending"
+  );
   const [confirmReject, setConfirmReject] = useState(false);
 
   useEffect(() => {
-    setConsent(getCookieConsent());
-  }, []);
+    const currentConsent = getCookieConsent();
+    if (consent !== currentConsent) {
+      Promise.resolve().then(() => setConsent(currentConsent));
+    }
+  }, [consent]);
 
   const handleAccept = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");

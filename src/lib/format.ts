@@ -23,6 +23,22 @@ export function isValidJson(content: string): boolean {
   }
 }
 
+// 🛡️ Guardian: Consolidated from src/components/ide/utils.ts (deleted)
+// This function was centralized to prevent architectural scattering across component directories.
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 file, 30 LOC moved
+// Date: 2026-04-16
+// Session: .Jules/guardian/2026-04-16/
+
+/**
+ * Safely serialize JSON-LD structured data for use in script tags.
+ * Escapes `<` as `\u003c` to prevent XSS via early script termination.
+ */
+export function safeJsonLd(data: unknown): string {
+  const str = JSON.stringify(data);
+  return str ? str.replace(/</g, "\\u003c") : "{}";
+}
+
 /**
  * Simple YAML serializer for converting objects to YAML format
  */

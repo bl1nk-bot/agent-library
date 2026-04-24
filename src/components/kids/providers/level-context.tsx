@@ -45,16 +45,18 @@ export function LevelProvider({
 
   // Update if initialSlug changes
   useEffect(() => {
-    if (initialSlug) {
-      setLevelSlug(initialSlug);
+    if (initialSlug && initialSlug !== levelSlug) {
+      Promise.resolve().then(() => setLevelSlug(initialSlug));
     }
-  }, [initialSlug]);
+  }, [initialSlug, levelSlug]);
 
   // Reset section progress when level changes
   useEffect(() => {
-    setCurrentSection(0);
-    setCompletedSections(new Set());
-    setSectionsWithRequirements(new Set());
+    Promise.resolve().then(() => {
+      setCurrentSection(0);
+      setCompletedSections(new Set());
+      setSectionsWithRequirements(new Set());
+    });
   }, [levelSlug]);
 
   const markSectionComplete = useCallback((section: number) => {

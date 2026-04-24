@@ -145,9 +145,10 @@ AVAILABLE CATEGORIES (use exact names with set_category):
 ${categoryNames || "(none)"}`;
 
       // Build system message with current state context
+      const tagMapById = new Map(availableTags.map(t => [t.id, t]));
       const hasContent = currentState.title || currentState.content || currentState.description;
       const selectedTagNames = currentState.tagIds
-        .map((id) => availableTags.find((t) => t.id === id)?.name)
+        .map(id => tagMapById.get(id)?.name)
         .filter(Boolean)
         .join(", ");
       const selectedCategoryName = availableCategories.find(

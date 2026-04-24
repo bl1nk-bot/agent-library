@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { PixelRobot } from "@/components/kids/elements/pixel-art";
+import { safeJsonLd } from "@/lib/format";
 
 const kidsFont = Schoolbell({
   subsets: ["latin"],
@@ -135,7 +136,7 @@ export default function BookHomePage() {
       {/* JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <div className="max-w-2xl">
         {/* Book Cover Image */}

@@ -16,7 +16,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
@@ -128,11 +127,27 @@ export function ApiKeySettings({ initialApiKey, initialPublicByDefault }: ApiKey
                 <code className="bg-muted flex-1 overflow-hidden rounded-md px-3 py-2 font-mono text-sm text-ellipsis">
                   {showKey ? apiKey : maskedKey}
                 </code>
-                <Button variant="outline" size="icon" onClick={() => setShowKey(!showKey)}>
-                  {showKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setShowKey(!showKey)}
+                  aria-label={showKey ? t("hideKey") : t("showKey")}
+                  title={showKey ? t("hideKey") : t("showKey")}
+                >
+                  {showKey ? (
+                    <EyeOff className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-4 w-4" aria-hidden="true" />
+                  )}
                 </Button>
-                <Button variant="outline" size="icon" onClick={copyToClipboard}>
-                  <Copy className="h-4 w-4" />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={copyToClipboard}
+                  aria-label={t("copyKey")}
+                  title={t("copyKey")}
+                >
+                  <Copy className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
               <p className="text-muted-foreground text-xs">{t("keyWarning")}</p>

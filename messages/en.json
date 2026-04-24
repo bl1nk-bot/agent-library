@@ -1262,7 +1262,10 @@
     "keyRevoked": "API key revoked",
     "publicByDefault": "Public prompts by default",
     "publicByDefaultDescription": "When saving prompts via MCP, make them public by default instead of private.",
-    "settingUpdated": "Setting updated"
+    "settingUpdated": "Setting updated",
+    "hideKey": "Hide API Key",
+    "showKey": "Show API Key",
+    "copyKey": "Copy API Key"
   },
   "connectedPrompts": {
     "title": "Prompt Flow",

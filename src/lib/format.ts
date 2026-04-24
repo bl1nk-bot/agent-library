@@ -24,6 +24,15 @@ export function isValidJson(content: string): boolean {
 }
 
 /**
+ * Safely serialize JSON-LD structured data for use in script tags.
+ * Escapes `<` as `\u003c` to prevent XSS via early script termination.
+ */
+export function safeJsonLd(data: unknown): string {
+  const str = JSON.stringify(data);
+  return str ? str.replace(/</g, '\\u003c') : '{}';
+}
+
+/**
  * Simple YAML serializer for converting objects to YAML format
  */
 export function toYaml(obj: unknown, indent = 0): string {

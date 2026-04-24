@@ -6,12 +6,14 @@ on:
   pull_request:
     types: [opened]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   add-to-project:
     name: Add to Project
-    if: vars.PROJECT_URL != ''
     runs-on: ubuntu-latest
-    if: vars.PROJECT_URL != ''
+    if: vars.PROJECT_URL != '' && secrets.ADD_TO_PROJECT_PAT != ''
     steps:
       - uses: actions/add-to-project@v1.0.2
         with:

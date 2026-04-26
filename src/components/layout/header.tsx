@@ -141,9 +141,8 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
             <Button asChild variant="ghost" size="icon" className="-ml-2 h-8 w-8">
-              <button>
-                <Menu className="h-4 w-4" />
-                <span className="sr-only">Toggle menu</span>
+              <button aria-label="Toggle menu">
+                <Menu className="h-4 w-4" aria-hidden="true" />
               </button>
             </Button>
           </SheetTrigger>
@@ -395,9 +394,8 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button asChild variant="ghost" size="icon" className="h-8 w-8 2xl:hidden">
-                <button>
-                  <MoreHorizontal className="h-4 w-4" />
-                  <span className="sr-only">{t("nav.more")}</span>
+                <button aria-label={t("nav.more")}>
+                  <MoreHorizontal className="h-4 w-4" aria-hidden="true" />
                 </button>
               </Button>
             </DropdownMenuTrigger>
@@ -506,15 +504,15 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           {/* Theme toggle */}
           <Button asChild variant="ghost" size="icon" className="h-8 w-8">
             <button
+              aria-label="Toggle theme"
               onClick={() => {
                 const newTheme = theme === "dark" ? "light" : "dark";
                 analyticsSettings.changeTheme(newTheme);
                 setTheme(newTheme);
               }}
             >
-              <Sun className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-              <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-              <span className="sr-only">Toggle theme</span>
+              <Sun className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" aria-hidden="true" />
+              <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" aria-hidden="true" />
             </button>
           </Button>
 
@@ -602,8 +600,8 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                    <button>
-                      <Globe className="h-4 w-4" />
+                    <button aria-label={t("settings.language")}>
+                      <Globe className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </Button>
                 </DropdownMenuTrigger>

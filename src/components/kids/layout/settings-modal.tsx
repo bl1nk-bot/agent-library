@@ -58,6 +58,7 @@ const smallPixelClipPath =
 
 function SettingsModal({ onClose }: { onClose: () => void }) {
   const t = useTranslations("kids.settings");
+  const tCommon = useTranslations("common");
   const currentLocale = useLocale();
   const router = useRouter();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -107,8 +108,10 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           className="absolute top-3 right-3 p-2 text-[#8B4513] hover:bg-[#8B4513]/10"
           style={{ clipPath: smallPixelClipPath }}
+          aria-label={tCommon("close")}
+          title={tCommon("close")}
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5" aria-hidden="true" />
         </button>
 
         {/* Title */}

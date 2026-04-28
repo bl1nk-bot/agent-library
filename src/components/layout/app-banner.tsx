@@ -43,16 +43,14 @@ export function AppBanner() {
   const branding = useBranding();
   const searchParams = useSearchParams();
   const [isVisible, setIsVisible] = useState(false);
-  const [isApple, setIsApple] = useState(
-    typeof window !== "undefined" ? isAppleDevice() : false
-  );
-  
+  const [isApple, setIsApple] = useState(typeof window !== "undefined" ? isAppleDevice() : false);
+
   const hideViaQuery = searchParams?.has("no-app-banner");
 
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY);
     const isAppleUser = isAppleDevice();
-    
+
     if (isApple !== isAppleUser || (isAppleUser && !dismissed && !isVisible)) {
       Promise.resolve().then(() => {
         setIsApple(isAppleUser);

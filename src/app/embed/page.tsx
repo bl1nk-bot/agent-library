@@ -152,20 +152,17 @@ function EmbedContent() {
     return `rgba(59, 130, 246, ${alpha})`;
   };
 
-  const escapeHtml = (text: string): string => {
-    const htmlEscapes: Record<string, string> = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-    return text.replace(/[&<>"']/g, (char) => htmlEscapes[char]);
-  };
-
   const highlightMentions = (text: string) => {
-    const escaped = escapeHtml(text);
-    return escaped.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
+    return text.split(/(@\w+)/g).map((part, index) => {
+      if (part.match(/^@\w+$/)) {
+        return (
+          <span key={index} className="mention">
+            {part}
+          </span>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
   };
 
   const renderContextPill = (context: string) => {
@@ -568,8 +565,9 @@ function EmbedContent() {
               <p
                 className="text-sm whitespace-pre-wrap"
                 style={{ color: isDark ? "#fafafa" : "#0f172a" }}
-                dangerouslySetInnerHTML={{ __html: highlightMentions(config.prompt) }}
-              />
+              >
+                {highlightMentions(config.prompt)}
+              </p>
             ) : (
               <p className="text-sm italic" style={{ color: isDark ? "#a3a3a3" : "#64748b" }}>
                 Enter your prompt in the designer...

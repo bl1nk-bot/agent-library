@@ -67,7 +67,10 @@ export function ErrorState({
           )}
 
           {showBackButton && (
-            <Button variant={primaryAction || showHomeButton ? "ghost" : "default"} onClick={() => router.back()}>
+            <Button
+              variant={primaryAction || showHomeButton ? "ghost" : "default"}
+              onClick={() => router.back()}
+            >
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t("goBack")}
             </Button>

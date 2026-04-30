@@ -1,4 +1,5 @@
 ## 2026-04-30 - Consolidate error and not-found states
+
 **Target:** src/app/error.tsx src/app/not-found.tsx
 **Learning:** Found significant duplication between error.tsx and not-found.tsx states which can be unified into a generic ErrorState component.
 **Action:** Extract a common `ErrorState` layout component and a `HelpfulLinks` component in `src/components/ui/error-state` for reuse across error pages.

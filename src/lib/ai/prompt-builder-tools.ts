@@ -487,13 +487,18 @@ export async function executeToolCall(
       }
 
       newState.tagIds = matchedTagIds;
+
+      // ⚡ Bolt Optimization: Pre-compute lowercase matched names as a Set
+      // to avoid O(N*M) array creation and lookup inside the filter loop.
+      const matchedNamesLowerSet = new Set(matchedNames.map((m) => m.toLowerCase()));
+
       return {
         result: {
           success: true,
           data: {
             appliedTags: matchedNames,
             notFound: tagNames.filter(
-              (n) => !matchedNames.map((m) => m.toLowerCase()).includes(n.toLowerCase())
+              (n) => !matchedNamesLowerSet.has(n.toLowerCase())
             ),
           },
         },

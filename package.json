@@ -124,7 +124,7 @@
     "picocolors": "^1.1.1",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.0.0-insiders.f7d2598",
-    "prisma": "^6.19.1",
+    "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "to-ico": "^1.1.5",
     "tsx": "^4.21.0",

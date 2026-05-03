@@ -1,0 +1,3 @@
+## 2025-05-03 - Accessible Tooltips for Hidden Controls
+**Learning:** Tooltips that are revealed via `group-hover:opacity-100` are inaccessible to keyboard users unless they also include `group-focus-visible:opacity-100`. Furthermore, interactive elements (like custom Sidebar navigation links and buttons) need explicit `focus-visible` styling to provide clear visual feedback during keyboard navigation.
+**Action:** When adding hover-based reveals for tooltips or controls, always pair them with `:focus-visible` states (e.g., `group-focus-visible:opacity-100`) and ensure the parent interactive element has clear focus rings (e.g., `focus-visible:ring-2`).

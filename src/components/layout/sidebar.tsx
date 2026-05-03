@@ -60,15 +60,15 @@ export function Sidebar() {
               href={item.href}
               aria-label={item.label}
               className={cn(
-                "group relative flex items-center justify-center rounded-md p-3 transition-all duration-300",
+                "group relative flex items-center justify-center rounded-md p-3 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50",
                 isActive
                   ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                   : "text-white/40 hover:bg-white/5 hover:text-white"
               )}
             >
-              <item.icon size={20} />
+              <item.icon size={20} aria-hidden="true" />
               {/* Tooltip on Hover */}
-              <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+              <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                 {item.label}
               </span>
             </Link>
@@ -80,11 +80,11 @@ export function Sidebar() {
       <div className="mt-auto flex w-full flex-col items-center gap-3 px-4">
         <button
           onClick={toggleLanguage}
-          className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white"
+          className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label="Toggle Language"
         >
-          <Globe size={20} />
-          <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+          <Globe size={20} aria-hidden="true" />
+          <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
             Toggle EN/TH
           </span>
         </button>
@@ -106,7 +106,7 @@ export function Sidebar() {
                   : "opacity-30"
               )}
             />
-            <span className="pointer-events-none absolute top-1/2 left-10 z-50 -translate-y-1/2 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+            <span className="pointer-events-none absolute top-1/2 left-10 z-50 -translate-y-1/2 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
               {agent.name}: {agent.status.toUpperCase()}
             </span>
           </div>

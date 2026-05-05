@@ -170,7 +170,7 @@ export function MusicButton() {
     }
   }, [context, localPlaying]);
 
-  const labelText = isPlaying ? (t("muteMusic") || "Mute music") : (t("playMusic") || "Play music");
+  const labelText = isPlaying ? t("muteMusic") || "Mute music" : t("playMusic") || "Play music";
 
   return (
     <button

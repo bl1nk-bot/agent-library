@@ -30,6 +30,7 @@ const SUPPORTED_LOCALES = [
 ];
 
 export function SettingsButton() {
+  const t = useTranslations("kids.settings");
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,9 +41,10 @@ export function SettingsButton() {
           analyticsKids.openSettings();
         }}
         className="pixel-btn pixel-btn-purple flex h-8 items-center px-3 py-1.5 text-sm"
-        aria-label="Settings"
+        aria-label={t("title") || "Settings"}
+        title={t("title") || "Settings"}
       >
-        <PixelSettingsIcon />
+        <PixelSettingsIcon aria-hidden="true" />
       </button>
 
       {isOpen && <SettingsModal onClose={() => setIsOpen(false)} />}
@@ -107,8 +109,10 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           className="absolute top-3 right-3 p-2 text-[#8B4513] hover:bg-[#8B4513]/10"
           style={{ clipPath: smallPixelClipPath }}
+          aria-label={t("close") || "Close settings"}
+          title={t("close") || "Close settings"}
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5" aria-hidden="true" />
         </button>
 
         {/* Title */}
@@ -241,9 +245,9 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
 }
 
 // Pixel art settings/gear icon
-function PixelSettingsIcon() {
+function PixelSettingsIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }} {...props}>
       <rect x="6" y="0" width="4" height="2" fill="currentColor" />
       <rect x="6" y="14" width="4" height="2" fill="currentColor" />
       <rect x="0" y="6" width="2" height="4" fill="currentColor" />

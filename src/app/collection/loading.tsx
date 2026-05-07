@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { PromptGridSkeleton } from "@/components/prompts/prompt-grid-skeleton";
 
 export default function CollectionLoading() {
   return (
@@ -10,19 +11,7 @@ export default function CollectionLoading() {
       </div>
 
       {/* Collection Items */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="space-y-3 rounded-lg border p-4">
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-6 w-6 rounded-full" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-            <Skeleton className="h-5 w-3/4" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-2/3" />
-          </div>
-        ))}
-      </div>
+      <PromptGridSkeleton />
     </div>
   );
 }

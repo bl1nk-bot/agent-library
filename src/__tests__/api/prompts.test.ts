@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { GET, POST } from "@/app/api/prompts/route";
 import { db } from "@/lib/db";
@@ -76,7 +77,7 @@ describe("GET /api/prompts", () => {
     vi.mocked(db.prompt.findMany).mockResolvedValue(mockPrompts as never);
     vi.mocked(db.prompt.count).mockResolvedValue(1);
 
-    const request = new Request("http://localhost:3000/api/prompts?page=1&perPage=24");
+    const request = new NextRequest("http://localhost:3000/api/prompts?page=1&perPage=24");
     const response = await GET(request);
     const data = await response.json();
 
@@ -91,7 +92,7 @@ describe("GET /api/prompts", () => {
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
     vi.mocked(db.prompt.count).mockResolvedValue(0);
 
-    const request = new Request("http://localhost:3000/api/prompts?type=IMAGE");
+    const request = new NextRequest("http://localhost:3000/api/prompts?type=IMAGE");
     await GET(request);
 
     expect(db.prompt.findMany).toHaveBeenCalledWith(
@@ -105,7 +106,7 @@ describe("GET /api/prompts", () => {
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
     vi.mocked(db.prompt.count).mockResolvedValue(0);
 
-    const request = new Request("http://localhost:3000/api/prompts?category=cat-123");
+    const request = new NextRequest("http://localhost:3000/api/prompts?category=cat-123");
     await GET(request);
 
     expect(db.prompt.findMany).toHaveBeenCalledWith(
@@ -119,7 +120,7 @@ describe("GET /api/prompts", () => {
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
     vi.mocked(db.prompt.count).mockResolvedValue(0);
 
-    const request = new Request("http://localhost:3000/api/prompts?q=test");
+    const request = new NextRequest("http://localhost:3000/api/prompts?q=test");
     await GET(request);
 
     expect(db.prompt.findMany).toHaveBeenCalledWith(
@@ -135,7 +136,7 @@ describe("GET /api/prompts", () => {
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
     vi.mocked(db.prompt.count).mockResolvedValue(0);
 
-    const request = new Request("http://localhost:3000/api/prompts?sort=upvotes");
+    const request = new NextRequest("http://localhost:3000/api/prompts?sort=upvotes");
     await GET(request);
 
     expect(db.prompt.findMany).toHaveBeenCalledWith(
@@ -148,7 +149,7 @@ describe("GET /api/prompts", () => {
   it("should handle database errors", async () => {
     vi.mocked(db.prompt.findMany).mockRejectedValue(new Error("DB Error"));
 
-    const request = new Request("http://localhost:3000/api/prompts");
+    const request = new NextRequest("http://localhost:3000/api/prompts");
     const response = await GET(request);
     const data = await response.json();
 
@@ -177,7 +178,7 @@ describe("POST /api/prompts", () => {
   it("should return 401 if not authenticated", async () => {
     vi.mocked(auth).mockResolvedValue(null);
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify(validPromptData),
     });
@@ -192,7 +193,7 @@ describe("POST /api/prompts", () => {
   it("should return 400 for invalid input", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify({ title: "" }), // Missing required fields
     });
@@ -208,7 +209,7 @@ describe("POST /api/prompts", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.prompt.findFirst).mockResolvedValue({ id: "recent" } as never);
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify(validPromptData),
     });
@@ -226,7 +227,7 @@ describe("POST /api/prompts", () => {
       .mockResolvedValueOnce(null) // Rate limit check
       .mockResolvedValueOnce({ id: "existing", slug: "existing-prompt", title: "Test" } as never); // Duplicate check
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify(validPromptData),
     });
@@ -254,7 +255,7 @@ describe("POST /api/prompts", () => {
     } as never);
     vi.mocked(db.promptVersion.create).mockResolvedValue({} as never);
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify(validPromptData),
     });
@@ -273,7 +274,7 @@ describe("POST /api/prompts", () => {
     vi.mocked(db.user.findUnique).mockResolvedValue({ flagged: true } as never);
     vi.mocked(db.prompt.count).mockResolvedValue(5); // Already at limit
 
-    const request = new Request("http://localhost:3000/api/prompts", {
+    const request = new NextRequest("http://localhost:3000/api/prompts", {
       method: "POST",
       body: JSON.stringify(validPromptData),
     });

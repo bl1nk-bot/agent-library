@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "@/app/api/auth/register/route";
 import { db } from "@/lib/db";
@@ -24,7 +25,7 @@ vi.mock("bcryptjs", () => ({
 }));
 
 function createRequest(body: object): Request {
-  return new Request("http://localhost:3000/api/auth/register", {
+  return new NextRequest("http://localhost:3000/api/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -299,7 +300,7 @@ describe("POST /api/auth/register", () => {
     });
 
     it("should return 500 on invalid JSON body", async () => {
-      const request = new Request("http://localhost:3000/api/auth/register", {
+      const request = new NextRequest("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: "invalid json",

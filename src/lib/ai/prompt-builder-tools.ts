@@ -487,14 +487,16 @@ export async function executeToolCall(
       }
 
       newState.tagIds = matchedTagIds;
+
+      // ⚡ Bolt: Optimize to O(N) by using a Set to avoid O(M) `.includes` inside the loop
+      const matchedLower = new Set(matchedNames.map((m) => m.toLowerCase()));
+
       return {
         result: {
           success: true,
           data: {
             appliedTags: matchedNames,
-            notFound: tagNames.filter(
-              (n) => !matchedNames.map((m) => m.toLowerCase()).includes(n.toLowerCase())
-            ),
+            notFound: tagNames.filter((n) => !matchedLower.has(n.toLowerCase())),
           },
         },
         newState,

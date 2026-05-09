@@ -1,4 +1,6 @@
 import NextAuth from "next-auth";
+import type { Session as AuthSession, User as AuthUser } from "next-auth";
+import type { JWT as AuthJWT } from "next-auth/jwt";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { getConfig } from "@/lib/config";
@@ -43,10 +45,8 @@ function CustomPrismaAdapter(): Adapter {
     ...prismaAdapter,
     async createUser(data: AdapterUser & { username?: string; githubUsername?: string }) {
       // Use GitHub username if provided, otherwise generate one
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let username = (data as any).username;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const githubUsername = (data as any).githubUsername; // Immutable GitHub username
+      let username = data.username;
+      const githubUsername = data.githubUsername; // Immutable GitHub username
       
       if (!username) {
         username = await generateUsername(data.email, data.name);
@@ -154,8 +154,7 @@ async function buildAuthConfig() {
       error: "/login",
     },
     callbacks: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      async jwt({ token, user, trigger }: { token: any; user?: any; trigger?: string }) {
+      async jwt({ token, user, trigger }: { token: AuthJWT; user?: AuthUser; trigger?: string }) {
         // On sign in, look up the actual database user by email to ensure correct ID
         if (user && user.email) {
           const dbUser = await db.user.findUnique({
@@ -197,8 +196,7 @@ async function buildAuthConfig() {
 
         return token;
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      async session({ session, token }: { session: any; token: any }) {
+      async session({ session, token }: { session: AuthSession; token: AuthJWT }) {
         // If token is null/invalid, return empty session
         if (!token) {
           return { ...session, user: undefined };

@@ -6,6 +6,7 @@ coverage
 public
 prisma/generated
 package-lock.json
-pnpm-lock.yaml
 *.min.js
 *.min.css
+pnpm-lock.yaml
+.jules/sentinel.md

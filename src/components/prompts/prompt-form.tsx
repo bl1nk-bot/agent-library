@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, Upload, X, ArrowDown, Play, Image as ImageIcon, Video, Volume2, Paperclip, Search, Sparkles, BookOpen, ExternalLink, ChevronDown, Settings2 } from "lucide-react";
+import { Loader2, Upload, X, ArrowDown, Image as ImageIcon, Video, Volume2, Paperclip, Search, Sparkles, BookOpen, ExternalLink, ChevronDown, Settings2 } from "lucide-react";
 import Link from "next/link";
 import { VariableToolbar } from "./variable-toolbar";
 import { VariableWarning } from "./variable-warning";
@@ -21,22 +21,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import {
-  parseSkillFiles,
-  serializeSkillFiles,
-  getLanguageFromFilename,
-  validateFilename,
-  suggestFilename,
   generateSkillContentWithFrontmatter,
   updateSkillFrontmatter,
   validateSkillFrontmatter,
-  DEFAULT_SKILL_FILE,
-  DEFAULT_SKILL_CONTENT,
-  type SkillFile,
 } from "@/lib/skill-files";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,

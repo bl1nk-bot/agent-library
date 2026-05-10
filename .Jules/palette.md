@@ -1,3 +1,4 @@
 ## 2026-05-10 - Missing ARIA Labels on Icon-only Buttons
+
 **Learning:** Custom UI components (like `Button variant="ghost" size="icon"`) often lack `aria-label` properties, especially in developer tools or admin tables. Because developers rely on icons (like Lucide React) for visual meaning, they forget that screen readers require explicit text. Even when standard components are used, combining an icon size prop without passing a label causes widespread accessibility issues.
 **Action:** When implementing or reviewing icon-only buttons (especially variants like ghost/icon), ensure that an `aria-label` attribute (localized via `next-intl`) is passed, and that the inner icon is wrapped or given `aria-hidden="true"`. Also apply a `title` attribute so sighted users can see a tooltip.

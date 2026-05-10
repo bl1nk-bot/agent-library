@@ -1442,6 +1442,8 @@
     "reset": "Reset",
     "promptTokenizer": "Tokenizer",
     "tokenizer": {
+      "deleteHistory": "Delete from history",
+      "clearText": "Clear text",
       "inputText": "Input Text",
       "placeholder": "Paste your prompt or text here to analyze tokens...",
       "analysis": "Token Analysis",

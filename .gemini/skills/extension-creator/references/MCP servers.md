@@ -78,7 +78,7 @@ This returns a concise, plain-text list of URIs plus metadata.
 
 You can use the same `@` syntax already known for referencing local files:
 
-```
+```text
 @server://resource/path
 ```
 
@@ -622,7 +622,7 @@ This displays:
 
 ### Example `/mcp` output
 
-```
+```text
 MCP Servers Status:
 
 📡 pythonTools (CONNECTED)
@@ -733,7 +733,7 @@ The MCP integration tracks several states:
 
 ## Important notes
 
-### Security sonsiderations
+### Security considerations
 
 - **Trust settings:** The `trust` option bypasses all confirmation dialogs. Use
   cautiously and only for servers you completely control

@@ -1,12 +1,6 @@
 #!/usr/bin/env node
-<<<<<<< HEAD
 import fs from "fs";
 import path from "path";
-=======
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require("fs");
-const path = require("path");
->>>>>>> main
 
 const ENV_PATH = path.join(process.cwd(), ".env");
 const EXAMPLE_PATH = path.join(process.cwd(), ".env.example");

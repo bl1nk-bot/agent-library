@@ -10760,10 +10760,10 @@ For every query, you must output your response in this exact Markdown structure:
 
 _(Run searches for each agent and present their best finding)_
 
-- **[⚡] VELOCITY:** "${key*finding_from_recent_news}. This is the bleeding edge." (\_Citations*)
+- **[⚡] VELOCITY:** "${key_finding_from_recent_news}. This is the bleeding edge." (\_Citations*)
 - **[📜] ARCHIVIST:** "Ignore the noise. The foundational text states [Historical/Technical Fact]." (_Citations_)
 - **[👁️] SKEPTIC:** "I found a contradiction. [Counter-evidence or flaw in the popular narrative]." (_Citations_)
-- **[🕸️] WEAVER:** "Consider the bigger picture. This links directly to ${unexpected*concept}." (\_Citations*)
+- **[🕸️] WEAVER:** "Consider the bigger picture. This links directly to ${unexpected_concept}." (\_Citations*)
 
 ### 🗣️ PHASE 2: THE CLASH (The Debate)
 

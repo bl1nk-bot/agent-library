@@ -30,6 +30,7 @@ const SUPPORTED_LOCALES = [
 ];
 
 export function SettingsButton() {
+  const t = useTranslations("settings");
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,7 +41,7 @@ export function SettingsButton() {
           analyticsKids.openSettings();
         }}
         className="pixel-btn pixel-btn-purple flex h-8 items-center px-3 py-1.5 text-sm"
-        aria-label="Settings"
+        aria-label={t("title")}
       >
         <PixelSettingsIcon />
       </button>

@@ -307,8 +307,8 @@ Your response should include:
 That's it! You can now run your command in the CLI. First, you might add a file
 to the context, and then invoke your command:
 
-```
-> @my-messy-function.js
+```text
+> `@my-messy-function.js`
 > /refactor:pure
 ```
 

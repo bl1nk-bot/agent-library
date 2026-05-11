@@ -41,7 +41,7 @@ installed on your machine. See
 [git installation instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 for help.
 
-```
+```bash
 gemini extensions install <source> [--ref <ref>] [--auto-update] [--pre-release] [--consent]
 ```
 
@@ -57,7 +57,7 @@ gemini extensions install <source> [--ref <ref>] [--auto-update] [--pre-release]
 To uninstall one or more extensions, run
 `gemini extensions uninstall <name...>`:
 
-```
+```bash
 gemini extensions uninstall gemini-cli-security gemini-cli-another-extension
 ```
 
@@ -66,7 +66,7 @@ gemini extensions uninstall gemini-cli-security gemini-cli-another-extension
 Extensions are, by default, enabled across all workspaces. You can disable an
 extension entirely or for specific workspace.
 
-```
+```bash
 gemini extensions disable <name> [--scope <scope>]
 ```
 
@@ -79,7 +79,7 @@ You can enable extensions using `gemini extensions enable <name>`. You can also
 enable an extension for a specific workspace using
 `gemini extensions enable <name> --scope=workspace` from within that workspace.
 
-```
+```bash
 gemini extensions enable <name> [--scope <scope>]
 ```
 
@@ -94,7 +94,7 @@ explicitly update to the latest version (as reflected in the
 
 You can update all extensions with:
 
-```
+```bash
 gemini extensions update --all
 ```
 
@@ -102,12 +102,12 @@ gemini extensions update --all
 
 We offer several example extensions `context`, `custom-commands`,
 `exclude-tools` and `mcp-server`. You can view these examples
-[here](https://github.com/google-gemini/gemini-cli/tree/main/packages/cli/src/commands/extensions/examples).
+[extension examples in the Gemini CLI repo](https://github.com/google-gemini/gemini-cli/tree/main/packages/cli/src/commands/extensions/examples).
 
 To copy one of these examples into a development directory using the type of
 your choosing, run:
 
-```
+```bash
 gemini extensions new <path> [template]
 ```
 
@@ -122,7 +122,7 @@ extension installation directory to the development path.
 This is useful so you don't have to run `gemini extensions update` every time
 you make changes you'd like to test.
 
-```
+```bash
 gemini extensions link <path>
 ```
 
@@ -225,13 +225,13 @@ key. The value will be saved to a `.env` file in the extension's directory
 
 You can view a list of an extension's settings by running:
 
-```
+```bash
 gemini extensions list
 ```
 
 and you can update a given setting using:
 
-```
+```bash
 gemini extensions config <extension name> [setting name] [--scope <scope>]
 ```
 

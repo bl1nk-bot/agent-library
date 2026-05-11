@@ -8,12 +8,16 @@
  * Usage: node scripts/setup.js
  */
 
-const fs = require("fs");
-const path = require("path");
-const crypto = require("crypto");
-const { execSync, spawn } = require("child_process");
-const p = require("@clack/prompts");
-const color = require("picocolors");
+import fs from "fs";
+import path from "path";
+import crypto from "crypto";
+import { execSync, spawn } from "child_process";
+import * as p from "@clack/prompts";
+import color from "picocolors";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const CONFIG_FILE = path.join(__dirname, "..", "prompts.config.ts");
 const ENV_FILE = path.join(__dirname, "..", ".env");

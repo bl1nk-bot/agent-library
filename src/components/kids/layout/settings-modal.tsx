@@ -107,8 +107,9 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           className="absolute top-3 right-3 p-2 text-[#8B4513] hover:bg-[#8B4513]/10"
           style={{ clipPath: smallPixelClipPath }}
+          aria-label={t("close")}
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5" aria-hidden="true" />
         </button>
 
         {/* Title */}

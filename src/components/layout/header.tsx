@@ -468,18 +468,20 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
 
           {/* Developers link */}
           <Button asChild variant="ghost" size="icon" className="hidden h-8 w-8 2xl:flex">
-            <Link href="/developers" title={t("nav.developers")}>
-              <Hammer className="h-4 w-4" />
-              <span className="sr-only">{t("nav.developers")}</span>
+            <Link href="/developers" aria-label={t("nav.developers")} title={t("nav.developers")}>
+              <Hammer className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
 
           {/* Create prompt button */}
           {user && (
             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-              <Link href="/prompts/new">
-                <Plus className="h-4 w-4" />
-                <span className="sr-only">{t("prompts.create")}</span>
+              <Link
+                href="/prompts/new"
+                aria-label={t("prompts.create")}
+                title={t("prompts.create")}
+              >
+                <Plus className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
           )}
@@ -494,9 +496,10 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => analyticsExternal.clickChromeExtension()}
+                aria-label="Get Chrome Extension"
+                title="Get Chrome Extension"
               >
-                <Chromium className="h-4 w-4" />
-                <span className="sr-only">Get Chrome Extension</span>
+                <Chromium className="h-4 w-4" aria-hidden="true" />
               </a>
             </Button>
           )}
@@ -512,8 +515,14 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               aria-label="Toggle theme"
               title="Toggle theme"
             >
-              <Sun className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" aria-hidden="true" />
-              <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" aria-hidden="true" />
+              <Sun
+                className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
+                aria-hidden="true"
+              />
+              <Moon
+                className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
+                aria-hidden="true"
+              />
             </button>
           </Button>
 
@@ -601,7 +610,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                    <button aria-label={t("settings.language")} title={t("settings.language")}>
+                    <button aria-label="Toggle Language" title="Toggle Language">
                       <Globe className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </Button>

@@ -12,14 +12,22 @@ export async function register() {
   }
 }
 
-export const onRequestError = async (request: Request, error: Error) => {
+interface RequestErrorMetadata {
+  url?: string;
+  method?: string;
+}
+
+export const onRequestError = async (
+  error: Error,
+  request: RequestErrorMetadata,
+  _context: unknown,
+) => {
   try {
     const Sentry = await import("@sentry/nextjs");
-    Sentry.captureRequestError(error, {
-      request: {
-        url: request.url,
-        method: request.method,
-        headers: request.headers as Record<string, string>,
+    Sentry.captureException(error, {
+      extra: {
+        url: request?.url,
+        method: request?.method,
       },
     });
   } catch {

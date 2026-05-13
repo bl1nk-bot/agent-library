@@ -186,7 +186,7 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
 
   return (
     <div
-      className={`group hover:border-foreground/20 flex flex-col overflow-hidden rounded-[var(--radius)] border transition-colors ${hasMediaBackground || isAudio ? "" : "p-4"}`}
+      className={`hover:border-foreground/20 group flex flex-col overflow-hidden rounded-[var(--radius)] border transition-colors ${hasMediaBackground || isAudio ? "" : "p-4"}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -221,7 +221,7 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
           )}
           <div className="from-background via-background/30 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
           {/* Badges overlay */}
-          <div className="absolute top-2 right-2 flex items-center gap-1.5">
+          <div className="absolute right-2 top-2 flex items-center gap-1.5">
             {isFlowStart && (
               <div className="bg-background/80 flex items-center gap-0.5 rounded px-1.5 py-0.5 backdrop-blur-sm">
                 <Link2 className="text-muted-foreground h-3 w-3" />
@@ -305,13 +305,13 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
             />
           ) : (
             <pre
-              className={`text-muted-foreground bg-muted h-full overflow-hidden rounded p-2 font-mono text-xs break-words whitespace-pre-wrap ${hasMediaBackground ? "line-clamp-2" : "line-clamp-4"}`}
+              className={`text-muted-foreground bg-muted h-full overflow-hidden whitespace-pre-wrap break-words rounded p-2 font-mono text-xs ${hasMediaBackground ? "line-clamp-2" : "line-clamp-4"}`}
             >
               {contentHasVariables ? renderContentWithVariables(prompt.content) : prompt.content}
             </pre>
           )}
           {showPinButton && (
-            <div className="absolute top-1.5 right-1.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+            <div className="absolute right-1.5 top-1.5 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
               <PinButton promptId={prompt.id} initialPinned={isPinned} iconOnly />
             </div>
           )}
@@ -404,23 +404,31 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
               <ArrowBigUp className="h-3.5 w-3.5" />
               {prompt.voteCount}
             </span>
-            <button onClick={handleCopyClick} className="hover:bg-accent rounded p-1">
-              <Copy className="h-3 w-3" />
+            <button
+              onClick={handleCopyClick}
+              className="hover:bg-accent rounded p-1"
+              aria-label={tCommon("copy")}
+              title={tCommon("copy")}
+            >
+              <Copy className="h-3 w-3" aria-hidden="true" />
             </button>
             {prompt.type === "SKILL" ? (
               <button
                 onClick={handleDownloadSkill}
                 className="hover:bg-accent flex h-6 w-6 items-center justify-center rounded"
                 title={t("download")}
+                aria-label={t("download")}
               >
-                <Download className="h-3.5 w-3.5" />
+                <Download className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             ) : contentHasVariables ? (
               <button
                 onClick={handleRunClick}
                 className="hover:bg-accent flex h-6 w-6 items-center justify-center rounded"
+                aria-label={tCommon("run")}
+                title={tCommon("run")}
               >
-                <Play className="h-4 w-4" />
+                <Play className="h-4 w-4" aria-hidden="true" />
               </button>
             ) : (
               <RunPromptButton

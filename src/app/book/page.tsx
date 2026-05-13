@@ -134,10 +134,7 @@ export default function BookHomePage() {
   return (
     <>
       {/* JSON-LD structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
       <div className="max-w-2xl">
         {/* Book Cover Image */}
         <div className="mb-10">

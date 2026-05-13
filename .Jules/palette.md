@@ -1,4 +1,4 @@
-## 2026-04-27 - Add ARIA labels and hide decorative icons in icon-only buttons
+## 2025-05-03 - Accessible Tooltips for Hidden Controls
 
-**Learning:** For icon-only buttons, applying `aria-label` to the button is necessary for screen readers, but the inner SVG icon must also include `aria-hidden="true"` to prevent redundant or confusing announcements.
-**Action:** Always pair an `aria-label` on an icon-only `<button>` with an `aria-hidden="true"` attribute on its inner `<svg>` or `<LucideIcon>`.
+**Learning:** Tooltips that are revealed via `group-hover:opacity-100` are inaccessible to keyboard users unless they also include `group-focus-visible:opacity-100`. Furthermore, interactive elements (like custom Sidebar navigation links and buttons) need explicit `focus-visible` styling to provide clear visual feedback during keyboard navigation.
+**Action:** When adding hover-based reveals for tooltips or controls, always pair them with `:focus-visible` states (e.g., `group-focus-visible:opacity-100`) and ensure the parent interactive element has clear focus rings (e.g., `focus-visible:ring-2`).

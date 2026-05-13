@@ -12,7 +12,16 @@ export async function register() {
   }
 }
 
-export const onRequestError = async (error: Error, request: any, context: any) => {
+interface RequestErrorMetadata {
+  url?: string;
+  method?: string;
+}
+
+export const onRequestError = async (
+  error: Error,
+  request: RequestErrorMetadata,
+  _context: unknown,
+) => {
   try {
     const Sentry = await import("@sentry/nextjs");
     Sentry.captureException(error, {

@@ -60,7 +60,6 @@ const smallPixelClipPath =
 
 function SettingsModal({ onClose }: { onClose: () => void }) {
   const t = useTranslations("kids.settings");
-  const tCommon = useTranslations("common");
   const currentLocale = useLocale();
   const router = useRouter();
   const [showResetConfirm, setShowResetConfirm] = useState(false);

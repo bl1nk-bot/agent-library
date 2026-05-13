@@ -80,21 +80,14 @@ export function KidsHeader() {
           <div className="hidden items-center gap-2 sm:flex">
             <MusicButton />
             <SettingsButton />
-            <a
-              href="/kids"
-              className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm"
-              aria-label={t("header.home")}
-              title={t("header.home")}
-            >
-              <PixelHomeIcon aria-hidden="true" />
+            <a href="/kids" className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm">
+              <PixelHomeIcon />
             </a>
             <Link
               href="/kids/map"
               className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm"
-              aria-label={t("level.map")}
-              title={t("level.map")}
             >
-              <PixelMapIcon aria-hidden="true" />
+              <PixelMapIcon />
             </Link>
             {/* Back to main site */}
             <a
@@ -110,10 +103,9 @@ export function KidsHeader() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="pixel-btn flex h-8 items-center px-3 py-1.5"
-              aria-label={t("header.menu") || "Menu"}
-              title={t("header.menu") || "Menu"}
+              aria-label="Menu"
             >
-              <PixelMenuIcon aria-hidden="true" />
+              <PixelMenuIcon />
             </button>
 
             {/* Mobile dropdown menu */}
@@ -166,9 +158,9 @@ export function KidsHeader() {
 }
 
 // Pixel art home icon
-function PixelHomeIcon(props: React.SVGProps<SVGSVGElement>) {
+function PixelHomeIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }} {...props}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="7" y="1" width="2" height="2" fill="currentColor" />
       <rect x="5" y="3" width="6" height="2" fill="currentColor" />
       <rect x="3" y="5" width="10" height="2" fill="currentColor" />
@@ -180,9 +172,9 @@ function PixelHomeIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 // Pixel art pin/location icon
-function PixelMapIcon(props: React.SVGProps<SVGSVGElement>) {
+function PixelMapIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }} {...props}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       {/* Pin head - circle */}
       <rect x="5" y="1" width="6" height="2" fill="currentColor" />
       <rect x="4" y="2" width="8" height="2" fill="currentColor" />
@@ -199,9 +191,9 @@ function PixelMapIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 // Pixel art hamburger menu icon
-function PixelMenuIcon(props: React.SVGProps<SVGSVGElement>) {
+function PixelMenuIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }} {...props}>
+    <svg viewBox="0 0 16 16" className="h-5 w-5" style={{ imageRendering: "pixelated" }}>
       <rect x="2" y="3" width="12" height="2" fill="currentColor" />
       <rect x="2" y="7" width="12" height="2" fill="currentColor" />
       <rect x="2" y="11" width="12" height="2" fill="currentColor" />

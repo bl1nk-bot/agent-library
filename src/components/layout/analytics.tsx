@@ -13,6 +13,7 @@ export function Analytics({ gaId }: AnalyticsProps) {
 
   useEffect(() => {
     setHasConsent(getCookieConsent() === "accepted");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

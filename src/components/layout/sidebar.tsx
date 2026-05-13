@@ -67,8 +67,8 @@ export function Sidebar() {
               )}
             >
               <item.icon size={20} />
-              {/* Tooltip on Hover */}
-              <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+              {/* Tooltip on Hover and Focus */}
+              <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                 {item.label}
               </span>
             </Link>
@@ -84,7 +84,7 @@ export function Sidebar() {
           aria-label="Toggle Language"
         >
           <Globe size={20} />
-          <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+          <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
             Toggle EN/TH
           </span>
         </button>
@@ -94,7 +94,8 @@ export function Sidebar() {
         {activeAgents.map((agent) => (
           <div
             key={agent.name}
-            className="group relative flex w-full justify-center"
+            tabIndex={0}
+            className="group focus-visible:ring-agent-cyan relative flex w-full justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             data-testid="agent-status-indicator"
           >
             <div
@@ -106,7 +107,7 @@ export function Sidebar() {
                   : "opacity-30"
               )}
             />
-            <span className="pointer-events-none absolute top-1/2 left-10 z-50 -translate-y-1/2 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+            <span className="pointer-events-none absolute top-1/2 left-10 z-50 -translate-y-1/2 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
               {agent.name}: {agent.status.toUpperCase()}
             </span>
           </div>

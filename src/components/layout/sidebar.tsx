@@ -66,8 +66,8 @@ export function Sidebar() {
                   : "text-white/40 hover:bg-white/5 hover:text-white"
               )}
             >
-              <item.icon size={20} aria-hidden="true" />
-              {/* Tooltip on Hover */}
+              <item.icon size={20} />
+              {/* Tooltip on Hover and Focus */}
               <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                 {item.label}
               </span>
@@ -83,7 +83,7 @@ export function Sidebar() {
           className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label="Toggle Language"
         >
-          <Globe size={20} aria-hidden="true" />
+          <Globe size={20} />
           <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
             Toggle EN/TH
           </span>
@@ -94,7 +94,8 @@ export function Sidebar() {
         {activeAgents.map((agent) => (
           <div
             key={agent.name}
-            className="group relative flex w-full justify-center"
+            tabIndex={0}
+            className="group focus-visible:ring-agent-cyan relative flex w-full justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             data-testid="agent-status-indicator"
           >
             <div

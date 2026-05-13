@@ -504,7 +504,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           {/* Theme toggle */}
           <Button asChild variant="ghost" size="icon" className="h-8 w-8">
             <button
-              aria-label="Toggle theme"
+              aria-label={t("settings.toggleTheme")}
               onClick={() => {
                 const newTheme = theme === "dark" ? "light" : "dark";
                 analyticsSettings.changeTheme(newTheme);

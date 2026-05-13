@@ -39,7 +39,7 @@ export function ContextPanel() {
 
             {/* Actions */}
             <button
-              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 text-white/30 hover:text-red-400 focus-visible:text-red-400 focus-visible:ring-2 focus-visible:ring-agent-cyan focus-visible:outline-none transition-colors rounded"
+              className="focus-visible:ring-agent-cyan absolute top-2 right-2 rounded text-white/30 opacity-0 transition-colors group-hover:opacity-100 hover:text-red-400 focus-visible:text-red-400 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:outline-none"
               aria-label={`Remove ${item.title}`}
             >
               <Trash2 size={12} aria-hidden="true" />

@@ -471,10 +471,12 @@ export async function executeToolCall(
       const matchedTagIds: string[] = [];
       const matchedNames: string[] = [];
 
-      const tagMapByNameOrSlug = new Map(availableTags.flatMap(t => [
-        [t.name.toLowerCase(), t],
-        [t.slug, t]
-      ]));
+      const tagMapByNameOrSlug = new Map(
+        availableTags.flatMap((t) => [
+          [t.name.toLowerCase(), t],
+          [t.slug, t],
+        ])
+      );
 
       for (const name of tagNames) {
         const tag = tagMapByNameOrSlug.get(name.toLowerCase());
@@ -577,10 +579,8 @@ export async function executeToolCall(
     }
 
     case "get_current_state": {
-      const tagMapById = new Map(availableTags.map(t => [t.id, t]));
-      const tagNames = currentState.tagIds
-        .map(id => tagMapById.get(id)?.name)
-        .filter(Boolean);
+      const tagMapById = new Map(availableTags.map((t) => [t.id, t]));
+      const tagNames = currentState.tagIds.map((id) => tagMapById.get(id)?.name).filter(Boolean);
       const categoryName = availableCategories.find((c) => c.id === currentState.categoryId)?.name;
 
       return {

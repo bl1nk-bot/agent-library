@@ -102,7 +102,7 @@ gemini extensions update --all
 
 We offer several example extensions `context`, `custom-commands`,
 `exclude-tools` and `mcp-server`. You can view these examples
-[here](https://github.com/google-gemini/gemini-cli/tree/main/packages/cli/src/commands/extensions/examples).
+[extension examples on GitHub](https://github.com/google-gemini/gemini-cli/tree/main/packages/cli/src/commands/extensions/examples).
 
 To copy one of these examples into a development directory using the type of
 your choosing, run:

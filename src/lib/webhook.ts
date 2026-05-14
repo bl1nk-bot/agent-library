@@ -40,6 +40,14 @@ export const WEBHOOK_PLACEHOLDERS = {
   CHATGPT_URL: "{{CHATGPT_URL}}",
 } as const;
 
+// Module-level pre-compiled Regex to avoid compiling multiple regexes in loops
+const PLACEHOLDER_REGEX = new RegExp(
+  Object.values(WEBHOOK_PLACEHOLDERS)
+    .map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|"),
+  "g"
+);
+
 // Slack Block Kit preset for new prompts
 export const SLACK_PRESET_PAYLOAD = `{
   "blocks": [
@@ -229,11 +237,6 @@ function isPrivateUrl(urlString: string): boolean {
 
 export { isPrivateUrl };
 
-function escapeRegex(str: string): string {
-  // Escape ทุก meta-character ที่มีความหมายพิเศษใน regex รวมถึง backslash
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 function replacePlaceholders(template: string, prompt: PromptData): string {
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://prompts.chat";
   const promptUrl = `${siteUrl}/prompts/${prompt.id}`;
@@ -269,19 +272,10 @@ function replacePlaceholders(template: string, prompt: PromptData): string {
     [WEBHOOK_PLACEHOLDERS.CHATGPT_URL]: chatgptUrl,
   };
 
-  let result = template;
-  for (const [placeholder, value] of Object.entries(replacements)) {
-    const safePlaceholder = escapeRegex(placeholder);
-    result = result.replace(new RegExp(safePlaceholder, "g"), value);
-  }
-
-  return result;
+  return template.replace(PLACEHOLDER_REGEX, (match) => replacements[match] ?? match);
 }
 
-export async function triggerWebhooks(
-  event: WebhookEvent,
-  prompt: PromptData
-): Promise<void> {
+export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): Promise<void> {
   try {
     // Get all enabled webhooks for this event
     const webhooks = await db.webhookConfig.findMany({

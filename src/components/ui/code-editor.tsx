@@ -56,7 +56,7 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
   const { resolvedTheme } = useTheme();
 
   // Support mapping from 'code' prop for MDX backward compatibility
-  const actualValue = value !== undefined ? value : (code || "");
+  const actualValue = value !== undefined ? value : code || "";
 
   const isMobile = useIsMobile();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
@@ -153,7 +153,8 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
   // Calculate dynamic height if readOnly and we have code
   const isDark = resolvedTheme === "dark";
   const lineCount = displayValue ? displayValue.split("\n").length : 0;
-  const computedMinHeight = (readOnly && code) ? `${Math.min(lineCount * 19 + 20, 400)}px` : minHeight;
+  const computedMinHeight =
+    readOnly && code ? `${Math.min(lineCount * 19 + 20, 400)}px` : minHeight;
 
   // Mobile-optimized editor options
   const baseOptions = getMobileEditorOptions(isMobile);
@@ -175,7 +176,7 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
         "overflow-hidden rounded-md border text-left transition-opacity",
         !isEditorReady && "opacity-0",
         isEditorReady && "opacity-100 duration-180",
-        (filename || code) ? (isDark ? "bg-[#1e1e1e]" : "bg-[#ffffff]") : undefined,
+        filename || code ? (isDark ? "bg-[#1e1e1e]" : "bg-[#ffffff]") : undefined,
         className
       )}
       style={{
@@ -209,9 +210,7 @@ const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function C
             )}
           </div>
           <div className="flex items-center gap-2">
-            <span
-              className={cn("text-xs uppercase", isDark ? "text-[#6e6e6e]" : "text-[#999999]")}
-            >
+            <span className={cn("text-xs uppercase", isDark ? "text-[#6e6e6e]" : "text-[#999999]")}>
               {language}
             </span>
             <CopyButton content={displayValue || ""} />

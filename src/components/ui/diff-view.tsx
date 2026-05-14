@@ -314,7 +314,13 @@ export interface SideBySideDiffProps extends Omit<UIDiffViewProps, "mode"> {
 }
 
 // Side by side diff view
-export function SideBySideDiff({ original = "", modified = "", className, beforeLabel = "Original", afterLabel = "Modified" }: SideBySideDiffProps) {
+export function SideBySideDiff({
+  original = "",
+  modified = "",
+  className,
+  beforeLabel = "Original",
+  afterLabel = "Modified",
+}: SideBySideDiffProps) {
   const diff = useMemo(() => computeDiff(original, modified), [original, modified]);
 
   return (
@@ -327,10 +333,7 @@ export function SideBySideDiff({ original = "", modified = "", className, before
           {diff.map((segment, i) => {
             if (segment.type === "removed") {
               return (
-                <span
-                  key={i}
-                  className="bg-red-500/20 text-red-700 line-through dark:text-red-300"
-                >
+                <span key={i} className="bg-red-500/20 text-red-700 line-through dark:text-red-300">
                   {segment.text}
                 </span>
               );
@@ -349,10 +352,7 @@ export function SideBySideDiff({ original = "", modified = "", className, before
           {diff.map((segment, i) => {
             if (segment.type === "added") {
               return (
-                <span
-                  key={i}
-                  className="bg-green-500/20 text-green-700 dark:text-green-300"
-                >
+                <span key={i} className="bg-green-500/20 text-green-700 dark:text-green-300">
                   {segment.text}
                 </span>
               );
@@ -377,7 +377,12 @@ export type DiffViewWrapperProps = UIDiffViewProps & {
 // Wrapper that supports both UIDiffView props and book MDX props
 export function DiffView(props: DiffViewWrapperProps) {
   // If MDX props are present or side-by-side labels are given, show SideBySideDiff
-  if (props.before !== undefined || props.after !== undefined || props.beforeLabel || props.afterLabel) {
+  if (
+    props.before !== undefined ||
+    props.after !== undefined ||
+    props.beforeLabel ||
+    props.afterLabel
+  ) {
     return (
       <SideBySideDiff
         original={props.before ?? props.original ?? ""}

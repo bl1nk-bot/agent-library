@@ -5,3 +5,11 @@
 **Action:** When merging components that are widely used in markdown/MDX, add alias props and thin wrapper components to ensure runtime API compatibility instead of risking breaking changes in untyped content files.
 **JULES Check:** Verified no active Autonomous task file conflicts in `.Jules/task-log.md` before proceeding.
 **Conflicts Avoided:** None explicitly found in log, checked successfully.
+
+## 2026-05-14 - Fix DiffView Layout Array Overwrite
+
+**Target:** src/components/ui/diff-view.tsx
+**Learning:** A diff rendering wrapper `SideBySideDiff` used in the deduplication phase mistakenly mapped the string texts instead of properly wrapping in highlighting DOM nodes. When refactoring Diff highlighting components, standard prop compatibility isn't enough; the array generation mapping for inner content needs to map directly.
+**Action:** When implementing wrapper components for older feature sets, always meticulously test visual functionality (e.g. side-by-side array mapping) by explicitly mapping generated diff arrays to DOM elements (`<span className="bg-red...">...</span>`).
+**JULES Check:** Verified no active Autonomous task file conflicts in `.Jules/task-log.md` before proceeding.
+**Conflicts Avoided:** None explicitly found in log, checked successfully.

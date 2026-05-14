@@ -1,4 +1,5 @@
 ## $(date '+%Y-%m-%d') - Consolidate error states
+
 **Target:** `src/app/error.tsx` and `src/app/not-found.tsx`
 **Learning:** React error pages contain heavily duplicated UI code for presenting status codes and generic actions.
 **Action:** Created `src/components/ui/error-state/error-state.tsx` to standardize error layouts and reduce duplication.

@@ -40,7 +40,7 @@ describe("POST /api/auth/register", () => {
       features: {},
     });
     // Default: no existing users
-    vi.mocked(db.user.findUnique).mockResolvedValue(null);
+    vi.mocked(db.user.findUnique).mockResolvedValue(null as any);
   });
 
   describe("validation", () => {
@@ -208,7 +208,7 @@ describe("POST /api/auth/register", () => {
 
   describe("successful registration", () => {
     it("should create user and return user data", async () => {
-      vi.mocked(db.user.findUnique).mockResolvedValue(null);
+      vi.mocked(db.user.findUnique).mockResolvedValue(null as any);
       vi.mocked(db.user.create).mockResolvedValue({
         id: "user-123",
         name: "Test User",
@@ -216,7 +216,7 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        image: null,
+        avatar: null,
         role: "USER",
         bio: null,
         credits: 0,
@@ -243,7 +243,7 @@ describe("POST /api/auth/register", () => {
     });
 
     it("should accept valid username with underscores", async () => {
-      vi.mocked(db.user.findUnique).mockResolvedValue(null);
+      vi.mocked(db.user.findUnique).mockResolvedValue(null as any);
       vi.mocked(db.user.create).mockResolvedValue({
         id: "user-123",
         name: "Test User",
@@ -251,7 +251,7 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        image: null,
+        avatar: null,
         role: "USER",
         bio: null,
         credits: 0,

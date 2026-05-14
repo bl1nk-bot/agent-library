@@ -10,7 +10,7 @@ export {
   IconLightbulb,
   IconTarget,
 } from "./icons";
-export { CodeEditor } from "./code-editor";
+export { CodeEditor } from "../../ui/code-editor";
 export { ChainExample, ChainFlowDemo } from "./chain";
 export { Collapsible, Callout, CopyableCode, Quiz, TryIt, NavButton, NavFooter } from "./ui";
 export { Checklist, Compare, InfoGrid } from "./lists";
@@ -33,7 +33,7 @@ export { TextToImageDemo, TextToVideoDemo } from "./media-demos";
 export { SummarizationDemo, ContextPlayground } from "./context-demos";
 export { BookPartsNav } from "./navigation";
 export { TokenPredictionDemo } from "./token-prediction";
-export { DiffView, VersionDiff } from "./diff-view";
+export { DiffView, VersionDiff } from "../../ui/diff-view";
 export { ChainErrorDemo } from "./chain-error-demo";
 export { ValidationDemo, FallbackDemo, ContentPipelineDemo } from "./chain-demos";
 export { FillInTheBlank, InteractiveChecklist, PromptDebugger } from "./exercises";

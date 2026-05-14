@@ -11,7 +11,7 @@ export {
   IconLightbulb,
   IconTarget,
 } from "./elements/icons";
-export { CodeEditor } from "./elements/code-editor";
+export { CodeEditor } from "../ui/code-editor";
 export { ChainExample, ChainFlowDemo } from "./elements/chain";
 export {
   Collapsible,
@@ -47,7 +47,7 @@ export { TextToImageDemo, TextToVideoDemo } from "./elements/media-demos";
 export { SummarizationDemo, ContextPlayground } from "./elements/context-demos";
 export { BookPartsNav } from "./elements/navigation";
 export { TokenPredictionDemo } from "./elements/token-prediction";
-export { DiffView, VersionDiff } from "./elements/diff-view";
+export { DiffView, VersionDiff } from "../ui/diff-view";
 export { ChainErrorDemo } from "./elements/chain-error-demo";
 export { ValidationDemo, FallbackDemo, ContentPipelineDemo } from "./elements/chain-demos";
 export { FillInTheBlank, InteractiveChecklist, PromptDebugger } from "./elements/exercises";

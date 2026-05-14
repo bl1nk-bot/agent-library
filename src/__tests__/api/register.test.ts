@@ -37,7 +37,7 @@ describe("POST /api/auth/register", () => {
     // Default: registration is enabled
     vi.mocked(getConfig).mockResolvedValue({
       auth: { allowRegistration: true, providers: [] },
-      features: {},
+      features: { privatePrompts: false, changeRequests: false, categories: false, tags: false, aiSearch: false } as any,
     });
     // Default: no existing users
     vi.mocked(db.user.findUnique).mockResolvedValue(null);
@@ -137,7 +137,7 @@ describe("POST /api/auth/register", () => {
     it("should return 403 when registration is disabled", async () => {
       vi.mocked(getConfig).mockResolvedValue({
         auth: { allowRegistration: false, providers: [] },
-        features: {},
+        features: { privatePrompts: false, changeRequests: false, categories: false, tags: false, aiSearch: false } as any,
       });
 
       const request = createRequest({
@@ -158,12 +158,12 @@ describe("POST /api/auth/register", () => {
   describe("duplicate checks", () => {
     it("should return 400 when email already exists", async () => {
       // Mock: email check finds existing user
-      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+      vi.mocked(db.user.findUnique).mockImplementation((async (args: any) => {
         if (args?.where?.email) {
-          return { id: "1", email: "test@example.com" } as never;
+          return { id: "1", email: "test@example.com" } as any;
         }
         return null;
-      });
+      }) as any);
 
       const request = createRequest({
         name: "Test User",
@@ -181,15 +181,15 @@ describe("POST /api/auth/register", () => {
 
     it("should return 400 when username already exists", async () => {
       // Mock: email check passes, username check finds existing user
-      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+      vi.mocked(db.user.findUnique).mockImplementation((async (args: any) => {
         if (args?.where?.email) {
           return null;
         }
         if (args?.where?.username) {
-          return { id: "1", username: "testuser" } as never;
+          return { id: "1", username: "testuser" } as any;
         }
         return null;
-      });
+      }) as any);
 
       const request = createRequest({
         name: "Test User",

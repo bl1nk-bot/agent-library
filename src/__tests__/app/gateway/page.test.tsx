@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import GatewayPage from "@/app/gateway/page";
 

@@ -29,7 +29,7 @@ describe("POST /api/prompts/[id]/vote", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/vote", {
       method: "POST",
@@ -44,7 +44,7 @@ describe("POST /api/prompts/[id]/vote", () => {
 
   it("should return 404 for non-existent prompt", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/vote", {
       method: "POST",
@@ -76,7 +76,7 @@ describe("POST /api/prompts/[id]/vote", () => {
   it("should create vote successfully", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({ id: "123" } as never);
-    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null);
     vi.mocked(db.promptVote.create).mockResolvedValue({} as never);
     vi.mocked(db.promptVote.count).mockResolvedValue(5);
 
@@ -101,7 +101,7 @@ describe("POST /api/prompts/[id]/vote", () => {
   it("should lookup vote with correct composite key", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({ id: "123" } as never);
-    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null);
     vi.mocked(db.promptVote.create).mockResolvedValue({} as never);
     vi.mocked(db.promptVote.count).mockResolvedValue(1);
 
@@ -128,7 +128,7 @@ describe("DELETE /api/prompts/[id]/vote", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/vote", {
       method: "DELETE",

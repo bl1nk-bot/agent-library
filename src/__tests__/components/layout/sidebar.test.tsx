@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Sidebar } from "@/components/layout/sidebar";
 

@@ -47,8 +47,8 @@ describe("GET /api/prompts/[id]", () => {
   });
 
   it("should return 404 for non-existent prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/non-existent");
     const response = await GET(request, { params: Promise.resolve({ id: "non-existent" }) });
@@ -59,7 +59,7 @@ describe("GET /api/prompts/[id]", () => {
   });
 
   it("should return 404 for deleted prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       deletedAt: new Date(),
@@ -127,7 +127,7 @@ describe("GET /api/prompts/[id]", () => {
       deletedAt: null,
       _count: { votes: 0 },
     } as never);
-    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.promptVote.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
@@ -142,7 +142,7 @@ describe("PATCH /api/prompts/[id]", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123", {
       method: "PATCH",
@@ -158,7 +158,7 @@ describe("PATCH /api/prompts/[id]", () => {
 
   it("should return 404 for non-existent prompt", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123", {
       method: "PATCH",
@@ -251,7 +251,7 @@ describe("DELETE /api/prompts/[id]", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123", {
       method: "DELETE",
@@ -266,7 +266,7 @@ describe("DELETE /api/prompts/[id]", () => {
 
   it("should return 404 for non-existent prompt", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123", {
       method: "DELETE",

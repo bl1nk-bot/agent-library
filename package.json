@@ -105,7 +105,6 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/bcryptjs": "^2.4.6",
-    "@types/jest": "^30.0.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -91,12 +91,7 @@ export async function PUT(
         id: configId,
         promptId: id,
       },
-      data: {
-        ...validatedData,
-        bodySchema: validatedData.bodySchema ? JSON.parse(JSON.stringify(validatedData.bodySchema)) : Prisma.JsonNull,
-        responseSchema: validatedData.responseSchema ? JSON.parse(JSON.stringify(validatedData.responseSchema)) : Prisma.JsonNull,
-        authentication: validatedData.authentication ? JSON.parse(JSON.stringify(validatedData.authentication)) : Prisma.JsonNull,
-      },
+      data: validatedData,
     });
 
     return NextResponse.json(apiConfig);

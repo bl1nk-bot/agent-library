@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { InitializeButton } from "@/components/ui/initialize-button";
 

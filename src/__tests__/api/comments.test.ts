@@ -48,8 +48,8 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return 404 for non-existent prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as never);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
@@ -76,7 +76,7 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return comments for public prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as never);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: false,
@@ -231,7 +231,7 @@ describe("POST /api/prompts/[id]/comments", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
@@ -260,7 +260,7 @@ describe("POST /api/prompts/[id]/comments", () => {
 
   it("should return 404 for non-existent prompt", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
@@ -373,7 +373,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       isPrivate: false,
       authorId: "author1",
     } as never);
-    vi.mocked(db.comment.findUnique).mockResolvedValue(null);
+    vi.mocked(db.comment.findUnique).mockResolvedValue(null as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",

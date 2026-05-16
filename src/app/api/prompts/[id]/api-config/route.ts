@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { apiConfigSchema } from "@/lib/schemas/api-config";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 
 /**
  * GET /api/prompts/[id]/api-config
@@ -68,6 +69,9 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const apiConfig = await db.apiConfig.create({
       data: {
         ...validatedData,
+        bodySchema: validatedData.bodySchema ? JSON.parse(JSON.stringify(validatedData.bodySchema)) : Prisma.JsonNull,
+        responseSchema: validatedData.responseSchema ? JSON.parse(JSON.stringify(validatedData.responseSchema)) : Prisma.JsonNull,
+        authentication: validatedData.authentication ? JSON.parse(JSON.stringify(validatedData.authentication)) : Prisma.JsonNull,
         promptId: id,
       },
     });

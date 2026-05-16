@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { RadarScanner } from "@/components/ui/radar-scanner";
 

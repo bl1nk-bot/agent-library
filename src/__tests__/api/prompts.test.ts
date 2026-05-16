@@ -161,7 +161,7 @@ describe("POST /api/prompts", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(db.user.findUnique).mockResolvedValue({ flagged: false } as never);
-    vi.mocked(db.prompt.findFirst).mockResolvedValue(null as never);
+    vi.mocked(db.prompt.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
   });
 
@@ -175,7 +175,7 @@ describe("POST /api/prompts", () => {
   };
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as never);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new Request("http://localhost:3000/api/prompts", {
       method: "POST",
@@ -240,7 +240,7 @@ describe("POST /api/prompts", () => {
 
   it("should create prompt successfully", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findFirst).mockResolvedValue(null as never);
+    vi.mocked(db.prompt.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.prompt.create).mockResolvedValue({
       id: "new-prompt",
       title: "Test Prompt",

@@ -1,4 +1,3 @@
-## 2026-04-27 - Add ARIA labels and hide decorative icons in icon-only buttons
-
-**Learning:** For icon-only buttons, applying `aria-label` to the button is necessary for screen readers, but the inner SVG icon must also include `aria-hidden="true"` to prevent redundant or confusing announcements.
-**Action:** Always pair an `aria-label` on an icon-only `<button>` with an `aria-hidden="true"` attribute on its inner `<svg>` or `<LucideIcon>`.
+## 2024-04-26 - Combining aria-label and aria-hidden on icon buttons
+**Learning:** When using `<span className="sr-only">` inside a button, if the button also contains an SVG icon that lacks `aria-hidden="true"`, screen readers may redundantly announce both the hidden text and potentially cryptic information about the SVG itself.
+**Action:** The preferred approach for icon-only buttons is to place the `aria-label` directly on the `<button>` element and apply `aria-hidden="true"` to any decorative SVG components inside it. This provides a single, clear announcement.

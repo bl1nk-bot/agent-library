@@ -56,7 +56,9 @@ export function getEnabledMediaGeneratorPlugins(): MediaGeneratorPlugin[] {
 /**
  * Get all available models from enabled generators
  */
-export function getAvailableModels(type?: MediaType): Array<
+export function getAvailableModels(
+  type?: MediaType
+): Array<
   MediaGeneratorModel & {
     provider: string;
     providerName: string;

@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Prisma } from "@prisma/client";
+import { Prisma, WebhookEvent } from "@prisma/client";
 
 interface PromptData {
   id: string;
@@ -279,7 +279,7 @@ function replacePlaceholders(template: string, prompt: PromptData): string {
 }
 
 export async function triggerWebhooks(
-  event: Prisma.WebhookEvent,
+  event: WebhookEvent,
   prompt: PromptData
 ): Promise<void> {
   try {

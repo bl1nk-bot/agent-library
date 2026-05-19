@@ -8,4 +8,3 @@ prisma/generated
 package-lock.json
 *.min.js
 *.min.css
-pnpm-lock.yaml

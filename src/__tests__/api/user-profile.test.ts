@@ -24,7 +24,7 @@ describe("GET /api/user/profile", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const response = await GET();
     const data = await response.json();
@@ -35,7 +35,7 @@ describe("GET /api/user/profile", () => {
 
   it("should return 404 if user not found", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.user.findUnique).mockResolvedValue(null);
+    vi.mocked(db.user.findUnique).mockResolvedValue(null as any);
 
     const response = await GET();
     const data = await response.json();
@@ -102,7 +102,7 @@ describe("PATCH /api/user/profile", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/user/profile", {
       method: "PATCH",
@@ -203,7 +203,7 @@ describe("PATCH /api/user/profile", () => {
 
   it("should update profile successfully", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1", username: "olduser" } } as never);
-    vi.mocked(db.user.findUnique).mockResolvedValue(null); // Username not taken
+    vi.mocked(db.user.findUnique).mockResolvedValue(null as any); // Username not taken
     vi.mocked(db.user.update).mockResolvedValue({
       id: "user1",
       name: "New Name",
@@ -319,7 +319,7 @@ describe("PATCH /api/user/profile", () => {
 
   it("should accept valid username with underscores", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1", username: "old" } } as never);
-    vi.mocked(db.user.findUnique).mockResolvedValue(null);
+    vi.mocked(db.user.findUnique).mockResolvedValue(null as any);
     vi.mocked(db.user.update).mockResolvedValue({
       id: "user1",
       name: "Test",

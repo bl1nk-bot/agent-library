@@ -26,7 +26,7 @@ describe("POST /api/reports", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new Request("http://localhost:3000/api/reports", {
       method: "POST",
@@ -72,7 +72,7 @@ describe("POST /api/reports", () => {
 
   it("should return 404 if prompt not found", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
 
     const request = new Request("http://localhost:3000/api/reports", {
       method: "POST",
@@ -111,7 +111,7 @@ describe("POST /api/reports", () => {
       id: "123",
       authorId: "user1", // Same as reporter
     } as never);
-    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null);
+    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.promptReport.create).mockResolvedValue({} as never);
 
     const request = new Request("http://localhost:3000/api/reports", {
@@ -154,7 +154,7 @@ describe("POST /api/reports", () => {
       id: "123",
       authorId: "other-user",
     } as never);
-    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null);
+    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.promptReport.create).mockResolvedValue({} as never);
 
     const request = new Request("http://localhost:3000/api/reports", {
@@ -191,7 +191,7 @@ describe("POST /api/reports", () => {
         id: "123",
         authorId: reason === "RELIST_REQUEST" ? "user1" : "other-user",
       } as never);
-      vi.mocked(db.promptReport.findFirst).mockResolvedValue(null);
+      vi.mocked(db.promptReport.findFirst).mockResolvedValue(null as any);
       vi.mocked(db.promptReport.create).mockResolvedValue({} as never);
 
       const request = new Request("http://localhost:3000/api/reports", {
@@ -211,7 +211,7 @@ describe("POST /api/reports", () => {
       id: "123",
       authorId: "other-user",
     } as never);
-    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null);
+    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.promptReport.create).mockResolvedValue({} as never);
 
     const request = new Request("http://localhost:3000/api/reports", {
@@ -234,7 +234,7 @@ describe("POST /api/reports", () => {
       id: "123",
       authorId: "other-user",
     } as never);
-    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null);
+    vi.mocked(db.promptReport.findFirst).mockResolvedValue(null as any);
     vi.mocked(db.promptReport.create).mockResolvedValue({} as never);
 
     const request = new Request("http://localhost:3000/api/reports", {

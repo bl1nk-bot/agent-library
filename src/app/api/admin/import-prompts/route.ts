@@ -135,117 +135,137 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Cache for contributor users (username -> userId)
-    const contributorCache = new Map<string, string>();
+    const uniqueTitles = Array.from(new Set(rows.map((row) => row.act)));
 
-    // Helper to get or create contributor user
-    async function getOrCreateContributorUser(username: string): Promise<string> {
-      const normalizedUsername = username.toLowerCase().trim();
+    // Fetch existing prompts to avoid duplicates
+    const existingPrompts = await db.prompt.findMany({
+      where: { title: { in: uniqueTitles } },
+      select: { title: true },
+    });
+    const existingTitles = new Set(existingPrompts.map((p) => p.title));
 
-      // Check cache first
-      if (contributorCache.has(normalizedUsername)) {
-        return contributorCache.get(normalizedUsername)!;
+    // Extract all unique contributors
+    const contributorNames = new Set<string>();
+    for (const row of rows) {
+      if (row.contributor) {
+        const contributors = row.contributor
+          .split(",")
+          .map((c) => c.trim().toLowerCase())
+          .filter(Boolean);
+        for (const c of contributors) {
+          contributorNames.add(c);
+        }
       }
-
-      // Check if user exists by username or pseudo email
-      const pseudoEmail = `${normalizedUsername}@unclaimed.prompts.chat`;
-
-      let user = await db.user.findFirst({
-        where: {
-          OR: [{ username: normalizedUsername }, { email: pseudoEmail }],
-        },
-      });
-
-      if (!user) {
-        // Create pseudo user - they can claim this account later by logging in with GitHub
-        user = await db.user.create({
-          data: {
-            username: normalizedUsername,
-            email: pseudoEmail,
-            name: normalizedUsername,
-            role: "USER",
-          },
-        });
-      }
-
-      contributorCache.set(normalizedUsername, user.id);
-      return user.id;
     }
 
-    // Handle multiple contributors (comma-separated), return first as primary author
-    async function getOrCreateContributor(contributorField: string): Promise<string> {
-      if (!contributorField) return adminUserId;
+    const contributorCache = new Map<string, string>();
 
-      // Split by comma for multiple contributors
+    if (contributorNames.size > 0) {
+      const namesArray = Array.from(contributorNames);
+
+      const pseudoEmails = namesArray.map((name) => `${name}@unclaimed.prompts.chat`);
+
+      const existingUsers = await db.user.findMany({
+        where: {
+          OR: [{ username: { in: namesArray } }, { email: { in: pseudoEmails } }],
+        },
+        select: { id: true, username: true, email: true },
+      });
+
+      for (const u of existingUsers) {
+        if (u.username) contributorCache.set(u.username.toLowerCase(), u.id);
+        if (u.email && u.email.endsWith("@unclaimed.prompts.chat")) {
+          contributorCache.set(u.email.split("@")[0], u.id);
+        }
+      }
+
+      const missingUsers = namesArray.filter((name) => !contributorCache.has(name));
+      if (missingUsers.length > 0) {
+        const newUsers = await db.user.createManyAndReturn({
+          data: missingUsers.map((name) => ({
+            username: name,
+            email: `${name}@unclaimed.prompts.chat`,
+            name: name,
+            role: "USER",
+          })),
+        });
+
+        for (const u of newUsers) {
+          if (u.username) contributorCache.set(u.username.toLowerCase(), u.id);
+        }
+      }
+    }
+
+    function getPrimaryContributorId(contributorField: string): string {
+      if (!contributorField) return adminUserId;
       const contributors = contributorField
         .split(",")
-        .map((c) => c.trim())
+        .map((c) => c.trim().toLowerCase())
         .filter(Boolean);
 
       if (contributors.length === 0) return adminUserId;
 
-      // Create users for all contributors, return first as primary author
-      for (const username of contributors) {
-        await getOrCreateContributorUser(username);
-      }
-
-      return contributorCache.get(contributors[0].toLowerCase())!;
+      const authorId = contributorCache.get(contributors[0]);
+      return authorId || adminUserId;
     }
 
     let imported = 0;
     let skipped = 0;
     const errors: string[] = [];
 
+    const promptsToCreate = [];
+
+    // First, process valid rows and prepare for batch insert
     for (const row of rows) {
+      if (existingTitles.has(row.act)) {
+        skipped++;
+        continue;
+      }
+
+      const authorId = getPrimaryContributorId(row.contributor);
+      const { type, structuredFormat } = mapCsvTypeToPromptType(row.type);
+      const isForDevs = row.for_devs.toUpperCase() === "TRUE";
+      const categoryId = isForDevs ? codingCategory.id : null;
+
+      promptsToCreate.push({
+        title: row.act,
+        content: row.prompt,
+        type,
+        structuredFormat,
+        isPrivate: false,
+        authorId,
+        categoryId,
+      });
+
+      // Mark as existing so duplicates in the same CSV are skipped
+      existingTitles.add(row.act);
+    }
+
+    // Insert prompts in batch
+    if (promptsToCreate.length > 0) {
       try {
-        // Check if prompt with same title already exists
-        const existing = await db.prompt.findFirst({
-          where: { title: row.act },
+        const createdPrompts = await db.prompt.createManyAndReturn({
+          data: promptsToCreate,
         });
 
-        if (existing) {
-          skipped++;
-          continue;
-        }
+        imported += createdPrompts.length;
 
-        // Get or create contributor user
-        const authorId = await getOrCreateContributor(row.contributor);
+        // Prepare versions
+        const versionsToCreate = createdPrompts.map((prompt) => ({
+          promptId: prompt.id,
+          version: 1,
+          content: prompt.content,
+          changeNote: "Imported from prompts.csv",
+          createdBy: prompt.authorId,
+        }));
 
-        // Determine type and structured format
-        const { type, structuredFormat } = mapCsvTypeToPromptType(row.type);
-
-        // Determine category based on for_devs field
-        const isForDevs = row.for_devs.toUpperCase() === "TRUE";
-        const categoryId = isForDevs ? codingCategory.id : null;
-
-        // Create the prompt
-        const prompt = await db.prompt.create({
-          data: {
-            title: row.act,
-            content: row.prompt,
-            type,
-            structuredFormat,
-            isPrivate: false,
-            authorId,
-            categoryId,
-          },
+        // Insert versions in batch
+        await db.promptVersion.createMany({
+          data: versionsToCreate,
         });
-
-        // Create initial version
-        await db.promptVersion.create({
-          data: {
-            promptId: prompt.id,
-            version: 1,
-            content: row.prompt,
-            changeNote: "Imported from prompts.csv",
-            createdBy: authorId,
-          },
-        });
-
-        imported++;
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Unknown error";
-        errors.push(`Failed to import "${row.act}": ${errorMessage}`);
+        errors.push(`Failed to import batch: ${errorMessage}`);
       }
     }
 

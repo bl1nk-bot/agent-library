@@ -468,20 +468,18 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
 
           {/* Developers link */}
           <Button asChild variant="ghost" size="icon" className="hidden h-8 w-8 2xl:flex">
-            <Link href="/developers" aria-label={t("nav.developers")} title={t("nav.developers")}>
-              <Hammer className="h-4 w-4" aria-hidden="true" />
+            <Link href="/developers" title={t("nav.developers")}>
+              <Hammer className="h-4 w-4" />
+              <span className="sr-only">{t("nav.developers")}</span>
             </Link>
           </Button>
 
           {/* Create prompt button */}
           {user && (
             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-              <Link
-                href="/prompts/new"
-                aria-label={t("prompts.create")}
-                title={t("prompts.create")}
-              >
-                <Plus className="h-4 w-4" aria-hidden="true" />
+              <Link href="/prompts/new">
+                <Plus className="h-4 w-4" />
+                <span className="sr-only">{t("prompts.create")}</span>
               </Link>
             </Button>
           )}
@@ -496,10 +494,9 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => analyticsExternal.clickChromeExtension()}
-                aria-label="Get Chrome Extension"
-                title="Get Chrome Extension"
               >
-                <Chromium className="h-4 w-4" aria-hidden="true" />
+                <Chromium className="h-4 w-4" />
+                <span className="sr-only">Get Chrome Extension</span>
               </a>
             </Button>
           )}
@@ -610,7 +607,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                    <button aria-label="Toggle Language" title="Toggle Language">
+                    <button aria-label={t("settings.language")} title={t("settings.language")}>
                       <Globe className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </Button>

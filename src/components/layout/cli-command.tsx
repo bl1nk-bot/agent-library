@@ -55,8 +55,10 @@ export function CliCommand() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="group inline-flex cursor-pointer items-center gap-3 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 transition-all duration-300 hover:bg-zinc-800 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+        aria-label={tCommon("copy")}
+        title={tCommon("copy")}
       >
-        <Terminal className="h-4 w-4 shrink-0 text-green-400" />
+        <Terminal className="h-4 w-4 shrink-0 text-green-400" aria-hidden="true" />
         <div className="relative flex h-5 items-center overflow-hidden">
           {/* Grid container for smooth width animation */}
           <div

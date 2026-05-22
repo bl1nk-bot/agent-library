@@ -266,8 +266,9 @@ export function CommentItem({
                 localUserVote === 1 && "text-primary"
               )}
               title={t("upvote")}
+              aria-label={t("upvote")}
             >
-              <ChevronUp className="h-4 w-4" />
+              <ChevronUp className="h-4 w-4" aria-hidden="true" />
             </button>
             <span
               className={cn(
@@ -286,8 +287,9 @@ export function CommentItem({
                 localUserVote === -1 && "text-destructive"
               )}
               title={t("downvote")}
+              aria-label={t("downvote")}
             >
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
 

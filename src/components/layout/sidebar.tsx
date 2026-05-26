@@ -46,7 +46,7 @@ export function Sidebar() {
       {/* Logo / Brand */}
       <div className="mb-8">
         <div className="flex h-8 w-8 items-center justify-center rounded-sm border border-white/20 bg-white/10">
-          <Terminal size={16} className="text-agent-cyan" />
+          <Terminal size={16} className="text-agent-cyan" aria-hidden="true" />
         </div>
       </div>
 
@@ -66,7 +66,7 @@ export function Sidebar() {
                   : "text-white/40 hover:bg-white/5 hover:text-white"
               )}
             >
-              <item.icon size={20} />
+              <item.icon size={20} aria-hidden="true" />
               {/* Tooltip on Hover */}
               <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 text-xs whitespace-nowrap opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
                 {item.label}
@@ -83,7 +83,7 @@ export function Sidebar() {
           className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white"
           aria-label="Toggle Language"
         >
-          <Globe size={20} />
+          <Globe size={20} aria-hidden="true" />
           <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
             Toggle EN/TH
           </span>

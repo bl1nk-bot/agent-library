@@ -278,10 +278,7 @@ function replacePlaceholders(template: string, prompt: PromptData): string {
   return result;
 }
 
-export async function triggerWebhooks(
-  event: WebhookEvent,
-  prompt: PromptData
-): Promise<void> {
+export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): Promise<void> {
   try {
     // Get all enabled webhooks for this event
     const webhooks = await db.webhookConfig.findMany({

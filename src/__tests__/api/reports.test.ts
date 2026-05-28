@@ -26,7 +26,7 @@ describe("POST /api/reports", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as never);
 
     const request = new Request("http://localhost:3000/api/reports", {
       method: "POST",

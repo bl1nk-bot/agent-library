@@ -35,12 +35,11 @@ describe("POST /api/auth/register", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     // Default: registration is enabled
-    vi.mocked(getConfig).mockResolvedValue({
-      auth: { allowRegistration: true, providers: [] },
+    (vi.mocked(getConfig) as any).mockResolvedValue({ privatePrompts: false, changeRequests: false, categories: false, tags: false, auth: { allowRegistration: true, providers: [] },
       features: {},
     });
     // Default: no existing users
-    vi.mocked(db.user.findUnique).mockResolvedValue(null);
+    (vi.mocked(db.user.findUnique) as any).mockResolvedValue(null as any);
   });
 
   describe("validation", () => {
@@ -135,8 +134,7 @@ describe("POST /api/auth/register", () => {
 
   describe("registration disabled", () => {
     it("should return 403 when registration is disabled", async () => {
-      vi.mocked(getConfig).mockResolvedValue({
-        auth: { allowRegistration: false, providers: [] },
+      (vi.mocked(getConfig) as any).mockResolvedValue({ privatePrompts: false, changeRequests: false, categories: false, tags: false, auth: { allowRegistration: false, providers: [] },
         features: {},
       });
 
@@ -158,11 +156,11 @@ describe("POST /api/auth/register", () => {
   describe("duplicate checks", () => {
     it("should return 400 when email already exists", async () => {
       // Mock: email check finds existing user
-      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+      (vi.mocked(db.user.findUnique) as any).mockImplementation(async (args: any): Promise<any> => {
         if (args?.where?.email) {
-          return { id: "1", email: "test@example.com" } as never;
+          return { id: "1", email: "test@example.com" } as any;
         }
-        return null;
+        return null as any;
       });
 
       const request = createRequest({
@@ -181,14 +179,14 @@ describe("POST /api/auth/register", () => {
 
     it("should return 400 when username already exists", async () => {
       // Mock: email check passes, username check finds existing user
-      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+      (vi.mocked(db.user.findUnique) as any).mockImplementation(async (args: any): Promise<any> => {
         if (args?.where?.email) {
-          return null;
+          return null as any;
         }
         if (args?.where?.username) {
-          return { id: "1", username: "testuser" } as never;
+          return { id: "1", username: "testuser" } as any;
         }
-        return null;
+        return null as any;
       });
 
       const request = createRequest({
@@ -208,21 +206,8 @@ describe("POST /api/auth/register", () => {
 
   describe("successful registration", () => {
     it("should create user and return user data", async () => {
-      vi.mocked(db.user.findUnique).mockResolvedValue(null);
-      vi.mocked(db.user.create).mockResolvedValue({
-        id: "user-123",
-        name: "Test User",
-        username: "testuser",
-        email: "test@example.com",
-        password: "hashed_password",
-        emailVerified: null,
-        image: null,
-        role: "USER",
-        bio: null,
-        credits: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      (vi.mocked(db.user.findUnique) as any).mockResolvedValue(null as any);
+      (vi.mocked(db.user.create) as any).mockResolvedValue({ id: "user-123", name: "Test User", username: "testuser", email: "test@example.com", password: "hashed_password", emailVerified: null, avatar: null, role: "USER", bio: null, createdAt: new Date(), updatedAt: new Date() } as any);
 
       const request = createRequest({
         name: "Test User",
@@ -243,21 +228,8 @@ describe("POST /api/auth/register", () => {
     });
 
     it("should accept valid username with underscores", async () => {
-      vi.mocked(db.user.findUnique).mockResolvedValue(null);
-      vi.mocked(db.user.create).mockResolvedValue({
-        id: "user-123",
-        name: "Test User",
-        username: "test_user_123",
-        email: "test@example.com",
-        password: "hashed_password",
-        emailVerified: null,
-        image: null,
-        role: "USER",
-        bio: null,
-        credits: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      (vi.mocked(db.user.findUnique) as any).mockResolvedValue(null as any);
+      (vi.mocked(db.user.create) as any).mockResolvedValue({ id: "user-123", name: "Test User", username: "testuser", email: "test@example.com", password: "hashed_password", emailVerified: null, avatar: null, role: "USER", bio: null, createdAt: new Date(), updatedAt: new Date() } as any);
 
       const request = createRequest({
         name: "Test User",
@@ -282,7 +254,7 @@ describe("POST /api/auth/register", () => {
 
   describe("error handling", () => {
     it("should return 500 on database error", async () => {
-      vi.mocked(db.user.findUnique).mockRejectedValue(new Error("DB Error"));
+      (vi.mocked(db.user.findUnique) as any).mockRejectedValue(new Error("DB Error"));
 
       const request = createRequest({
         name: "Test User",

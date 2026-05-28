@@ -66,8 +66,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     // Create API config
     const apiConfig = await db.apiConfig.create({
-      data: {
-        ...validatedData,
+      data: { ...(validatedData as any),
         promptId: id,
       },
     });

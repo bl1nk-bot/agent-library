@@ -37,7 +37,7 @@ describe("POST /api/auth/register", () => {
     // Default: registration is enabled
     vi.mocked(getConfig).mockResolvedValue({
       auth: { allowRegistration: true, providers: [] },
-      features: {},
+      features: { privatePrompts: true, changeRequests: true, categories: true, tags: true },
     });
     // Default: no existing users
     vi.mocked(db.user.findUnique).mockResolvedValue(null);
@@ -137,7 +137,7 @@ describe("POST /api/auth/register", () => {
     it("should return 403 when registration is disabled", async () => {
       vi.mocked(getConfig).mockResolvedValue({
         auth: { allowRegistration: false, providers: [] },
-        features: {},
+        features: { privatePrompts: true, changeRequests: true, categories: true, tags: true },
       });
 
       const request = createRequest({
@@ -162,7 +162,7 @@ describe("POST /api/auth/register", () => {
         if (args?.where?.email) {
           return { id: "1", email: "test@example.com" } as never;
         }
-        return null;
+        return null as never;
       });
 
       const request = createRequest({
@@ -183,12 +183,12 @@ describe("POST /api/auth/register", () => {
       // Mock: email check passes, username check finds existing user
       vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
         if (args?.where?.email) {
-          return null;
+          return null as never;
         }
         if (args?.where?.username) {
           return { id: "1", username: "testuser" } as never;
         }
-        return null;
+        return null as never;
       });
 
       const request = createRequest({
@@ -216,7 +216,7 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        image: null,
+        avatar: null,
         role: "USER",
         bio: null,
         credits: 0,
@@ -251,7 +251,7 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        image: null,
+        avatar: null,
         role: "USER",
         bio: null,
         credits: 0,

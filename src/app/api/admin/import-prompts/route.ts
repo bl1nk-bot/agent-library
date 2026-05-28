@@ -234,7 +234,6 @@ export async function POST(request: NextRequest) {
           authorId,
           categoryId,
         });
-
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Unknown error";
         errors.push(`Failed to prepare import for "${row.act}": ${errorMessage}`);

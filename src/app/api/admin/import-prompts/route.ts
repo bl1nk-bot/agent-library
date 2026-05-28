@@ -196,17 +196,24 @@ export async function POST(request: NextRequest) {
     let skipped = 0;
     const errors: string[] = [];
 
+    // Pre-fetch existing titles to avoid N+1 findFirst queries
+    const rowTitles = rows.map((r) => r.act);
+    const existingPrompts = await db.prompt.findMany({
+      where: { title: { in: rowTitles } },
+      select: { title: true },
+    });
+    const existingTitles = new Set(existingPrompts.map((p) => p.title));
+
+    const promptsToCreate = [];
+
     for (const row of rows) {
       try {
-        // Check if prompt with same title already exists
-        const existing = await db.prompt.findFirst({
-          where: { title: row.act },
-        });
-
-        if (existing) {
+        if (existingTitles.has(row.act)) {
           skipped++;
           continue;
         }
+
+        existingTitles.add(row.act);
 
         // Get or create contributor user
         const authorId = await getOrCreateContributor(row.contributor);
@@ -218,35 +225,44 @@ export async function POST(request: NextRequest) {
         const isForDevs = row.for_devs.toUpperCase() === "TRUE";
         const categoryId = isForDevs ? codingCategory.id : null;
 
-        // Create the prompt
-        const prompt = await db.prompt.create({
-          data: {
-            title: row.act,
-            content: row.prompt,
-            type,
-            structuredFormat,
-            isPrivate: false,
-            authorId,
-            categoryId,
-          },
+        promptsToCreate.push({
+          title: row.act,
+          content: row.prompt,
+          type,
+          structuredFormat,
+          isPrivate: false,
+          authorId,
+          categoryId,
         });
 
-        // Create initial version
-        await db.promptVersion.create({
-          data: {
-            promptId: prompt.id,
-            version: 1,
-            content: row.prompt,
-            changeNote: "Imported from prompts.csv",
-            createdBy: authorId,
-          },
-        });
-
-        imported++;
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Unknown error";
-        errors.push(`Failed to import "${row.act}": ${errorMessage}`);
+        errors.push(`Failed to prepare import for "${row.act}": ${errorMessage}`);
       }
+    }
+
+    // Batch insert prompts
+    if (promptsToCreate.length > 0) {
+      const createdPrompts = await db.prompt.createManyAndReturn({
+        data: promptsToCreate,
+      });
+
+      // Batch insert initial versions
+      const versionsToCreate = createdPrompts.map((prompt) => ({
+        promptId: prompt.id,
+        version: 1,
+        content: prompt.content,
+        changeNote: "Imported from prompts.csv",
+        createdBy: prompt.authorId,
+      }));
+
+      if (versionsToCreate.length > 0) {
+        await db.promptVersion.createMany({
+          data: versionsToCreate,
+        });
+      }
+
+      imported += createdPrompts.length;
     }
 
     return NextResponse.json({

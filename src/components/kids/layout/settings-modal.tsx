@@ -168,8 +168,11 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
                     : "border-[#D4A574] bg-white text-[#5D4037] hover:border-[#8B4513]"
                 )}
                 style={{ clipPath: smallPixelClipPath }}
+                aria-pressed={currentLocale === locale.code}
               >
-                <span className="text-lg">{locale.flag}</span>
+                <span className="text-lg" aria-hidden="true">
+                  {locale.flag}
+                </span>
                 <span className="text-xs">{locale.label}</span>
               </button>
             ))}

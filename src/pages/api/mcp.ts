@@ -9,6 +9,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { slugify } from "@/lib/slug";
 import { isValidApiKeyFormat } from "@/lib/api-key";
 import { improvePrompt } from "@/lib/ai/improve-prompt";
 import {
@@ -46,14 +47,12 @@ interface ExtractedVariable {
   defaultValue?: string;
 }
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+// 🛡️ Guardian: Consolidated slugify from src/pages/api/mcp.ts
+// This function was duplicated - moved to canonical location "@/lib/slug"
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 1 file, 8 LOC deleted
+// Date: 2026-05-28
+// Session: .Jules/guardian/2026-05-28/
 
 /**
  * Get the prompt name/slug for MCP.

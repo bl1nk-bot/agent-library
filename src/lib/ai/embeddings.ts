@@ -6,8 +6,6 @@ import { loadPrompt, getSystemPrompt } from "./load-prompt";
 import { getOpenAIClient } from "@/lib/ai/openai";
 const queryTranslatorPrompt = loadPrompt("src/lib/ai/query-translator.prompt.yml");
 
-
-
 const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
 const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";
 

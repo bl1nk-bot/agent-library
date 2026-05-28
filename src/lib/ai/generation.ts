@@ -5,8 +5,6 @@ import { getOpenAIClient } from "@/lib/ai/openai";
 const translatePrompt = loadPrompt("src/lib/ai/translate.prompt.yml");
 const sqlGenerationPrompt = loadPrompt("src/lib/ai/sql-generation.prompt.yml");
 
-
-
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o-mini";
 
 export function getAIModelName(): string {

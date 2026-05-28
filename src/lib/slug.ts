@@ -1,6 +1,3 @@
-
-
-
 import { getOpenAIClient } from "@/lib/ai/openai";
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o-mini";
 

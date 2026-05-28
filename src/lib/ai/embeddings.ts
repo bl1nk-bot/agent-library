@@ -1,26 +1,10 @@
-import OpenAI from "openai";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getConfig } from "@/lib/config";
 import { loadPrompt, getSystemPrompt } from "./load-prompt";
 
+import { getOpenAIClient } from "@/lib/ai/openai";
 const queryTranslatorPrompt = loadPrompt("src/lib/ai/query-translator.prompt.yml");
-
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
 
 const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
 const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";

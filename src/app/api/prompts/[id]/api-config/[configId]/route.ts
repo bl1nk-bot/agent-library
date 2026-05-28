@@ -91,7 +91,7 @@ export async function PUT(
         id: configId,
         promptId: id,
       },
-      data: validatedData,
+      data: validatedData as any,
     });
 
     return NextResponse.json(apiConfig);

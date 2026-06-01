@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface AudioPlayerProps {
@@ -14,6 +15,7 @@ interface AudioPlayerProps {
 const BARS = 32;
 
 export function AudioPlayer({ src, onError, className, compact = false }: AudioPlayerProps) {
+  const t = useTranslations("common");
   const audioRef = useRef<HTMLAudioElement>(null);
   const animationRef = useRef<number | null>(null);
 
@@ -153,9 +155,15 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
         type="button"
         onClick={togglePlay}
         disabled={!isLoaded}
+        aria-label={isPlaying ? t("pause") : t("play")}
+        title={isPlaying ? t("pause") : t("play")}
         className="bg-primary text-primary-foreground hover:bg-primary/90 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors disabled:opacity-50"
       >
-        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="ml-0.5 h-4 w-4" />}
+        {isPlaying ? (
+          <Pause aria-hidden="true" className="h-4 w-4" />
+        ) : (
+          <Play aria-hidden="true" className="ml-0.5 h-4 w-4" />
+        )}
       </button>
 
       {/* Waveform */}
@@ -190,12 +198,14 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
         <button
           type="button"
           onClick={toggleMute}
+          aria-label={isMuted ? t("unmute") : t("mute")}
+          title={isMuted ? t("unmute") : t("mute")}
           className="hover:bg-muted flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors"
         >
           {isMuted ? (
-            <VolumeX className="text-muted-foreground h-3.5 w-3.5" />
+            <VolumeX aria-hidden="true" className="text-muted-foreground h-3.5 w-3.5" />
           ) : (
-            <Volume2 className="text-muted-foreground h-3.5 w-3.5" />
+            <Volume2 aria-hidden="true" className="text-muted-foreground h-3.5 w-3.5" />
           )}
         </button>
       )}

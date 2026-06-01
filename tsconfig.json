@@ -22,7 +22,8 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["public.d.ts",
+  "include": [
+    "public.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

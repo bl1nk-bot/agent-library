@@ -22,7 +22,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
+  "include": ["public.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/__tests__"]
 }

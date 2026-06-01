@@ -91,7 +91,7 @@ export async function PUT(
         id: configId,
         promptId: id,
       },
-      data: validatedData,
+      data: { ...validatedData, bodySchema: validatedData.bodySchema as any, responseSchema: validatedData.responseSchema as any, authentication: validatedData.authentication as any },
     });
 
     return NextResponse.json(apiConfig);

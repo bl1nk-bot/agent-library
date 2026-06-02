@@ -161,7 +161,6 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
               <button
                 key={locale.code}
                 onClick={() => handleLanguageChange(locale.code)}
-                aria-pressed={currentLocale === locale.code}
                 className={cn(
                   "flex items-center gap-2 border-2 p-2 text-sm font-medium transition-all",
                   currentLocale === locale.code

@@ -182,7 +182,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify(validPromptData),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -197,7 +197,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify({ title: "" }), // Missing required fields
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -213,7 +213,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify(validPromptData),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(429);
@@ -231,7 +231,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify(validPromptData),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(409);
@@ -259,7 +259,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify(validPromptData),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -278,7 +278,7 @@ describe("POST /api/prompts", () => {
       body: JSON.stringify(validPromptData),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(429);

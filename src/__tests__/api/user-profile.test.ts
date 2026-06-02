@@ -26,7 +26,7 @@ describe("GET /api/user/profile", () => {
   it("should return 401 if not authenticated", async () => {
     vi.mocked(auth).mockResolvedValue(null);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -37,7 +37,7 @@ describe("GET /api/user/profile", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.user.findUnique).mockResolvedValue(null);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -56,7 +56,7 @@ describe("GET /api/user/profile", () => {
       createdAt: new Date("2024-01-01"),
     } as never);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -79,7 +79,7 @@ describe("GET /api/user/profile", () => {
       createdAt: new Date(),
     } as never);
 
-    await GET();
+    await GET(new Request("http://localhost"));
 
     expect(db.user.findUnique).toHaveBeenCalledWith({
       where: { id: "user1" },
@@ -109,7 +109,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ name: "New Name", username: "newuser" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -124,7 +124,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ username: "testuser" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -139,7 +139,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ name: "Test User" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -154,7 +154,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ name: "Test", username: "invalid user!" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -170,7 +170,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ name: "Test", username: "takenuser" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -192,7 +192,7 @@ describe("PATCH /api/user/profile", () => {
       body: JSON.stringify({ name: "Updated Name", username: "sameuser" }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -221,7 +221,7 @@ describe("PATCH /api/user/profile", () => {
       }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -267,7 +267,7 @@ describe("PATCH /api/user/profile", () => {
       }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
 
     expect(response.status).toBe(200);
     expect(db.user.update).toHaveBeenCalledWith(
@@ -291,7 +291,7 @@ describe("PATCH /api/user/profile", () => {
       }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -310,7 +310,7 @@ describe("PATCH /api/user/profile", () => {
       }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -336,7 +336,7 @@ describe("PATCH /api/user/profile", () => {
       }),
     });
 
-    const response = await PATCH(request);
+    const response = await PATCH(request as any);
 
     expect(response.status).toBe(200);
   });

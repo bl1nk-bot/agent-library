@@ -31,7 +31,7 @@ describe("GET /api/collection", () => {
   it("should return 401 if not authenticated", async () => {
     vi.mocked(auth).mockResolvedValue(null);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -42,7 +42,7 @@ describe("GET /api/collection", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.collection.findMany).mockResolvedValue([]);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -74,7 +74,7 @@ describe("GET /api/collection", () => {
       },
     ] as never);
 
-    const response = await GET();
+    const response = await GET(new Request("http://localhost"));
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -86,7 +86,7 @@ describe("GET /api/collection", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.collection.findMany).mockResolvedValue([]);
 
-    await GET();
+    await GET(new Request("http://localhost"));
 
     expect(db.collection.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -110,7 +110,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "123" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -125,7 +125,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({}),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -140,7 +140,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -156,7 +156,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "123" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -173,7 +173,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "nonexistent" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -194,7 +194,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "123" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -220,7 +220,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "123" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -246,7 +246,7 @@ describe("POST /api/collection", () => {
       body: JSON.stringify({ promptId: "123" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -273,7 +273,7 @@ describe("DELETE /api/collection", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request);
+    const response = await DELETE(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -287,7 +287,7 @@ describe("DELETE /api/collection", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request);
+    const response = await DELETE(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -302,7 +302,7 @@ describe("DELETE /api/collection", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request);
+    const response = await DELETE(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -325,7 +325,7 @@ describe("DELETE /api/collection", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request);
+    const response = await DELETE(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(500);

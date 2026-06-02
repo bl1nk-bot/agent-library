@@ -35,7 +35,7 @@ describe("POST /api/prompts/[id]/vote", () => {
       method: "POST",
     });
 
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -50,7 +50,7 @@ describe("POST /api/prompts/[id]/vote", () => {
       method: "POST",
     });
 
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -66,7 +66,7 @@ describe("POST /api/prompts/[id]/vote", () => {
       method: "POST",
     });
 
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -84,7 +84,7 @@ describe("POST /api/prompts/[id]/vote", () => {
       method: "POST",
     });
 
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -109,7 +109,7 @@ describe("POST /api/prompts/[id]/vote", () => {
       method: "POST",
     });
 
-    await POST(request, { params: Promise.resolve({ id: "123" }) });
+    await POST(request as any, { params: Promise.resolve({ id: "123" }) });
 
     expect(db.promptVote.findUnique).toHaveBeenCalledWith({
       where: {
@@ -134,7 +134,7 @@ describe("DELETE /api/prompts/[id]/vote", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -150,7 +150,7 @@ describe("DELETE /api/prompts/[id]/vote", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -173,7 +173,7 @@ describe("DELETE /api/prompts/[id]/vote", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);

@@ -33,7 +33,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -48,7 +48,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "INVALID_REASON" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -63,7 +63,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -79,7 +79,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "nonexistent", reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -98,7 +98,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -119,7 +119,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "RELIST_REQUEST" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -141,7 +141,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -166,7 +166,7 @@ describe("POST /api/reports", () => {
       }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -199,7 +199,7 @@ describe("POST /api/reports", () => {
         body: JSON.stringify({ promptId: "123", reason }),
       });
 
-      const response = await POST(request);
+      const response = await POST(request as any);
 
       expect(response.status).toBe(200);
     }
@@ -219,7 +219,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    await POST(request);
+    await POST(request as any);
 
     expect(db.promptReport.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
@@ -242,7 +242,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    await POST(request);
+    await POST(request as any);
 
     expect(db.promptReport.findFirst).toHaveBeenCalledWith({
       where: {
@@ -262,7 +262,7 @@ describe("POST /api/reports", () => {
       body: JSON.stringify({ promptId: "123", reason: "SPAM" }),
     });
 
-    const response = await POST(request);
+    const response = await POST(request as any);
     const data = await response.json();
 
     expect(response.status).toBe(500);

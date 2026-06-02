@@ -51,7 +51,7 @@ describe("GET /api/prompts/[id]", () => {
     vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/non-existent");
-    const response = await GET(request, { params: Promise.resolve({ id: "non-existent" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "non-existent" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -66,7 +66,7 @@ describe("GET /api/prompts/[id]", () => {
     } as never);
 
     const request = new Request("http://localhost:3000/api/prompts/123");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -84,7 +84,7 @@ describe("GET /api/prompts/[id]", () => {
     } as never);
 
     const request = new Request("http://localhost:3000/api/prompts/123");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -109,7 +109,7 @@ describe("GET /api/prompts/[id]", () => {
     vi.mocked(db.promptVote.findUnique).mockResolvedValue({ id: "vote1" } as never);
 
     const request = new Request("http://localhost:3000/api/prompts/123");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -130,7 +130,7 @@ describe("GET /api/prompts/[id]", () => {
     vi.mocked(db.promptVote.findUnique).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts/123");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
 
     expect(response.status).toBe(200);
   });
@@ -149,7 +149,7 @@ describe("PATCH /api/prompts/[id]", () => {
       body: JSON.stringify({ title: "Updated" }),
     });
 
-    const response = await PATCH(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await PATCH(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -165,7 +165,7 @@ describe("PATCH /api/prompts/[id]", () => {
       body: JSON.stringify({ title: "Updated" }),
     });
 
-    const response = await PATCH(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await PATCH(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -184,7 +184,7 @@ describe("PATCH /api/prompts/[id]", () => {
       body: JSON.stringify({ title: "Updated" }),
     });
 
-    const response = await PATCH(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await PATCH(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -209,7 +209,7 @@ describe("PATCH /api/prompts/[id]", () => {
       body: JSON.stringify({ title: "Updated" }),
     });
 
-    const response = await PATCH(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await PATCH(request as any, { params: Promise.resolve({ id: "123" }) });
 
     expect(response.status).toBe(200);
     expect(db.prompt.update).toHaveBeenCalled();
@@ -236,7 +236,7 @@ describe("PATCH /api/prompts/[id]", () => {
       body: JSON.stringify({ title: "Updated Title", content: "Updated content" }),
     });
 
-    const response = await PATCH(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await PATCH(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -257,7 +257,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -272,7 +272,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -291,7 +291,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -312,7 +312,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -333,7 +333,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -355,7 +355,7 @@ describe("DELETE /api/prompts/[id]", () => {
       method: "DELETE",
     });
 
-    const response = await DELETE(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await DELETE(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);

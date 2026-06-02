@@ -40,7 +40,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     vi.mocked(getConfig).mockResolvedValue({ features: { comments: false } } as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -52,7 +52,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -68,7 +68,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     } as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -105,7 +105,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     ] as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -137,7 +137,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     ] as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -168,7 +168,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     ] as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -200,7 +200,7 @@ describe("GET /api/prompts/[id]/comments", () => {
     ] as never);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
-    const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await GET(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -223,7 +223,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(403);
@@ -237,7 +237,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(401);
@@ -251,7 +251,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -266,7 +266,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(404);
@@ -300,7 +300,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(200);
@@ -330,7 +330,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test" }),
     });
-    await POST(request, { params: Promise.resolve({ id: "123" }) });
+    await POST(request as any, { params: Promise.resolve({ id: "123" }) });
 
     expect(db.notification.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
@@ -361,7 +361,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Test" }),
     });
-    await POST(request, { params: Promise.resolve({ id: "123" }) });
+    await POST(request as any, { params: Promise.resolve({ id: "123" }) });
 
     expect(db.notification.create).not.toHaveBeenCalled();
   });
@@ -379,7 +379,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       method: "POST",
       body: JSON.stringify({ content: "Reply", parentId: "nonexistent" }),
     });
-    const response = await POST(request, { params: Promise.resolve({ id: "123" }) });
+    const response = await POST(request as any, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
     expect(response.status).toBe(400);

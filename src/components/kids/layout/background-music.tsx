@@ -197,6 +197,7 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
+          aria-pressed={isPlaying}
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}

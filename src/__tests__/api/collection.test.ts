@@ -29,7 +29,7 @@ describe("GET /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const response = await GET();
     const data = await response.json();
@@ -103,7 +103,8 @@ describe("POST /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/collection", {
       method: "POST",
@@ -165,8 +166,8 @@ describe("POST /api/collection", () => {
 
   it("should return 404 if prompt not found", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.collection.findUnique).mockResolvedValue(null);
-    vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
+    vi.mocked(db.collection.findUnique).mockResolvedValue(null as any);
+    vi.mocked(db.prompt.findUnique).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/collection", {
       method: "POST",
@@ -182,7 +183,7 @@ describe("POST /api/collection", () => {
 
   it("should return 403 when adding private prompt not owned by user", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.collection.findUnique).mockResolvedValue(null);
+    vi.mocked(db.collection.findUnique).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: true,
@@ -203,7 +204,7 @@ describe("POST /api/collection", () => {
 
   it("should allow adding own private prompt to collection", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.collection.findUnique).mockResolvedValue(null);
+    vi.mocked(db.collection.findUnique).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: true,
@@ -229,7 +230,7 @@ describe("POST /api/collection", () => {
 
   it("should add public prompt to collection successfully", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
-    vi.mocked(db.collection.findUnique).mockResolvedValue(null);
+    vi.mocked(db.collection.findUnique).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: false,
@@ -267,7 +268,7 @@ describe("DELETE /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/collection?promptId=123", {
       method: "DELETE",

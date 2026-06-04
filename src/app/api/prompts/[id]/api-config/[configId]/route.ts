@@ -91,7 +91,12 @@ export async function PUT(
         id: configId,
         promptId: id,
       },
-      data: validatedData,
+      data: {
+        ...validatedData,
+        bodySchema: validatedData.bodySchema as Prisma.InputJsonValue | undefined,
+        responseSchema: validatedData.responseSchema as Prisma.InputJsonValue | undefined,
+        authentication: validatedData.authentication as Prisma.InputJsonValue | undefined,
+      },
     });
 
     return NextResponse.json(apiConfig);

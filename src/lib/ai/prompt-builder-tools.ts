@@ -487,14 +487,14 @@ export async function executeToolCall(
       }
 
       newState.tagIds = matchedTagIds;
+      // Convert matched names to a Set for O(1) lookups and avoid O(N*M) performance bottleneck
+      const matchedNamesSet = new Set(matchedNames.map((m) => m.toLowerCase()));
       return {
         result: {
           success: true,
           data: {
             appliedTags: matchedNames,
-            notFound: tagNames.filter(
-              (n) => !matchedNames.map((m) => m.toLowerCase()).includes(n.toLowerCase())
-            ),
+            notFound: tagNames.filter((n) => !matchedNamesSet.has(n.toLowerCase())),
           },
         },
         newState,

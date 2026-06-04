@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState, useMemo } from "react";
+import { Suspense, useEffect, useState, useMemo, Fragment } from "react";
 import { cn } from "@/lib/utils";
 import { RunPromptButton } from "@/components/prompts/run-prompt-button";
 
@@ -152,20 +152,18 @@ function EmbedContent() {
     return `rgba(59, 130, 246, ${alpha})`;
   };
 
-  const escapeHtml = (text: string): string => {
-    const htmlEscapes: Record<string, string> = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-    return text.replace(/[&<>"']/g, (char) => htmlEscapes[char]);
-  };
-
   const highlightMentions = (text: string) => {
-    const escaped = escapeHtml(text);
-    return escaped.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
+    const parts = text.split(/(@\w+)/g);
+    return parts.map((part, index) => {
+      if (part.match(/^@\w+$/)) {
+        return (
+          <span key={index} className="mention">
+            {part}
+          </span>
+        );
+      }
+      return <Fragment key={index}>{part}</Fragment>;
+    });
   };
 
   const renderContextPill = (context: string) => {
@@ -568,8 +566,9 @@ function EmbedContent() {
               <p
                 className="text-sm whitespace-pre-wrap"
                 style={{ color: isDark ? "#fafafa" : "#0f172a" }}
-                dangerouslySetInnerHTML={{ __html: highlightMentions(config.prompt) }}
-              />
+              >
+                {highlightMentions(config.prompt)}
+              </p>
             ) : (
               <p className="text-sm italic" style={{ color: isDark ? "#a3a3a3" : "#64748b" }}>
                 Enter your prompt in the designer...

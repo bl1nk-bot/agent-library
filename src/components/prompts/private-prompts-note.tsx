@@ -39,9 +39,10 @@ export function PrivatePromptsNote({ count }: PrivatePromptsNoteProps) {
         size="icon"
         className="text-muted-foreground hover:text-foreground -mt-0.5 -mr-1 h-6 w-6 shrink-0"
         onClick={handleDismiss}
+        aria-label="Dismiss"
+        title="Dismiss"
       >
-        <X className="h-4 w-4" />
-        <span className="sr-only">Dismiss</span>
+        <X className="h-4 w-4" aria-hidden="true" />
       </Button>
     </div>
   );

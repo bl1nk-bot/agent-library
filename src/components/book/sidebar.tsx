@@ -54,9 +54,14 @@ export function MobileTOCButton() {
     <div className="lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="h-8 w-8">
-            <List className="h-4 w-4" />
-            <span className="sr-only">Table of Contents</span>
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8"
+            aria-label="Table of Contents"
+            title="Table of Contents"
+          >
+            <List className="h-4 w-4" aria-hidden="true" />
           </Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-72 px-6">

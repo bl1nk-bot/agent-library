@@ -154,9 +154,7 @@ describe("GET /api/prompts/search", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.prompt.findMany).mockResolvedValue([]);
 
-    const request = new NextRequest(
-      "http://localhost:3000/api/prompts/search?q=test&ownerOnly=true"
-    );
+    const request = new NextRequest("http://localhost:3000/api/prompts/search?q=test&ownerOnly=true");
 
     await GET(request);
 

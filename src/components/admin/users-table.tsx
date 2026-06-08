@@ -277,11 +277,18 @@ export function UsersTable() {
                 className="w-full pl-9 sm:w-[200px]"
               />
             </div>
-            <Button size="icon" variant="outline" onClick={handleSearch} disabled={loadingUsers}>
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={handleSearch}
+              disabled={loadingUsers}
+              aria-label={tCommon("search")}
+              title={tCommon("search")}
+            >
               {loadingUsers ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
               ) : (
-                <Search className="h-4 w-4" />
+                <Search className="h-4 w-4" aria-hidden="true" />
               )}
             </Button>
           </div>
@@ -325,8 +332,14 @@ export function UsersTable() {
                   </div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 flex-shrink-0"
+                        aria-label={tCommon("more")}
+                        title={tCommon("more")}
+                      >
+                        <MoreHorizontal className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -440,8 +453,14 @@ export function UsersTable() {
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <MoreHorizontal className="h-4 w-4" />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            aria-label={tCommon("more")}
+                            title={tCommon("more")}
+                          >
+                            <MoreHorizontal className="h-4 w-4" aria-hidden="true" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -506,8 +525,10 @@ export function UsersTable() {
                   className="h-8 w-8"
                   disabled={currentPage === 1 || loadingUsers}
                   onClick={() => setCurrentPage((p) => p - 1)}
+                  aria-label={tCommon("previous")}
+                  title={tCommon("previous")}
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                 </Button>
                 <span className="px-2 text-sm tabular-nums">
                   {currentPage} / {pagination.totalPages}
@@ -518,8 +539,10 @@ export function UsersTable() {
                   className="h-8 w-8"
                   disabled={currentPage === pagination.totalPages || loadingUsers}
                   onClick={() => setCurrentPage((p) => p + 1)}
+                  aria-label={tCommon("next")}
+                  title={tCommon("next")}
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             </div>

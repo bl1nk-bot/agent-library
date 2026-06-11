@@ -341,3 +341,39 @@ export function getPatternDescription(pattern: VariablePattern): string {
       return "${...}";
   }
 }
+
+// 🛡️ Guardian: Consolidated from src/pages/api/mcp.ts (deleted inline versions)
+// This function and interface were duplicated inline - moved to canonical location
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: Removed duplicated ExtractedVariable and extractVariables
+// Date: 2026-06-11
+// Session: .Jules/guardian/2026-06-11/
+export interface ExtractedVariable {
+  name: string;
+  defaultValue?: string;
+}
+
+// 🛡️ Guardian: Consolidated from src/pages/api/mcp.ts (deleted inline versions)
+// This function was duplicated - moved to canonical location
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: Consolidated extractVariables logic
+// Date: 2026-06-11
+// Session: .Jules/guardian/2026-06-11/
+export function extractVariables(content: string): ExtractedVariable[] {
+  // Format: ${variableName} or ${variableName:default}
+  const regex = /\$\{([a-zA-Z_][a-zA-Z0-9_\s]*?)(?::([^}]*))?\}/g;
+  const variables: ExtractedVariable[] = [];
+  const seen = new Set<string>();
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    const name = match[1].trim();
+    if (!seen.has(name)) {
+      seen.add(name);
+      variables.push({
+        name,
+        defaultValue: match[2]?.trim(),
+      });
+    }
+  }
+  return variables;
+}

@@ -221,7 +221,7 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
           )}
           <div className="from-background via-background/30 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
           {/* Badges overlay */}
-          <div className="absolute top-2 right-2 flex items-center gap-1.5">
+          <div className="absolute right-2 top-2 flex items-center gap-1.5">
             {isFlowStart && (
               <div className="bg-background/80 flex items-center gap-0.5 rounded px-1.5 py-0.5 backdrop-blur-sm">
                 <Link2 className="text-muted-foreground h-3 w-3" />
@@ -305,13 +305,13 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
             />
           ) : (
             <pre
-              className={`text-muted-foreground bg-muted h-full overflow-hidden rounded p-2 font-mono text-xs break-words whitespace-pre-wrap ${hasMediaBackground ? "line-clamp-2" : "line-clamp-4"}`}
+              className={`text-muted-foreground bg-muted h-full overflow-hidden whitespace-pre-wrap break-words rounded p-2 font-mono text-xs ${hasMediaBackground ? "line-clamp-2" : "line-clamp-4"}`}
             >
               {contentHasVariables ? renderContentWithVariables(prompt.content) : prompt.content}
             </pre>
           )}
           {showPinButton && (
-            <div className="absolute top-1.5 right-1.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+            <div className="absolute right-1.5 top-1.5 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
               <PinButton promptId={prompt.id} initialPinned={isPinned} iconOnly />
             </div>
           )}

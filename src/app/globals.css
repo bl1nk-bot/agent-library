@@ -337,12 +337,15 @@
 
 @layer base {
   * {
+    @apply border-border outline-ring/50;
+  }
+
   body {
-    `@apply` font-sans text-foreground;
+    @apply text-foreground font-sans;
 
     background-color: var(--ash-bg, var(--slate-950));
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizelegibility;
+    text-rendering: optimizeLegibility;
   }
 
   h1,

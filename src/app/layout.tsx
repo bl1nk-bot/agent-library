@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     default: "AI Command Hub",
     template: "%s | AI Command Hub",
   },
-  description: "Digital Luxury Interface for AI Agents.",
-  keywords: ["AI", "Agents", "Command Hub", "Digital Noir"],
+  description: "Ashval Writer's Suite — Obsidian Night interface for AI agents.",
+  keywords: ["AI", "Agents", "Command Hub", "Ashval", "Obsidian Night"],
   authors: [{ name: "bl1nk Team" }],
   creator: "AI Command Hub",
   publisher: "AI Command Hub",
@@ -170,7 +170,7 @@ export default async function RootLayout({
         <WebsiteStructuredData />
       </head>
       <body
-        className={`${fontClasses} bg-[#020617] text-white antialiased selection:bg-violet-500/30 selection:text-violet-50`}
+        className={`${fontClasses} bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground antialiased`}
       >
         {process.env.GOOGLE_ANALYTICS_ID && <Analytics gaId={process.env.GOOGLE_ANALYTICS_ID} />}
         <Providers

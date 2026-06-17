@@ -255,11 +255,11 @@
   --input: var(--slate-800);
   --ring: rgba(93, 92, 222, 0.45);
 
-  /* Agent accent palette */
-  --agent-cyan: #00e5ff;
-  --agent-gold: #ffd700;
-  --agent-sapphire: var(--violet-500);
-  --agent-amethyst: var(--violet-400);
+  /* Agent accent palette — mapped to Ashval brand */
+  --agent-cyan: var(--brand-primary);
+  --agent-gold: var(--brand-accent);
+  --agent-sapphire: var(--brand-primary);
+  --agent-amethyst: var(--brand-primary-light);
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -281,8 +281,11 @@
 .light {
   --ash-bg: #f8fafc;
   --ash-surface: #fff;
+  --ash-surface-solid: #fff;
   --ash-surface-raised: #fff;
   --ash-surface-sunken: var(--slate-100);
+  --ash-surface-header: rgba(255, 255, 255, 0.85);
+  --ash-surface-sidebar: #fff;
   --ash-surface-glass: rgba(255, 255, 255, 0.85);
   --ash-surface-input: #fff;
   --ash-border-subtle: rgba(15, 23, 42, 0.07);

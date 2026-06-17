@@ -338,7 +338,7 @@
   }
 
   body {
-    @apply font-sans text-foreground;
+    @apply text-foreground font-sans;
     background-color: var(--ash-bg, var(--slate-950));
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

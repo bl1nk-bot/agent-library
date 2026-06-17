@@ -170,7 +170,9 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
                 )}
                 style={{ clipPath: smallPixelClipPath }}
               >
-                <span className="text-lg" aria-hidden="true">{locale.flag}</span>
+                <span className="text-lg" aria-hidden="true">
+                  {locale.flag}
+                </span>
                 <span className="text-xs">{locale.label}</span>
               </button>
             ))}

@@ -29,7 +29,7 @@ describe("GET /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const response = await GET();
     const data = await response.json();
@@ -103,7 +103,7 @@ describe("POST /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/collection", {
       method: "POST",
@@ -267,7 +267,7 @@ describe("DELETE /api/collection", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/collection?promptId=123", {
       method: "DELETE",

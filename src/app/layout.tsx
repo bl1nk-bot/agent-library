@@ -13,7 +13,7 @@ import { AppBanner } from "@/components/layout/app-banner";
 import { LocaleDetector } from "@/components/providers/locale-detector";
 import { getConfig } from "@/lib/config";
 import { isRtlLocale } from "@/lib/i18n/config";
-import { inter, jetbrainsMono } from "./fonts";
+import { inter, jetbrainsMono, sarabun } from "./fonts";
 import "./globals.css";
 
 const notoSansArabic = Noto_Sans_Arabic({
@@ -155,8 +155,8 @@ export default async function RootLayout({
   } as React.CSSProperties;
 
   const fontClasses = isRtl
-    ? `${inter.variable} ${notoSansArabic.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-arabic`
-    : `${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-sans`;
+    ? `${sarabun.variable} ${inter.variable} ${notoSansArabic.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-arabic`
+    : `${sarabun.variable} ${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-sans`;
 
   return (
     <html
@@ -170,7 +170,7 @@ export default async function RootLayout({
         <WebsiteStructuredData />
       </head>
       <body
-        className={`${fontClasses} bg-[#050505] text-white antialiased selection:bg-cyan-500/30 selection:text-cyan-50`}
+        className={`${fontClasses} bg-[#020617] text-white antialiased selection:bg-violet-500/30 selection:text-violet-50`}
       >
         {process.env.GOOGLE_ANALYTICS_ID && <Analytics gaId={process.env.GOOGLE_ANALYTICS_ID} />}
         <Providers

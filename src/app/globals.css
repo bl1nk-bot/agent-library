@@ -7,7 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  /* Sarabun first for Thai glyph coverage, Inter as fallback */
+  --font-sans: var(--font-sarabun), var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
   --font-arabic: var(--font-arabic);
   --font-display: var(--font-playfair);
@@ -47,182 +48,410 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
 }
 
+/* ================================================================
+   ASHVAL WRITER'S SUITE — Design Tokens
+   Primary: indigo-violet #5D5CDE | Secondary: teal #38B2AC
+   Accent: warm-orange #FF9F5A | Dark theme: "Obsidian Night"
+   Font: Sarabun (Thai+Latin) + JetBrains Mono
+================================================================ */
 :root {
-  --radius: 0.25rem; /* Sharper corners for tech look */
+  /* ---- Brand: primary (indigo-violet) ---- */
+  --violet-50:  #EEEEFC;
+  --violet-100: #DEDDF8;
+  --violet-200: #C2C1F1;
+  --violet-300: #A3A2EB;
+  --violet-400: #7E7DE6;
+  --violet-500: #5D5CDE;  /* PRIMARY */
+  --violet-600: #4A49B8;
+  --violet-700: #3C3B96;
+  --violet-800: #2E2D72;
+  --violet-900: #21214F;
 
-  /* Digital Noir Theme (Obsidian Black) */
-  --background: #050505;
-  --foreground: #f0f0f0;
+  --brand-primary:       var(--violet-500);
+  --brand-primary-light: var(--violet-400);
+  --brand-primary-dark:  var(--violet-600);
+  --brand-primary-tint:  var(--violet-50);
 
-  --card: rgba(20, 20, 20, 0.6);
-  --card-foreground: #f0f0f0;
+  /* ---- Brand: secondary (teal) ---- */
+  --teal-50:  #E6F6F5;
+  --teal-300: #5EC9C3;
+  --teal-400: #45BDB6;
+  --teal-500: #38B2AC;  /* SECONDARY */
+  --teal-600: #2C9A94;
+  --teal-700: #237D78;
+  --brand-secondary:      var(--teal-500);
+  --brand-secondary-dark: var(--teal-600);
+  --brand-secondary-tint: var(--teal-50);
 
-  --popover: rgba(10, 10, 10, 0.9);
-  --popover-foreground: #f0f0f0;
+  /* ---- Brand: accent (warm orange) ---- */
+  --orange-50:  #FFF3EA;
+  --orange-300: #FFC199;
+  --orange-400: #FFB17A;
+  --orange-500: #FF9F5A;  /* ACCENT */
+  --orange-600: #F0823D;
+  --orange-700: #D26A2A;
+  --brand-accent:       var(--orange-500);
+  --brand-accent-light: var(--orange-400);
+  --brand-accent-dark:  var(--orange-600);
+  --brand-accent-tint:  var(--orange-50);
 
-  --primary: #00e5ff; /* Cyan Glitch */
-  --primary-foreground: #000000;
+  /* ---- Semantic status ---- */
+  --ash-success:      #2BB673;
+  --ash-success-soft: #7BE495;
+  --ash-success-tint: #E7F8EE;
+  --ash-warning:      #E0A21A;
+  --ash-warning-soft: #FFD166;
+  --ash-warning-tint: #FFF6E0;
+  --ash-danger:       #EF5350;
+  --ash-danger-soft:  #FF6B6B;
+  --ash-danger-tint:  #FDEAEA;
 
-  --secondary: rgba(255, 255, 255, 0.05);
-  --secondary-foreground: #f0f0f0;
+  /* ---- Neutrals (slate ramp) ---- */
+  --slate-50:  #F8FAFC;
+  --slate-100: #F1F5F9;
+  --slate-200: #E2E8F0;
+  --slate-300: #CBD5E1;
+  --slate-400: #94A3B8;
+  --slate-500: #64748B;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1E293B;
+  --slate-900: #0F172A;
+  --slate-950: #020617;
 
-  --muted: rgba(255, 255, 255, 0.03);
-  --muted-foreground: #888888;
+  /* ---- Brand gradients ---- */
+  --gradient-brand:  linear-gradient(135deg, var(--violet-500), var(--violet-600));
+  --gradient-accent: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+  --gradient-teal:   linear-gradient(135deg, var(--teal-400),   var(--teal-600));
 
-  --accent: rgba(0, 229, 255, 0.1);
-  --accent-foreground: #00e5ff;
+  /* ---- Typography scale ---- */
+  --text-2xs: 0.6875rem;
+  --text-xs:  0.75rem;
+  --text-sm:  0.875rem;
+  --text-base: 1rem;
+  --text-lg:  1.125rem;
+  --text-xl:  1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
 
-  --destructive: #ff3333;
-  --destructive-foreground: #ffffff;
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
 
-  --border: rgba(255, 255, 255, 0.08); /* Light borders */
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: rgba(0, 229, 255, 0.5);
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
 
-  /* Agent Accent Colors */
-  --agent-cyan: #00e5ff; /* System/General */
-  --agent-gold: #ffd700; /* Gemini */
-  --agent-sapphire: #0066cc; /* Claude */
-  --agent-amethyst: #9933ff; /* Codex */
+  --tracking-tight:  -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-caps:   0.06em;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ---- Layout metrics ---- */
+  --ash-header-height:  64px;
+  --ash-sidebar-width:  256px;
+  --ash-content-max:    1200px;
+
+  /* ---- Glass / blur ---- */
+  --blur-glass: 10px;
+  --blur-nav:   12px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+  --hover-lift:  translateY(-4px);
+  --press-scale: scale(0.97);
+
+  /* ================================================================
+     OBSIDIAN NIGHT — dark-first theme (app default)
+  ================================================================ */
+  --ash-bg:          var(--slate-950);
+  --ash-surface:     rgba(30, 41, 59, 0.72);
+  --ash-surface-solid: var(--slate-800);
+  --ash-surface-raised: var(--slate-800);
+  --ash-surface-sunken: #0B1322;
+  --ash-surface-header: rgba(15, 23, 42, 0.85);
+  --ash-surface-sidebar: var(--slate-900);
+  --ash-surface-glass:   rgba(30, 41, 59, 0.70);
+  --ash-surface-input:   var(--slate-800);
+  --ash-border-subtle:   rgba(148, 163, 184, 0.12);
+  --ash-border-default:  rgba(51, 65, 85, 0.65);
+  --ash-border-strong:   rgba(71, 85, 105, 0.8);
+  --ash-border-focus:    var(--brand-primary);
+  --ash-text-primary:    var(--slate-100);
+  --ash-text-secondary:  var(--slate-400);
+  --ash-text-tertiary:   var(--slate-500);
+  --ash-text-on-brand:   #FFFFFF;
+  --ash-text-link:       var(--violet-300);
+  --ash-ring-focus:      rgba(93, 92, 222, 0.45);
+
+  /* ---- Elevation — Obsidian Night (deep shadows) ---- */
+  --shadow-xs:    0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.40);
+  --shadow-lg:    0 10px 25px rgba(0, 0, 0, 0.45);
+  --shadow-xl:    0 20px 40px rgba(0, 0, 0, 0.55);
+  --shadow-top:   0 -2px 5px rgba(0, 0, 0, 0.30);
+  --shadow-brand: 0 4px 20px rgba(93, 92, 222, 0.45);
+  --shadow-accent: 0 4px 15px rgba(255, 159, 90, 0.35);
+
+  /* ================================================================
+     shadcn/ui semantic vars — mapped to Ashval Obsidian Night
+  ================================================================ */
+  --radius: 0.5rem; /* 8px — Ashval radius-md */
+
+  --background: var(--slate-950);
+  --foreground: var(--slate-100);
+
+  --card: rgba(30, 41, 59, 0.72);
+  --card-foreground: var(--slate-100);
+
+  --popover: rgba(15, 23, 42, 0.90);
+  --popover-foreground: var(--slate-100);
+
+  --primary: var(--violet-500);  /* #5D5CDE */
+  --primary-foreground: #FFFFFF;
+
+  --secondary: rgba(51, 65, 85, 0.50);
+  --secondary-foreground: var(--slate-100);
+
+  --muted: #0B1322;
+  --muted-foreground: var(--slate-500);
+
+  --accent: rgba(93, 92, 222, 0.18);
+  --accent-foreground: var(--violet-300);
+
+  --destructive: var(--ash-danger);
+  --destructive-foreground: #FFFFFF;
+
+  --border: rgba(148, 163, 184, 0.12);
+  --input: var(--slate-800);
+  --ring: rgba(93, 92, 222, 0.45);
+
+  /* Agent accent palette */
+  --agent-cyan:      #00e5ff;
+  --agent-gold:      #ffd700;
+  --agent-sapphire:  var(--violet-500);
+  --agent-amethyst:  var(--violet-400);
 
   --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-2: oklch(0.6  0.118 184.704);
+  --chart-3: oklch(0.398 0.07  227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
 
-  --sidebar: #050505;
-  --sidebar-foreground: #f0f0f0;
-  --sidebar-primary: #00e5ff;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: rgba(255, 255, 255, 0.05);
-  --sidebar-accent-foreground: #f0f0f0;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: rgba(0, 229, 255, 0.5);
+  --sidebar: var(--slate-900);
+  --sidebar-foreground: var(--slate-100);
+  --sidebar-primary: var(--violet-500);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(93, 92, 222, 0.18);
+  --sidebar-accent-foreground: var(--violet-300);
+  --sidebar-border: rgba(148, 163, 184, 0.12);
+  --sidebar-ring: rgba(93, 92, 222, 0.45);
+}
+
+/* Light theme override (activate via class="light" or remove dark) */
+.light {
+  --ash-bg:           #F8FAFC;
+  --ash-surface:      #FFFFFF;
+  --ash-surface-raised: #FFFFFF;
+  --ash-surface-sunken: var(--slate-100);
+  --ash-surface-glass: rgba(255, 255, 255, 0.85);
+  --ash-surface-input: #FFFFFF;
+  --ash-border-subtle:  rgba(15, 23, 42, 0.07);
+  --ash-border-default: var(--slate-200);
+  --ash-border-strong:  var(--slate-300);
+  --ash-text-primary:   var(--slate-800);
+  --ash-text-secondary: var(--slate-500);
+  --ash-text-tertiary:  var(--slate-400);
+  --ash-text-link:      var(--violet-500);
+  --ash-ring-focus:     rgba(93, 92, 222, 0.45);
+
+  --shadow-xs:  0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-sm:  0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md:  0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg:  0 10px 25px rgba(15, 23, 42, 0.10);
+  --shadow-xl:  0 20px 40px rgba(15, 23, 42, 0.14);
+  --shadow-top: 0 -2px 5px rgba(15, 23, 42, 0.05);
+
+  --background: #F8FAFC;
+  --foreground: var(--slate-800);
+  --card: #FFFFFF;
+  --card-foreground: var(--slate-800);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--slate-800);
+  --primary: var(--violet-500);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--slate-100);
+  --secondary-foreground: var(--slate-700);
+  --muted: var(--slate-100);
+  --muted-foreground: var(--slate-500);
+  --accent: var(--violet-50);
+  --accent-foreground: var(--violet-600);
+  --border: var(--slate-200);
+  --input: #FFFFFF;
+  --ring: rgba(93, 92, 222, 0.45);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: var(--slate-700);
+  --sidebar-primary: var(--violet-500);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--violet-50);
+  --sidebar-accent-foreground: var(--violet-600);
+  --sidebar-border: var(--slate-200);
+  --sidebar-ring: rgba(93, 92, 222, 0.45);
 }
 
 .dark {
-  /* Inherit root variables as we are default dark mode */
+  /* inherits :root Obsidian Night — no overrides needed */
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply text-foreground bg-[#050505] font-sans;
-    /* Micro-noise texture overlay */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    @apply text-foreground font-sans;
+    background-color: var(--ash-bg, var(--slate-950));
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Scrollbar Styling - Functional Minimalist */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
+
+  :focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
   }
+
+  /* Scrollbar — Ashval violet thumb */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    background: var(--violet-500);
+    border-radius: 9999px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--violet-400); }
 
-  /* Mobile Scrollbar - Larger touch targets */
   @media (max-width: 768px) {
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
   }
 
   /* Prevent iOS Safari zoom on input focus */
   @media screen and (max-width: 768px) {
-    input,
-    textarea,
-    select {
-      font-size: 16px !important;
-    }
+    input, textarea, select { font-size: 16px !important; }
   }
 
-  /* Smooth scrolling for better mobile experience */
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
+}
+
+/* ================================================================
+   Ashval Signature Animations
+================================================================ */
+@keyframes ash-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ash-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes ash-pulse-ring {
+  0%   { transform: scale(1);   opacity: 1; }
+  70%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1);   opacity: 0; }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-balance { text-wrap: balance; }
+
+  /* Ashval glass surface */
+  .ash-glass {
+    background: var(--ash-surface-glass);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border: 1px solid var(--ash-border-subtle);
   }
 
-  /* Glassmorphism Utilities */
+  /* Ashval animation helpers */
+  .ash-animate-fade-in {
+    animation: ash-fade-in var(--duration-slow) var(--ease-out) both;
+  }
+  .ash-animate-float {
+    animation: ash-float 3s ease-in-out infinite;
+  }
+
+  /* Legacy glass utilities — kept for existing components */
   .glass-panel {
-    @apply border border-white/5 bg-black/40 shadow-lg backdrop-blur-xl;
+    background: var(--ash-surface-glass);
+    backdrop-filter: blur(var(--blur-nav));
+    -webkit-backdrop-filter: blur(var(--blur-nav));
+    border: 1px solid var(--ash-border-subtle);
+    box-shadow: var(--shadow-lg);
   }
 
   .glass-card {
-    @apply border border-white/10 bg-white/5 backdrop-blur-md transition-colors duration-300 hover:border-white/20;
+    background: var(--ash-surface);
+    border: 1px solid var(--ash-border-default);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    transition: border-color var(--duration-normal);
   }
+  .glass-card:hover { border-color: var(--ash-border-strong); }
 
-  /* Motion System - Micro-animations Only */
-  .duration-120 {
-    transition-duration: 120ms;
-  }
+  /* Motion utilities */
+  .duration-120  { transition-duration: 120ms; }
+  .duration-180  { transition-duration: 180ms; }
+  .duration-240  { transition-duration: 240ms; }
+  .ease-standard { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  .ease-emphasized { transition-timing-function: cubic-bezier(0.3, 0, 0, 1); }
 
-  .duration-180 {
-    transition-duration: 180ms;
-  }
-
-  .duration-240 {
-    transition-duration: 240ms;
-  }
-
-  .ease-standard {
-    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-  }
-
-  .ease-emphasized {
-    transition-timing-function: cubic-bezier(0.3, 0, 0, 1);
-  }
-
-  /* Editor Utilities */
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-
+  /* Thin scrollbar for editor/code areas */
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
   @media (max-width: 768px) {
-    .scrollbar-thin::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
   }
 
-  /* Reduce motion for accessibility */
+  /* Touch */
+  .touch-manipulation { touch-action: manipulation; }
+
+  /* Reduce motion */
   @media (prefers-reduced-motion: reduce) {
-    * {
+    *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
-  }
-
-  /* Mobile touch optimization */
-  .touch-manipulation {
-    touch-action: manipulation;
   }
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Server, Database, Key, Palette, Globe, Settings, Cpu } from "lucide-react";
+import DeepWikiIcon from "@/../public/deepwiki.svg";
+import Context7Icon from "@/../public/context7.svg";
 import {
   Table,
   TableBody,
@@ -50,7 +52,7 @@ export default function SelfHostingPage() {
             {/* DeepWiki */}
             <div className="space-y-4">
               <h3 className="flex items-center gap-2 text-lg font-semibold">
-                <Image src="/deepwiki.svg" alt="" width={20} height={20} />
+                <Image src={DeepWikiIcon} alt="" width={20} height={20} />
                 DeepWiki
               </h3>
               <p className="text-muted-foreground">
@@ -75,7 +77,7 @@ export default function SelfHostingPage() {
             {/* Context7 */}
             <div className="space-y-4">
               <h3 className="flex items-center gap-2 text-lg font-semibold">
-                <Image src="/context7.svg" alt="" width={20} height={20} className="rounded" />
+                <Image src={Context7Icon} alt="" width={20} height={20} className="rounded" />
                 Context7
               </h3>
               <p className="text-muted-foreground">

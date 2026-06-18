@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { Prisma } from "@/generated/prisma";
+import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { generateEmbedding, isAISearchEnabled } from "@/lib/ai/embeddings";
 import { loadPrompt, getSystemPrompt, interpolatePrompt } from "@/lib/ai/load-prompt";

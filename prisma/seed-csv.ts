@@ -1,4 +1,4 @@
-import { PrismaClient, PromptType } from "@/generated/prisma";
+import { PrismaClient, PromptType } from "@prisma/client";
 import * as fs from "fs";
 import * as path from "path";
 import bcrypt from "bcryptjs";

@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { apiConfigSchema } from "@/lib/schemas/api-config";
 import { z } from "zod";
-import { Prisma } from "@/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 /**
  * GET /api/prompts/[id]/api-config/[configId]
@@ -98,7 +98,7 @@ export async function PUT(
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.issues },
+        { error: "Validation error", details: error.errors },
         { status: 400 }
       );
     }

@@ -7,8 +7,6 @@
 // Date: 2026-06-18
 // Session: .Jules/guardian/2026-06-18/
 
-
-
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -145,7 +143,9 @@ export function DiffView({
       <div className={cn("my-4 grid gap-3 md:grid-cols-2", className)}>
         <div className="overflow-hidden rounded-lg border">
           <div className="border-b border-red-200 bg-red-50 px-3 py-2 dark:border-red-800 dark:bg-red-950/30">
-            <span className="text-sm font-medium text-red-700 dark:text-red-300">{beforeLabel}</span>
+            <span className="text-sm font-medium text-red-700 dark:text-red-300">
+              {beforeLabel}
+            </span>
           </div>
           <div className="bg-muted/20 p-3 font-mono text-sm whitespace-pre-wrap">
             {wordDiff.map((segment, i) => {
@@ -386,7 +386,7 @@ export function VersionDiff({ versions }: VersionDiffProps) {
               )}
             </div>
             <div className="grid md:grid-cols-2">
-              <div className="border-r border-dashed bg-muted/10 p-3">
+              <div className="bg-muted/10 border-r border-dashed p-3">
                 <div className="mb-2 text-xs font-medium text-red-600 dark:text-red-400">
                   {prev.label}
                 </div>

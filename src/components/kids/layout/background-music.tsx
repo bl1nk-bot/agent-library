@@ -200,8 +200,13 @@ export function MusicVolumeSlider() {
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
+          aria-pressed={isPlaying}
         >
-          {isPlaying ? "🔊 On" : "🔇 Off"}
+          {isPlaying ? (
+            <><span aria-hidden="true">🔊</span> On</>
+          ) : (
+            <><span aria-hidden="true">🔇</span> Off</>
+          )}
         </button>
         <span className="text-sm text-[#5D4037]">{Math.round(volume * 100)}%</span>
       </div>

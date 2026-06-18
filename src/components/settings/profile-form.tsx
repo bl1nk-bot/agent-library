@@ -280,7 +280,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     onClick={() => handleDismissVerifiedSection(false)}
                     className="inline-flex items-center gap-1 text-xs text-amber-600 hover:underline dark:text-amber-400"
                   >
-                    <BadgeCheck className="h-3 w-3" />
+                    <BadgeCheck className="h-3 w-3" aria-hidden="true" />
                     {tSettings("getVerifiedTitle")}
                   </button>
                 )}
@@ -291,7 +291,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
           {showVerifiedSection &&
             (user.verified ? (
               <div className="flex items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/5 p-3">
-                <BadgeCheck className="h-5 w-5 shrink-0 text-blue-500" />
+                <BadgeCheck className="h-5 w-5 shrink-0 text-blue-500" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-medium">{tSettings("verifiedTitle")}</p>
                   <p className="text-muted-foreground text-xs">{tSettings("verifiedThankYou")}</p>
@@ -305,11 +305,13 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     type="button"
                     onClick={() => handleDismissVerifiedSection(true)}
                     className="text-muted-foreground hover:text-foreground hover:bg-muted absolute top-2 right-2 rounded-md p-1 transition-colors"
+                    aria-label={tCommon("close")}
+                    title={tCommon("close")}
                   >
-                    <X className="h-4 w-4" />
+                    <X className="h-4 w-4" aria-hidden="true" />
                   </button>
                   <div className="mb-1 flex items-center gap-2">
-                    <BadgeCheck className="h-5 w-5 text-blue-500" />
+                    <BadgeCheck className="h-5 w-5 text-blue-500" aria-hidden="true" />
                     <p className="text-sm font-semibold">{tSettings("getVerifiedTitle")}</p>
                   </div>
                   <p className="text-muted-foreground mb-3 pr-6 text-sm">
@@ -321,7 +323,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600"
                   >
-                    <BadgeCheck className="h-4 w-4" />
+                    <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                     {tSettings("getVerifiedButton")}
                     <span className="text-blue-100">({tSettings("verifiedBadgePrice")})</span>
                     <ExternalLink className="h-3 w-3" />

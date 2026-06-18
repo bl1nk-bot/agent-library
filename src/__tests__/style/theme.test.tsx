@@ -1,3 +1,4 @@
+import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config.ts";
 // Note: tailwind.config might be .js or .ts, we'll need to check or adjust import.
 // For Next.js projects, it's often in root.

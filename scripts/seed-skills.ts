@@ -9,7 +9,7 @@
  *   npx tsx scripts/seed-skills.ts --all
  */
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/generated/prisma";
 import * as fs from "fs";
 import * as path from "path";
 

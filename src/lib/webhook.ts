@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Prisma, WebhookEvent } from "@prisma/client";
+import { Prisma, WebhookEvent } from "@/generated/prisma";
 
 interface PromptData {
   id: string;

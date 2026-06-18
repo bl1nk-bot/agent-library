@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { apiConfigSchema } from "@/lib/schemas/api-config";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/generated/prisma";
 
 /**
  * GET /api/prompts/[id]/api-config/[configId]

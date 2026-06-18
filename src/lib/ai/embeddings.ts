@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/generated/prisma";
 import { db } from "@/lib/db";
 import { getConfig } from "@/lib/config";
 import { loadPrompt, getSystemPrompt } from "./load-prompt";

@@ -1,7 +1,15 @@
-import { PrismaClient, PromptType, StructuredFormat, RequiredMediaType } from "@prisma/client";
+import { PrismaClient, PromptType, StructuredFormat, RequiredMediaType } from "@/generated/prisma";
 import bcrypt from "bcryptjs";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 
-const prisma = new PrismaClient();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: true },
+});
+
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 const PROMPTS_JSON_URL = "https://prompts.chat/prompts.json";
 

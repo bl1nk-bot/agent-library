@@ -56,3 +56,4 @@ archive
 !.gemini/**/
 !.gemini/**/.gitkeep
 conductor/
+.claude/settings.local.json

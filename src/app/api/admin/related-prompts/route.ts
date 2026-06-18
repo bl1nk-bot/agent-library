@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/generated/prisma";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { findAndSaveRelatedPrompts } from "@/lib/ai/embeddings";

@@ -837,6 +837,7 @@ export function PromptsManagement({
                 variant="outline"
                 onClick={handleSearch}
                 disabled={loadingPrompts}
+                aria-label="Search"
               >
                 {loadingPrompts ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -896,8 +897,13 @@ export function PromptsManagement({
                   <div className="flex flex-shrink-0 items-center gap-2">
                     {prompt.id && (
                       <Link href={`/prompts/${prompt.id}`} target="_blank" prefetch={false}>
-                        <Button size="icon" variant="ghost" className="h-8 w-8">
-                          <ExternalLink className="h-4 w-4" />
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-8 w-8"
+                          aria-label="View prompt"
+                        >
+                          <ExternalLink aria-hidden="true" className="h-4 w-4" />
                         </Button>
                       </Link>
                     )}
@@ -906,8 +912,9 @@ export function PromptsManagement({
                       variant="ghost"
                       className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
                       onClick={() => setPromptToDelete(prompt)}
+                      aria-label="Delete prompt"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 aria-hidden="true" className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -961,8 +968,9 @@ export function PromptsManagement({
                 className="h-8 w-8"
                 disabled={currentPage === 1 || loadingPrompts}
                 onClick={() => setCurrentPage((p) => p - 1)}
+                aria-label="Previous page"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft aria-hidden="true" className="h-4 w-4" />
               </Button>
               <span className="px-2 text-sm tabular-nums">
                 {currentPage} / {pagination.totalPages}
@@ -973,8 +981,9 @@ export function PromptsManagement({
                 className="h-8 w-8"
                 disabled={currentPage === pagination.totalPages || loadingPrompts}
                 onClick={() => setCurrentPage((p) => p + 1)}
+                aria-label="Next page"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight aria-hidden="true" className="h-4 w-4" />
               </Button>
             </div>
           </div>

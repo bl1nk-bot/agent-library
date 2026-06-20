@@ -384,13 +384,15 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-visible:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
+                    aria-label={t("tokenizer.deleteHistory")}
+                    title={t("tokenizer.deleteHistory")}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-3 w-3" aria-hidden="true" />
                   </Button>
                 </div>
               ))
@@ -421,8 +423,15 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                 className="scale-75"
               />
             </div>
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={clearText}>
-              <Trash2 className="h-3.5 w-3.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={clearText}
+              aria-label={t("tokenizer.clearText")}
+              title={t("tokenizer.clearText")}
+            >
+              <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -472,8 +481,19 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
           <span className="text-muted-foreground text-sm font-medium">
             {t("tokenizer.analysis")}
           </span>
-          <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6">
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleCopy}
+            className="h-6 w-6"
+            aria-label={t("tokenizer.copyStats")}
+            title={t("tokenizer.copyStats")}
+          >
+            {copied ? (
+              <Check className="h-3 w-3" aria-hidden="true" />
+            ) : (
+              <Copy className="h-3 w-3" aria-hidden="true" />
+            )}
           </Button>
         </div>
 

@@ -1457,7 +1457,10 @@
       "contextWindowSize": "Context Window Size",
       "inputPricePerMillion": "Input $/1M tokens",
       "outputPricePerMillion": "Output $/1M tokens",
-      "highlightTokens": "Highlight Tokens"
+      "highlightTokens": "Highlight Tokens",
+      "clearText": "Clear Text",
+      "deleteHistory": "Delete from History",
+      "copyStats": "Copy Token Statistics"
     }
   },
   "appBanner": {

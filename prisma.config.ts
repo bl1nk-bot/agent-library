@@ -3,7 +3,7 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
-// Conditionally assign DIRECT_URL for environments that only provide DATABASE_URL.
+// Conditionally assign DIRECT_URL for environments that only provide DATABASE_URL..
 process.env.DIRECT_URL = process.env.DIRECT_URL || process.env.DATABASE_URL;
 
 export default defineConfig({

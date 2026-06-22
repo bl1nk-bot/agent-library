@@ -89,9 +89,10 @@ export function AppBanner() {
             size="icon"
             className="text-primary-foreground hover:bg-primary-foreground/20 h-6 w-6"
             onClick={handleDismiss}
+            aria-label={t("dismiss")}
+            title={t("dismiss")}
           >
-            <X className="h-3.5 w-3.5" />
-            <span className="sr-only">{t("dismiss")}</span>
+            <X className="h-3.5 w-3.5" aria-hidden="true" />
           </Button>
         </div>
       </div>

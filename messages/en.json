@@ -816,6 +816,7 @@
     "noContributions": "No contributions yet",
     "noContributionsOwner": "You haven't contributed to any prompts yet",
     "privatePromptsNote": "You have {count} private {count, plural, one {prompt} other {prompts}}. Access them via MCP using your API key in supported clients.",
+    "dismiss": "Dismiss",
     "contribution": "contribution",
     "contributionsPlural": "contributions",
     "inLastYear": "in the last year",

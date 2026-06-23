@@ -162,12 +162,13 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
                 key={locale.code}
                 onClick={() => handleLanguageChange(locale.code)}
                 className={cn(
-                  "flex items-center gap-2 border-2 p-2 text-sm font-medium transition-all",
+                  "flex items-center gap-2 border-2 p-2 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
                   currentLocale === locale.code
                     ? "border-[#5D4037] bg-[#8B4513] text-white"
                     : "border-[#D4A574] bg-white text-[#5D4037] hover:border-[#8B4513]"
                 )}
                 style={{ clipPath: smallPixelClipPath }}
+                aria-pressed={currentLocale === locale.code}
               >
                 <span className="text-lg">{locale.flag}</span>
                 <span className="text-xs">{locale.label}</span>

@@ -3,6 +3,14 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// Fix for Prisma Compute / CI missing environment variables (P1012)
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
+}
+if (!process.env.DIRECT_URL) {
+  process.env.DIRECT_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -10,7 +18,6 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url:
-      process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
+    url: process.env.DATABASE_URL,
   },
 });

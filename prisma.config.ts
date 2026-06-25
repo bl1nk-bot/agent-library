@@ -3,12 +3,7 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
-if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
-}
-if (!process.env.DIRECT_URL) {
-  process.env.DIRECT_URL = process.env.DATABASE_URL;
-}
+const placeholderUrl = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -17,6 +12,6 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL ?? placeholderUrl,
   },
 });

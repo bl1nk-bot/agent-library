@@ -611,41 +611,20 @@ function createServer(options: ServerOptions = {}) {
         // Find or create tags
         const tagConnections: { tag: { connect: { id: string } } }[] = [];
         if (tags && tags.length > 0) {
-          const uniqueTags = new Map<string, string>();
           for (const tagName of tags) {
             const tagSlug = slugify(tagName);
-            if (tagSlug && !uniqueTags.has(tagSlug)) {
-              uniqueTags.set(tagSlug, tagName);
-            }
-          }
+            if (!tagSlug) continue;
 
-          if (uniqueTags.size > 0) {
-            const slugs = Array.from(uniqueTags.keys());
-            const existingTags = await db.tag.findMany({
-              where: { slug: { in: slugs } },
-              select: { id: true, slug: true },
-            });
-
-            const existingSlugs = new Set(existingTags.map((t) => t.slug));
-            const missingTags = [];
-
-            for (const [slug, name] of uniqueTags.entries()) {
-              if (!existingSlugs.has(slug)) {
-                missingTags.push({ name, slug });
-              }
-            }
-
-            let newTags: { id: string; slug: string }[] = [];
-            if (missingTags.length > 0) {
-              newTags = await db.tag.createManyAndReturn({
-                data: missingTags,
-                select: { id: true, slug: true },
+            let tag = await db.tag.findUnique({ where: { slug: tagSlug } });
+            if (!tag) {
+              tag = await db.tag.create({
+                data: {
+                  name: tagName,
+                  slug: tagSlug,
+                },
               });
             }
-
-            for (const tag of [...existingTags, ...newTags]) {
-              tagConnections.push({ tag: { connect: { id: tag.id } } });
-            }
+            tagConnections.push({ tag: { connect: { id: tag.id } } });
           }
         }
 
@@ -847,41 +826,17 @@ function createServer(options: ServerOptions = {}) {
         // Find or create tags
         const tagConnections: { tag: { connect: { id: string } } }[] = [];
         if (tags && tags.length > 0) {
-          const uniqueTags = new Map<string, string>();
           for (const tagName of tags) {
             const tagSlug = slugify(tagName);
-            if (tagSlug && !uniqueTags.has(tagSlug)) {
-              uniqueTags.set(tagSlug, tagName);
-            }
-          }
+            if (!tagSlug) continue;
 
-          if (uniqueTags.size > 0) {
-            const slugs = Array.from(uniqueTags.keys());
-            const existingTags = await db.tag.findMany({
-              where: { slug: { in: slugs } },
-              select: { id: true, slug: true },
-            });
-
-            const existingSlugs = new Set(existingTags.map((t) => t.slug));
-            const missingTags = [];
-
-            for (const [slug, name] of uniqueTags.entries()) {
-              if (!existingSlugs.has(slug)) {
-                missingTags.push({ name, slug });
-              }
-            }
-
-            let newTags: { id: string; slug: string }[] = [];
-            if (missingTags.length > 0) {
-              newTags = await db.tag.createManyAndReturn({
-                data: missingTags,
-                select: { id: true, slug: true },
+            let tag = await db.tag.findUnique({ where: { slug: tagSlug } });
+            if (!tag) {
+              tag = await db.tag.create({
+                data: { name: tagName, slug: tagSlug },
               });
             }
-
-            for (const tag of [...existingTags, ...newTags]) {
-              tagConnections.push({ tag: { connect: { id: tag.id } } });
-            }
+            tagConnections.push({ tag: { connect: { id: tag.id } } });
           }
         }
 

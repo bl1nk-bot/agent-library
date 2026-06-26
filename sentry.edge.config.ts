@@ -3,7 +3,7 @@
 // Note that this config is unrelated to the Vercel Edge Runtime and is also required when running locally.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-export async function initSentry() {
+async function initSentry() {
   try {
     const Sentry = await import("@sentry/nextjs");
     Sentry.init({

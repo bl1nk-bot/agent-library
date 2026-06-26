@@ -10760,10 +10760,10 @@ For every query, you must output your response in this exact Markdown structure:
 
 _(Run searches for each agent and present their best finding)_
 
-- **[⚡] VELOCITY:** "${key*finding_from_recent_news}. This is the bleeding edge." (\_Citations*)
+- **[⚡] VELOCITY:** "${key_finding_from_recent_news}. This is the bleeding edge." (_Citations_)
 - **[📜] ARCHIVIST:** "Ignore the noise. The foundational text states [Historical/Technical Fact]." (_Citations_)
 - **[👁️] SKEPTIC:** "I found a contradiction. [Counter-evidence or flaw in the popular narrative]." (_Citations_)
-- **[🕸️] WEAVER:** "Consider the bigger picture. This links directly to ${unexpected*concept}." (\_Citations*)
+- **[🕸️] WEAVER:** "Consider the bigger picture. This links directly to ${unexpected_concept}." (_Citations_)
 
 ### 🗣️ PHASE 2: THE CLASH (The Debate)
 
@@ -35097,7 +35097,6 @@ Contributed by [@lior1976@gmail.com](https://github.com/lior1976@gmail.com)
 
 ```md
 <system_configuration>
-
 <meta>
 <version>2.0</version>
 <type>Quality Assurance Intervention</type>
@@ -56915,6 +56914,7 @@ Required Assets
 - https://prompts.chat/logo.svg - Logo SVG
 - https://raw.githubusercontent.com/flekschas/simple-world-map/refs/heads/master/world-map.svg - World map SVG for global community scene
 
+
 Color Theme (Light)
 
 - Background: #ffffff
@@ -56925,9 +56925,11 @@ Color Theme (Light)
 - Text: #0f172a
 - Text Muted: #64748b
 
+
 Font
 
 - Inter (weights: 400, 600, 700, 800)
+
 
 ---
 
@@ -56941,6 +56943,7 @@ Scene 1: Opening (5s)
   clip-path
 - Tagline appears: "The Free Social Platform for AI Prompts"
 
+
 Scene 2: Global Community (4s)
 
 - Full-screen world map (25% opacity) as background
@@ -56953,11 +56956,13 @@ Scene 2: Global Community (4s)
   10+ languages
 - Gradient overlay at bottom for text readability
 
+
 Scene 3: Solution (2.5s)
 
 - Three words appear sequentially with spring animation: "Discover." "Share."
   "Collect."
 - Each word in different color (primary, accent, primary light)
+
 
 Scene 4: Built for Everyone (4s)
 
@@ -56969,6 +56974,7 @@ Scene 4: Built for Everyone (4s)
 - Center title: "Built for everyone"
 - Subtitle: "One prompt away from your next breakthrough."
 
+
 Scene 5: Prompt Types (5s)
 
 - Title: "Prompts for every need"
@@ -56979,6 +56985,7 @@ Scene 5: Prompt Types (5s)
   - Text (purple), Image (pink), Video (amber), Audio (green), Workflows  
     (violet), Skills (teal), JSON (red)
 
+
 Scene 6: Features (4s)
 
 - 4 feature cards appearing sequentially with spring animation:
@@ -56987,12 +56994,14 @@ Scene 6: Features (4s)
   - Community (users icon) - "Share and discover from creators"
   - Open Source (circle-plus icon) - "Self-host with complete privacy"
 
+
 Scene 7: Social Proof (4s)
 
 - Animated GitHub star counter (0 → 143,000+)
 - Star icon next to count
 - Badge: "The First Prompt Library — Since December 2022" with trophy icon
 - Text: "Endorsed by OpenAI co-founders • Used by Harvard, Columbia & more"
+
 
 Scene 8: CTA (3.5s)
 
@@ -57001,6 +57010,7 @@ Scene 8: CTA (3.5s)
 - Large button with logo + "prompts.chat" text (gradient background, subtle  
   pulse)
 - Subtitle: "Free & Open Source"
+
 
 ---
 
@@ -57014,6 +57024,7 @@ Transitions (0.4s each)
 - Scene 6→7: Slide from bottom
 - Scene 7→8: Fade
 
+
 Animation Techniques Used
 
 - spring() for bouncy scale animations
@@ -57021,6 +57032,7 @@ Animation Techniques Used
 - Easing.inOut(Easing.cubic) for smooth scroll
 - Math.sin()/Math.cos() for floating animations
 - Staggered delays for sequential element appearances
+
 
 Key Components
 

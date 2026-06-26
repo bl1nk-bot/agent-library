@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { GET, POST } from "@/app/api/prompts/[id]/comments/route";
 import { db } from "@/lib/db";
@@ -39,7 +38,7 @@ describe("GET /api/prompts/[id]/comments", () => {
   it("should return 403 if comments feature is disabled", async () => {
     vi.mocked(getConfig).mockResolvedValue({ features: { comments: false } } as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -48,10 +47,10 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return 404 for non-existent prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
     vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -67,7 +66,7 @@ describe("GET /api/prompts/[id]/comments", () => {
       authorId: "other-user",
     } as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -76,7 +75,7 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return comments for public prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: false,
@@ -104,7 +103,7 @@ describe("GET /api/prompts/[id]/comments", () => {
       },
     ] as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -136,7 +135,7 @@ describe("GET /api/prompts/[id]/comments", () => {
       },
     ] as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -167,7 +166,7 @@ describe("GET /api/prompts/[id]/comments", () => {
       },
     ] as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -199,7 +198,7 @@ describe("GET /api/prompts/[id]/comments", () => {
       },
     ] as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
+    const request = new Request("http://localhost:3000/api/prompts/123/comments");
     const response = await GET(request, { params: Promise.resolve({ id: "123" }) });
     const data = await response.json();
 
@@ -219,7 +218,7 @@ describe("POST /api/prompts/[id]/comments", () => {
   it("should return 403 if comments feature is disabled", async () => {
     vi.mocked(getConfig).mockResolvedValue({ features: { comments: false } } as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
@@ -231,9 +230,9 @@ describe("POST /api/prompts/[id]/comments", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
@@ -247,7 +246,7 @@ describe("POST /api/prompts/[id]/comments", () => {
   it("should return 400 for empty content", async () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "" }),
     });
@@ -262,7 +261,7 @@ describe("POST /api/prompts/[id]/comments", () => {
     vi.mocked(auth).mockResolvedValue({ user: { id: "user1" } } as never);
     vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
@@ -296,7 +295,7 @@ describe("POST /api/prompts/[id]/comments", () => {
     } as never);
     vi.mocked(db.notification.create).mockResolvedValue({} as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test comment" }),
     });
@@ -326,7 +325,7 @@ describe("POST /api/prompts/[id]/comments", () => {
     } as never);
     vi.mocked(db.notification.create).mockResolvedValue({} as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test" }),
     });
@@ -357,7 +356,7 @@ describe("POST /api/prompts/[id]/comments", () => {
       author: { id: "author1", name: "Author", username: "author", avatar: null, role: "USER" },
     } as never);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Test" }),
     });
@@ -375,7 +374,7 @@ describe("POST /api/prompts/[id]/comments", () => {
     } as never);
     vi.mocked(db.comment.findUnique).mockResolvedValue(null);
 
-    const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
+    const request = new Request("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",
       body: JSON.stringify({ content: "Reply", parentId: "nonexistent" }),
     });

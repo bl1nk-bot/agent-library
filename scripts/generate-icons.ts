@@ -14,7 +14,6 @@ import { join, dirname as pathDirname } from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import sharp from "sharp";
-// @ts-expect-error - no types available for to-ico
 import toIco from "to-ico";
 
 const filename = fileURLToPath(import.meta.url);

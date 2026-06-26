@@ -186,7 +186,7 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
 
   return (
     <div
-      className={`hover:border-foreground/20 group flex flex-col overflow-hidden rounded-[var(--radius)] border transition-colors ${hasMediaBackground || isAudio ? "" : "p-4"}`}
+      className={`group hover:border-foreground/20 flex flex-col overflow-hidden rounded-[var(--radius)] border transition-colors ${hasMediaBackground || isAudio ? "" : "p-4"}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -404,31 +404,23 @@ export function PromptCard({ prompt, showPinButton = false, isPinned = false }: 
               <ArrowBigUp className="h-3.5 w-3.5" />
               {prompt.voteCount}
             </span>
-            <button
-              onClick={handleCopyClick}
-              className="hover:bg-accent rounded p-1"
-              aria-label={tCommon("copy")}
-              title={tCommon("copy")}
-            >
-              <Copy className="h-3 w-3" aria-hidden="true" />
+            <button onClick={handleCopyClick} className="hover:bg-accent rounded p-1">
+              <Copy className="h-3 w-3" />
             </button>
             {prompt.type === "SKILL" ? (
               <button
                 onClick={handleDownloadSkill}
                 className="hover:bg-accent flex h-6 w-6 items-center justify-center rounded"
                 title={t("download")}
-                aria-label={t("download")}
               >
-                <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                <Download className="h-3.5 w-3.5" />
               </button>
             ) : contentHasVariables ? (
               <button
                 onClick={handleRunClick}
                 className="hover:bg-accent flex h-6 w-6 items-center justify-center rounded"
-                aria-label={tCommon("run")}
-                title={tCommon("run")}
               >
-                <Play className="h-4 w-4" aria-hidden="true" />
+                <Play className="h-4 w-4" />
               </button>
             ) : (
               <RunPromptButton

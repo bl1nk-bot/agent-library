@@ -1248,7 +1248,6 @@
     "title": "MCP API Key",
     "description": "Generate an API key to save prompts via MCP and access your private prompts.",
     "yourApiKey": "Your API Key",
-
     "keyWarning": "Keep this key secret. Anyone with this key can access your private prompts and create prompts on your behalf.",
     "noApiKey": "You haven't generated an API key yet.",
     "generate": "Generate API Key",
@@ -1765,7 +1764,12 @@
       "resetWarning": "This will delete all your stars and progress. Are you sure?",
       "resetConfirm": "Yes, Reset Everything",
       "resetComplete": "Progress reset! Reloading...",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "muteMusic": "Mute music",
+      "playMusic": "Play music",
+      "musicOn": "🔊 On",
+      "musicOff": "🔇 Off",
+      "musicVolume": "Music volume"
     }
   }
 }

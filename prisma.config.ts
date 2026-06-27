@@ -3,6 +3,7 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// Ensure build environments (like Vercel or Prisma Compute) don't crash on initial config evaluation
 if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
 }

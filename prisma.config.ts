@@ -10,7 +10,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 if (!process.env.DIRECT_URL) {
-  process.env.DIRECT_URL = placeholderDbUrl;
+  process.env.DIRECT_URL = process.env.DATABASE_URL;
 }
 
 export default defineConfig({

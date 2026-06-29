@@ -175,7 +175,8 @@ export function MusicButton() {
   return (
     <button
       onClick={toggleMusic}
-      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5"
+      aria-pressed={isPlaying}
+      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       aria-label={labelText}
       title={labelText}
     >
@@ -197,7 +198,8 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          aria-pressed={isPlaying}
+          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
         >

@@ -18,6 +18,7 @@ import { Switch } from "@/components/ui/switch";
 import { X, Sparkles, Search, SlidersHorizontal, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import DeepWikiIcon from "@/../public/deepwiki.svg";
 import config from "@/../prompts.config";
 import { analyticsSearch } from "@/lib/analytics";
 
@@ -389,7 +390,7 @@ export function PromptFilters({
                 prefetch={false}
                 className="hover:text-foreground flex items-center gap-1.5"
               >
-                <Image src="/deepwiki.svg" alt="" width={12} height={12} />
+                <Image src={DeepWikiIcon} alt="" width={12} height={12} />
                 DeepWiki
                 <ExternalLink className="ml-auto h-2.5 w-2.5 opacity-50" />
               </Link>

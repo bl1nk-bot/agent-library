@@ -20,7 +20,7 @@ interface RequestErrorMetadata {
 export const onRequestError = async (
   error: Error,
   request: RequestErrorMetadata,
-  _context: unknown
+  _context: unknown,
 ) => {
   try {
     const Sentry = await import("@sentry/nextjs");

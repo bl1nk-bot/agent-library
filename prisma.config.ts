@@ -3,6 +3,12 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// Fallback for DIRECT_URL in environments like Prisma Compute that don't inject it
+process.env.DIRECT_URL =
+  process.env.DIRECT_URL ||
+  process.env.DATABASE_URL ||
+  "postgresql://placeholder:placeholder@localhost:5432/placeholder";
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -14,3 +20,5 @@ export default defineConfig({
       process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
   },
 });
+// Retry deployment
+// Retry deployment 2

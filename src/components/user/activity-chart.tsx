@@ -36,7 +36,7 @@ export function ActivityChart({
   // Generate weeks based on screen size (6 months for mobile, 12 for desktop)
   const { weeks, months } = useMemo(() => {
     const today = new Date();
-    const weeks: { date: Date; count: number }[][] = [];
+    const weeks: ({ date: Date; count: number } | null)[][] = [];
     const dataMap = new Map(data.map((d) => [d.date, d.count]));
 
     // 26 weeks (~6 months) for mobile, 52 weeks (~12 months) for desktop
@@ -47,25 +47,29 @@ export function ActivityChart({
     // Align to Sunday
     startDate.setDate(startDate.getDate() - startDate.getDay());
 
-    let currentWeek: { date: Date; count: number }[] = [];
+    // ⚡ Bolt Optimization: Initialize each week as a fixed 7-element array to replace the O(N) .find() lookup
+    // inside the nested render loop with an O(1) direct index lookup later on.
+    let currentWeek: ({ date: Date; count: number } | null)[] = Array(7).fill(null);
     const currentDate = new Date(startDate);
 
     while (currentDate <= today) {
       const dateStr = currentDate.toISOString().split("T")[0];
-      currentWeek.push({
+      const dayOfWeek = currentDate.getDay();
+
+      currentWeek[dayOfWeek] = {
         date: new Date(currentDate),
         count: dataMap.get(dateStr) || 0,
-      });
+      };
 
-      if (currentDate.getDay() === 6 || currentDate.getTime() === today.getTime()) {
+      if (dayOfWeek === 6 || currentDate.getTime() === today.getTime()) {
         weeks.push(currentWeek);
-        currentWeek = [];
+        currentWeek = Array(7).fill(null);
       }
 
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    if (currentWeek.length > 0) {
+    if (currentWeek.some((day) => day !== null)) {
       weeks.push(currentWeek);
     }
 
@@ -74,7 +78,7 @@ export function ActivityChart({
     let lastMonth = -1;
 
     weeks.forEach((week, weekIndex) => {
-      const firstDay = week[0];
+      const firstDay = week.find((day) => day !== null);
       if (firstDay) {
         const month = firstDay.date.getMonth();
         if (month !== lastMonth) {
@@ -163,7 +167,8 @@ export function ActivityChart({
               {weeks.map((week, weekIndex) => (
                 <div key={weekIndex} className="flex flex-col gap-0.5">
                   {Array.from({ length: 7 }).map((_, dayIndex) => {
-                    const day = week.find((d) => d.date.getDay() === dayIndex);
+                    // ⚡ Bolt Optimization: Look up by index in O(1) time instead of using week.find()
+                    const day = week[dayIndex];
                     const intensity = day ? getIntensity(day.count) : 0;
                     const isToday = day?.date.toDateString() === new Date().toDateString();
                     const isFuture = day && day.date > new Date();

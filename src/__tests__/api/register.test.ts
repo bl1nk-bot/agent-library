@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "@/app/api/auth/register/route";
 import { db } from "@/lib/db";
-import { getConfig, type PromptsConfig } from "@/lib/config";
+import { getConfig } from "@/lib/config";
 
 // Mock dependencies
 vi.mock("@/lib/db", () => ({
@@ -23,29 +23,6 @@ vi.mock("bcryptjs", () => ({
   },
 }));
 
-const baseConfig: PromptsConfig = {
-  branding: {
-    name: "Test App",
-    logo: "/logo.svg",
-    favicon: "/favicon.ico",
-    description: "Test",
-  },
-  theme: {
-    radius: "sm",
-    variant: "default",
-    density: "compact",
-    colors: { primary: "#5D5CDE" },
-  },
-  auth: { allowRegistration: true, providers: [] },
-  i18n: { locales: ["en"], defaultLocale: "en" },
-  features: {
-    privatePrompts: false,
-    changeRequests: false,
-    categories: false,
-    tags: false,
-  },
-};
-
 function createRequest(body: object): Request {
   return new Request("http://localhost:3000/api/auth/register", {
     method: "POST",
@@ -58,7 +35,10 @@ describe("POST /api/auth/register", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     // Default: registration is enabled
-    vi.mocked(getConfig).mockResolvedValue(baseConfig);
+    vi.mocked(getConfig).mockResolvedValue({
+      auth: { allowRegistration: true, providers: [] },
+      features: {},
+    });
     // Default: no existing users
     vi.mocked(db.user.findUnique).mockResolvedValue(null);
   });
@@ -156,8 +136,8 @@ describe("POST /api/auth/register", () => {
   describe("registration disabled", () => {
     it("should return 403 when registration is disabled", async () => {
       vi.mocked(getConfig).mockResolvedValue({
-        ...baseConfig,
         auth: { allowRegistration: false, providers: [] },
+        features: {},
       });
 
       const request = createRequest({
@@ -177,11 +157,13 @@ describe("POST /api/auth/register", () => {
 
   describe("duplicate checks", () => {
     it("should return 400 when email already exists", async () => {
-      // Mock: email check finds existing user (first findUnique call)
-      vi.mocked(db.user.findUnique).mockResolvedValueOnce({
-        id: "1",
-        email: "test@example.com",
-      } as never);
+      // Mock: email check finds existing user
+      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+        if (args?.where?.email) {
+          return { id: "1", email: "test@example.com" } as never;
+        }
+        return null;
+      });
 
       const request = createRequest({
         name: "Test User",
@@ -198,11 +180,16 @@ describe("POST /api/auth/register", () => {
     });
 
     it("should return 400 when username already exists", async () => {
-      // Mock: email check passes (null), username check finds existing user
-      // Route calls findUnique for email first, then username
-      vi.mocked(db.user.findUnique)
-        .mockResolvedValueOnce(null) // email check → not taken
-        .mockResolvedValueOnce({ id: "1", username: "testuser" } as never); // username check → taken
+      // Mock: email check passes, username check finds existing user
+      vi.mocked(db.user.findUnique).mockImplementation(async (args) => {
+        if (args?.where?.email) {
+          return null;
+        }
+        if (args?.where?.username) {
+          return { id: "1", username: "testuser" } as never;
+        }
+        return null;
+      });
 
       const request = createRequest({
         name: "Test User",
@@ -229,13 +216,13 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        avatar: null,
+        image: null,
         role: "USER",
         bio: null,
-        generationCreditsRemaining: 0,
+        credits: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
-      } as never);
+      });
 
       const request = createRequest({
         name: "Test User",
@@ -264,13 +251,13 @@ describe("POST /api/auth/register", () => {
         email: "test@example.com",
         password: "hashed_password",
         emailVerified: null,
-        avatar: null,
+        image: null,
         role: "USER",
         bio: null,
-        generationCreditsRemaining: 0,
+        credits: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
-      } as never);
+      });
 
       const request = createRequest({
         name: "Test User",

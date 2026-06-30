@@ -175,7 +175,7 @@ describe("POST /api/prompts", () => {
   };
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null);
 
     const request = new Request("http://localhost:3000/api/prompts", {
       method: "POST",

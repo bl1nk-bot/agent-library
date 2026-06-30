@@ -837,11 +837,13 @@ export function PromptsManagement({
                 variant="outline"
                 onClick={handleSearch}
                 disabled={loadingPrompts}
+                aria-label={tCommon("search")}
+                title={tCommon("search")}
               >
                 {loadingPrompts ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                 ) : (
-                  <Search className="h-4 w-4" />
+                  <Search className="h-4 w-4" aria-hidden="true" />
                 )}
               </Button>
             </div>
@@ -896,8 +898,14 @@ export function PromptsManagement({
                   <div className="flex flex-shrink-0 items-center gap-2">
                     {prompt.id && (
                       <Link href={`/prompts/${prompt.id}`} target="_blank" prefetch={false}>
-                        <Button size="icon" variant="ghost" className="h-8 w-8">
-                          <ExternalLink className="h-4 w-4" />
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-8 w-8"
+                          aria-label={tCommon("openInNewTab")}
+                          title={tCommon("openInNewTab")}
+                        >
+                          <ExternalLink className="h-4 w-4" aria-hidden="true" />
                         </Button>
                       </Link>
                     )}
@@ -906,8 +914,10 @@ export function PromptsManagement({
                       variant="ghost"
                       className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
                       onClick={() => setPromptToDelete(prompt)}
+                      aria-label={tCommon("delete")}
+                      title={tCommon("delete")}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-4 w-4" aria-hidden="true" />
                     </Button>
                   </div>
                 </div>
@@ -961,8 +971,10 @@ export function PromptsManagement({
                 className="h-8 w-8"
                 disabled={currentPage === 1 || loadingPrompts}
                 onClick={() => setCurrentPage((p) => p - 1)}
+                aria-label={tCommon("previous")}
+                title={tCommon("previous")}
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
               </Button>
               <span className="px-2 text-sm tabular-nums">
                 {currentPage} / {pagination.totalPages}
@@ -973,8 +985,10 @@ export function PromptsManagement({
                 className="h-8 w-8"
                 disabled={currentPage === pagination.totalPages || loadingPrompts}
                 onClick={() => setCurrentPage((p) => p + 1)}
+                aria-label={tCommon("next")}
+                title={tCommon("next")}
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>

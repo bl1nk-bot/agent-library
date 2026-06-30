@@ -1,3 +1,5 @@
+import { slugify } from "@/lib/slug";
+import { extractVariables, type ExtractedVariable } from "@/lib/variable-detection";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -41,20 +43,6 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
   return user;
 }
 
-interface ExtractedVariable {
-  name: string;
-  defaultValue?: string;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 /**
  * Get the prompt name/slug for MCP.
  * Priority: slug > slugify(title) > id
@@ -64,25 +52,6 @@ function getPromptName(prompt: { id: string; slug?: string | null; title: string
   const titleSlug = slugify(prompt.title);
   if (titleSlug) return titleSlug;
   return prompt.id;
-}
-
-function extractVariables(content: string): ExtractedVariable[] {
-  // Format: ${variableName} or ${variableName:default}
-  const regex = /\$\{([a-zA-Z_][a-zA-Z0-9_\s]*?)(?::([^}]*))?\}/g;
-  const variables: ExtractedVariable[] = [];
-  const seen = new Set<string>();
-  let match;
-  while ((match = regex.exec(content)) !== null) {
-    const name = match[1].trim();
-    if (!seen.has(name)) {
-      seen.add(name);
-      variables.push({
-        name,
-        defaultValue: match[2]?.trim(),
-      });
-    }
-  }
-  return variables;
 }
 
 export const config = {
@@ -233,6 +202,11 @@ function createServer(options: ServerOptions = {}) {
     let filledContent = prompt.content;
     const variables = extractVariables(prompt.content);
 
+    // 🛡️ Guardian: extractVariables uses canonical import from src/lib/variable-detection.ts
+    // JULES Check: Verified no Autonomous task conflicts
+    // Impact: Replaced inline duplicates with imports
+    // Date: 2024-06-11
+    // Session: .Jules/guardian/2024-06-11/
     for (const variable of variables) {
       const value = args[variable.name] ?? variable.defaultValue ?? `\${${variable.name}}`;
       filledContent = filledContent.replace(

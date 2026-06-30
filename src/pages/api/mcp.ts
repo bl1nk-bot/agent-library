@@ -11,12 +11,20 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidApiKeyFormat } from "@/lib/api-key";
 import { improvePrompt } from "@/lib/ai/improve-prompt";
+import { slugify } from "@/lib/slug";
 import {
   parseSkillFiles,
   serializeSkillFiles,
   DEFAULT_SKILL_FILE,
   DEFAULT_SKILL_CONTENT,
 } from "@/lib/skill-files";
+
+// 🛡️ Guardian: Consolidated slugify utility
+// This function was duplicated inline in src/pages/api/mcp.ts - moved to canonical location @/lib/slug
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: Removed duplicated implementation, consolidated to 1 location
+// Date: 2026-06-25
+// Session: .Jules/guardian/2026-06-25/
 
 interface AuthenticatedUser {
   id: string;
@@ -44,15 +52,6 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
 interface ExtractedVariable {
   name: string;
   defaultValue?: string;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 /**

@@ -3,6 +3,15 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// Fallback for CI/build environments like Vercel or Prisma Compute to avoid P1012 validation crashes
+const FALLBACK_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder";
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = FALLBACK_URL;
+}
+if (!process.env.DIRECT_URL) {
+  process.env.DIRECT_URL = process.env.DATABASE_URL || FALLBACK_URL;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {

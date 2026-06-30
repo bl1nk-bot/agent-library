@@ -184,6 +184,8 @@ function tokenizeForVisualization(text: string): { start: number; end: number }[
 
 export function PromptTokenizer() {
   const t = useTranslations("developers");
+  const tCommon = useTranslations("common");
+  const tSearch = useTranslations("search");
   const { theme } = useTheme();
   const [text, setText] = useState("");
   const [history, setHistory] = useState<SavedAnalysis[]>([]);
@@ -389,8 +391,10 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
+                    aria-label={tCommon("delete")}
+                    title={tCommon("delete")}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-3 w-3" aria-hidden="true" />
                   </Button>
                 </div>
               ))
@@ -421,8 +425,15 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                 className="scale-75"
               />
             </div>
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={clearText}>
-              <Trash2 className="h-3.5 w-3.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={clearText}
+              aria-label={tSearch("clear")}
+              title={tSearch("clear")}
+            >
+              <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -472,8 +483,19 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
           <span className="text-muted-foreground text-sm font-medium">
             {t("tokenizer.analysis")}
           </span>
-          <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6">
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleCopy}
+            className="h-6 w-6"
+            aria-label={tCommon("copy")}
+            title={tCommon("copy")}
+          >
+            {copied ? (
+              <Check className="h-3 w-3" aria-hidden="true" />
+            ) : (
+              <Copy className="h-3 w-3" aria-hidden="true" />
+            )}
           </Button>
         </div>
 

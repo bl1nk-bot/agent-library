@@ -29,7 +29,7 @@ describe("POST /api/prompts/[id]/vote", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/vote", {
       method: "POST",
@@ -128,7 +128,7 @@ describe("DELETE /api/prompts/[id]/vote", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/vote", {
       method: "DELETE",

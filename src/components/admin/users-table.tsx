@@ -277,7 +277,13 @@ export function UsersTable() {
                 className="w-full pl-9 sm:w-[200px]"
               />
             </div>
-            <Button size="icon" variant="outline" onClick={handleSearch} disabled={loadingUsers}>
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={handleSearch}
+              disabled={loadingUsers}
+              aria-label="Search"
+            >
               {loadingUsers ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
@@ -325,8 +331,13 @@ export function UsersTable() {
                   </div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 flex-shrink-0"
+                        aria-label={t("actions") || "Actions"}
+                      >
+                        <MoreHorizontal aria-hidden="true" className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -440,8 +451,13 @@ export function UsersTable() {
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <MoreHorizontal className="h-4 w-4" />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            aria-label={t("actions") || "Actions"}
+                          >
+                            <MoreHorizontal aria-hidden="true" className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -506,8 +522,9 @@ export function UsersTable() {
                   className="h-8 w-8"
                   disabled={currentPage === 1 || loadingUsers}
                   onClick={() => setCurrentPage((p) => p - 1)}
+                  aria-label="Previous page"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft aria-hidden="true" className="h-4 w-4" />
                 </Button>
                 <span className="px-2 text-sm tabular-nums">
                   {currentPage} / {pagination.totalPages}
@@ -518,8 +535,9 @@ export function UsersTable() {
                   className="h-8 w-8"
                   disabled={currentPage === pagination.totalPages || loadingUsers}
                   onClick={() => setCurrentPage((p) => p + 1)}
+                  aria-label="Next page"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight aria-hidden="true" className="h-4 w-4" />
                 </Button>
               </div>
             </div>

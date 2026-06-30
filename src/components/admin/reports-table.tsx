@@ -208,8 +208,9 @@ export function ReportsTable({ reports }: ReportsTableProps) {
                           size="icon"
                           className="h-8 w-8"
                           disabled={loading === report.id}
+                          aria-label={t("actions") || "Actions"}
                         >
-                          <MoreHorizontal className="h-4 w-4" />
+                          <MoreHorizontal aria-hidden="true" className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">

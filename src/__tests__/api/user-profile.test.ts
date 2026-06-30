@@ -24,7 +24,7 @@ describe("GET /api/user/profile", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const response = await GET();
     const data = await response.json();
@@ -102,7 +102,7 @@ describe("PATCH /api/user/profile", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/user/profile", {
       method: "PATCH",

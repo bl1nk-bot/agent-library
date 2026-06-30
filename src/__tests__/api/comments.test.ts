@@ -48,7 +48,7 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return 404 for non-existent prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findUnique).mockResolvedValue(null);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments");
@@ -76,7 +76,7 @@ describe("GET /api/prompts/[id]/comments", () => {
   });
 
   it("should return comments for public prompt", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
     vi.mocked(db.prompt.findUnique).mockResolvedValue({
       id: "123",
       isPrivate: false,
@@ -231,7 +231,7 @@ describe("POST /api/prompts/[id]/comments", () => {
   });
 
   it("should return 401 if not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null);
+    vi.mocked(auth).mockResolvedValue(null as any);
 
     const request = new NextRequest("http://localhost:3000/api/prompts/123/comments", {
       method: "POST",

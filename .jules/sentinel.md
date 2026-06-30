@@ -9,3 +9,9 @@
 **Vulnerability:** GitHub Actions workflows that depend on secrets (like `ADD_TO_PROJECT_PAT`) can fail with "Bad credentials" if run from forks, where secrets are not exposed to the runner.
 **Learning:** Hard failures in workflows due to missing secrets create noisy CI environments and can potentially leak the absence of specific tokens.
 **Prevention:** Always check for the existence of required secrets in the job's `if` condition (e.g., `if: secrets.ADD_TO_PROJECT_PAT != ''`) before executing steps that require them.
+
+## 2024-05-18 - XSS in Markdown rendering
+
+**Vulnerability:** Found `dangerouslySetInnerHTML` with `highlightMentions` processing untrusted prompt inputs, which could lead to DOM-based XSS if the input is not correctly sanitized before injecting it into the HTML context.
+**Learning:** React dangerouslySetInnerHTML bypasses normal security mechanisms. Replacing it with standard React array mapping prevents XSS.
+**Prevention:** Always use safe rendering strategies like array manipulation or proper DOM parsing instead of string replacement and injection.

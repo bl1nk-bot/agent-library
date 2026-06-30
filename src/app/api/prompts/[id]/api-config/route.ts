@@ -68,6 +68,9 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const apiConfig = await db.apiConfig.create({
       data: {
         ...validatedData,
+        bodySchema: validatedData.bodySchema as any,
+        responseSchema: validatedData.responseSchema as any,
+        authentication: validatedData.authentication as any,
         promptId: id,
       },
     });

@@ -9,3 +9,9 @@
 **Vulnerability:** GitHub Actions workflows that depend on secrets (like `ADD_TO_PROJECT_PAT`) can fail with "Bad credentials" if run from forks, where secrets are not exposed to the runner.
 **Learning:** Hard failures in workflows due to missing secrets create noisy CI environments and can potentially leak the absence of specific tokens.
 **Prevention:** Always check for the existence of required secrets in the job's `if` condition (e.g., `if: secrets.ADD_TO_PROJECT_PAT != ''`) before executing steps that require them.
+
+## 2026-04-16 - [XSS via dangerouslySetInnerHTML in highlightMentions]
+
+**Vulnerability:** The `highlightMentions` function used `dangerouslySetInnerHTML` combined with a custom `escapeHtml` function to render user prompts with styled mentions. If `escapeHtml` failed to cover all edge cases or if a new vulnerability was introduced there, it would leave the application open to XSS.
+**Learning:** React inherently prevents XSS by escaping text values correctly. Opting out via `dangerouslySetInnerHTML` for basic string manipulation like text highlighting is an unnecessary risk and anti-pattern.
+**Prevention:** Avoid `dangerouslySetInnerHTML` for inline text styling. Instead, use capturing regexes (`text.split(/(@\w+)/g)`) to break the string apart and map the parts directly into an array of React elements.

@@ -12,6 +12,7 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: process.env.DATABASE_URL as string,
+    // @ts-expect-error - Prisma config requires a string, but we want to allow undefined at runtime to prevent hangs
+    url: process.env.DATABASE_URL,
   },
 });

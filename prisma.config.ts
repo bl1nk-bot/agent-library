@@ -19,4 +19,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   engine: "classic",
+  datasource: {
+    // Non-null assertion strictly for typing, avoiding the fake placeholder URL that causes deployment hangs
+    url: process.env.DATABASE_URL!,
+  },
 });

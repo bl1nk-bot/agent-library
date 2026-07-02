@@ -64,7 +64,6 @@ import { EXAMPLE_VIDEO, EXAMPLE_AUDIO, EXAMPLE_IMAGE, EXAMPLE_CHAT } from "./exa
 
 export function PromptIde() {
   const t = useTranslations("ide");
-  const tCommon = useTranslations("common");
   const { theme } = useTheme();
   const { data: session } = useSession();
 
@@ -904,14 +903,7 @@ export function PromptIde() {
                 </TabsList>
               </Tabs>
               {(output || lastValidOutput) && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6"
-                  onClick={copyOutput}
-                  aria-label={tCommon("copy")}
-                  title={tCommon("copy")}
-                >
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={copyOutput}>
                   <Copy className="h-3 w-3" />
                 </Button>
               )}

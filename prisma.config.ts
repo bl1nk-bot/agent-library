@@ -14,5 +14,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   engine: "classic",
-  // Let the schema block handle the env var resolution, otherwise Prisma gets confused in some CI environments
+  datasource: {
+    url:
+      process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
+  },
 });

@@ -883,6 +883,8 @@
     "linkLabel": "Label (optional)",
     "linkLabelPlaceholder": "Custom label",
     "removeLink": "Remove",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
     "maxLinksReached": "Maximum 5 links allowed",
     "invalidUrl": "Please enter a valid URL",
     "linkTypes": {
@@ -1439,6 +1441,8 @@
     "embedCode": "Embed Code",
     "embedCopied": "Embed code copied!",
     "settingsCleared": "Settings cleared",
+    "clear": "Clear",
+    "delete": "Delete",
     "reset": "Reset",
     "promptTokenizer": "Tokenizer",
     "tokenizer": {

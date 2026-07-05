@@ -10,6 +10,9 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
     exclude: ["node_modules", ".next", "packages"],
+    api: {
+      host: "127.0.0.1",
+    },
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],

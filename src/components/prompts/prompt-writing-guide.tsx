@@ -37,11 +37,12 @@ function CodeBlock({ code }: CodeBlockProps) {
         onClick={handleCopy}
         className="bg-background/80 absolute top-2 right-2 rounded border p-1.5 opacity-0 transition-opacity group-hover:opacity-100"
         title="Copy"
+        aria-label="Copy code"
       >
         {copied ? (
-          <Check className="h-3 w-3 text-green-500" />
+          <Check className="h-3 w-3 text-green-500" aria-hidden="true" />
         ) : (
-          <Copy className="text-muted-foreground h-3 w-3" />
+          <Copy className="text-muted-foreground h-3 w-3" aria-hidden="true" />
         )}
       </button>
     </div>
@@ -77,13 +78,16 @@ function Section({ icon, title, children, defaultOpen = false }: SectionProps) {
         type="button"
         onClick={handleToggle}
         className="hover:bg-muted/50 flex w-full items-center gap-2 p-3 text-left transition-colors"
+        aria-expanded={isOpen}
       >
-        <span className="text-primary">{icon}</span>
+        <span className="text-primary" aria-hidden="true">
+          {icon}
+        </span>
         <span className="flex-1 text-sm font-medium">{title}</span>
         {isOpen ? (
-          <ChevronUp className="text-muted-foreground h-4 w-4" />
+          <ChevronUp className="text-muted-foreground h-4 w-4" aria-hidden="true" />
         ) : (
-          <ChevronDown className="text-muted-foreground h-4 w-4" />
+          <ChevronDown className="text-muted-foreground h-4 w-4" aria-hidden="true" />
         )}
       </button>
       {isOpen && <div className="space-y-3 p-3 pt-0 text-sm">{children}</div>}
@@ -105,16 +109,17 @@ export function PromptWritingGuide() {
           setIsExpanded(!isExpanded);
         }}
         className="hover:bg-muted/30 flex w-full items-center gap-2 p-4 text-left transition-colors"
+        aria-expanded={isExpanded}
       >
-        <BookOpen className="text-primary h-5 w-5" />
+        <BookOpen className="text-primary h-5 w-5" aria-hidden="true" />
         <div className="flex-1">
           <h3 className="text-sm font-semibold">{t("title")}</h3>
           <p className="text-muted-foreground text-xs">{t("subtitle")}</p>
         </div>
         {isExpanded ? (
-          <ChevronUp className="text-muted-foreground h-5 w-5" />
+          <ChevronUp className="text-muted-foreground h-5 w-5" aria-hidden="true" />
         ) : (
-          <ChevronDown className="text-muted-foreground h-5 w-5" />
+          <ChevronDown className="text-muted-foreground h-5 w-5" aria-hidden="true" />
         )}
       </button>
 

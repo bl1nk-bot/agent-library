@@ -15,6 +15,8 @@ export default defineConfig({
   engine: "classic",
   datasource: {
     url:
-      process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
+      process.env.DATABASE_URL ??
+      // @ts-expect-error Type requirement for Prisma validation
+      ("postgresql://placeholder:placeholder@localhost:5432/placeholder" as const),
   },
 });

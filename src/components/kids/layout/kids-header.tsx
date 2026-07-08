@@ -82,7 +82,7 @@ export function KidsHeader() {
             <SettingsButton />
             <a
               href="/kids"
-              className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm"
+              className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-1 focus-visible:outline-none"
               aria-label={t("header.home")}
               title={t("header.home")}
             >
@@ -90,7 +90,7 @@ export function KidsHeader() {
             </a>
             <Link
               href="/kids/map"
-              className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm"
+              className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-1 focus-visible:outline-none"
               aria-label={t("level.map")}
               title={t("level.map")}
             >
@@ -99,7 +99,7 @@ export function KidsHeader() {
             {/* Back to main site */}
             <a
               href="/"
-              className="pixel-btn pixel-btn-amber hidden h-8 items-center px-3 py-1.5 text-sm md:flex"
+              className="pixel-btn pixel-btn-amber hidden h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-1 focus-visible:outline-none md:flex"
             >
               {t("header.mainSite")}
             </a>
@@ -109,7 +109,7 @@ export function KidsHeader() {
           <div className="relative sm:hidden" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="pixel-btn flex h-8 items-center px-3 py-1.5"
+              className="pixel-btn flex h-8 items-center px-3 py-1.5 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-1 focus-visible:outline-none"
               aria-label={t("header.menu") || "Menu"}
               title={t("header.menu") || "Menu"}
             >

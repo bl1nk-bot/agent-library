@@ -175,7 +175,8 @@ export function MusicButton() {
   return (
     <button
       onClick={toggleMusic}
-      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5"
+      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-1 focus-visible:outline-none"
+      aria-pressed={isPlaying}
       aria-label={labelText}
       title={labelText}
     >

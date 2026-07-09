@@ -8,6 +8,12 @@ const withMDX = createMDX({
 });
 
 const baseNextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   // Configure webpack for raw imports

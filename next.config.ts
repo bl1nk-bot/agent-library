@@ -11,6 +11,7 @@ const baseNextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // @ts-expect-error Disable ESLint during build for performance
   eslint: {
     ignoreDuringBuilds: true,
   },

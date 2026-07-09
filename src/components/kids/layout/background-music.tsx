@@ -175,7 +175,8 @@ export function MusicButton() {
   return (
     <button
       onClick={toggleMusic}
-      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5"
+      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#2C1810] focus-visible:outline-none"
+      aria-pressed={isPlaying}
       aria-label={labelText}
       title={labelText}
     >
@@ -186,6 +187,7 @@ export function MusicButton() {
 
 // Volume slider component for settings
 export function MusicVolumeSlider() {
+  const t = useTranslations("kids.settings");
   const context = useMusicContext();
 
   if (!context) return null;
@@ -197,11 +199,20 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          aria-pressed={isPlaying}
+          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
         >
-          {isPlaying ? "🔊 On" : "🔇 Off"}
+          {isPlaying ? (
+            <>
+              <span aria-hidden="true">🔊</span> On
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">🔇</span> Off
+            </>
+          )}
         </button>
         <span className="text-sm text-[#5D4037]">{Math.round(volume * 100)}%</span>
       </div>
@@ -211,7 +222,8 @@ export function MusicVolumeSlider() {
         max="100"
         value={volume * 100}
         onChange={(e) => setVolume(parseInt(e.target.value) / 100)}
-        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513]"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513] focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none"
+        aria-label={t("music") || "Volume"}
       />
     </div>
   );

@@ -112,6 +112,7 @@ export function KidsHeader() {
               className="pixel-btn flex h-8 items-center px-3 py-1.5"
               aria-label={t("header.menu") || "Menu"}
               title={t("header.menu") || "Menu"}
+              aria-expanded={menuOpen}
             >
               <PixelMenuIcon aria-hidden="true" />
             </button>

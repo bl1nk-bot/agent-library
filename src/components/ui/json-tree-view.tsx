@@ -167,9 +167,15 @@ const JsonTreeView = forwardRef<JsonTreeViewHandle, JsonTreeViewProps>(
                 aria-label={isExpanded ? "Collapse" : "Expand"}
               >
                 {isExpanded ? (
-                  <ChevronDown className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors" />
+                  <ChevronDown
+                    className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors"
+                    aria-hidden="true"
+                  />
                 ) : (
-                  <ChevronRight className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors" />
+                  <ChevronRight
+                    className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors"
+                    aria-hidden="true"
+                  />
                 )}
               </button>
             )}

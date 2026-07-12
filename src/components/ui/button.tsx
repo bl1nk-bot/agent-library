@@ -332,6 +332,7 @@ function Button({
             ) : (
               <Sparkles
                 size={16}
+                aria-hidden="true"
                 style={{
                   color: "#666666",
                   filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",

@@ -12,7 +12,7 @@ import { db } from "@/lib/db";
 import { isValidApiKeyFormat } from "@/lib/api-key";
 import { improvePrompt } from "@/lib/ai/improve-prompt";
 import { slugify } from "@/lib/slug";
-import { detectVariables, type DetectedVariable } from "@/lib/variable-detection";
+import { detectVariables } from "@/lib/variable-detection";
 import {
   parseSkillFiles,
   serializeSkillFiles,

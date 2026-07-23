@@ -196,17 +196,24 @@ export async function POST(request: NextRequest) {
     let skipped = 0;
     const errors: string[] = [];
 
+    // ⚡ Bolt Optimization: Prevent N+1 query by fetching existing titles in bulk
+    const titlesToImport = rows.map((r) => r.act).filter(Boolean);
+    const existingPrompts = await db.prompt.findMany({
+      where: { title: { in: titlesToImport } },
+      select: { title: true },
+    });
+    const existingTitles = new Set(existingPrompts.map((p) => p.title));
+
     for (const row of rows) {
       try {
-        // Check if prompt with same title already exists
-        const existing = await db.prompt.findFirst({
-          where: { title: row.act },
-        });
-
-        if (existing) {
+        // Check if prompt with same title already exists (O(1) memory lookup)
+        if (existingTitles.has(row.act)) {
           skipped++;
           continue;
         }
+
+        // Add to set to prevent duplicates if CSV has duplicate titles
+        existingTitles.add(row.act);
 
         // Get or create contributor user
         const authorId = await getOrCreateContributor(row.contributor);

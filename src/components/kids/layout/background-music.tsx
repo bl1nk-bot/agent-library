@@ -175,9 +175,10 @@ export function MusicButton() {
   return (
     <button
       onClick={toggleMusic}
-      className="pixel-btn pixel-btn-amber flex h-8 items-center px-2 py-1.5"
+      className="pixel-btn pixel-btn-amber focus-visible:ring-agent-cyan flex h-8 items-center px-2 py-1.5 focus-visible:ring-2 focus-visible:outline-none"
       aria-label={labelText}
       title={labelText}
+      aria-pressed={isPlaying}
     >
       {isPlaying ? <PixelSpeakerOn aria-hidden="true" /> : <PixelSpeakerOff aria-hidden="true" />}
     </button>
@@ -197,11 +198,20 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          aria-pressed={isPlaying}
+          className={`focus-visible:ring-agent-cyan rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
         >
-          {isPlaying ? "🔊 On" : "🔇 Off"}
+          {isPlaying ? (
+            <>
+              <span aria-hidden="true">🔊</span> On
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">🔇</span> Off
+            </>
+          )}
         </button>
         <span className="text-sm text-[#5D4037]">{Math.round(volume * 100)}%</span>
       </div>

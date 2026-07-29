@@ -3,6 +3,16 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// 🛡️ Guardian: Fix Prisma CI build environment resolution
+// JULES Check: Prevents hanging schemas when DATABASE_URL is missing
+// Impact: Fixes build pipeline validation errors
+// Date: 2024-07-02
+// Session: N/A
+
+if (process.env.DATABASE_URL && !process.env.DIRECT_URL) {
+  process.env.DIRECT_URL = process.env.DATABASE_URL;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -10,7 +20,7 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url:
-      process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
+    // Non-null assertion strictly for typing, avoiding the fake placeholder URL that causes deployment hangs
+    url: process.env.DATABASE_URL!,
   },
 });

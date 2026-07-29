@@ -377,8 +377,10 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     onClick={() => moveLink(index, "up")}
                     disabled={index === 0}
                     className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
+                    title={t("moveUp")}
+                    aria-label={t("moveUp")}
                   >
-                    <ChevronUp className="h-4 w-4" />
+                    <ChevronUp className="h-4 w-4" aria-hidden="true" />
                   </Button>
                   <Button
                     type="button"
@@ -387,8 +389,10 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     onClick={() => moveLink(index, "down")}
                     disabled={index === customLinks.length - 1}
                     className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
+                    title={t("moveDown")}
+                    aria-label={t("moveDown")}
                   >
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown className="h-4 w-4" aria-hidden="true" />
                   </Button>
                 </div>
                 <Select
@@ -427,8 +431,10 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                   size="icon"
                   onClick={() => removeLink(index)}
                   className="text-muted-foreground hover:text-destructive shrink-0"
+                  title={t("removeLink")}
+                  aria-label={t("removeLink")}
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             ))}

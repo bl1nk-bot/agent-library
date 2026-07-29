@@ -82,7 +82,7 @@ export function KidsHeader() {
             <SettingsButton />
             <a
               href="/kids"
-              className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm"
+              className="pixel-btn flex h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
               aria-label={t("header.home")}
               title={t("header.home")}
             >
@@ -90,7 +90,7 @@ export function KidsHeader() {
             </a>
             <Link
               href="/kids/map"
-              className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm"
+              className="pixel-btn pixel-btn-green flex h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
               aria-label={t("level.map")}
               title={t("level.map")}
             >
@@ -99,7 +99,7 @@ export function KidsHeader() {
             {/* Back to main site */}
             <a
               href="/"
-              className="pixel-btn pixel-btn-amber hidden h-8 items-center px-3 py-1.5 text-sm md:flex"
+              className="pixel-btn pixel-btn-amber hidden h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none md:flex"
             >
               {t("header.mainSite")}
             </a>
@@ -109,7 +109,9 @@ export function KidsHeader() {
           <div className="relative sm:hidden" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="pixel-btn flex h-8 items-center px-3 py-1.5"
+              className="pixel-btn flex h-8 items-center px-3 py-1.5 focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               aria-label={t("header.menu") || "Menu"}
               title={t("header.menu") || "Menu"}
             >
@@ -118,7 +120,10 @@ export function KidsHeader() {
 
             {/* Mobile dropdown menu */}
             {menuOpen && (
-              <div className="animate-in fade-in slide-in-from-top-2 absolute top-full right-0 z-50 mt-2 w-48 rounded-lg border-4 border-[#8B4513] bg-[#2C1810] shadow-xl duration-200">
+              <div
+                id="mobile-menu"
+                className="animate-in fade-in slide-in-from-top-2 absolute top-full right-0 z-50 mt-2 w-48 rounded-lg border-4 border-[#8B4513] bg-[#2C1810] shadow-xl duration-200"
+              >
                 <div className="flex flex-col gap-2 p-2">
                   {/* Progress - mobile only */}
                   <div className="pixel-border-sm flex items-center justify-center gap-1 border-2 border-[#8B4513] bg-[#4A3728] px-3 py-2">
@@ -134,23 +139,23 @@ export function KidsHeader() {
 
                   <a
                     href="/kids"
-                    className="pixel-btn flex items-center justify-center gap-2 px-3 py-2 text-sm"
+                    className="pixel-btn flex items-center justify-center gap-2 px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <PixelHomeIcon />
+                    <PixelHomeIcon aria-hidden="true" />
                     {t("header.home")}
                   </a>
                   <Link
                     href="/kids/map"
-                    className="pixel-btn pixel-btn-green flex items-center justify-center gap-2 px-3 py-2 text-sm"
+                    className="pixel-btn pixel-btn-green flex items-center justify-center gap-2 px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <PixelMapIcon />
+                    <PixelMapIcon aria-hidden="true" />
                     {t("level.map")}
                   </Link>
                   <a
                     href="/"
-                    className="pixel-btn pixel-btn-amber flex items-center justify-center px-3 py-2 text-sm"
+                    className="pixel-btn pixel-btn-amber flex items-center justify-center px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("header.mainSite")}

@@ -3,6 +3,12 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// ⚡ Bolt Optimization: Ensure DIRECT_URL is always defined to avoid Prisma schema validation failures
+// in environments (like CI) that only inject DATABASE_URL.
+if (!process.env.DIRECT_URL && process.env.DATABASE_URL) {
+  process.env.DIRECT_URL = process.env.DATABASE_URL;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {

@@ -10,13 +10,23 @@
  * - Removing punctuation
  */
 export function normalizeContent(content: string): string {
-  return (
-    content
+  let sanitized = content;
+  let previous: string;
+
+  // Re-apply multi-character sanitizers until no more changes occur.
+  // This prevents unsafe sequences from reappearing after a single pass.
+  do {
+    previous = sanitized;
+    sanitized = sanitized
       // Remove variables like ${variable} or ${variable:default}
       .replace(/\$\{[^}]+\}/g, "")
       // Remove common placeholder patterns like [placeholder] or <placeholder>
       .replace(/\[[^\]]+\]/g, "")
-      .replace(/<[^>]+>/g, "")
+      .replace(/<[^>]+>/g, "");
+  } while (sanitized !== previous);
+
+  return (
+    sanitized
       // Convert to lowercase
       .toLowerCase()
       // Remove punctuation

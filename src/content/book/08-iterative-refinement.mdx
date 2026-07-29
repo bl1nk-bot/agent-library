@@ -20,8 +20,8 @@ Most prompt failures fall into a handful of categories. Learning to recognize th
 One of the most common issues. Without explicit constraints, models tend to be thorough rather than concise.
 
 <DiffView
-  before="Explain how photosynthesis works."
-  after={`Explain how photosynthesis works in 3-4 sentences suitable for a 10-year-old.`}
+  original="Explain how photosynthesis works."
+  modified={`Explain how photosynthesis works in 3-4 sentences suitable for a 10-year-old.`}
   beforeLabel="Original"
   afterLabel="Refined"
 />
@@ -31,8 +31,8 @@ One of the most common issues. Without explicit constraints, models tend to be t
 Vague prompts produce vague outputs. The model can't read your mind about what "better" means or which aspects matter most to you.
 
 <DiffView
-  before="Give me tips for better presentations."
-  after={`Give me 5 specific, actionable tips for improving technical presentations to non-technical stakeholders. For each tip, include a concrete example.`}
+  original="Give me tips for better presentations."
+  modified={`Give me 5 specific, actionable tips for improving technical presentations to non-technical stakeholders. For each tip, include a concrete example.`}
   beforeLabel="Original"
   afterLabel="Refined"
 />
@@ -42,8 +42,8 @@ Vague prompts produce vague outputs. The model can't read your mind about what "
 Tone is subjective and varies by context. What sounds "professional" to the model might not match your organization's voice or the relationship with your recipient.
 
 <DiffView
-  before="Write an apology email for missing a deadline."
-  after={`Write a professional but warm apology email for missing a project deadline. The tone should be accountable without being overly apologetic. Include a concrete plan to prevent future delays.`}
+  original="Write an apology email for missing a deadline."
+  modified={`Write a professional but warm apology email for missing a project deadline. The tone should be accountable without being overly apologetic. Include a concrete plan to prevent future delays.`}
   beforeLabel="Original"
   afterLabel="Refined"
 />
@@ -53,8 +53,8 @@ Tone is subjective and varies by context. What sounds "professional" to the mode
 Open-ended requests get open-ended responses. If you need specific types of feedback, you must ask for them explicitly.
 
 <DiffView 
-  before="Review this code."
-  after={`Review this Python code for:
+  original="Review this code."
+  modified={`Review this Python code for:
 1. Bugs and logical errors
 2. Performance issues
 3. Security vulnerabilities
@@ -72,8 +72,8 @@ afterLabel="Refined"
 Without a template, the model will structure each response differently, making comparison difficult and automation impossible.
 
 <DiffView 
-  before="Analyze these three products."
-  after={`Analyze these three products using this exact format for each:
+  original="Analyze these three products."
+  modified={`Analyze these three products using this exact format for each:
 
 ## [Product Name]
 

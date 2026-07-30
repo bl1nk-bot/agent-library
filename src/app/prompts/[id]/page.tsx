@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
-import { formatDistanceToNow } from "@/lib/format";
+import { formatDistanceToNow } from "@/lib/date";
 import {
   Clock,
   Edit,

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { formatDistanceToNow } from "@/lib/format";
+import { formatDistanceToNow } from "@/lib/date";
 import {
   MoreHorizontal,
   Shield,

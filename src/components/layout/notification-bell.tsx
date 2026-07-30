@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { formatDistanceToNow } from "@/lib/format";
+import { formatDistanceToNow } from "@/lib/date";
 
 interface CommentNotification {
   id: string;

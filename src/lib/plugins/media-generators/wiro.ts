@@ -190,6 +190,24 @@ export const wiroGeneratorPlugin: MediaGeneratorPlugin = {
     }
 
     if (request.inputImageUrl) {
+      // Validate URL to prevent SSRF
+      try {
+        const url = new URL(request.inputImageUrl);
+        if (url.protocol !== "http:" && url.protocol !== "https:") {
+          throw new Error("Invalid URL protocol");
+        }
+        if (
+          url.hostname === "localhost" ||
+          url.hostname === "127.0.0.1" ||
+          url.hostname.startsWith("192.168.") ||
+          url.hostname.startsWith("10.")
+        ) {
+          throw new Error("Local/private IP addresses are not allowed");
+        }
+      } catch (err) {
+        throw new Error("Invalid input image URL");
+      }
+
       // Fetch the image and add it to the form
       const imageResponse = await fetch(request.inputImageUrl);
       if (imageResponse.ok) {

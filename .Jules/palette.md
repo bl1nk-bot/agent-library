@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2026-07-30 - Pixel Button Keyboard Accessibility
+
+**Learning:** The `pixel-btn` custom UI components in this app remove native browser focus outlines, breaking keyboard navigation visibility. The design system standardizes on `agent-cyan` for focus rings.
+**Action:** Always append `focus-visible:ring-agent-cyan focus-visible:ring-2 focus-visible:outline-none` to elements using `pixel-btn` to guarantee keyboard accessibility.

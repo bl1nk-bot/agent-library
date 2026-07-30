@@ -22,7 +22,9 @@
 - Merged `src/components/ide/utils.ts` into `src/lib/format.ts`
 - Updated import in `src/components/ide/prompt-ide.tsx`
 - Deleted `src/components/ide/utils.ts`
+
 ## 2026-07-30 17:04 - [GUARDIAN] Session started
+
 - Directory: .Jules/guardian/2026-07-30
 - Phase: PRE-FLIGHT
 - JULES Check: COMPLETE

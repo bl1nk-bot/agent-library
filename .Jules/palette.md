@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2026-06-21 - Add missing ARIA labels to icon-only buttons in forms and prompt settings
+
+**Learning:** When using `size="icon"` with generic components like `Button`, it's easy to forget `aria-label`s for screen reader users, especially in complex components (like prompt builders, file tree editors, and profile setting pages) where visual context seems obvious.
+**Action:** Audit icon-only buttons explicitly when creating interactive components with dynamic visual state (like clear buttons, up/down arrows, and file addition buttons).

@@ -459,6 +459,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
               className="h-8 w-8"
               onClick={() => setIsSidebarOpen(true)}
               title={t("skillFiles")}
+              aria-label={t("skillFiles")}
             >
               <FolderOpen className="text-primary h-4 w-4" />
             </Button>
@@ -475,6 +476,7 @@ export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
                 className="h-6 w-6"
                 onClick={handleAddFile}
                 title={t("addFile")}
+                aria-label={t("addFile")}
               >
                 <FilePlus className="h-4 w-4" />
               </Button>

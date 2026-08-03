@@ -11,6 +11,7 @@ const baseNextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   typescript: { ignoreBuildErrors: true },
+  // @ts-expect-error ignore eslint during builds
   eslint: { ignoreDuringBuilds: true },
   // Configure webpack for raw imports
   webpack: (config) => {

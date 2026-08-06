@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 export {
   IconLock,
   IconUser,
@@ -47,7 +49,30 @@ export { TextToImageDemo, TextToVideoDemo } from "./elements/media-demos";
 export { SummarizationDemo, ContextPlayground } from "./elements/context-demos";
 export { BookPartsNav } from "./elements/navigation";
 export { TokenPredictionDemo } from "./elements/token-prediction";
-export { DiffView, VersionDiff, SideBySideDiff } from "@/components/ui/diff-view";
+import { SideBySideDiff as UISideBySideDiff, VersionDiff } from "@/components/ui/diff-view";
+
+export function DiffView({
+  before,
+  after,
+  beforeLabel,
+  afterLabel,
+  ...props
+}: Record<string, unknown> & {
+  before: string;
+  after: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+}) {
+  return React.createElement(UISideBySideDiff, {
+    original: before,
+    modified: after,
+    originalLabel: beforeLabel,
+    modifiedLabel: afterLabel,
+    ...props,
+  } as any);
+}
+
+export { VersionDiff };
 export { ChainErrorDemo } from "./elements/chain-error-demo";
 export { ValidationDemo, FallbackDemo, ContentPipelineDemo } from "./elements/chain-demos";
 export { FillInTheBlank, InteractiveChecklist, PromptDebugger } from "./elements/exercises";

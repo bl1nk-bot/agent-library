@@ -263,7 +263,7 @@ export function SideBySideDiff({
             {originalLabel}
           </span>
         </div>
-        <div className="bg-muted/20 p-3 font-mono text-sm break-words whitespace-pre-wrap">
+        <div className="bg-muted/20 max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
           {wordDiff.map((segment, i) => {
             if (segment.type === "removed") {
               return (
@@ -288,7 +288,7 @@ export function SideBySideDiff({
             {modifiedLabel}
           </span>
         </div>
-        <div className="bg-muted/20 p-3 font-mono text-sm break-words whitespace-pre-wrap">
+        <div className="bg-muted/20 max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
           {wordDiff.map((segment, i) => {
             if (segment.type === "added") {
               return (

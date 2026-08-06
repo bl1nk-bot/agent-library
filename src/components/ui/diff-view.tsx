@@ -246,6 +246,7 @@ function CodeDiffContent({
 }
 
 // Side by side diff view
+
 // 🛡️ Guardian: Consolidated from src/components/book/elements/diff-view.tsx (deleted)
 // This component was duplicated - merged inline diff highlighting into the canonical location
 // JULES Check: Verified no Autonomous task conflicts

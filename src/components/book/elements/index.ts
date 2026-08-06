@@ -1,4 +1,3 @@
-import React from "react";
 // Re-export all elements from their respective modules
 export {
   IconLock,
@@ -34,6 +33,14 @@ export { TextToImageDemo, TextToVideoDemo } from "./media-demos";
 export { SummarizationDemo, ContextPlayground } from "./context-demos";
 export { BookPartsNav } from "./navigation";
 export { TokenPredictionDemo } from "./token-prediction";
+
+export { ChainErrorDemo } from "./chain-error-demo";
+export { ValidationDemo, FallbackDemo, ContentPipelineDemo } from "./chain-demos";
+export { FillInTheBlank, InteractiveChecklist, PromptDebugger } from "./exercises";
+export { PromptBuilder, PromptAnalyzer } from "./builder";
+export { PromptChallenge, BeforeAfterEditor } from "./challenge";
+
+import React from "react";
 import { SideBySideDiff as UISideBySideDiff, VersionDiff } from "@/components/ui/diff-view";
 
 export function DiffView({
@@ -48,18 +55,14 @@ export function DiffView({
   beforeLabel?: string;
   afterLabel?: string;
 }) {
-  return React.createElement(UISideBySideDiff, {
+  const diffProps = {
     original: before,
     modified: after,
     originalLabel: beforeLabel,
     modifiedLabel: afterLabel,
     ...props,
-  } as any);
+  } as any;
+  return React.createElement(UISideBySideDiff, diffProps);
 }
 
 export { VersionDiff };
-export { ChainErrorDemo } from "./chain-error-demo";
-export { ValidationDemo, FallbackDemo, ContentPipelineDemo } from "./chain-demos";
-export { FillInTheBlank, InteractiveChecklist, PromptDebugger } from "./exercises";
-export { PromptBuilder, PromptAnalyzer } from "./builder";
-export { PromptChallenge, BeforeAfterEditor } from "./challenge";

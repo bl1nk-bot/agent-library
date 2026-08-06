@@ -246,6 +246,12 @@ function CodeDiffContent({
 }
 
 // Side by side diff view
+// 🛡️ Guardian: Consolidated from src/components/book/elements/diff-view.tsx (deleted)
+// This component was duplicated - merged inline diff highlighting into the canonical location
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 file
+// Date: 2026-08-06
+// Session: .Jules/guardian/2026-08-06/
 export function SideBySideDiff({
   original,
   modified,

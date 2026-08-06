@@ -39,3 +39,6 @@
 - Restored backward compatibility for book elements DiffView
 - Updated barrel exports with a wrapper for backward compatibility
 - Restored 08-iterative-refinement.mdx
+
+## 2026-08-06 - [GUARDIAN] Nitpick Fixes
+- Added Guardian comment block to src/components/ui/diff-view.tsx

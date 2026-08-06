@@ -10,6 +10,8 @@ interface DiffViewProps {
   className?: string;
   mode?: "line" | "word" | "inline";
   language?: "json" | "yaml" | null;
+  originalLabel?: string;
+  modifiedLabel?: string;
 }
 
 interface WordDiff {
@@ -244,25 +246,165 @@ function CodeDiffContent({
 }
 
 // Side by side diff view
-export function SideBySideDiff({ original, modified, className }: Omit<DiffViewProps, "mode">) {
+export function SideBySideDiff({
+  original,
+  modified,
+  className,
+  originalLabel = "Original",
+  modifiedLabel = "Modified",
+}: Omit<DiffViewProps, "mode">) {
+  const wordDiff = useMemo(() => computeWordDiff(original, modified), [original, modified]);
+
   return (
-    <div className={cn("grid grid-cols-2 gap-2", className)}>
+    <div className={cn("my-4 grid gap-3 md:grid-cols-2", className)}>
       <div className="overflow-hidden rounded-lg border">
-        <div className="border-b bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400">
-          Original
+        <div className="border-b border-red-200 bg-red-50 px-3 py-2 dark:border-red-800 dark:bg-red-950/30">
+          <span className="text-sm font-medium text-red-700 dark:text-red-300">
+            {originalLabel}
+          </span>
         </div>
-        <div className="max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
-          {original}
+        <div className="bg-muted/20 p-3 font-mono text-sm break-words whitespace-pre-wrap">
+          {wordDiff.map((segment, i) => {
+            if (segment.type === "removed") {
+              return (
+                <span
+                  key={i}
+                  className="bg-red-200 text-red-800 line-through decoration-red-500 dark:bg-red-900/50 dark:text-red-200"
+                >
+                  {segment.text}
+                </span>
+              );
+            } else if (segment.type === "unchanged") {
+              return <span key={i}>{segment.text}</span>;
+            }
+            return null;
+          })}
         </div>
       </div>
+
       <div className="overflow-hidden rounded-lg border">
-        <div className="border-b bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-600 dark:text-green-400">
-          Modified
+        <div className="border-b border-green-200 bg-green-50 px-3 py-2 dark:border-green-800 dark:bg-green-950/30">
+          <span className="text-sm font-medium text-green-700 dark:text-green-300">
+            {modifiedLabel}
+          </span>
         </div>
-        <div className="max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
-          {modified}
+        <div className="bg-muted/20 p-3 font-mono text-sm break-words whitespace-pre-wrap">
+          {wordDiff.map((segment, i) => {
+            if (segment.type === "added") {
+              return (
+                <span
+                  key={i}
+                  className="bg-green-200 text-green-800 dark:bg-green-900/50 dark:text-green-200"
+                >
+                  {segment.text}
+                </span>
+              );
+            } else if (segment.type === "unchanged") {
+              return <span key={i}>{segment.text}</span>;
+            }
+            return null;
+          })}
         </div>
       </div>
+    </div>
+  );
+}
+
+interface VersionDiffProps {
+  versions: {
+    label: string;
+    content: string;
+    note?: string;
+  }[];
+}
+
+export function VersionDiff({ versions }: VersionDiffProps) {
+  if (versions.length < 1) return null;
+
+  return (
+    <div className="my-4 space-y-4">
+      {versions.map((version, index) => {
+        // First version: show without diff
+        if (index === 0) {
+          return (
+            <div key={index} className="overflow-hidden rounded-lg border">
+              <div className="bg-muted/50 flex items-center justify-between border-b px-4 py-2">
+                <span className="text-sm font-semibold">{version.label}</span>
+                {version.note && (
+                  <span className="text-muted-foreground text-xs">{version.note}</span>
+                )}
+              </div>
+              <div className="p-4 font-mono text-sm break-words whitespace-pre-wrap">
+                {version.content}
+              </div>
+            </div>
+          );
+        }
+
+        const prev = versions[index - 1];
+        const diff = computeWordDiff(prev.content, version.content);
+
+        return (
+          <div key={index} className="overflow-hidden rounded-lg border">
+            <div className="bg-muted/50 flex items-center justify-between border-b px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="text-muted-foreground text-xs font-medium">{prev.label}</span>
+                <span className="text-muted-foreground">→</span>
+                <span className="text-sm font-semibold">{version.label}</span>
+              </div>
+              {version.note && (
+                <span className="text-muted-foreground text-xs">{version.note}</span>
+              )}
+            </div>
+            <div className="grid divide-y md:grid-cols-2 md:divide-x md:divide-y-0">
+              <div className="p-3">
+                <div className="mb-2 text-xs font-medium text-red-600 dark:text-red-400">
+                  {prev.label}
+                </div>
+                <div className="font-mono text-sm break-words whitespace-pre-wrap">
+                  {diff.map((segment, i) => {
+                    if (segment.type === "removed") {
+                      return (
+                        <span
+                          key={i}
+                          className="bg-red-200 text-red-800 line-through decoration-red-500 dark:bg-red-900/50 dark:text-red-200"
+                        >
+                          {segment.text}
+                        </span>
+                      );
+                    } else if (segment.type === "unchanged") {
+                      return <span key={i}>{segment.text}</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+              </div>
+              <div className="border-t p-3 md:border-t-0">
+                <div className="mb-2 text-xs font-medium text-green-600 dark:text-green-400">
+                  {version.label}
+                </div>
+                <div className="font-mono text-sm break-words whitespace-pre-wrap">
+                  {diff.map((segment, i) => {
+                    if (segment.type === "added") {
+                      return (
+                        <span
+                          key={i}
+                          className="bg-green-200 text-green-800 dark:bg-green-900/50 dark:text-green-200"
+                        >
+                          {segment.text}
+                        </span>
+                      );
+                    } else if (segment.type === "unchanged") {
+                      return <span key={i}>{segment.text}</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

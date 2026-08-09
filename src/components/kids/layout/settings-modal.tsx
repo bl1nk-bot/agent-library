@@ -187,11 +187,17 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           <h3 className="mb-2 text-lg font-bold text-[#5D4037]">{t("progress")}</h3>
           <div className="flex gap-4 text-[#5D4037]">
             <div>
-              <span className="text-2xl font-bold text-[#FFD700]">⭐ {stars}</span>
+              <span className="text-2xl font-bold text-[#FFD700]">
+                {" "}
+                <span aria-hidden="true">⭐</span> {stars}
+              </span>
               <div className="text-xs">{t("stars")}</div>
             </div>
             <div>
-              <span className="text-2xl font-bold text-[#22C55E]">✓ {completed}</span>
+              <span className="text-2xl font-bold text-[#22C55E]">
+                {" "}
+                <span aria-hidden="true">✓</span> {completed}
+              </span>
               <div className="text-xs">{t("completed")}</div>
             </div>
           </div>

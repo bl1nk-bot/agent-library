@@ -3,6 +3,12 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// CI environments like Prisma Compute might only inject DATABASE_URL.
+// The Prisma schema requires DIRECT_URL, so we fall back to DATABASE_URL if DIRECT_URL is missing.
+if (process.env.DATABASE_URL && !process.env.DIRECT_URL) {
+  process.env.DIRECT_URL = process.env.DATABASE_URL;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -10,7 +16,7 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url:
-      process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
+    // @ts-expect-error TypeScript configuration constraint for fallback URL
+    url: process.env.DATABASE_URL,
   },
 });

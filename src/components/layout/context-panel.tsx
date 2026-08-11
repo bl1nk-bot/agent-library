@@ -27,7 +27,7 @@ export function ContextPanel() {
         {pinnedItems.map((item) => (
           <div
             key={item.id}
-            className="group relative rounded border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:border-white/20 hover:bg-white/10"
+            className="group focus-within:ring-agent-cyan relative rounded border border-white/5 bg-white/5 p-3 transition-all duration-300 focus-within:border-white/20 focus-within:bg-white/10 focus-within:ring-2 focus-within:ring-offset-0 focus-within:outline-none hover:border-white/20 hover:bg-white/10"
           >
             <div className="text-agent-cyan/70 mb-2 flex items-center gap-2">
               {item.type === "file" ? <FileText size={12} /> : <Database size={12} />}

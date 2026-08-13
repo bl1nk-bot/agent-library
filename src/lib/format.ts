@@ -114,7 +114,6 @@ export function toYaml(obj: unknown, indent = 0): string {
 // Date: 2026-08-13
 // Session: .Jules/guardian/2026-08-13/
 
-
 const locales: Record<string, Locale> = {
   en: enUS,
   tr: tr,

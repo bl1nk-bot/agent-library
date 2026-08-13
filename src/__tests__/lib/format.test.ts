@@ -1,5 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { prettifyJson, isValidJson, toYaml, getDateLocale, formatDistanceToNow, formatDate } from "@/lib/format";
+import {
+  prettifyJson,
+  isValidJson,
+  toYaml,
+  getDateLocale,
+  formatDistanceToNow,
+  formatDate,
+} from "@/lib/format";
 import { enUS, tr, es, zhCN, ja, arSA } from "date-fns/locale";
 
 describe("prettifyJson", () => {
@@ -173,7 +180,6 @@ describe("toYaml", () => {
     expect(toYaml({ a: 1 })).toBe("a: 1");
   });
 });
-
 
 describe("getDateLocale", () => {
   it("should return enUS for 'en' locale", () => {

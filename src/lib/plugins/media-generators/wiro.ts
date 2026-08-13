@@ -10,6 +10,8 @@
  * - WIRO_AUDIO_MODELS (comma-separated, e.g., "elevenlabs/sound-effects")
  */
 
+import { validateUrl } from "@/lib/security";
+
 import type {
   MediaGeneratorPlugin,
   MediaGeneratorModel,
@@ -190,8 +192,14 @@ export const wiroGeneratorPlugin: MediaGeneratorPlugin = {
     }
 
     if (request.inputImageUrl) {
+      // Security: Validate inputImageUrl to prevent SSRF vulnerabilities.
+      try {
+        await validateUrl(request.inputImageUrl);
+      } catch (error) {
+        throw new Error("Invalid input image URL: URL is not permitted.");
+      }
       // Fetch the image and add it to the form
-      const imageResponse = await fetch(request.inputImageUrl);
+      const imageResponse = await fetch(request.inputImageUrl, { redirect: "error" });
       if (imageResponse.ok) {
         const imageBlob = await imageResponse.blob();
         formData.append("inputImage", imageBlob, "input.jpg");

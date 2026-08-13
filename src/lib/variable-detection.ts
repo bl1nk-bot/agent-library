@@ -199,7 +199,13 @@ function isInsideJsonString(text: string, index: number): boolean {
  * Detect variable-like patterns in text
  * Returns detected variables that are NOT in our supported format
  */
-export function detectVariables(text: string): DetectedVariable[] {
+// 🛡️ Guardian: Consolidated variable extraction logic from src/pages/api/mcp.ts
+// This function was enhanced to support canonical extraction, avoiding regex duplication
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 1 duplicate function removed (-15 LOC)
+// Date: 2026-08-13
+// Session: .Jules/guardian/2026-08-13/
+export function detectVariables(text: string, options: { includeSupported?: boolean } = {}): DetectedVariable[] {
   const detected: DetectedVariable[] = [];
   const seenRanges: Array<[number, number]> = [];
 
@@ -212,6 +218,16 @@ export function detectVariables(text: string): DetectedVariable[] {
   while ((match = dollarCurlyPattern.exec(text)) !== null) {
     seenRanges.push([match.index, match.index + match[0].length]);
     supportedVars.add(match[0]);
+    if (options.includeSupported) {
+      detected.push({
+        original: match[0],
+        name: match[1].trim(),
+        defaultValue: match[2]?.trim(),
+        pattern: "dollar_curly",
+        startIndex: match.index,
+        endIndex: match.index + match[0].length,
+      });
+    }
   }
 
   // Check each pattern

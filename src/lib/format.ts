@@ -1,3 +1,10 @@
+import {
+  formatDistanceToNow as dateFnsFormatDistanceToNow,
+  format as dateFnsFormat,
+  type Locale,
+} from "date-fns";
+import { enUS, tr, es, zhCN, ja, arSA } from "date-fns/locale";
+
 /**
  * Prettify JSON content with proper indentation
  * Returns the original content if parsing fails
@@ -98,4 +105,40 @@ export function toYaml(obj: unknown, indent = 0): string {
   }
 
   return String(obj);
+}
+
+// 🛡️ Guardian: Consolidated from src/lib/date.ts (deleted)
+// This module was merged to centralize formatting utilities and avoid architectural scattering.
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 file
+// Date: 2026-08-13
+// Session: .Jules/guardian/2026-08-13/
+
+
+const locales: Record<string, Locale> = {
+  en: enUS,
+  tr: tr,
+  es: es,
+  zh: zhCN,
+  ja: ja,
+  ar: arSA,
+};
+
+export function getDateLocale(locale: string): Locale {
+  return locales[locale] || enUS;
+}
+
+export function formatDistanceToNow(date: Date | string, locale: string = "en"): string {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+  return dateFnsFormatDistanceToNow(dateObj, {
+    addSuffix: true,
+    locale: getDateLocale(locale),
+  });
+}
+
+export function formatDate(date: Date | string, formatStr: string, locale: string = "en"): string {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+  return dateFnsFormat(dateObj, formatStr, {
+    locale: getDateLocale(locale),
+  });
 }

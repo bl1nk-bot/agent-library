@@ -205,7 +205,10 @@ function isInsideJsonString(text: string, index: number): boolean {
 // Impact: 1 duplicate function removed (-15 LOC)
 // Date: 2026-08-13
 // Session: .Jules/guardian/2026-08-13/
-export function detectVariables(text: string, options: { includeSupported?: boolean } = {}): DetectedVariable[] {
+export function detectVariables(
+  text: string,
+  options: { includeSupported?: boolean } = {}
+): DetectedVariable[] {
   const detected: DetectedVariable[] = [];
   const seenRanges: Array<[number, number]> = [];
 

@@ -42,11 +42,10 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
   return user;
 }
 
-
 function getUniqueVariables(content: string) {
   return detectVariables(content, { includeSupported: true })
-    .filter(v => v.pattern === "dollar_curly")
-    .filter((v, i, arr) => arr.findIndex(x => x.name === v.name) === i);
+    .filter((v) => v.pattern === "dollar_curly")
+    .filter((v, i, arr) => arr.findIndex((x) => x.name === v.name) === i);
 }
 
 function slugify(text: string): string {
@@ -68,8 +67,6 @@ function getPromptName(prompt: { id: string; slug?: string | null; title: string
   if (titleSlug) return titleSlug;
   return prompt.id;
 }
-
-
 
 export const config = {
   api: {

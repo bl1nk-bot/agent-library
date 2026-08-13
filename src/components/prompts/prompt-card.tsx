@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
-import { formatDistanceToNow } from "@/lib/date";
+import { formatDistanceToNow } from "@/lib/format";
 import { getPromptUrl } from "@/lib/urls";
 import {
   ArrowBigUp,

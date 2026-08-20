@@ -1,0 +1,995 @@
+src/components/kids/providers/level-context.tsx:34:export function LevelProvider({
+src/components/kids/providers/level-context.tsx:120:export function useLevelSlug(): string {
+src/components/kids/providers/level-context.tsx:125:export function useSetLevelSlug(): (slug: string) => void {
+src/components/kids/providers/level-context.tsx:130:export function useSectionNavigation() {
+src/components/kids/layout/level-content-wrapper.tsx:27:export function LevelContentWrapper({
+src/components/kids/layout/level-content-wrapper.tsx:310:function PixelArrowLeft() {
+src/components/kids/layout/level-content-wrapper.tsx:321:function PixelArrowRight() {
+src/components/kids/layout/level-content-wrapper.tsx:332:function PixelMapIcon() {
+src/components/kids/layout/level-content-wrapper.tsx:350:function PixelLockIcon() {
+src/components/kids/layout/kids-header.tsx:13:export function KidsHeader() {
+src/components/kids/layout/kids-header.tsx:169:function PixelHomeIcon(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/kids-header.tsx:183:function PixelMapIcon(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/kids-header.tsx:202:function PixelMenuIcon(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/settings-modal.tsx:32:export function SettingsButton() {
+src/components/kids/layout/settings-modal.tsx:61:function SettingsModal({ onClose }: { onClose: () => void }) {
+src/components/kids/layout/settings-modal.tsx:251:function PixelSettingsIcon(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/background-music.tsx:20:export function useMusicContext() {
+src/components/kids/layout/background-music.tsx:25:function PixelSpeakerOn(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/background-music.tsx:38:function PixelSpeakerOff(props: React.SVGProps<SVGSVGElement>) {
+src/components/kids/layout/background-music.tsx:53:export function MusicProvider({ children }: { children: React.ReactNode }) {
+src/components/kids/layout/background-music.tsx:141:export function MusicButton() {
+src/components/kids/layout/background-music.tsx:188:export function MusicVolumeSlider() {
+src/components/kids/layout/background-music.tsx:221:export function BackgroundMusic() {
+src/components/kids/layout/kids-home-content.tsx:15:export function KidsHomeContent() {
+src/components/kids/layout/kids-home-content.tsx:233:function PixelPlayIcon() {
+src/components/kids/layout/kids-home-content.tsx:244:function PixelArrowLeft() {
+src/components/kids/layout/kids-home-content.tsx:255:function PixelArrowRight() {
+src/components/kids/layout/kids-home-content.tsx:266:function PixelGamepad() {
+src/components/kids/layout/kids-home-content.tsx:280:function PixelBook() {
+src/components/kids/elements/level-slides.tsx:14:export function Section({ children }: SectionProps) {
+src/components/kids/elements/level-slides.tsx:23:export function LevelSlides({ children, levelSlug }: LevelSlidesProps) {
+src/components/kids/elements/step-by-step.tsx:25:export function StepByStep({
+src/components/kids/elements/example-matcher.tsx:29:export function ExampleMatcher({
+src/components/kids/elements/prompt-parts.tsx:40:export function PromptParts({ title, instruction, parts, successMessage }: PromptPartsProps) {
+src/components/kids/elements/drag-drop-prompt.tsx:24:export function DragDropPrompt({
+src/components/kids/elements/drag-drop-prompt.tsx:441:function PixelPuzzleIcon() {
+src/components/kids/elements/magic-words.tsx:31:export function MagicWords({ title, sentence, blanks, successMessage }: MagicWordsProps) {
+src/components/kids/elements/story-scene.tsx:21:export function StoryScene({ panels, className }: StorySceneProps) {
+src/components/kids/elements/story-scene.tsx:103:export function Panel({
+src/components/kids/elements/pixel-art.tsx:6:export function PixelTree({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:29:export function PixelBush({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:45:export function PixelCloud({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:64:export function PixelCastle({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:97:export function PixelMountain({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:117:export function PixelFlower({
+src/components/kids/elements/pixel-art.tsx:144:export function PixelStar({ className, filled = false }: { className?: string; filled?: boolean }) {
+src/components/kids/elements/pixel-art.tsx:236:export function PixelRobot({ className, mood = "happy" }: PixelRobotProps) {
+src/components/kids/elements/pixel-art.tsx:293:export function PixelLevelNode({
+src/components/kids/elements/pixel-art.tsx:377:export function PixelPath({ width = 100, className }: { width?: number; className?: string }) {
+src/components/kids/elements/pixel-art.tsx:400:export function PixelCar({ className, color = "#E74C3C" }: { className?: string; color?: string }) {
+src/components/kids/elements/pixel-art.tsx:440:export function PixelOldCar({
+src/components/kids/elements/pixel-art.tsx:488:export function PixelVan({ className, text }: { className?: string; text?: string }) {
+src/components/kids/elements/pixel-art.tsx:532:export function PixelLake({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:557:export function PixelPond({ className }: { className?: string }) {
+src/components/kids/elements/pixel-art.tsx:577:export function PixelPlaneWithBanner({
+src/components/kids/elements/progress-map.tsx:29:export function ProgressMap() {
+src/components/kids/elements/progress-map.tsx:235:function generatePathD(positions: { x: number; y: number }[]): string {
+src/components/kids/elements/progress-map.tsx:253:function generatePixelPathD(positions: { x: number; y: number }[]): string {
+src/components/kids/elements/progress-map.tsx:271:function MapDecorations({ mapWidth }: { mapWidth: number }) {
+src/components/kids/elements/progress-map.tsx:486:function getCompletedCount(progress: KidsProgress | null, levels: Level[]): number {
+src/components/kids/elements/progress-map.tsx:499:function LevelNode({ level, position, progress, index, t }: LevelNodeProps) {
+src/components/kids/elements/character-guide.tsx:28:export function PromiCharacter({
+src/components/kids/elements/character-guide.tsx:61:export function SpeechBubble({ children, direction = "right", className }: SpeechBubbleProps) {
+src/components/kids/elements/character-guide.tsx:89:export function PromiWithMessage({
+src/components/kids/elements/word-predictor.tsx:25:export function WordPredictor({
+src/components/kids/elements/prompt-doctor.tsx:28:export function PromptDoctor({
+src/components/kids/elements/level-complete.tsx:18:export function LevelComplete({
+src/components/kids/elements/level-complete.tsx:136:function PixelArrowRight() {
+src/components/kids/elements/level-complete.tsx:147:function PixelMapIcon() {
+src/components/kids/elements/prompt-lab.tsx:29:export function PromptLab({
+src/components/kids/elements/prompt-vs-mistake.tsx:24:export function PromptVsMistake({
+src/components/kids/elements/prompt-vs-mistake.tsx:263:function PixelCheckIcon() {
+src/components/kids/elements/prompt-vs-mistake.tsx:275:function PixelXIcon() {
+src/components/kids/elements/prompt-vs-mistake.tsx:290:function PixelRefreshIcon() {
+src/components/kids/elements/prompt-vs-mistake.tsx:309:function PixelThinkingIcon() {
+src/components/settings/profile-form.tsx:28:function XTwitterIcon({ className }: { className?: string }) {
+src/components/settings/profile-form.tsx:112:export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormProps) {
+src/components/settings/profile-form.tsx:179:  async function onSubmit(data: ProfileFormValues) {
+src/components/settings/api-key-settings.tsx:29:export function ApiKeySettings({ initialApiKey, initialPublicByDefault }: ApiKeySettingsProps) {
+src/components/developers/prompt-tokenizer.tsx:62:function estimateTokens(text: string): number {
+src/components/developers/prompt-tokenizer.tsx:70:function calculateStats(text: string): TokenStats {
+src/components/developers/prompt-tokenizer.tsx:80:function loadSettings(): TokenizerSettings {
+src/components/developers/prompt-tokenizer.tsx:105:function saveSettings(settings: TokenizerSettings) {
+src/components/developers/prompt-tokenizer.tsx:110:function loadHistory(): SavedAnalysis[] {
+src/components/developers/prompt-tokenizer.tsx:120:function saveHistory(history: SavedAnalysis[]) {
+src/components/developers/prompt-tokenizer.tsx:125:function formatNumber(num: number): string {
+src/components/developers/prompt-tokenizer.tsx:131:function formatPrice(price: number): string {
+src/components/developers/prompt-tokenizer.tsx:138:function tokenizeForVisualization(text: string): { start: number; end: number }[] {
+src/components/developers/prompt-tokenizer.tsx:185:export function PromptTokenizer() {
+src/components/developers/embed-examples.ts:248:      prompt: `Convert this callback-based function to use async/await with proper error handling.`,
+src/components/developers/embed-examples.ts:257:        "function fetchData(url, callback) {\n  fetch(url)\n    .then(res => res.json())\n    .then(data => callback(null, data))\n    .catch(err => callback(err));\n}",
+src/components/developers/embed-examples.ts:259:        "async function fetchData(url) {\n  try {\n    const res = await fetch(url);\n    return await res.json();\n  } catch (err) {\n    throw new Error(`Failed to fetch: ${err.message}`);\n  }\n}",
+src/components/developers/embed-examples.ts:270:      prompt: `Generate unit tests for this utility function using Jest. Cover edge cases.`,
+src/components/developers/prompt-enhancer.tsx:58:function loadHistory(): SavedPrompt[] {
+src/components/developers/prompt-enhancer.tsx:68:function saveHistory(history: SavedPrompt[]) {
+src/components/developers/prompt-enhancer.tsx:73:export function PromptEnhancer() {
+src/components/developers/embed-designer.tsx:100:export function EmbedDesigner() {
+src/components/user/profile-links.tsx:15:function XIcon({ className }: { className?: string }) {
+src/components/user/profile-links.tsx:25:function DiscordIcon({ className }: { className?: string }) {
+src/components/user/profile-links.tsx:33:function MastodonIcon({ className }: { className?: string }) {
+src/components/user/profile-links.tsx:41:function BlueskyIcon({ className }: { className?: string }) {
+src/components/user/profile-links.tsx:102:function parseBioText(text: string): React.ReactNode[] {
+src/components/user/profile-links.tsx:152:export function ProfileLinks({ bio, customLinks, className }: ProfileLinksProps) {
+src/components/user/activity-chart-wrapper.tsx:12:export function ActivityChartWrapper({ data, locale }: ActivityChartWrapperProps) {
+src/components/user/activity-chart.tsx:19:export function ActivityChart({
+src/components/seo/structured-data.tsx:30:export async function StructuredData({ type, data }: StructuredDataProps) {
+src/components/seo/structured-data.tsx:204:export async function WebsiteStructuredData() {
+src/components/api/improve-prompt-demo.tsx:41:export function ImprovePromptDemo() {
+src/components/home/cta-section.tsx:13:export function CtaSection({ config, showRegisterButton, isOAuth, t, tNav }: CtaSectionProps) {
+src/components/home/sponsors-section.tsx:11:export function SponsorsSection({ items, t, useCloneBranding }: SponsorsSectionProps) {
+src/components/home/hero-section.tsx:22:export function HeroSection({
+src/components/book/sidebar.tsx:13:function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+src/components/book/sidebar.tsx:50:export function MobileTOCButton() {
+src/components/book/sidebar.tsx:78:export function BookSidebar() {
+src/components/book/elements/context-demos.tsx:110:export function SummarizationDemo() {
+src/components/book/elements/context-demos.tsx:306:export function ContextPlayground() {
+src/components/book/elements/ai-demos.tsx:24:function cosineSimilarity(a: number[], b: number[]): number {
+src/components/book/elements/ai-demos.tsx:52:export function EmbeddingsDemo() {
+src/components/book/elements/ai-demos.tsx:191:    example: "Write a Python function to reverse a string",
+src/components/book/elements/ai-demos.tsx:238:export function LLMCapabilitiesDemo() {
+src/components/book/elements/chain-error-demo.tsx:50:export function ChainErrorDemo() {
+src/components/book/elements/lists.tsx:36:export function Checklist({ title, items }: ChecklistProps) {
+src/components/book/elements/lists.tsx:106:export function Compare({ before, after }: CompareProps) {
+src/components/book/elements/lists.tsx:214:export function InfoGrid({ items, columns = 1 }: InfoGridProps) {
+src/components/book/elements/challenge.tsx:29:export function PromptChallenge({
+src/components/book/elements/challenge.tsx:398:export function BeforeAfterEditor({
+src/components/book/elements/media-demos.tsx:49:export function TextToImageDemo() {
+src/components/book/elements/media-demos.tsx:210:export function TextToVideoDemo() {
+src/components/book/elements/code-editor.tsx:14:export function CodeEditor({ code, language, filename }: CodeEditorProps) {
+src/components/book/elements/exercises.tsx:44:export function FillInTheBlank({
+src/components/book/elements/exercises.tsx:403:export function InteractiveChecklist({
+src/components/book/elements/exercises.tsx:517:export function PromptDebugger({
+src/components/book/elements/security.tsx:55:export function JailbreakDemo() {
+src/components/book/elements/builder.tsx:74:export function PromptBuilder({
+src/components/book/elements/builder.tsx:323:export function PromptAnalyzer({
+src/components/book/elements/icons.tsx:16:export function IconLock({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:20:export function IconUser({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:24:export function IconClipboard({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:28:export function IconSettings({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:32:export function IconCheck({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:36:export function IconX({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:40:export function IconStar({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:44:export function IconLightbulb({ className }: { className?: string }) {
+src/components/book/elements/icons.tsx:48:export function IconTarget({ className }: { className?: string }) {
+src/components/book/elements/chain-demos.tsx:35:export function ValidationDemo() {
+src/components/book/elements/chain-demos.tsx:298:export function FallbackDemo() {
+src/components/book/elements/chain-demos.tsx:568:export function ContentPipelineDemo() {
+src/components/book/elements/navigation.tsx:111:export function BookPartsNav() {
+src/components/book/elements/prompt.tsx:52:export function PromptBreakdown({ parts }: PromptBreakdownProps) {
+src/components/book/elements/prompt.tsx:102:export function SpecificitySpectrum({ levels }: SpecificitySpectrumProps) {
+src/components/book/elements/principles.tsx:100:export function PrinciplesSummary() {
+src/components/book/elements/demos.tsx:8:function simulateTokenization(text: string): string[] {
+src/components/book/elements/demos.tsx:54:export function TokenizerDemo() {
+src/components/book/elements/demos.tsx:120:export function ContextWindowDemo() {
+src/components/book/elements/demos.tsx:241:export function TemperatureDemo() {
+src/components/book/elements/demos.tsx:339:export function StructuredOutputDemo() {
+src/components/book/elements/demos.tsx:493:export function FewShotDemo() {
+src/components/book/elements/demos.tsx:603:export function JsonYamlDemo() {
+src/components/book/elements/demos.tsx:723:export function IterativeRefinementDemo() {
+src/components/book/elements/demos.tsx:939:export function CostCalculatorDemo() {
+src/components/book/elements/chain.tsx:101:export function ChainExample({ type, steps }: ChainExampleProps) {
+src/components/book/elements/chain.tsx:419:export function ChainFlowDemo() {
+src/components/book/elements/diff-view.tsx:13:function computeDiff(
+src/components/book/elements/diff-view.tsx:72:export function DiffView({
+src/components/book/elements/diff-view.tsx:141:export function VersionDiff({ versions }: VersionDiffProps) {
+src/components/book/elements/frameworks.tsx:92:export function FrameworkDemo({ name, steps, example }: FrameworkDemoProps) {
+src/components/book/elements/frameworks.tsx:180:export function CRISPEFramework() {
+src/components/book/elements/frameworks.tsx:257:export function BREAKFramework() {
+src/components/book/elements/frameworks.tsx:319:export function RTFFramework() {
+src/components/book/elements/token-prediction.tsx:120:export function TokenPredictionDemo() {
+src/components/book/elements/ui.tsx:28:export function Collapsible({ title, children, defaultOpen = false }: CollapsibleProps) {
+src/components/book/elements/ui.tsx:52:export function Callout({ type = "info", title, children }: CalloutProps) {
+src/components/book/elements/ui.tsx:97:export function CopyableCode({ code, language }: CopyableCodeProps) {
+src/components/book/elements/ui.tsx:131:export function Quiz({ question, options, correctIndex, explanation }: QuizProps) {
+src/components/book/elements/ui.tsx:189:function parsePromptVariables(content: string): { name: string; defaultValue: string }[] {
+src/components/book/elements/ui.tsx:203:export function TryIt({
+src/components/book/elements/ui.tsx:286:export function NavButton({ href, label, direction = "next" }: NavButtonProps) {
+src/components/book/elements/ui.tsx:304:export function NavFooter({ prev, next }: NavFooterProps) {
+src/components/mcp/mcp-server-popup.tsx:17:export function McpIcon({ className }: { className?: string }) {
+src/components/mcp/mcp-server-popup.tsx:39:export function McpServerPopup({
+src/components/mcp/mcp-config-tabs.tsx:39:function buildLocalEnv(
+src/components/mcp/mcp-config-tabs.tsx:49:function getConfig(
+src/components/mcp/mcp-config-tabs.tsx:197:export function McpConfigTabs({
+src/components/providers/locale-detector.tsx:11:export function LocaleDetector() {
+src/components/providers/branding-provider.tsx:22:export function BrandingProvider({ children, branding }: BrandingProviderProps) {
+src/components/providers/branding-provider.tsx:26:export function useBranding(): BrandingContextValue {
+src/components/providers/theme-styles.tsx:13:export function ThemeStyles(_props: ThemeStylesProps) {
+src/components/providers/index.tsx:34:export function Providers({ children, locale, messages, theme, branding }: ProvidersProps) {
+src/components/promptmasters/promptmasters-content.tsx:46:function LeaderboardSkeleton() {
+src/components/promptmasters/promptmasters-content.tsx:64:function RankBadge({ rank }: { rank: number }) {
+src/components/promptmasters/promptmasters-content.tsx:79:function LeaderboardList({
+src/components/promptmasters/promptmasters-content.tsx:149:export function PromptmastersContent({ translations }: PromptmastersContentProps) {
+src/components/promptmasters/promptmasters-content.tsx:157:    async function fetchLeaderboards() {
+src/components/chat/chat-card.tsx:17:export function ChatCard({ message }: ChatCardProps) {
+src/components/prompts/report-prompt-dialog.tsx:35:export function ReportPromptDialog({ promptId, isLoggedIn }: ReportPromptDialogProps) {
+src/components/prompts/add-version-form.tsx:27:export function AddVersionForm({ promptId, currentContent }: AddVersionFormProps) {
+src/components/prompts/copy-button.tsx:15:export function CopyButton({ content, promptId }: CopyButtonProps) {
+src/components/prompts/audio-player.tsx:16:export function AudioPlayer({ src, onError, className, compact = false }: AudioPlayerProps) {
+src/components/prompts/skill-import-dialog.tsx:26:export function SkillImportDialog({ open, onOpenChange, onImport }: SkillImportDialogProps) {
+src/components/prompts/widget-card.tsx:18:export function WidgetCard({ prompt }: WidgetCardProps) {
+src/components/prompts/widget-card.tsx:23:  // If widget has a custom render function, use it
+src/components/prompts/pin-button.tsx:16:export function PinButton({ promptId, initialPinned, iconOnly = false }: PinButtonProps) {
+src/components/prompts/feature-prompt-button.tsx:16:export function FeaturePromptButton({
+src/components/prompts/prompt-builder.tsx:68:  function PromptBuilder(
+src/components/prompts/contributor-search.tsx:22:export function ContributorSearch({ selectedUsers, onSelect, onRemove }: ContributorSearchProps) {
+src/components/prompts/dismiss-change-request-button.tsx:27:export function DismissChangeRequestButton({
+src/components/prompts/hf-data-studio-dropdown.tsx:27:export function HFDataStudioDropdown({ aiGenerationEnabled = false }: HFDataStudioDropdownProps) {
+src/components/prompts/skill-import-button.tsx:9:export function SkillImportButton() {
+src/components/prompts/interactive-book-banner.tsx:9:export function InteractiveBookBanner() {
+src/components/prompts/version-compare-button.tsx:19:export function VersionCompareButton({
+src/components/prompts/prompt-writing-guide.tsx:22:function CodeBlock({ code }: CodeBlockProps) {
+src/components/prompts/prompt-writing-guide.tsx:58:function Section({ icon, title, children, defaultOpen = false }: SectionProps) {
+src/components/prompts/prompt-writing-guide.tsx:94:export function PromptWritingGuide() {
+src/components/prompts/structured-format-warning.tsx:18:function looksLikeJson(content: string): boolean {
+src/components/prompts/structured-format-warning.tsx:49:function looksLikeYaml(content: string): boolean {
+src/components/prompts/structured-format-warning.tsx:92:function detectStructuredFormat(content: string): "JSON" | "YAML" | null {
+src/components/prompts/structured-format-warning.tsx:98:export function StructuredFormatWarning({
+src/components/prompts/skill-editor.tsx:56:function buildFileTree(files: SkillFile[]): TreeNode[] {
+src/components/prompts/skill-editor.tsx:112:function TreeNodeItem({
+src/components/prompts/skill-editor.tsx:198:export function SkillEditor({ value, onChange, className }: SkillEditorProps) {
+src/components/prompts/hero-prompt-input.tsx:15:export function HeroPromptInput() {
+src/components/prompts/add-connection-dialog.tsx:34:export function AddConnectionDialog({
+src/components/prompts/prompt-card.tsx:91:export function PromptCard({ prompt, showPinButton = false, isPinned = false }: PromptCardProps) {
+src/components/prompts/discovery-prompts.tsx:13:export async function DiscoveryPrompts({ isHomepage = false }: DiscoveryPromptsProps) {
+src/components/prompts/prompt-connections.tsx:94:function FlowGraph({
+src/components/prompts/prompt-connections.tsx:470:export function PromptConnections({
+src/components/prompts/prompt-connections.tsx:898:        .on("mouseover", function (event, d) {
+src/components/prompts/prompt-connections.tsx:903:        .on("mouseout", function (event, d) {
+src/components/prompts/prompt-connections.tsx:923:      nodeElements.each(function (d) {
+src/components/prompts/prompt-connections.tsx:945:          .each(function (d) {
+src/components/prompts/prompt-connections.tsx:1031:          .on("mouseover", function () {
+src/components/prompts/prompt-connections.tsx:1036:          .on("mouseout", function () {
+src/components/prompts/change-request-form.tsx:28:export function ChangeRequestForm({
+src/components/prompts/add-to-collection-button.tsx:16:export function AddToCollectionButton({
+src/components/prompts/restore-prompt-button.tsx:14:export function RestorePromptButton({ promptId }: RestorePromptButtonProps) {
+src/components/prompts/unlist-prompt-button.tsx:15:export function UnlistPromptButton({
+src/components/prompts/filter-context.tsx:12:export function FilterProvider({ children }: { children: ReactNode }) {
+src/components/prompts/filter-context.tsx:22:export function useFilterContext() {
+src/components/prompts/upvote-button.tsx:9:function TriangleUp({ className }: { className?: string }) {
+src/components/prompts/upvote-button.tsx:38:export function UpvoteButton({
+src/components/prompts/variable-hint.tsx:15:export function VariableHint({ content, onContentChange }: VariableHintProps) {
+src/components/prompts/media-preview.tsx:14:export function MediaPreview({ mediaUrl, title, type }: MediaPreviewProps) {
+src/components/prompts/prompt-flow-section.tsx:17:export function PromptFlowSection({
+src/components/prompts/prompt-form.tsx:90:function MediaField({ form, t, promptType, promptContent }: MediaFieldProps) {
+src/components/prompts/prompt-form.tsx:467:function getBuilderData(): { content?: string; type?: string; format?: string } | null {
+src/components/prompts/prompt-form.tsx:483:export function PromptForm({
+src/components/prompts/prompt-form.tsx:700:  async function onSubmit(data: PromptFormValues) {
+src/components/prompts/prompt-form.tsx:1371:                            if (typeof field.ref === "function") field.ref(el);
+src/components/prompts/prompt-form.tsx:1481:                    <span className="text-[#569cd6]">function</span>{" "}
+src/components/prompts/variable-warning.tsx:16:export function VariableWarning({ content, onConvert }: VariableWarningProps) {
+src/components/prompts/interactive-prompt-content.tsx:43:function parseVariables(content: string): Variable[] {
+src/components/prompts/interactive-prompt-content.tsx:60:function getUniqueVariables(variables: Variable[]): { name: string; defaultValue: string }[] {
+src/components/prompts/interactive-prompt-content.tsx:71:function EditableSpan({
+src/components/prompts/interactive-prompt-content.tsx:149:export function InteractivePromptContent({
+src/components/prompts/variable-toolbar.tsx:16:export function VariableToolbar({ onInsert, getSelectedText }: VariableToolbarProps) {
+src/components/prompts/prompt-writing-guide-content.tsx:21:function CodeBlock({ code }: CodeBlockProps) {
+src/components/prompts/prompt-writing-guide-content.tsx:58:function Section({ icon, title, children, defaultOpen = false }: SectionProps) {
+src/components/prompts/prompt-writing-guide-content.tsx:94:export function PromptWritingGuideContent() {
+src/components/prompts/related-prompts.tsx:34:export function RelatedPrompts({ prompts }: RelatedPromptsProps) {
+src/components/prompts/prompt-filters.tsx:50:export function PromptFilters({
+src/components/prompts/translate-button.tsx:34:export function TranslateButton({ content, onTranslate, isLoggedIn }: TranslateButtonProps) {
+src/components/prompts/infinite-prompt-list.tsx:28:function PromptCardSkeleton() {
+src/components/prompts/infinite-prompt-list.tsx:50:export function InfinitePromptList({
+src/components/prompts/change-request-actions.tsx:17:export function ChangeRequestActions({ changeRequestId, promptId }: ChangeRequestActionsProps) {
+src/components/prompts/language-switcher.tsx:35:export function LanguageSwitcher() {
+src/components/prompts/private-prompts-note.tsx:14:export function PrivatePromptsNote({ count }: PrivatePromptsNoteProps) {
+src/components/prompts/variable-fill-modal.tsx:31:function parseVariables(content: string): Variable[] {
+src/components/prompts/variable-fill-modal.tsx:48:function getUniqueVariables(variables: Variable[]): { name: string; defaultValue: string }[] {
+src/components/prompts/variable-fill-modal.tsx:58:export function VariableFillModal({
+src/components/prompts/variable-fill-modal.tsx:155:export function hasVariables(content: string): boolean {
+src/components/prompts/variable-fill-modal.tsx:160:export function renderContentWithVariables(content: string): React.ReactNode {
+src/components/prompts/mini-prompt-card.tsx:19:export function MiniPromptCard({ prompt }: MiniPromptCardProps) {
+src/components/prompts/media-generator.tsx:79:function fillPromptVariables(prompt: string): string {
+src/components/prompts/media-generator.tsx:87:export function MediaGenerator({
+src/components/prompts/media-generator.tsx:110:    async function fetchModels() {
+src/components/prompts/prompt-list.tsx:18:export function PromptList({
+src/components/prompts/skill-diff-viewer.tsx:42:function buildDiffFileTree(originalFiles: SkillFile[], modifiedFiles: SkillFile[]): TreeNode[] {
+src/components/prompts/skill-diff-viewer.tsx:121:function TreeNodeItem({
+src/components/prompts/skill-diff-viewer.tsx:209:export function SkillDiffViewer({ original, modified, className }: SkillDiffViewerProps) {
+src/components/prompts/version-compare-modal.tsx:44:export function VersionCompareModal({
+src/components/prompts/skill-viewer.tsx:46:function buildFileTree(files: SkillFile[]): TreeNode[] {
+src/components/prompts/skill-viewer.tsx:100:function TreeNodeItem({
+src/components/prompts/skill-viewer.tsx:170:export function SkillViewer({ content, className, promptId, promptSlug }: SkillViewerProps) {
+src/components/prompts/run-prompt-button.tsx:168:function buildUrl(
+src/components/prompts/run-prompt-button.tsx:264:function isCodeCategory(name?: string): boolean {
+src/components/prompts/run-prompt-button.tsx:270:function getDefaultTab(categoryName?: string, parentCategoryName?: string): "chat" | "code" {
+src/components/prompts/run-prompt-button.tsx:277:export function RunPromptButton({
+src/components/prompts/run-prompt-button.tsx:540:  // Tab buttons render function
+src/components/prompts/delist-banner.tsx:30:export function DelistBanner({
+src/components/prompts/hero-categories.tsx:88:function shuffleArray<T>(array: T[]): T[] {
+src/components/prompts/hero-categories.tsx:97:export function HeroCategories() {
+src/components/prompts/share-dropdown.tsx:14:function XIcon({ className }: { className?: string }) {
+src/components/prompts/share-dropdown.tsx:23:function HackerNewsIcon({ className }: { className?: string }) {
+src/components/prompts/share-dropdown.tsx:37:export function ShareDropdown({ title, url, promptId }: ShareDropdownProps) {
+src/components/prompts/download-prompt-dropdown.tsx:22:export function DownloadPromptDropdown({
+src/components/prompts/reopen-change-request-button.tsx:16:export function ReopenChangeRequestButton({
+src/components/prompts/delete-version-button.tsx:27:export function DeleteVersionButton({
+src/components/icons/app-icons.tsx:3:export function AppStoreIcon({ className }: { className?: string }) {
+src/components/icons/app-icons.tsx:11:export function RaycastIcon({ className }: { className?: string }) {
+src/components/admin/import-prompts.tsx:29:export function ImportPrompts() {
+src/components/admin/ai-search-settings.tsx:24:export function AISearchSettings({
+src/components/admin/reports-table.tsx:55:export function ReportsTable({ reports }: ReportsTableProps) {
+src/components/admin/webhooks-table.tsx:77:function HeadersEditor({
+src/components/admin/webhooks-table.tsx:133:export function WebhooksTable({ webhooks: initialWebhooks }: WebhooksTableProps) {
+src/components/admin/categories-table.tsx:73:export function CategoriesTable({ categories }: CategoriesTableProps) {
+src/components/admin/prompts-management.tsx:115:export function PromptsManagement({
+src/components/admin/tags-table.tsx:58:export function TagsTable({ tags }: TagsTableProps) {
+src/components/admin/users-table.tsx:86:export function UsersTable() {
+src/components/admin/admin-tabs.tsx:30:export function AdminTabs({ translations, pendingReportsCount, children }: AdminTabsProps) {
+src/components/comments/comment-section.tsx:37:export function CommentSection({
+src/components/comments/comment-form.tsx:49:export function CommentForm({
+src/components/comments/comment-item.tsx:75:function autoLinkText(text: string): React.ReactNode[] {
+src/components/comments/comment-item.tsx:99:export function CommentItem({
+src/components/ui/skeleton.tsx:3:function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/command.tsx:16:function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
+src/components/ui/command.tsx:29:function CommandDialog({
+src/components/ui/command.tsx:60:function CommandInput({
+src/components/ui/command.tsx:79:function CommandList({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.List>) {
+src/components/ui/command.tsx:89:function CommandEmpty({ ...props }: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+src/components/ui/command.tsx:99:function CommandGroup({
+src/components/ui/command.tsx:115:function CommandSeparator({
+src/components/ui/command.tsx:128:function CommandItem({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Item>) {
+src/components/ui/command.tsx:141:function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
+src/components/ui/dropdown-menu.tsx:9:function DropdownMenu({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
+src/components/ui/dropdown-menu.tsx:13:function DropdownMenuPortal({
+src/components/ui/dropdown-menu.tsx:19:function DropdownMenuTrigger({
+src/components/ui/dropdown-menu.tsx:25:function DropdownMenuContent({
+src/components/ui/dropdown-menu.tsx:45:function DropdownMenuGroup({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
+src/components/ui/dropdown-menu.tsx:49:function DropdownMenuItem({
+src/components/ui/dropdown-menu.tsx:72:function DropdownMenuCheckboxItem({
+src/components/ui/dropdown-menu.tsx:98:function DropdownMenuRadioGroup({
+src/components/ui/dropdown-menu.tsx:104:function DropdownMenuRadioItem({
+src/components/ui/dropdown-menu.tsx:128:function DropdownMenuLabel({
+src/components/ui/dropdown-menu.tsx:145:function DropdownMenuSeparator({
+src/components/ui/dropdown-menu.tsx:158:function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<"span">) {
+src/components/ui/dropdown-menu.tsx:168:function DropdownMenuSub({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
+src/components/ui/dropdown-menu.tsx:172:function DropdownMenuSubTrigger({
+src/components/ui/dropdown-menu.tsx:196:function DropdownMenuSubContent({
+src/components/ui/separator.tsx:8:function Separator({
+src/components/ui/alert.tsx:22:function Alert({
+src/components/ui/alert.tsx:37:function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/alert.tsx:47:function AlertDescription({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/radar-scanner.tsx:4:export function RadarScanner({ className }: { className?: string }) {
+src/components/ui/popover.tsx:8:function Popover({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Root>) {
+src/components/ui/popover.tsx:12:function PopoverTrigger({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+src/components/ui/popover.tsx:16:function PopoverContent({
+src/components/ui/popover.tsx:38:function PopoverAnchor({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Anchor>) {
+src/components/ui/table.tsx:7:function Table({ className, ...props }: React.ComponentProps<"table">) {
+src/components/ui/table.tsx:19:function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+src/components/ui/table.tsx:23:function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+src/components/ui/table.tsx:33:function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+src/components/ui/table.tsx:43:function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+src/components/ui/table.tsx:56:function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+src/components/ui/table.tsx:69:function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+src/components/ui/table.tsx:82:function TableCaption({ className, ...props }: React.ComponentProps<"caption">) {
+src/components/ui/code-editor.tsx:33:const CodeEditorInner = forwardRef<CodeEditorHandle, CodeEditorProps>(function CodeEditorInner(
+src/components/ui/select.tsx:9:function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
+src/components/ui/select.tsx:13:function SelectGroup({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>) {
+src/components/ui/select.tsx:17:function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.Value>) {
+src/components/ui/select.tsx:21:function SelectTrigger({
+src/components/ui/select.tsx:47:function SelectContent({
+src/components/ui/select.tsx:84:function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) {
+src/components/ui/select.tsx:94:function SelectItem({
+src/components/ui/select.tsx:118:function SelectSeparator({
+src/components/ui/select.tsx:131:function SelectScrollUpButton({
+src/components/ui/select.tsx:146:function SelectScrollDownButton({
+src/components/ui/textarea.tsx:5:function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+src/components/ui/scroll-area.tsx:8:function ScrollArea({
+src/components/ui/scroll-area.tsx:31:function ScrollBar({
+src/components/ui/label.tsx:8:function Label({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+src/components/ui/tabs.tsx:8:function Tabs({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
+src/components/ui/tabs.tsx:18:function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {
+src/components/ui/tabs.tsx:31:function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+src/components/ui/tabs.tsx:44:function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {
+src/components/ui/switch.tsx:8:function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {
+src/components/ui/code-view.tsx:22:export function CodeView({
+src/components/ui/code-view.tsx:161:function highlightLine(line: string, language: "json" | "yaml") {
+src/components/ui/code-view.tsx:168:function highlightJSON(line: string) {
+src/components/ui/code-view.tsx:220:function highlightYAML(line: string) {
+src/components/ui/code-view.tsx:262:function highlightYAMLValue(value: string, startKey: number) {
+src/components/ui/checkbox.tsx:9:function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+src/components/ui/context-menu.tsx:9:function ContextMenu({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Root>) {
+src/components/ui/context-menu.tsx:13:function ContextMenuTrigger({
+src/components/ui/context-menu.tsx:19:function ContextMenuGroup({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Group>) {
+src/components/ui/context-menu.tsx:23:function ContextMenuPortal({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Portal>) {
+src/components/ui/context-menu.tsx:27:function ContextMenuSub({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Sub>) {
+src/components/ui/context-menu.tsx:31:function ContextMenuRadioGroup({
+src/components/ui/context-menu.tsx:37:function ContextMenuSubTrigger({
+src/components/ui/context-menu.tsx:61:function ContextMenuSubContent({
+src/components/ui/context-menu.tsx:77:function ContextMenuContent({
+src/components/ui/context-menu.tsx:95:function ContextMenuItem({
+src/components/ui/context-menu.tsx:118:function ContextMenuCheckboxItem({
+src/components/ui/context-menu.tsx:144:function ContextMenuRadioItem({
+src/components/ui/context-menu.tsx:168:function ContextMenuLabel({
+src/components/ui/context-menu.tsx:185:function ContextMenuSeparator({
+src/components/ui/context-menu.tsx:198:function ContextMenuShortcut({ className, ...props }: React.ComponentProps<"span">) {
+src/components/ui/badge.tsx:24:function Badge({
+src/components/ui/status-feed.tsx:13:export function StatusFeed({ messages, delay = 800, className, onComplete }: StatusFeedProps) {
+src/components/ui/initialize-button.tsx:8:export function InitializeButton({ className, children, ...props }: InitializeButtonProps) {
+src/components/ui/button.tsx:104:function Button({
+src/components/ui/avatar.tsx:8:function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+src/components/ui/avatar.tsx:18:function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+src/components/ui/avatar.tsx:28:function AvatarFallback({
+src/components/ui/dialog.tsx:9:function Dialog({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
+src/components/ui/dialog.tsx:13:function DialogTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+src/components/ui/dialog.tsx:17:function DialogPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+src/components/ui/dialog.tsx:21:function DialogClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {
+src/components/ui/dialog.tsx:25:function DialogOverlay({
+src/components/ui/dialog.tsx:41:function DialogContent({
+src/components/ui/dialog.tsx:75:function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/dialog.tsx:85:function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/dialog.tsx:95:function DialogTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {
+src/components/ui/dialog.tsx:105:function DialogDescription({
+src/components/ui/form.tsx:72:function FormItem({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/form.tsx:82:function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+src/components/ui/form.tsx:96:function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+src/components/ui/form.tsx:110:function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
+src/components/ui/form.tsx:123:function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+src/components/ui/tooltip.tsx:8:function TooltipProvider({
+src/components/ui/tooltip.tsx:21:function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+src/components/ui/tooltip.tsx:29:function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
+src/components/ui/tooltip.tsx:33:function TooltipContent({
+src/components/ui/background.tsx:8:export function Background({ children, className, ...props }: BackgroundProps) {
+src/components/ui/diff-view.tsx:21:function computeWordDiff(original: string, modified: string): WordDiff[] {
+src/components/ui/diff-view.tsx:96:export function DiffView({
+src/components/ui/diff-view.tsx:165:function CodeDiffContent({
+src/components/ui/diff-view.tsx:247:export function SideBySideDiff({ original, modified, className }: Omit<DiffViewProps, "mode">) {
+src/components/ui/card.tsx:5:function Card({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:18:function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:31:function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:41:function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:51:function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:61:function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/card.tsx:65:function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/sheet.tsx:9:function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
+src/components/ui/sheet.tsx:13:function SheetTrigger({ ...props }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
+src/components/ui/sheet.tsx:17:function SheetClose({ ...props }: React.ComponentProps<typeof SheetPrimitive.Close>) {
+src/components/ui/sheet.tsx:21:function SheetPortal({ ...props }: React.ComponentProps<typeof SheetPrimitive.Portal>) {
+src/components/ui/sheet.tsx:25:function SheetOverlay({
+src/components/ui/sheet.tsx:41:function SheetContent({
+src/components/ui/sheet.tsx:78:function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/sheet.tsx:88:function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
+src/components/ui/sheet.tsx:98:function SheetTitle({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Title>) {
+src/components/ui/sheet.tsx:108:function SheetDescription({
+src/components/ui/animated-date.tsx:12:export function AnimatedDate({ date, relativeText, locale = "en" }: AnimatedDateProps) {
+src/components/ui/input.tsx:5:function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+src/components/ui/masonry.tsx:17:export function Masonry({
+src/components/skills/api-config-form.tsx:26:export function ApiConfigForm({ initialData, onSave, onCancel }: ApiConfigFormProps) {
+src/components/skills/api-tester.tsx:30:export function ApiTester({ promptId, config, onClose }: ApiTesterProps) {
+src/components/skills/api-config-manager.tsx:36:export function ApiConfigManager({ promptId, isOwner }: ApiConfigManagerProps) {
+src/components/ide/api-details-popup.tsx:14:export function ApiDetailsPopup({ item, onClose }: ApiDetailsPopupProps) {
+src/components/ide/api-details-popup.tsx:17:      case "function":
+src/components/ide/api-docs-sidebar.tsx:15:export function ApiDocsSidebar({ selectedItem, onSelectItem }: ApiDocsSidebarProps) {
+src/components/ide/api-docs-sidebar.tsx:35:      case "function":
+src/components/ide/api-docs-sidebar.tsx:52:      case "function":
+src/components/ide/prompt-ide.tsx:65:export function PromptIde() {
+src/components/ide/prompt-ide.tsx:229:          // Remove all import statements (prompts.chat imports are provided via function params)
+src/components/layout/cookie-consent.tsx:12:export function getCookieConsent(): CookieConsent {
+src/components/layout/cookie-consent.tsx:17:export function CookieConsentBanner() {
+src/components/layout/animated-text.tsx:8:export function AnimatedText({ children, className = "" }: AnimatedTextProps) {
+src/components/layout/footer.tsx:9:export function Footer() {
+src/components/layout/command-layout.tsx:14:export function CommandLayout({ children, sidebar, contextPanel, className }: CommandLayoutProps) {
+src/components/layout/sidebar.tsx:20:export function Sidebar() {
+src/components/layout/context-panel.tsx:6:export function ContextPanel() {
+src/components/layout/omni-bar.tsx:7:export function OmniBar() {
+src/components/layout/header.tsx:15:function MiniPromi({ className }: { className?: string }) {
+src/components/layout/header.tsx:105:export function Header({ authProvider = "credentials", allowRegistration = true }: HeaderProps) {
+src/components/layout/extension-link.tsx:13:export function ExtensionLink({ url }: ExtensionLinkProps) {
+src/components/layout/analytics.tsx:11:export function Analytics({ gaId }: AnalyticsProps) {
+src/components/layout/analytics.tsx:27:          function gtag(){dataLayer.push(arguments);}
+src/components/layout/cli-command.tsx:7:export function CliCommand() {
+src/components/layout/app-banner.tsx:8:function AppStoreIcon({ className }: { className?: string }) {
+src/components/layout/app-banner.tsx:21:function isAppleDevice(): boolean {
+src/components/layout/app-banner.tsx:41:export function AppBanner() {
+src/components/layout/notification-bell.tsx:40:export function NotificationBell() {
+src/components/layout/sponsor-link.tsx:15:export function SponsorLink({ name, url, logo, darkLogo, className }: SponsorLinkProps) {
+src/components/layout/sponsor-link.tsx:64:export function BecomeSponsorLink({ href, children, className }: BecomeSponsorLinkProps) {
+src/components/layout/sponsor-link.tsx:88:export function BuiltWithLink({ href, toolName, children }: BuiltWithLinkProps) {
+src/components/categories/category-item.tsx:18:export function CategoryItem({ category, isSubscribed, showSubscribe }: CategoryItemProps) {
+src/components/categories/pinned-categories.tsx:20:export function PinnedCategories({ categories, currentCategoryId }: PinnedCategoriesProps) {
+src/components/categories/category-filters.tsx:22:export function CategoryFilters({ categorySlug }: CategoryFiltersProps) {
+src/components/categories/subscribe-button.tsx:18:export function SubscribeButton({
+src/components/auth/register-form.tsx:41:export function RegisterForm() {
+src/components/auth/register-form.tsx:58:  async function onSubmit(data: RegisterFormValues) {
+src/components/auth/auth-content.tsx:22:export function AuthContent({ providers, mode, useCloneBranding = false }: AuthContentProps) {
+src/components/auth/oauth-button.tsx:53:export function OAuthButton({ provider, providerName }: OAuthButtonProps) {
+src/components/auth/login-form.tsx:31:export function LoginForm() {
+src/components/auth/login-form.tsx:44:  async function onSubmit(data: LoginFormValues) {
+src/app/how_to_write_effective_prompts/page.tsx:6:export async function generateMetadata() {
+src/app/how_to_write_effective_prompts/page.tsx:14:export default async function HowToWriteEffectivePromptsPage() {
+src/app/collection/page.tsx:10:export default async function CollectionPage() {
+src/app/collection/loading.tsx:3:export default function CollectionLoading() {
+src/app/kids/map/page.tsx:10:export default async function KidsMapPage() {
+src/app/kids/page.tsx:10:export default function KidsHomePage() {
+src/app/kids/level/[slug]/page.tsx:11:export async function generateStaticParams() {
+src/app/kids/level/[slug]/page.tsx:17:export async function generateMetadata({ params }: LevelPageProps): Promise<Metadata> {
+src/app/kids/level/[slug]/page.tsx:31:export default async function LevelPage({ params }: LevelPageProps) {
+src/app/kids/layout.tsx:16:function PixelCloudBg({ className, style }: { className?: string; style?: React.CSSProperties }) {
+src/app/kids/layout.tsx:33:export default async function KidsLayout({ children }: { children: React.ReactNode }) {
+src/app/builder/page.tsx:3:export default function BuilderPage() {
+src/app/settings/page.tsx:10:export default async function SettingsPage() {
+src/app/support/page.tsx:21:function FAQItem({ question, answer }: FAQItemProps) {
+src/app/support/page.tsx:51:function SupportForm({ t }: SupportFormProps) {
+src/app/support/page.tsx:105:export default function SupportPage() {
+src/app/developers/page.tsx:17:export default function DevelopersPage() {
+src/app/(auth)/register/page.tsx:14:function getProviders(config: Awaited<ReturnType<typeof getConfig>>): string[] {
+src/app/(auth)/register/page.tsx:24:export default async function RegisterPage() {
+src/app/(auth)/layout.tsx:1:export default function AuthLayout({ children }: { children: React.ReactNode }) {
+src/app/(auth)/login/page.tsx:13:function getProviders(config: Awaited<ReturnType<typeof getConfig>>): string[] {
+src/app/(auth)/login/page.tsx:23:export default async function LoginPage() {
+src/app/prompts.json/route.ts:4:function getUserIdentifier(user: { username: string; githubUsername: string | null }): string {
+src/app/prompts.json/route.ts:8:export async function GET() {
+src/app/robots.ts:3:export default function robots(): MetadataRoute.Robots {
+src/app/api/health/route.ts:6:export async function GET() {
+src/app/api/collection/route.ts:10:export async function GET() {
+src/app/api/collection/route.ts:55:export async function POST(req: NextRequest) {
+src/app/api/collection/route.ts:109:export async function DELETE(req: NextRequest) {
+src/app/api/search/ai/route.ts:4:export async function GET(request: NextRequest) {
+src/app/api/improve-prompt/route.ts:14:async function authenticateRequest(request: NextRequest) {
+src/app/api/improve-prompt/route.ts:39:export async function POST(request: NextRequest) {
+src/app/api/config/storage/route.ts:3:export async function GET() {
+src/app/api/user/profile/route.ts:37:export async function PATCH(request: NextRequest) {
+src/app/api/user/profile/route.ts:105:export async function GET() {
+src/app/api/user/api-key/route.ts:8:export async function GET() {
+src/app/api/user/api-key/route.ts:34:export async function POST() {
+src/app/api/user/api-key/route.ts:51:export async function DELETE() {
+src/app/api/user/api-key/route.ts:66:export async function PATCH(request: Request) {
+src/app/api/user/notifications/route.ts:11:export async function GET() {
+src/app/api/user/notifications/route.ts:90:export async function POST(request: Request) {
+src/app/api/reports/route.ts:12:export async function POST(request: Request) {
+src/app/api/cron/reset-credits/route.ts:16:export async function POST(request: NextRequest) {
+src/app/api/cron/reset-credits/route.ts:55:export async function GET(request: NextRequest) {
+src/app/api/book/demo/route.ts:18:function getClientId(request: NextRequest, userId?: string): string {
+src/app/api/book/demo/route.ts:27:function checkRateLimit(
+src/app/api/book/demo/route.ts:178:export async function POST(request: NextRequest) {
+src/app/api/leaderboard/route.ts:153:export async function GET(request: Request) {
+src/app/api/prompt-builder/chat/route.ts:25:function checkRateLimit(userId: string): { allowed: boolean; remaining: number; resetIn: number } {
+src/app/api/prompt-builder/chat/route.ts:70:export async function POST(request: NextRequest) {
+src/app/api/prompt-builder/chat/route.ts:189:                type: "function" as const,
+src/app/api/prompt-builder/chat/route.ts:190:                function: {
+src/app/api/prompt-builder/chat/route.ts:255:                if (tc.function?.name) existing.name = tc.function.name;
+src/app/api/prompt-builder/chat/route.ts:256:                if (tc.function?.arguments) existing.arguments += tc.function.arguments;
+src/app/api/prompt-builder/chat/route.ts:261:                  name: tc.function?.name || "",
+src/app/api/prompt-builder/chat/route.ts:262:                  arguments: tc.function?.arguments || "",
+src/app/api/prompt-builder/chat/route.ts:326:            type: "function" as const,
+src/app/api/prompt-builder/chat/route.ts:327:            function: {
+src/app/api/prompt-builder/generate-example/route.ts:19:function extractValidMethods(): Map<string, Set<string>> {
+src/app/api/prompt-builder/generate-example/route.ts:48:function detectBuilderType(code: string): string | null {
+src/app/api/prompt-builder/generate-example/route.ts:58:function removeInvalidMethods(code: string, validMethods: Set<string>): string {
+src/app/api/prompt-builder/generate-example/route.ts:105:function validateAndCleanCode(code: string): string {
+src/app/api/prompt-builder/generate-example/route.ts:126:function checkRateLimit(userId: string): { allowed: boolean; remaining: number; resetIn: number } {
+src/app/api/prompt-builder/generate-example/route.ts:147:export async function POST() {
+src/app/api/prompts/search/route.ts:5:export async function GET(request: NextRequest) {
+src/app/api/prompts/[id]/changes/[changeId]/route.ts:11:export async function PATCH(
+src/app/api/prompts/[id]/changes/[changeId]/route.ts:177:export async function GET(
+src/app/api/prompts/[id]/changes/[changeId]/route.ts:222:export async function DELETE(
+src/app/api/prompts/[id]/changes/route.ts:12:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/changes/route.ts:87:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/pin/route.ts:7:export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/pin/route.ts:80:export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/feature/route.ts:6:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/flow/route.ts:31:export async function GET(request: NextRequest, { params }: RouteParams) {
+src/app/api/prompts/[id]/skill/route.ts:10:function parseIdParam(idParam: string): string {
+src/app/api/prompts/[id]/skill/route.ts:27:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/raw/route.ts:12:function parseIdParam(idParam: string): { id: string; format: OutputFormat; fileType: FileType } {
+src/app/api/prompts/[id]/raw/route.ts:41:function convertVariables(str: string): string {
+src/app/api/prompts/[id]/raw/route.ts:48:function yamlEscape(str: string): string {
+src/app/api/prompts/[id]/raw/route.ts:58:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/connections/route.ts:16:export async function GET(request: NextRequest, { params }: RouteParams) {
+src/app/api/prompts/[id]/connections/route.ts:87:export async function POST(request: NextRequest, { params }: RouteParams) {
+src/app/api/prompts/[id]/connections/[connectionId]/route.ts:16:export async function DELETE(request: NextRequest, { params }: RouteParams) {
+src/app/api/prompts/[id]/connections/[connectionId]/route.ts:66:export async function PATCH(request: NextRequest, { params }: RouteParams) {
+src/app/api/prompts/[id]/versions/[versionId]/route.ts:5:export async function DELETE(
+src/app/api/prompts/[id]/versions/route.ts:12:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/versions/route.ts:109:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/comments/[commentId]/flag/route.ts:7:export async function POST(
+src/app/api/prompts/[id]/comments/[commentId]/route.ts:7:export async function DELETE(
+src/app/api/prompts/[id]/comments/[commentId]/vote/route.ts:14:export async function POST(
+src/app/api/prompts/[id]/comments/[commentId]/vote/route.ts:143:export async function DELETE(
+src/app/api/prompts/[id]/comments/route.ts:13:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/comments/route.ts:122:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/route.ts:36:export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/route.ts:120:export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/route.ts:247:    // Only for public prompts - the function checks if aiSearch is enabled
+src/app/api/prompts/[id]/route.ts:306:export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/api-config/[configId]/test/route.ts:10:export async function POST(
+src/app/api/prompts/[id]/api-config/[configId]/route.ts:12:export async function GET(
+src/app/api/prompts/[id]/api-config/[configId]/route.ts:59:export async function PUT(
+src/app/api/prompts/[id]/api-config/[configId]/route.ts:118:export async function DELETE(
+src/app/api/prompts/[id]/api-config/route.ts:11:export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/api-config/route.ts:41:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/unlist/route.ts:7:export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/restore/route.ts:5:export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/vote/route.ts:6:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/prompts/[id]/vote/route.ts:71:export async function DELETE(
+src/app/api/prompts/route.ts:38:export async function POST(request: Request) {
+src/app/api/prompts/route.ts:274:    // Only for public prompts - the function checks if aiSearch is enabled
+src/app/api/prompts/route.ts:329:export async function GET(request: Request) {
+src/app/api/prompts/translate/route.ts:11:export async function POST(request: NextRequest) {
+src/app/api/admin/embeddings/route.ts:5:export async function POST(request: NextRequest) {
+src/app/api/admin/import-prompts/route.ts:16:function unescapeString(str: string): string {
+src/app/api/admin/import-prompts/route.ts:24:function parseCSV(content: string): CsvRow[] {
+src/app/api/admin/import-prompts/route.ts:92:function mapCsvTypeToPromptType(csvType: string): {
+src/app/api/admin/import-prompts/route.ts:106:export async function POST(request: NextRequest) {
+src/app/api/admin/import-prompts/route.ts:142:    async function getOrCreateContributorUser(username: string): Promise<string> {
+src/app/api/admin/import-prompts/route.ts:176:    async function getOrCreateContributor(contributorField: string): Promise<string> {
+src/app/api/admin/import-prompts/route.ts:266:export async function DELETE(request: NextRequest) {
+src/app/api/admin/reports/[id]/route.ts:10:export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/related-prompts/route.ts:8:export async function POST() {
+src/app/api/admin/slugs/route.ts:6:export async function POST(request: Request) {
+src/app/api/admin/slugs/route.ts:101:export async function GET() {
+src/app/api/admin/prompts/[id]/route.ts:6:export async function DELETE(
+src/app/api/admin/prompts/route.ts:6:export async function GET(request: NextRequest) {
+src/app/api/admin/users/[id]/route.ts:6:export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/users/[id]/route.ts:88:export async function DELETE(
+src/app/api/admin/users/route.ts:6:export async function GET(request: NextRequest) {
+src/app/api/admin/tags/[id]/route.ts:6:export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/tags/[id]/route.ts:34:export async function DELETE(
+src/app/api/admin/tags/route.ts:6:export async function POST(request: NextRequest) {
+src/app/api/admin/webhooks/[id]/test/route.ts:6:export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/webhooks/[id]/route.ts:20:function validateUpdateWebhook(
+src/app/api/admin/webhooks/[id]/route.ts:95:export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/webhooks/[id]/route.ts:119:export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/webhooks/[id]/route.ts:157:export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/webhooks/route.ts:20:function validateWebhook(
+src/app/api/admin/webhooks/route.ts:87:export async function GET() {
+src/app/api/admin/webhooks/route.ts:106:export async function POST(request: Request) {
+src/app/api/admin/categories/[id]/route.ts:7:export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/admin/categories/[id]/route.ts:40:export async function DELETE(
+src/app/api/admin/categories/route.ts:7:export async function POST(request: NextRequest) {
+src/app/api/media-generate/route.ts:10:export async function GET() {
+src/app/api/media-generate/route.ts:45:export async function POST(request: NextRequest) {
+src/app/api/media-generate/status/route.ts:9:export async function GET(request: NextRequest) {
+src/app/api/users/search/route.ts:5:export async function GET(request: Request) {
+src/app/api/generate/sql/route.ts:5:export async function POST(request: NextRequest) {
+src/app/api/upload/route.ts:11:async function compressToJpg(buffer: Buffer): Promise<Buffer> {
+src/app/api/upload/route.ts:15:export async function POST(request: NextRequest) {
+src/app/api/categories/[id]/subscribe/route.ts:6:export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+src/app/api/categories/[id]/subscribe/route.ts:75:export async function DELETE(
+src/app/api/auth/register/route.ts:17:export async function POST(request: Request) {
+src/app/brand/page.tsx:12:function PromiLogo({ className }: { className?: string }) {
+src/app/brand/page.tsx:43:function PromiLogoDark({ className }: { className?: string }) {
+src/app/brand/page.tsx:82:function AssetCard({
+src/app/brand/page.tsx:130:function ColorCard({ color, name, description }: ColorCardProps) {
+src/app/brand/page.tsx:165:function isLight(color: string): boolean {
+src/app/brand/page.tsx:174:export default function BrandAssetsPage() {
+src/app/discover/page.tsx:5:export default async function DiscoverPage() {
+src/app/discover/loading.tsx:3:export default function DiscoverLoading() {
+src/app/about/contributor-avatar.tsx:11:export function ContributorAvatar({ username }: ContributorAvatarProps) {
+src/app/about/page.tsx:14:export async function generateMetadata(): Promise<Metadata> {
+src/app/about/page.tsx:22:async function getContributors() {
+src/app/about/page.tsx:191:function BrandIcon({ name }: { name: string }) {
+src/app/about/page.tsx:276:export default async function AboutPage() {
+src/app/error.tsx:14:export default function Error({ reset }: ErrorProps) {
+src/app/prompts.csv/route.ts:4:function escapeCSVField(field: string): string {
+src/app/prompts.csv/route.ts:17:function getUserIdentifier(user: {
+src/app/prompts.csv/route.ts:30:export async function GET() {
+src/app/docs/self-hosting/page.tsx:19:export default function SelfHostingPage() {
+src/app/docs/api/page.tsx:33:export default async function ApiDocsPage() {
+src/app/sitemap.ts:8:export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+src/app/book/page.tsx:121:export default function BookHomePage() {
+src/app/book/[slug]/page.tsx:13:export async function generateStaticParams() {
+src/app/book/[slug]/page.tsx:19:export async function generateMetadata({ params }: ChapterPageProps): Promise<Metadata> {
+src/app/book/[slug]/page.tsx:82:export default async function ChapterPage({ params }: ChapterPageProps) {
+src/app/book/layout.tsx:3:export default function BookLayout({ children }: { children: React.ReactNode }) {
+src/app/page.tsx:10:export default async function HomePage() {
+src/app/workflows/page.tsx:13:function getCachedWorkflows(orderBy: any, perPage: number, searchQuery?: string) {
+src/app/workflows/page.tsx:115:export default async function WorkflowsPage({ searchParams }: WorkflowsPageProps) {
+src/app/promptmasters/page.tsx:4:export default async function PromptmastersPage() {
+src/app/promptmasters/loading.tsx:3:export default function PromptmastersLoading() {
+src/app/terms/page.tsx:8:export default function TermsPage() {
+src/app/embed/page.tsx:15:function buildFileTree(paths: string[]): TreeNode[] {
+src/app/embed/page.tsx:83:function EmbedContent() {
+src/app/embed/page.tsx:706:export default function EmbedPage() {
+src/app/global-error.tsx:6:export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
+src/app/prompts/page.tsx:71:function getCachedPrompts(
+src/app/prompts/page.tsx:158:export default async function PromptsPage({ searchParams }: PromptsPageProps) {
+src/app/prompts/new/page.tsx:26:export default async function NewPromptPage({ searchParams }: PageProps) {
+src/app/prompts/new/loading.tsx:3:export default function NewPromptLoading() {
+src/app/prompts/loading.tsx:3:function PromptCardSkeleton() {
+src/app/prompts/loading.tsx:25:export default function PromptsLoading() {
+src/app/prompts/[id]/changes/new/page.tsx:17:function extractPromptId(idParam: string): string {
+src/app/prompts/[id]/changes/new/page.tsx:25:export default async function NewChangeRequestPage({ params }: NewChangeRequestPageProps) {
+src/app/prompts/[id]/changes/[changeId]/page.tsx:24:function extractPromptId(idParam: string): string {
+src/app/prompts/[id]/changes/[changeId]/page.tsx:32:export default async function ChangeRequestPage({ params }: ChangeRequestPageProps) {
+src/app/prompts/[id]/page.tsx:62:function extractPromptId(idParam: string): string {
+src/app/prompts/[id]/page.tsx:76:export async function generateMetadata({ params }: PromptPageProps): Promise<Metadata> {
+src/app/prompts/[id]/page.tsx:94:export default async function PromptPage({ params }: PromptPageProps) {
+src/app/prompts/[id]/opengraph-image.tsx:38:function extractPromptId(idParam: string): string {
+src/app/prompts/[id]/opengraph-image.tsx:46:export default async function OGImage({ params }: { params: Promise<{ id: string }> }) {
+src/app/prompts/[id]/loading.tsx:3:export default function PromptDetailLoading() {
+src/app/prompts/[id]/edit/page.tsx:16:function extractPromptId(idParam: string): string {
+src/app/prompts/[id]/edit/page.tsx:29:export default async function EditPromptPage({ params }: EditPromptPageProps) {
+src/app/[username]/page.tsx:42:export async function generateMetadata({ params }: UserProfilePageProps): Promise<Metadata> {
+src/app/[username]/page.tsx:68:export default async function UserProfilePage({ params, searchParams }: UserProfilePageProps) {
+src/app/[username]/opengraph-image.tsx:19:export default async function OGImage({ params }: { params: Promise<{ username: string }> }) {
+src/app/[username]/loading.tsx:3:export default function UserProfileLoading() {
+src/app/feed/page.tsx:11:export default async function FeedPage() {
+src/app/feed/loading.tsx:3:export default function FeedLoading() {
+src/app/not-found.tsx:9:export default function NotFound() {
+src/app/admin/page.tsx:23:export default async function AdminPage() {
+src/app/deck/page.tsx:10:export default function DeckPage() {
+src/app/skills/page.tsx:17:function getCachedSkills(orderBy: any, perPage: number, searchQuery?: string) {
+src/app/skills/page.tsx:108:export default async function SkillsPage({ searchParams }: SkillsPageProps) {
+src/app/gateway/page.tsx:10:export default function GatewayPage() {
+src/app/layout.tsx:101:function hexToOklch(hex: string): string {
+src/app/layout.tsx:125:export default async function RootLayout({
+src/app/tags/page.tsx:37:export default async function TagsPage() {
+src/app/tags/[slug]/page.tsx:17:export async function generateMetadata({ params }: TagPageProps) {
+src/app/tags/[slug]/page.tsx:32:export default async function TagPage({ params, searchParams }: TagPageProps) {
+src/app/tags/loading.tsx:3:export default function TagsLoading() {
+src/app/categories/page.tsx:61:export default async function CategoriesPage() {
+src/app/categories/[slug]/page.tsx:22:export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+src/app/categories/[slug]/page.tsx:39:export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+src/app/categories/loading.tsx:3:export default function CategoriesLoading() {
+src/app/privacy/page.tsx:8:export default function PrivacyPage() {
+src/hooks/use-mobile.ts:5:export function useIsMobile(breakpoint: number = 768) {
+src/hooks/use-editor-cache.ts:21:export function useEditorCache<T>(
+src/proxy.ts:3:export function proxy(request: NextRequest) {
+src/instrumentation.ts:1:export async function register() {
+src/pages/api/mcp.ts:27:async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedUser | null> {
+src/pages/api/mcp.ts:49:function slugify(text: string): string {
+src/pages/api/mcp.ts:62:function getPromptName(prompt: { id: string; slug?: string | null; title: string }): string {
+src/pages/api/mcp.ts:69:function extractVariables(content: string): ExtractedVariable[] {
+src/pages/api/mcp.ts:101:function createServer(options: ServerOptions = {}) {
+src/pages/api/mcp.ts:1494:async function parseBody(req: NextApiRequest): Promise<unknown> {
+src/pages/api/mcp.ts:1509:export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+src/data/api-docs.ts:14:  type: "function" | "class" | "type" | "interface" | "const" | "method";
+src/data/api-docs.ts:28:        type: "function",
+src/data/api-docs.ts:36:        type: "function",
+src/data/api-docs.ts:403:        type: "function",
+src/data/api-docs.ts:1229:        type: "function",
+src/data/api-docs.ts:2046:        type: "function",
+src/data/api-docs.ts:2703:        type: "function",
+src/data/api-docs.ts:3234:        type: "function",
+src/data/api-docs.ts:3243:        type: "function",
+src/data/api-docs.ts:3251:        type: "function",
+src/data/api-docs.ts:3259:        type: "function",
+src/data/api-docs.ts:3267:        type: "function",
+src/data/api-docs.ts:3275:        type: "function",
+src/data/api-docs.ts:3318:        type: "function",
+src/data/api-docs.ts:3326:        type: "function",
+src/data/api-docs.ts:3338:        type: "function",
+src/data/api-docs.ts:3352:        type: "function",
+src/data/api-docs.ts:3361:        type: "function",
+src/data/api-docs.ts:3372:        type: "function",
+src/data/api-docs.ts:3400:        type: "function",
+src/data/api-docs.ts:3408:        type: "function",
+src/data/api-docs.ts:3416:        type: "function",
+src/data/api-docs.ts:3424:        type: "function",
+src/data/api-docs.ts:3447:        type: "function",
+src/data/api-docs.ts:3459:        type: "function",
+src/data/api-docs.ts:3467:        type: "function",
+src/data/api-docs.ts:3478:        type: "function",
+src/data/api-docs.ts:3486:        type: "function",
+src/data/type-definitions.ts:49:  export function builder(): PromptBuilder;
+src/data/type-definitions.ts:50:  export function fromPrompt(content: string): PromptBuilder;
+src/data/type-definitions.ts:228:  export function chat(): ChatPromptBuilder;
+src/data/type-definitions.ts:396:  export function audio(): AudioPromptBuilder;
+src/data/type-definitions.ts:594:  export function video(): VideoPromptBuilder;
+src/data/type-definitions.ts:895:  export function image(): ImagePromptBuilder;
+src/data/type-definitions.ts:919:    export function detectVariables(text: string): DetectedVariable[];
+src/data/type-definitions.ts:920:    export function convertToSupportedFormat(variable: DetectedVariable): string;
+src/data/type-definitions.ts:921:    export function convertAllVariables(text: string): string;
+src/data/type-definitions.ts:922:    export function getPatternDescription(pattern: VariablePattern): string;
+src/data/type-definitions.ts:923:    export function extractVariables(text: string): Array<{ name: string; defaultValue?: string }>;
+src/data/type-definitions.ts:924:    export function compile(template: string, values: Record<string, string>, options?: { useDefaults?: boolean }): string;
+src/data/type-definitions.ts:927:    export function normalizeContent(content: string): string;
+src/data/type-definitions.ts:928:    export function calculateSimilarity(content1: string, content2: string): number;
+src/data/type-definitions.ts:929:    export function isSimilarContent(content1: string, content2: string, threshold?: number): boolean;
+src/data/type-definitions.ts:930:    export function getContentFingerprint(content: string): string;
+src/data/type-definitions.ts:931:    export function findDuplicates(prompts: T[], threshold?: number): T[][];
+src/data/type-definitions.ts:932:    export function deduplicate(prompts: T[], threshold?: number): T[];
+src/data/type-definitions.ts:935:    export function check(prompt: string): QualityResult;
+src/data/type-definitions.ts:936:    export function validate(prompt: string): void;
+src/data/type-definitions.ts:937:    export function isValid(prompt: string): boolean;
+src/data/type-definitions.ts:938:    export function getSuggestions(prompt: string): string[];
+src/data/type-definitions.ts:941:    export function parse(content: string, format?: 'yaml' | 'json' | 'markdown' | 'text'): ParsedPrompt;
+src/data/type-definitions.ts:942:    export function toYaml(prompt: ParsedPrompt): string;
+src/data/type-definitions.ts:943:    export function toJson(prompt: ParsedPrompt, pretty?: boolean): string;
+src/data/type-definitions.ts:944:    export function getSystemPrompt(prompt: ParsedPrompt): string;
+src/data/type-definitions.ts:945:    export function interpolate(prompt: ParsedPrompt, values: Record<string, string>): ParsedPrompt;
+src/instrumentation-client.ts:20:async function initSentry() {
+src/i18n/request.ts:10:function detectLocaleFromHeader(acceptLanguage: string | null): string | null {
+src/__tests__/components/copy-button.test.tsx:5:// Mock dependencies - use inline functions since vi.mock is hoisted
+src/__tests__/hooks/use-mobile.test.ts:25:  function setWindowWidth(width: number) {
+src/__tests__/api/register.test.ts:49:function createRequest(body: object): Request {
+src/__tests__/lib/urls.test.ts:94:  it("should maintain consistent format across all URL functions", () => {
+src/lib/analytics.ts:4: * Provides typed functions for tracking user interactions throughout the app.
+src/lib/analytics.ts:26:function trackEvent({ action, category, label, value, ...rest }: GTagEvent) {
+src/lib/kids/progress.ts:24:export function getProgress(): KidsProgress {
+src/lib/kids/progress.ts:36:export function saveProgress(progress: KidsProgress): void {
+src/lib/kids/progress.ts:46:export function completeLevel(slug: string, stars: number): KidsProgress {
+src/lib/kids/progress.ts:73:export function isLevelUnlocked(slug: string): boolean {
+src/lib/kids/progress.ts:86:export function getLevelProgress(slug: string): LevelProgress | undefined {
+src/lib/kids/progress.ts:91:export function resetProgress(): void {
+src/lib/kids/progress.ts:96:export function getCompletedLevelsCount(): number {
+src/lib/kids/progress.ts:101:export function getTotalStars(): number {
+src/lib/kids/progress.ts:114:export function getComponentState<T>(levelSlug: string, componentId: string): T | null {
+src/lib/kids/progress.ts:127:export function saveComponentState<T>(levelSlug: string, componentId: string, data: T): void {
+src/lib/kids/progress.ts:145:export function clearComponentState(levelSlug: string): void {
+src/lib/kids/progress.ts:160:export function clearAllProgress(): void {
+src/lib/kids/progress.ts:180:export function isSectionCompleted(levelSlug: string, sectionIndex: number): boolean {
+src/lib/kids/progress.ts:193:export function markSectionCompleted(levelSlug: string, sectionIndex: number): void {
+src/lib/kids/progress.ts:211:export function clearSectionCompletion(levelSlug: string): void {
+src/lib/kids/progress.ts:227:export function hasCompletedInteraction(levelSlug: string, componentIdPrefix?: string): boolean {
+src/lib/kids/levels.ts:265:export function getAllLevels(): Level[] {
+src/lib/kids/levels.ts:269:export function getLevelBySlug(slug: string): Level | undefined {
+src/lib/kids/levels.ts:273:export function getWorldByNumber(worldNumber: number): World | undefined {
+src/lib/kids/levels.ts:277:export function getAdjacentLevels(slug: string): { prev?: Level; next?: Level } {
+src/lib/kids/levels.ts:286:export function getLevelIndex(slug: string): number {
+src/lib/kids/levels.ts:290:export function getTotalLevels(): number {
+src/lib/monaco-config.ts:43:    { token: "function", foreground: "d2a8ff" },
+src/lib/monaco-config.ts:44:    { token: "identifier.function", foreground: "d2a8ff" },
+src/lib/monaco-config.ts:105:    { token: "function", foreground: "6f42c1" },
+src/lib/monaco-config.ts:106:    { token: "identifier.function", foreground: "6f42c1" },
+src/lib/monaco-config.ts:146:export function getMobileEditorOptions(isMobile: boolean) {
+src/lib/monaco-config.ts:216:export function applyMonacoTheme(monaco: any, theme: "dark" | "light"): void {
+src/lib/config/index.ts:79:export function defineConfig(config: PromptsConfig): PromptsConfig {
+src/lib/config/index.ts:99:function applyEnvOverrides(config: PromptsConfig): PromptsConfig {
+src/lib/config/index.ts:102:  // Helper functions
+src/lib/config/index.ts:174:export async function getConfig(): Promise<PromptsConfig> {
+src/lib/config/index.ts:227:export function getConfigSync(): PromptsConfig {
+src/lib/hooks/use-debounce.ts:3:export function useDebounce<T>(value: T, delay: number): T {
+src/lib/similarity.ts:12:export function normalizeContent(content: string): string {
+src/lib/similarity.ts:34:function jaccardSimilarity(str1: string, str2: string): number {
+src/lib/similarity.ts:51:function ngramSimilarity(str1: string, str2: string, n: number = 3): number {
+src/lib/similarity.ts:77:export function calculateSimilarity(content1: string, content2: string): number {
+src/lib/similarity.ts:99:export function isSimilarContent(
+src/lib/similarity.ts:111:export function getContentFingerprint(content: string): string {
+src/lib/variable-detection.ts:153:  "function",
+src/lib/variable-detection.ts:187:function isInsideJsonString(text: string, index: number): boolean {
+src/lib/variable-detection.ts:202:export function detectVariables(text: string): DetectedVariable[] {
+src/lib/variable-detection.ts:287:export function convertToSupportedFormat(variable: DetectedVariable): string {
+src/lib/variable-detection.ts:305:export function convertAllVariables(text: string): string {
+src/lib/variable-detection.ts:326:export function getPatternDescription(pattern: VariablePattern): string {
+src/lib/plugins/media-generators/index.ts:36:function initializeMediaGenerators(): void {
+src/lib/plugins/media-generators/index.ts:42:export function getMediaGeneratorPlugin(id: string): MediaGeneratorPlugin | undefined {
+src/lib/plugins/media-generators/index.ts:47:export function getAllMediaGeneratorPlugins(): MediaGeneratorPlugin[] {
+src/lib/plugins/media-generators/index.ts:52:export function getEnabledMediaGeneratorPlugins(): MediaGeneratorPlugin[] {
+src/lib/plugins/media-generators/index.ts:59:export function getAvailableModels(type?: MediaType): Array<
+src/lib/plugins/media-generators/index.ts:99:export function isMediaGenerationAvailable(): boolean {
+src/lib/plugins/media-generators/index.ts:107:export function getProviderWebSocketHandler(providerId: string): WebSocketHandler {
+src/lib/plugins/media-generators/wiro.ts:26:function parseModels(
+src/lib/plugins/media-generators/fal.ts:27:function parseModels(
+src/lib/plugins/media-generators/fal.ts:86:async function submitToFalQueue(
+src/lib/plugins/media-generators/fal.ts:115:export async function getFalRequestStatus(statusUrl: string): Promise<FalStatusResponse> {
+src/lib/plugins/media-generators/fal.ts:137:export async function getFalRequestResult(
+src/lib/plugins/media-generators/fal.ts:161:function mapAspectRatioToImageSize(aspectRatio?: string): string {
+src/lib/plugins/media-generators/fal.ts:317:function extractOutputUrls(result: FalImageOutput | FalVideoOutput | FalAudioOutput): string[] {
+src/lib/plugins/registry.ts:13:export function registerAuthPlugin(plugin: AuthPlugin): void {
+src/lib/plugins/registry.ts:17:export function getAuthPlugin(id: string): AuthPlugin | undefined {
+src/lib/plugins/registry.ts:21:export function getAllAuthPlugins(): AuthPlugin[] {
+src/lib/plugins/registry.ts:29:export function registerStoragePlugin(plugin: StoragePlugin): void {
+src/lib/plugins/registry.ts:33:export function getStoragePlugin(id: string): StoragePlugin | undefined {
+src/lib/plugins/registry.ts:37:export function getAllStoragePlugins(): StoragePlugin[] {
+src/lib/plugins/registry.ts:45:export function getRegistry(): PluginRegistry {
+src/lib/plugins/index.ts:14:export function initializePlugins(): void {
+src/lib/plugins/index.ts:24:function getProviderIds(config: Awaited<ReturnType<typeof getConfig>>): string[] {
+src/lib/plugins/index.ts:37:export async function getConfiguredAuthPlugins() {
+src/lib/plugins/index.ts:60:export async function getConfiguredAuthPlugin() {
+src/lib/plugins/widgets/book.tsx:7:function BookWidget() {
+src/lib/plugins/widgets/index.ts:13:export function getWidgetPlugins(): WidgetPlugin[] {
+src/lib/plugins/widgets/index.ts:20:export function getWidgetPrompts(): WidgetPrompt[] {
+src/lib/plugins/widgets/index.ts:27:export function getWidgetPlugin(id: string): WidgetPlugin | undefined {
+src/lib/plugins/widgets/index.ts:34:export function getWidgetPrompt(pluginId: string, promptId: string): WidgetPrompt | undefined {
+src/lib/plugins/widgets/index.ts:42:function getWidgetInsertionPositions(widget: WidgetPrompt, totalItems: number): number[] {
+src/lib/plugins/widgets/index.ts:81: * @param context - Context passed to each widget's shouldInject function
+src/lib/plugins/widgets/index.ts:84:export function injectWidgets<T>(
+src/lib/plugins/widgets/types.ts:61:  /** Custom render function for completely custom widget designs */
+src/lib/plugins/widgets/types.ts:78:export function isWidget(item: unknown): item is InjectedWidget {
+src/lib/plugins/storage/s3.ts:20:async function getS3Client() {
+src/lib/plugins/storage/index.ts:7:export function registerBuiltInStoragePlugins(): void {
+src/lib/plugins/storage/do-spaces.ts:22:async function getS3Client() {
+src/lib/plugins/storage/do-spaces.ts:34:function getEndpoint(): string {
+src/lib/plugins/storage/do-spaces.ts:39:function getFileUrl(key: string): string {
+src/lib/plugins/auth/index.ts:9:export function registerBuiltInAuthPlugins(): void {
+src/lib/webhook.ts:140:function escapeJsonString(str: string): string {
+src/lib/webhook.ts:149:function truncate(str: string, maxLength: number): string {
+src/lib/webhook.ts:159:function isPrivateUrl(urlString: string): boolean {
+src/lib/webhook.ts:232:function escapeRegex(str: string): string {
+src/lib/webhook.ts:237:function replacePlaceholders(template: string, prompt: PromptData): string {
+src/lib/webhook.ts:281:export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): Promise<void> {
+src/lib/date.ts:17:export function getDateLocale(locale: string): Locale {
+src/lib/date.ts:21:export function formatDistanceToNow(date: Date | string, locale: string = "en"): string {
+src/lib/date.ts:29:export function formatDate(date: Date | string, formatStr: string, locale: string = "en"): string {
+src/lib/book/chapters.ts:178:        description: "RAG, embeddings, function calling, and MCP",
+src/lib/book/chapters.ts:293:export function getAllChapters(): Chapter[] {
+src/lib/book/chapters.ts:297:export function getChapterBySlug(slug: string): Chapter | undefined {
+src/lib/book/chapters.ts:301:export function getAdjacentChapters(slug: string): { prev?: Chapter; next?: Chapter } {
+src/lib/format.ts:5:export function prettifyJson(content: string): string {
+src/lib/format.ts:17:export function isValidJson(content: string): boolean {
+src/lib/format.ts:27:// This function was centralized to prevent architectural scattering across component directories.
+src/lib/format.ts:37:export function safeJsonLd(data: unknown): string {
+src/lib/format.ts:45:export function toYaml(obj: unknown, indent = 0): string {
+src/lib/urls.ts:5:export function getPromptUrl(id: string, slug?: string | null): string {
+src/lib/urls.ts:15:export function getPromptEditUrl(id: string, slug?: string | null): string {
+src/lib/urls.ts:22:export function getPromptChangesUrl(id: string, slug?: string | null): string {
+src/lib/github.ts:1:export async function getGithubStars(
+src/lib/i18n/client.ts:9:export function setLocale(locale: string): void {
+src/lib/i18n/client.ts:21:export function getLocaleClient(): string | null {
+src/lib/i18n/config.ts:30:export function isRtlLocale(locale: string): boolean {
+src/lib/i18n/config.ts:35:export function getSupportedLocales() {
+src/lib/i18n/config.ts:40:export function getDefaultLocale() {
+src/lib/i18n/server.ts:12:export async function setLocaleServer(locale: string): Promise<void> {
+src/lib/i18n/server.ts:38:export async function syncLocaleFromUser(userId: string): Promise<void> {
+src/lib/slug.ts:5:function getOpenAIClient(): OpenAI | null {
+src/lib/slug.ts:24:export function slugify(text: string): string {
+src/lib/slug.ts:38:function isLikelyNonEnglish(text: string): boolean {
+src/lib/slug.ts:47:export async function translateToEnglish(text: string): Promise<string> {
+src/lib/slug.ts:81:export async function generateSlug(title: string): Promise<string> {
+src/lib/slug.ts:96:export async function generatePromptSlug(title: string): Promise<string> {
+src/lib/utils.ts:4:export function cn(...inputs: ClassValue[]) {
+src/lib/utils.ts:12:export function isChromeBrowser(): boolean {
+src/lib/utils.ts:25:export function getOrdinalSuffix(n: number): string {
+src/lib/ai/load-prompt.ts:30:export function loadPrompt(relativePath: string): PromptFile {
+src/lib/ai/load-prompt.ts:51:export function getSystemPrompt(prompt: PromptFile): string {
+src/lib/ai/load-prompt.ts:62:export function interpolatePrompt(template: string, variables: Record<string, string>): string {
+src/lib/ai/improve-prompt.ts:12:function getOpenAIClient(): OpenAI {
+src/lib/ai/improve-prompt.ts:44:function cosineSimilarity(a: number[], b: number[]): number {
+src/lib/ai/improve-prompt.ts:58:function mapOutputTypeToDbType(
+src/lib/ai/improve-prompt.ts:73:async function findSimilarPrompts(
+src/lib/ai/improve-prompt.ts:134:function formatSimilarPrompts(
+src/lib/ai/improve-prompt.ts:149:export async function improvePrompt(input: ImprovePromptInput): Promise<ImprovePromptResult> {
+src/lib/ai/generation.ts:10:function getOpenAIClient(): OpenAI {
+src/lib/ai/generation.ts:26:export function getAIModelName(): string {
+src/lib/ai/generation.ts:30:export async function isAIGenerationEnabled(): Promise<boolean> {
+src/lib/ai/generation.ts:35:export async function translateContent(content: string, targetLanguage: string): Promise<string> {
+src/lib/ai/generation.ts:53:export async function generateSQL(prompt: string): Promise<string> {
+src/lib/ai/prompt-builder-tools.ts:26:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:27:    function: {
+src/lib/ai/prompt-builder-tools.ts:58:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:59:    function: {
+src/lib/ai/prompt-builder-tools.ts:75:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:76:    function: {
+src/lib/ai/prompt-builder-tools.ts:92:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:93:    function: {
+src/lib/ai/prompt-builder-tools.ts:110:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:111:    function: {
+src/lib/ai/prompt-builder-tools.ts:134:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:135:    function: {
+src/lib/ai/prompt-builder-tools.ts:152:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:153:    function: {
+src/lib/ai/prompt-builder-tools.ts:169:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:170:    function: {
+src/lib/ai/prompt-builder-tools.ts:186:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:187:    function: {
+src/lib/ai/prompt-builder-tools.ts:212:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:213:    function: {
+src/lib/ai/prompt-builder-tools.ts:223:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:224:    function: {
+src/lib/ai/prompt-builder-tools.ts:234:    type: "function" as const,
+src/lib/ai/prompt-builder-tools.ts:235:    function: {
+src/lib/ai/prompt-builder-tools.ts:246:export async function executeToolCall(
+src/lib/ai/quality-check.ts:16:function getOpenAIClient(): OpenAI {
+src/lib/ai/quality-check.ts:48:function checkLength(content: string): QualityCheckResult | null {
+src/lib/ai/quality-check.ts:77:export async function checkPromptQuality(
+src/lib/ai/quality-check.ts:174:export async function isAutoDelistEnabled(): Promise<boolean> {
+src/lib/ai/embeddings.ts:11:function getOpenAIClient(): OpenAI {
+src/lib/ai/embeddings.ts:32:export async function translateQueryToEnglish(query: string): Promise<string> {
+src/lib/ai/embeddings.ts:64:function containsNonEnglish(text: string): boolean {
+src/lib/ai/embeddings.ts:70:export async function generateEmbedding(text: string): Promise<number[]> {
+src/lib/ai/embeddings.ts:81:export async function generatePromptEmbedding(promptId: string): Promise<void> {
+src/lib/ai/embeddings.ts:107:function delay(ms: number): Promise<void> {
+src/lib/ai/embeddings.ts:111:export async function generateAllEmbeddings(
+src/lib/ai/embeddings.ts:157:function cosineSimilarity(a: number[], b: number[]): number {
+src/lib/ai/embeddings.ts:205:export async function semanticSearch(
+src/lib/ai/embeddings.ts:289:export async function isAISearchEnabled(): Promise<boolean> {
+src/lib/ai/embeddings.ts:298:export async function findAndSaveRelatedPrompts(promptId: string): Promise<void> {
+src/lib/security.ts:7:function isPrivateIP(ip: string): boolean {
+src/lib/security.ts:37:export async function validateUrl(url: string): Promise<void> {
+src/lib/works-best-with.ts:52:export function getModelInfo(slug: string): { name: string; provider: string } | null {
+src/lib/works-best-with.ts:56:export function isValidModelSlug(slug: string): slug is AIModelSlug {
+src/lib/works-best-with.ts:61:export function getModelsByProvider(): Record<string, { slug: string; name: string }[]> {
+src/lib/works-best-with.ts:75:export function validateBestWithModels(models: string[]): { valid: boolean; errors: string[] } {
+src/lib/works-best-with.ts:92:export function validateBestWithMCP(mcp: unknown): { valid: boolean; errors: string[] } {
+src/lib/api-key.ts:9:export function generateApiKey(): string {
+src/lib/api-key.ts:17:export function isValidApiKeyFormat(apiKey: string): boolean {
+src/lib/auth/index.ts:13:async function generateUsername(email: string, name?: string | null): Promise<string> {
+src/lib/auth/index.ts:45:function CustomPrismaAdapter(): Adapter {
+src/lib/auth/index.ts:118:function getConfiguredProviders(config: Awaited<ReturnType<typeof getConfig>>): string[] {
+src/lib/auth/index.ts:132:async function buildAuthConfig() {
+src/lib/skill-files.ts:52:export function parseSkillFiles(content: string): SkillFile[] {
+src/lib/skill-files.ts:88:export function serializeSkillFiles(files: SkillFile[]): string {
+src/lib/skill-files.ts:110:export function getLanguageFromFilename(filename: string): string {
+src/lib/skill-files.ts:212:export function validateFilename(
+src/lib/skill-files.ts:266:export function isValidKebabCase(name: string): boolean {
+src/lib/skill-files.ts:275:function transliterateToAscii(text: string): string {
+src/lib/skill-files.ts:320:function titleToSkillName(title: string): string {
+src/lib/skill-files.ts:334:function buildFrontmatter(title: string, description: string): string {
+src/lib/skill-files.ts:344:export function generateSkillContentWithFrontmatter(title: string, description: string): string {
+src/lib/skill-files.ts:364:export function parseSkillFrontmatter(
+src/lib/skill-files.ts:390:export function updateSkillFrontmatter(
+src/lib/skill-files.ts:429:export function validateSkillFrontmatter(content: string): SkillFrontmatterValidationError | null {
+src/lib/skill-files.ts:454:export function suggestFilename(existingFiles: string[]): string {

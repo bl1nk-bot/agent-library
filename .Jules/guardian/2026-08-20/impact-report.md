@@ -1,4 +1,5 @@
 🛡️ Guardian Impact Report (JULES Compliant)
+
 - Files consolidated: 2 → 1
 - Lines of code: Moved 30 LOC
 - Imports simplified: Updated 8 usages

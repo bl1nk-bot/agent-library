@@ -1,6 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { enUS, tr, es, zhCN, ja, arSA } from "date-fns/locale";
-import { prettifyJson, isValidJson, toYaml, getDateLocale, formatDistanceToNow, formatDate } from "@/lib/format";
+import {
+  prettifyJson,
+  isValidJson,
+  toYaml,
+  getDateLocale,
+  formatDistanceToNow,
+  formatDate,
+} from "@/lib/format";
 
 describe("prettifyJson", () => {
   it("should prettify valid JSON with proper indentation", () => {

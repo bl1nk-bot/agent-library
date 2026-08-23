@@ -883,6 +883,8 @@
     "linkLabel": "Label (optional)",
     "linkLabelPlaceholder": "Custom label",
     "removeLink": "Remove",
+    "moveLinkUp": "Move link up",
+    "moveLinkDown": "Move link down",
     "maxLinksReached": "Maximum 5 links allowed",
     "invalidUrl": "Please enter a valid URL",
     "linkTypes": {

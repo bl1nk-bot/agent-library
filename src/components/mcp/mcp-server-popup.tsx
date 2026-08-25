@@ -236,8 +236,9 @@ export function McpServerPopup({
                           <button
                             onClick={() => removeUser(user)}
                             className="hover:text-destructive"
+                            aria-label={`Remove user ${user}`}
                           >
-                            <X className="h-2.5 w-2.5" />
+                            <X className="h-2.5 w-2.5" aria-hidden="true" />
                           </button>
                         </Badge>
                       ))}
@@ -277,8 +278,9 @@ export function McpServerPopup({
                           <button
                             onClick={() => removeCategory(cat)}
                             className="hover:text-destructive"
+                            aria-label={`Remove category ${cat}`}
                           >
-                            <X className="h-2.5 w-2.5" />
+                            <X className="h-2.5 w-2.5" aria-hidden="true" />
                           </button>
                         </Badge>
                       ))}
@@ -310,8 +312,12 @@ export function McpServerPopup({
                           className="h-5 gap-0.5 pr-0.5 text-[10px]"
                         >
                           {tag}
-                          <button onClick={() => removeTag(tag)} className="hover:text-destructive">
-                            <X className="h-2.5 w-2.5" />
+                          <button
+                            onClick={() => removeTag(tag)}
+                            className="hover:text-destructive"
+                            aria-label={`Remove tag ${tag}`}
+                          >
+                            <X className="h-2.5 w-2.5" aria-hidden="true" />
                           </button>
                         </Badge>
                       ))}

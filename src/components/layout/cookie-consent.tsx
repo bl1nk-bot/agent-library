@@ -16,9 +16,7 @@ export function getCookieConsent(): CookieConsent {
 
 export function CookieConsentBanner() {
   const t = useTranslations("cookies");
-  const [consent, setConsent] = useState<CookieConsent | "pending">(
-    typeof window !== "undefined" ? getCookieConsent() : "pending"
-  );
+  const [consent, setConsent] = useState<CookieConsent | "pending">("pending");
   const [confirmReject, setConfirmReject] = useState(false);
 
   useEffect(() => {

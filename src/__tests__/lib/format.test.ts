@@ -3,7 +3,6 @@ import { prettifyJson, isValidJson, toYaml } from "@/lib/format";
 import { getDateLocale, formatDistanceToNow, formatDate } from "@/lib/format";
 import { enUS, tr, es, zhCN, ja, arSA } from "date-fns/locale";
 
-
 describe("prettifyJson", () => {
   it("should prettify valid JSON with proper indentation", () => {
     const input = '{"name":"John","age":30}';

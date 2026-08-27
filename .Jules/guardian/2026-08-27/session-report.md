@@ -1,4 +1,5 @@
 ## 2026-08-27 - Consolidate format utilities
+
 **Target:** src/lib/date.ts, src/lib/format.ts
 **Learning:** Formatting logic (dates vs strings/JSON) should not be arbitrarily split across multiple files, as it creates unnecessary imports and architectural scattering.
 **Action:** Centralized all date and string formatting functions into a single format.ts utility file.

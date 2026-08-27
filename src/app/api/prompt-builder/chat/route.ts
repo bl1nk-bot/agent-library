@@ -146,14 +146,26 @@ ${categoryNames || "(none)"}`;
 
       // Build system message with current state context
       const tagMapById = new Map(availableTags.map((t) => [t.id, t]));
+      const tagMapByNameOrSlug = new Map(
+        availableTags.flatMap((t) => [
+          [t.name.toLowerCase(), t],
+          [t.slug, t],
+        ])
+      );
+      const categoryMapById = new Map(availableCategories.map((c) => [c.id, c]));
+      const categoryMapByNameOrSlug = new Map(
+        availableCategories.flatMap((c) => [
+          [c.name.toLowerCase(), c],
+          [c.slug.toLowerCase(), c],
+        ])
+      );
+
       const hasContent = currentState.title || currentState.content || currentState.description;
       const selectedTagNames = currentState.tagIds
         .map((id) => tagMapById.get(id)?.name)
         .filter(Boolean)
         .join(", ");
-      const selectedCategoryName = availableCategories.find(
-        (c) => c.id === currentState.categoryId
-      )?.name;
+      const selectedCategoryName = categoryMapById.get(currentState.categoryId || "")?.name;
 
       const stateContext = hasContent
         ? `
@@ -291,7 +303,8 @@ CRITICAL: When editing content, you MUST preserve the FULL content above. Do NOT
               args,
               state,
               availableTags,
-              availableCategories
+              availableCategories,
+              { tagMapById, tagMapByNameOrSlug, categoryMapById, categoryMapByNameOrSlug }
             );
             state = newState;
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import { formatDistanceToNow } from "@/lib/date";
+import { formatDistanceToNow } from "@/lib/format";
 import { getPromptUrl } from "@/lib/urls";
 import { MoreHorizontal, Check, X, Eye, ExternalLink, RotateCcw, ListPlus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

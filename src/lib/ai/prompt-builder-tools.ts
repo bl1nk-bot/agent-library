@@ -252,8 +252,14 @@ export async function executeToolCall(
   maps?: {
     tagMapById: Map<string, { id: string; name: string; slug: string; color: string }>;
     tagMapByNameOrSlug: Map<string, { id: string; name: string; slug: string; color: string }>;
-    categoryMapById: Map<string, { id: string; name: string; slug: string; parentId: string | null }>;
-    categoryMapByNameOrSlug: Map<string, { id: string; name: string; slug: string; parentId: string | null }>;
+    categoryMapById: Map<
+      string,
+      { id: string; name: string; slug: string; parentId: string | null }
+    >;
+    categoryMapByNameOrSlug: Map<
+      string,
+      { id: string; name: string; slug: string; parentId: string | null }
+    >;
   }
 ): Promise<{ result: ToolResult; newState: PromptBuilderState }> {
   const newState = { ...currentState };
@@ -477,12 +483,14 @@ export async function executeToolCall(
       const matchedTagIds: string[] = [];
       const matchedNames: string[] = [];
 
-      const tagMapByNameOrSlug = maps?.tagMapByNameOrSlug ?? new Map(
-        availableTags.flatMap((t) => [
-          [t.name.toLowerCase(), t],
-          [t.slug, t],
-        ])
-      );
+      const tagMapByNameOrSlug =
+        maps?.tagMapByNameOrSlug ??
+        new Map(
+          availableTags.flatMap((t) => [
+            [t.name.toLowerCase(), t],
+            [t.slug, t],
+          ])
+        );
 
       for (const name of tagNames) {
         const tag = tagMapByNameOrSlug.get(name.toLowerCase());
@@ -509,12 +517,14 @@ export async function executeToolCall(
 
     case "set_category": {
       const categoryName = args.categoryName as string;
-      const categoryMapByNameOrSlug = maps?.categoryMapByNameOrSlug ?? new Map(
-        availableCategories.flatMap((c) => [
-          [c.name.toLowerCase(), c],
-          [c.slug.toLowerCase(), c],
-        ])
-      );
+      const categoryMapByNameOrSlug =
+        maps?.categoryMapByNameOrSlug ??
+        new Map(
+          availableCategories.flatMap((c) => [
+            [c.name.toLowerCase(), c],
+            [c.slug.toLowerCase(), c],
+          ])
+        );
       const category = categoryMapByNameOrSlug.get(categoryName.toLowerCase());
 
       if (category) {
@@ -589,7 +599,8 @@ export async function executeToolCall(
     case "get_current_state": {
       const tagMapById = maps?.tagMapById ?? new Map(availableTags.map((t) => [t.id, t]));
       const tagNames = currentState.tagIds.map((id) => tagMapById.get(id)?.name).filter(Boolean);
-      const categoryMapById = maps?.categoryMapById ?? new Map(availableCategories.map((c) => [c.id, c]));
+      const categoryMapById =
+        maps?.categoryMapById ?? new Map(availableCategories.map((c) => [c.id, c]));
       const categoryName = categoryMapById.get(currentState.categoryId || "")?.name;
 
       return {

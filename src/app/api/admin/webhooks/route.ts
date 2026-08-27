@@ -49,7 +49,13 @@ async function validateWebhook(
   try {
     await validateUrl(data.url);
   } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : "Webhook URL cannot target private/internal networks" };
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Webhook URL cannot target private/internal networks",
+    };
   }
 
   const method = (data.method as string) || "POST";

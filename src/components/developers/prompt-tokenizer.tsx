@@ -384,7 +384,8 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100" aria-label="Delete from history"
+                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+                    aria-label="Delete from history"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteFromHistory(item.id);
@@ -421,7 +422,13 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                 className="scale-75"
               />
             </div>
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={clearText} aria-label="Clear text">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={clearText}
+              aria-label="Clear text"
+            >
               <Trash2 className="h-3.5 w-3.5" />
             </Button>
           </div>
@@ -472,7 +479,13 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
           <span className="text-muted-foreground text-sm font-medium">
             {t("tokenizer.analysis")}
           </span>
-          <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6" aria-label="Copy report">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleCopy}
+            className="h-6 w-6"
+            aria-label="Copy report"
+          >
             {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
           </Button>
         </div>

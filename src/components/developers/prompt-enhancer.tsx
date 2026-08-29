@@ -303,7 +303,13 @@ export function PromptEnhancer() {
           {result && (
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground text-xs">{result.model}</span>
-              <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopy}
+                className="h-6 w-6"
+                aria-label={t("copy")}
+              >
                 {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
               </Button>
               <RunPromptButton

@@ -133,7 +133,12 @@ export function WidgetCard({ prompt }: WidgetCardProps) {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={copyToClipboard} className="hover:bg-accent rounded p-1">
+          <button
+            onClick={copyToClipboard}
+            className="hover:bg-accent focus-visible:ring-agent-cyan rounded p-1 focus-visible:ring-2 focus-visible:outline-none"
+            aria-label={tCommon("copy")}
+            title={tCommon("copy")}
+          >
             <Copy className="h-3 w-3" />
           </button>
           {prompt.actionUrl ? (

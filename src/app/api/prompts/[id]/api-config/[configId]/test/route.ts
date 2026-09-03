@@ -47,7 +47,6 @@ export async function POST(
 
     // Build request options
     const requestOptions: RequestInit = {
-      redirect: "error",
       method: apiConfig.method,
       headers: {
         "Content-Type": "application/json",

@@ -310,7 +310,6 @@ export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): 
         };
 
         const response = await fetch(webhook.url, {
-          redirect: "error",
           method: webhook.method,
           headers,
           body: payload,

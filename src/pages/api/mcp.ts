@@ -18,6 +18,10 @@ import {
   DEFAULT_SKILL_CONTENT,
 } from "@/lib/skill-files";
 
+import { slugify } from "@/lib/slug";
+
+
+
 interface AuthenticatedUser {
   id: string;
   username: string;
@@ -41,29 +45,10 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
   return user;
 }
 
+
 interface ExtractedVariable {
   name: string;
   defaultValue?: string;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-/**
- * Get the prompt name/slug for MCP.
- * Priority: slug > slugify(title) > id
- */
-function getPromptName(prompt: { id: string; slug?: string | null; title: string }): string {
-  if (prompt.slug) return prompt.slug;
-  const titleSlug = slugify(prompt.title);
-  if (titleSlug) return titleSlug;
-  return prompt.id;
 }
 
 function extractVariables(content: string): ExtractedVariable[] {
@@ -83,6 +68,17 @@ function extractVariables(content: string): ExtractedVariable[] {
     }
   }
   return variables;
+}
+
+/**
+ * Get the prompt name/slug for MCP.
+ * Priority: slug > slugify(title) > id
+ */
+function getPromptName(prompt: { id: string; slug?: string | null; title: string }): string {
+  if (prompt.slug) return prompt.slug;
+  const titleSlug = slugify(prompt.title);
+  if (titleSlug) return titleSlug;
+  return prompt.id;
 }
 
 export const config = {

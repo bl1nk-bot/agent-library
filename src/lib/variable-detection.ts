@@ -199,14 +199,7 @@ function isInsideJsonString(text: string, index: number): boolean {
  * Detect variable-like patterns in text
  * Returns detected variables that are NOT in our supported format
  */
-export interface DetectVariablesOptions {
-  includeSupported?: boolean;
-}
-
-export function detectVariables(
-  text: string,
-  options: DetectVariablesOptions = {}
-): DetectedVariable[] {
+export function detectVariables(text: string): DetectedVariable[] {
   const detected: DetectedVariable[] = [];
   const seenRanges: Array<[number, number]> = [];
 
@@ -224,7 +217,7 @@ export function detectVariables(
   // Check each pattern
   for (const config of PATTERNS) {
     // Skip our supported format pattern for detection
-    if (config.pattern === "dollar_curly" && !options.includeSupported) continue;
+    if (config.pattern === "dollar_curly") continue;
 
     const regex = new RegExp(config.regex.source, config.regex.flags);
 

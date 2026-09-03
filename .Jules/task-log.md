@@ -1,15 +1,15 @@
-## $(date '+%Y-%m-%d %H:%M') - [GUARDIAN] Session started
+## 2026-09-03 12:00 - [GUARDIAN] Session started
 
-- Directory: .Jules/guardian/$(date '+%Y-%m-%d')
+- Directory: .Jules/guardian/2026-09-03
 - Phase: PRE-FLIGHT
 - JULES Check: COMPLETE
 
-## $(date '+%Y-%m-%d %H:%M') - [GUARDIAN] Cleanup complete
+## 2026-09-03 12:05 - [GUARDIAN] Cleanup complete
 
 - Linting: ✓
 - Formatting: ✓
 
-## $(date '+%Y-%m-%d %H:%M') - [GUARDIAN] Verification complete
+## 2026-09-03 12:10 - [GUARDIAN] Verification complete
 
 - Tests: ✓
 - Types: ✓

@@ -19,7 +19,6 @@ import {
 } from "@/lib/skill-files";
 
 import { slugify } from "@/lib/slug";
-import { detectVariables, type DetectedVariable } from "@/lib/variable-detection";
 
 interface AuthenticatedUser {
   id: string;
@@ -44,6 +43,11 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
   return user;
 }
 
+interface ExtractedVariable {
+  name: string;
+  defaultValue?: string;
+}
+
 /**
  * Get the prompt name/slug for MCP.
  * Priority: slug > slugify(title) > id
@@ -53,6 +57,25 @@ function getPromptName(prompt: { id: string; slug?: string | null; title: string
   const titleSlug = slugify(prompt.title);
   if (titleSlug) return titleSlug;
   return prompt.id;
+}
+
+function extractVariables(content: string): ExtractedVariable[] {
+  // Format: ${variableName} or ${variableName:default}
+  const regex = /\$\{([a-zA-Z_][a-zA-Z0-9_\s]*?)(?::([^}]*))?\}/g;
+  const variables: ExtractedVariable[] = [];
+  const seen = new Set<string>();
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    const name = match[1].trim();
+    if (!seen.has(name)) {
+      seen.add(name);
+      variables.push({
+        name,
+        defaultValue: match[2]?.trim(),
+      });
+    }
+  }
+  return variables;
 }
 
 export const config = {
@@ -158,7 +181,7 @@ function createServer(options: ServerOptions = {}) {
 
     return {
       prompts: results.map((p) => {
-        const variables = detectVariables(p.content, { includeSupported: true });
+        const variables = extractVariables(p.content);
         return {
           name: getPromptName(p),
           title: p.title,
@@ -201,7 +224,7 @@ function createServer(options: ServerOptions = {}) {
 
     // Replace variables in content
     let filledContent = prompt.content;
-    const variables = detectVariables(prompt.content, { includeSupported: true });
+    const variables = extractVariables(prompt.content);
 
     for (const variable of variables) {
       const value = args[variable.name] ?? variable.defaultValue ?? `\${${variable.name}}`;
@@ -371,7 +394,7 @@ function createServer(options: ServerOptions = {}) {
           };
         }
 
-        const variables = detectVariables(prompt.content, { includeSupported: true });
+        const variables = extractVariables(prompt.content);
 
         if (variables.length > 0) {
           const properties: Record<string, PrimitiveSchemaDefinition> = {};

@@ -1,0 +1,26 @@
+🛡️ Guardian (JULES): Consolidated duplicate variables and slugify
+
+WHAT:
+- Replaced inline `slugify` and `extractVariables` in `src/pages/api/mcp.ts` with their canonical versions from `src/lib/slug.ts` and `src/lib/variable-detection.ts`.
+- Added `includeSupported` option to `detectVariables` to match `extractVariables` behavior.
+
+WHY:
+- Code duplication was increasing maintenance burden.
+- Consistent behavior across the application by using centralized utilities.
+
+JULES CONTEXT:
+- Checked .Jules/task-log.md: No Autonomous conflicts
+- Session logged: .Jules/guardian/2026-09-03/
+- Reference: .Jules/JULES.md
+
+IMPACT:
+- Files reduced: N/A (Consolidated inline functions)
+- Code lines: reduced in `mcp.ts`
+- Imports updated.
+
+VERIFICATION:
+- All tests pass
+- TypeScript clean
+- Linting clean
+- Build succeeds
+- JULES compliance: ✓

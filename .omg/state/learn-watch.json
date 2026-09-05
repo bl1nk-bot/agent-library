@@ -1,0 +1,12 @@
+{
+  "last_session_id": "3867f297-16cf-452e-a37f-aa447f9b46cf",
+  "last_event_key": "3867f297-16cf-452e-a37f-aa447f9b46cf:transcript:c600e9696c9485723aff70d0ce88673817cb5360ef2add31071ce4b90631954c",
+  "last_prompted_session_id": "",
+  "last_reason": "short-session",
+  "last_prompted_at": "",
+  "last_user_message_count": 0,
+  "last_actionable_message_count": 0,
+  "deep_interview_lock_active": false,
+  "deep_interview_lock_source": "D:\\dev\\org-bl1nk-bot\\agent-library\\.omg\\state\\deep-interview.json",
+  "updated_at": "2026-05-12T10:45:08.445Z"
+}

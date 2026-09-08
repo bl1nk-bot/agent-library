@@ -65,8 +65,9 @@ export function DeleteVersionButton({
           variant="ghost"
           size="icon"
           className="text-muted-foreground hover:text-destructive h-7 w-7"
+          aria-label={t("deleteVersion")}
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="h-4 w-4" aria-hidden="true" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

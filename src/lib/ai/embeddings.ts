@@ -1,26 +1,10 @@
-import OpenAI from "openai";
+import { getOpenAIClientOrThrow } from "./client";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getConfig } from "@/lib/config";
 import { loadPrompt, getSystemPrompt } from "./load-prompt";
 
 const queryTranslatorPrompt = loadPrompt("src/lib/ai/query-translator.prompt.yml");
-
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
 
 const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
 const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";
@@ -30,7 +14,7 @@ const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";
  * Uses a cheap model to extract and translate keywords.
  */
 export async function translateQueryToEnglish(query: string): Promise<string> {
-  const client = getOpenAIClient();
+  const client = getOpenAIClientOrThrow();
 
   try {
     const response = await client.chat.completions.create({
@@ -68,7 +52,7 @@ function containsNonEnglish(text: string): boolean {
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-  const client = getOpenAIClient();
+  const client = getOpenAIClientOrThrow();
 
   const response = await client.embeddings.create({
     model: EMBEDDING_MODEL,

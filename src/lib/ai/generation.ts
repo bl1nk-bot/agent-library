@@ -1,25 +1,9 @@
-import OpenAI from "openai";
+import { getOpenAIClientOrThrow } from "./client";
 import { getConfig } from "@/lib/config";
 import { loadPrompt, getSystemPrompt, interpolatePrompt } from "./load-prompt";
 
 const translatePrompt = loadPrompt("src/lib/ai/translate.prompt.yml");
 const sqlGenerationPrompt = loadPrompt("src/lib/ai/sql-generation.prompt.yml");
-
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
 
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o-mini";
 
@@ -33,7 +17,7 @@ export async function isAIGenerationEnabled(): Promise<boolean> {
 }
 
 export async function translateContent(content: string, targetLanguage: string): Promise<string> {
-  const client = getOpenAIClient();
+  const client = getOpenAIClientOrThrow();
 
   const systemPrompt = interpolatePrompt(getSystemPrompt(translatePrompt), { targetLanguage });
 
@@ -56,7 +40,7 @@ export async function generateSQL(prompt: string): Promise<string> {
     throw new Error("AI Generation is not enabled");
   }
 
-  const client = getOpenAIClient();
+  const client = getOpenAIClientOrThrow();
 
   const systemPrompt = getSystemPrompt(sqlGenerationPrompt);
 

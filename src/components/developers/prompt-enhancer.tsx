@@ -72,6 +72,7 @@ function saveHistory(history: SavedPrompt[]) {
 
 export function PromptEnhancer() {
   const t = useTranslations("developers");
+  const tCommon = useTranslations("common");
   const { theme } = useTheme();
   const [prompt, setPrompt] = useState("");
   const [outputType, setOutputType] = useState<OutputType>("text");
@@ -206,13 +207,14 @@ export function PromptEnhancer() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                    aria-label={tCommon("delete")}
+                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 focus-visible:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-3 w-3" aria-hidden="true" />
                   </Button>
                 </div>
               ))

@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2024-05-24 - Interactive Elements Hidden by Default Must Be Keyboard Accessible
+
+**Learning:** Icon-only buttons that are only revealed via `group-hover` (like history delete buttons) remain completely invisible to keyboard users when tabbed into, severely impacting accessibility.
+**Action:** When using `opacity-0 group-hover:opacity-100` for reveal-on-hover UI elements, always include `focus-visible:opacity-100` and `group-focus-within:opacity-100` to ensure they appear during keyboard navigation. Additionally, ensure icon-only buttons have an `aria-label` while the icon itself has `aria-hidden="true"`.

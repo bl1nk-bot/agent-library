@@ -184,6 +184,7 @@ function tokenizeForVisualization(text: string): { start: number; end: number }[
 
 export function PromptTokenizer() {
   const t = useTranslations("developers");
+  const tCommon = useTranslations("common");
   const { theme } = useTheme();
   const [text, setText] = useState("");
   const [history, setHistory] = useState<SavedAnalysis[]>([]);
@@ -384,13 +385,14 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                    aria-label={tCommon("delete")}
+                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 focus-visible:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-3 w-3" aria-hidden="true" />
                   </Button>
                 </div>
               ))
@@ -421,8 +423,14 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                 className="scale-75"
               />
             </div>
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={clearText}>
-              <Trash2 className="h-3.5 w-3.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={clearText}
+              aria-label={tCommon("reset")}
+            >
+              <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
             </Button>
           </div>
         </div>

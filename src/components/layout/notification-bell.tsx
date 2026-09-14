@@ -129,7 +129,7 @@ export function NotificationBell() {
           {totalCount > 0 && (
             <button
               onClick={() => handleMarkAsRead()}
-              className="text-muted-foreground hover:text-foreground text-xs"
+              className="text-muted-foreground hover:text-foreground focus-visible:ring-agent-cyan rounded text-xs focus-visible:outline-none focus-visible:ring-2"
             >
               {t("markAllRead")}
             </button>

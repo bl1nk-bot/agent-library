@@ -946,6 +946,7 @@
     "heroFeature3": "For Teams & Organizations",
     "clients": "Clients",
     "commandLine": "Command Line",
+    "copyCommandLine": "Copy command line instructions",
     "extension": "Extension",
     "setupPrivateServer": "Deploy Your Private Server",
     "beStargazer": "Be the {count}{ordinal} stargazer on GitHub",

@@ -107,7 +107,7 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 text-[#8B4513] hover:bg-[#8B4513]/10"
+          className="absolute top-3 right-3 p-2 text-[#8B4513] hover:bg-[#8B4513]/10 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset"
           style={{ clipPath: smallPixelClipPath }}
           aria-label={t("close") || "Close settings"}
           title={t("close") || "Close settings"}
@@ -218,14 +218,14 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
               <div className="flex flex-col gap-2">
                 <button
                   onClick={handleResetProgress}
-                  className="w-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-600"
+                  className="w-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset"
                   style={{ clipPath: smallPixelClipPath }}
                 >
                   {t("resetConfirm")}
                 </button>
                 <button
                   onClick={() => setShowResetConfirm(false)}
-                  className="w-full bg-gray-200 px-4 py-2 font-bold text-gray-700 hover:bg-gray-300"
+                  className="w-full bg-gray-200 px-4 py-2 font-bold text-gray-700 hover:bg-gray-300 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset"
                   style={{ clipPath: smallPixelClipPath }}
                 >
                   {t("cancel")}
@@ -235,7 +235,7 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
           ) : (
             <button
               onClick={handleResetProgress}
-              className="w-full border-2 border-red-300 bg-red-100 px-4 py-2 font-bold text-red-700 hover:bg-red-200"
+              className="w-full border-2 border-red-300 bg-red-100 px-4 py-2 font-bold text-red-700 hover:bg-red-200 focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset"
               style={{ clipPath: smallPixelClipPath }}
             >
               {t("resetButton")}

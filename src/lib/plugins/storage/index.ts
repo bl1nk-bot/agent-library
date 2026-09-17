@@ -10,20 +10,9 @@ export function registerBuiltInStoragePlugins(): void {
     return;
   }
 
-  if (ENABLED_STORAGE === "s3") {
-    // To enable S3 storage:
-    // 1. Set S3_BUCKET, S3_REGION, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY env vars
+  if (ENABLED_STORAGE === "s3" || ENABLED_STORAGE === "do-spaces") {
     import("./s3").then(({ s3StoragePlugin }) => {
       registerStoragePlugin(s3StoragePlugin);
-    });
-    return;
-  }
-
-  if (ENABLED_STORAGE === "do-spaces") {
-    // To enable DO Spaces storage:
-    // 1. Set DO_SPACES_BUCKET, DO_SPACES_REGION, DO_SPACES_ACCESS_KEY_ID, DO_SPACES_SECRET_ACCESS_KEY env vars
-    import("./do-spaces").then(({ doSpacesStoragePlugin }) => {
-      registerStoragePlugin(doSpacesStoragePlugin);
     });
     return;
   }

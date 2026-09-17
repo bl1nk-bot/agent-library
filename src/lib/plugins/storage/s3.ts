@@ -31,46 +31,77 @@ async function getS3Client() {
 
 export const s3StoragePlugin: StoragePlugin = {
   id: "s3",
-  name: "Amazon S3",
+  name: "Amazon S3 Compatible",
 
   isConfigured: () => {
-    return !!(
+    // Standard S3 configuration
+    if (
       process.env.S3_BUCKET &&
       process.env.S3_REGION &&
       process.env.S3_ACCESS_KEY_ID &&
       process.env.S3_SECRET_ACCESS_KEY
-    );
+    ) {
+      return true;
+    }
+
+    // DO Spaces configuration (backward compatibility)
+    if (
+      process.env.DO_SPACES_BUCKET &&
+      process.env.DO_SPACES_REGION &&
+      process.env.DO_SPACES_ACCESS_KEY_ID &&
+      process.env.DO_SPACES_SECRET_ACCESS_KEY
+    ) {
+      return true;
+    }
+
+    return false;
   },
 
   async upload(file: File | Buffer, options?: UploadOptions): Promise<UploadResult> {
-    // Check configuration
     if (!this.isConfigured()) {
       throw new Error(
-        "S3 storage is not configured. Please set S3_BUCKET, S3_REGION, S3_ACCESS_KEY_ID, and S3_SECRET_ACCESS_KEY environment variables."
+        "S3/Spaces storage is not configured. Please set required environment variables."
       );
     }
 
-    // Dynamic import to avoid bundling issues when S3 is not used
+    // Determine credentials and config based on which set of env vars is present
+    const isDoSpaces = !!process.env.DO_SPACES_BUCKET;
+
+    const region = isDoSpaces ? process.env.DO_SPACES_REGION! : process.env.S3_REGION!;
+    const bucket = isDoSpaces ? process.env.DO_SPACES_BUCKET! : process.env.S3_BUCKET!;
+    const accessKeyId = isDoSpaces
+      ? process.env.DO_SPACES_ACCESS_KEY_ID!
+      : process.env.S3_ACCESS_KEY_ID!;
+    const secretAccessKey = isDoSpaces
+      ? process.env.DO_SPACES_SECRET_ACCESS_KEY!
+      : process.env.S3_SECRET_ACCESS_KEY!;
+
+    // Determine endpoint
+    let endpoint = process.env.S3_ENDPOINT;
+    if (isDoSpaces) {
+      endpoint = `https://${region}.digitaloceanspaces.com`;
+    }
+
     const { S3Client, PutObjectCommand } = await getS3Client();
 
     const client = new S3Client({
-      region: process.env.S3_REGION!,
-      endpoint: process.env.S3_ENDPOINT,
+      region,
+      endpoint,
       credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+        accessKeyId,
+        secretAccessKey,
       },
-      forcePathStyle: !!process.env.S3_ENDPOINT, // Required for S3-compatible services
+      // DO Spaces uses virtual-hosted style URLs (forcePathStyle=false)
+      // Standard S3-compatible might need forcePathStyle=true depending on setup
+      forcePathStyle: isDoSpaces ? false : !!process.env.S3_ENDPOINT,
     });
 
-    // Generate unique key
     const timestamp = Date.now();
     const randomId = Math.random().toString(36).substring(2, 8);
     const filename = options?.filename || `file-${timestamp}-${randomId}`;
     const folder = options?.folder || "uploads";
     const key = `${folder}/${filename}`;
 
-    // Convert File to Buffer if needed
     let buffer: Buffer;
     let contentType: string | undefined;
 
@@ -83,19 +114,32 @@ export const s3StoragePlugin: StoragePlugin = {
       contentType = options?.mimeType;
     }
 
-    // Upload to S3
-    await client.send(
-      new PutObjectCommand({
-        Bucket: process.env.S3_BUCKET!,
-        Key: key,
-        Body: buffer,
-        ContentType: contentType,
-      })
-    );
+    // DO Spaces requires ACL to be set for public access, S3 may restrict this depending on bucket policies
+    const uploadParams: any = {
+      Bucket: bucket,
+      Key: key,
+      Body: buffer,
+      ContentType: contentType,
+    };
+
+    if (isDoSpaces) {
+      uploadParams.ACL = "public-read";
+    }
+
+    await client.send(new PutObjectCommand(uploadParams));
 
     // Construct URL
-    const endpoint = process.env.S3_ENDPOINT || `https://s3.${process.env.S3_REGION}.amazonaws.com`;
-    const url = `${endpoint}/${process.env.S3_BUCKET}/${key}`;
+    let url = "";
+    if (isDoSpaces) {
+      if (process.env.DO_SPACES_CDN_ENDPOINT) {
+        url = `${process.env.DO_SPACES_CDN_ENDPOINT}/${key}`;
+      } else {
+        url = `https://${bucket}.${region}.digitaloceanspaces.com/${key}`;
+      }
+    } else {
+      const s3Endpoint = process.env.S3_ENDPOINT || `https://s3.${region}.amazonaws.com`;
+      url = `${s3Endpoint}/${bucket}/${key}`;
+    }
 
     return {
       url,
@@ -107,35 +151,50 @@ export const s3StoragePlugin: StoragePlugin = {
 
   async delete(keyOrUrl: string): Promise<void> {
     if (!this.isConfigured()) {
-      throw new Error("S3 storage is not configured.");
+      throw new Error("S3/Spaces storage is not configured.");
+    }
+
+    const isDoSpaces = !!process.env.DO_SPACES_BUCKET;
+    const region = isDoSpaces ? process.env.DO_SPACES_REGION! : process.env.S3_REGION!;
+    const bucket = isDoSpaces ? process.env.DO_SPACES_BUCKET! : process.env.S3_BUCKET!;
+    const accessKeyId = isDoSpaces
+      ? process.env.DO_SPACES_ACCESS_KEY_ID!
+      : process.env.S3_ACCESS_KEY_ID!;
+    const secretAccessKey = isDoSpaces
+      ? process.env.DO_SPACES_SECRET_ACCESS_KEY!
+      : process.env.S3_SECRET_ACCESS_KEY!;
+
+    let endpoint = process.env.S3_ENDPOINT;
+    if (isDoSpaces) {
+      endpoint = `https://${region}.digitaloceanspaces.com`;
     }
 
     const { S3Client, DeleteObjectCommand } = await getS3Client();
 
     const client = new S3Client({
-      region: process.env.S3_REGION!,
-      endpoint: process.env.S3_ENDPOINT,
+      region,
+      endpoint,
       credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+        accessKeyId,
+        secretAccessKey,
       },
-      forcePathStyle: !!process.env.S3_ENDPOINT,
+      forcePathStyle: isDoSpaces ? false : !!process.env.S3_ENDPOINT,
     });
 
-    // Extract key from URL if needed
     let key = keyOrUrl;
     if (keyOrUrl.startsWith("http")) {
       const url = new URL(keyOrUrl);
-      key = url.pathname.substring(1); // Remove leading slash
-      // Remove bucket name from path if present
-      if (key.startsWith(process.env.S3_BUCKET!)) {
-        key = key.substring(process.env.S3_BUCKET!.length + 1);
+      key = url.pathname.substring(1);
+
+      // Remove bucket name from path if present (usually for S3 path style)
+      if (!isDoSpaces && key.startsWith(bucket)) {
+        key = key.substring(bucket.length + 1);
       }
     }
 
     await client.send(
       new DeleteObjectCommand({
-        Bucket: process.env.S3_BUCKET!,
+        Bucket: bucket,
         Key: key,
       })
     );

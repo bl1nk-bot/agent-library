@@ -87,6 +87,7 @@ export async function POST(
     try {
       response = await fetch(url.toString(), {
         ...requestOptions,
+        redirect: "manual",
         signal: controller.signal,
       });
     } catch (error: any) {

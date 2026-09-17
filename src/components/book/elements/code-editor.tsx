@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Copy, Check } from "lucide-react";
 import Editor from "@monaco-editor/react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface CodeEditorProps {
   code: string;
@@ -12,6 +13,7 @@ interface CodeEditorProps {
 }
 
 export function CodeEditor({ code, language, filename }: CodeEditorProps) {
+  const t = useTranslations("common");
   const [copied, setCopied] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const lineCount = code.split("\n").length;
@@ -71,6 +73,7 @@ export function CodeEditor({ code, language, filename }: CodeEditorProps) {
                 ? "bg-[#3c3c3c] text-[#cccccc] hover:bg-[#4c4c4c]"
                 : "bg-[#e0e0e0] text-[#333333] hover:bg-[#d0d0d0]"
             )}
+            aria-label={t("copy")}
           >
             {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
           </button>

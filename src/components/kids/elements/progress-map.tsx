@@ -381,7 +381,7 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
     >
       {/* Traffic light - appears on hover, in front of car */}
       <div
-        className="absolute -right-8 -bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute -right-8 -bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
         style={{ transform: "scaleX(-1)" }}
       >
         {/* Light box */}
@@ -414,7 +414,7 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
     >
       {/* Traffic light - appears on hover, in front of van */}
       <div
-        className="absolute -right-8 -bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute -right-8 -bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
         style={{ transform: "scaleX(-1)" }}
       >
         {/* Light box */}
@@ -446,7 +446,7 @@ function MapDecorations({ mapWidth }: { mapWidth: number }) {
       onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = "running")}
     >
       {/* Traffic light - appears on hover, on right side of car (going right) */}
-      <div className="absolute -right-8 bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="absolute -right-8 bottom-2 flex flex-col items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100">
         {/* Light box */}
         <div className="flex h-10 w-4 flex-col items-center justify-center gap-0.5 bg-gray-700 p-1">
           <div className="h-2 w-2 bg-red-500 shadow-[0_0_6px_#ef4444]" />

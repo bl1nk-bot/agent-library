@@ -33,7 +33,7 @@ export function ChatCard({ message }: ChatCardProps) {
     // As per spec: "username@foundry:~$ [command]" style
     return (
       <div className="group flex w-full justify-start py-4">
-        <div className="flex items-center gap-2 font-mono text-sm text-green-500 opacity-80 transition-opacity group-hover:opacity-100">
+        <div className="flex items-center gap-2 font-mono text-sm text-green-500 opacity-80 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100">
           <span className="text-white/40">user@foundry:~$</span>
           <span className="text-agent-cyan">{message.content}</span>
         </div>
@@ -59,7 +59,7 @@ export function ChatCard({ message }: ChatCardProps) {
       </div>
 
       {/* Interaction Actions (Hover) */}
-      <div className="mt-4 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="mt-4 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100">
         {/* Action buttons will go here */}
       </div>
     </div>

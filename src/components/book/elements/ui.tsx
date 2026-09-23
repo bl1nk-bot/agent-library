@@ -111,7 +111,7 @@ export function CopyableCode({ code, language }: CopyableCodeProps) {
       <Button
         variant="ghost"
         size="sm"
-        className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
         onClick={handleCopy}
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

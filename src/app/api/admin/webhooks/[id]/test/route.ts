@@ -72,6 +72,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
     // Send the test request
     const response = await fetch(webhook.url, {
+      redirect: "error",
       method: webhook.method,
       headers: {
         "Content-Type": "application/json",

@@ -1,7 +1,6 @@
 /**
- * Auto-generated type definitions for prompts.chat
- * Generated from TypeScript source files via reflection
- * DO NOT EDIT MANUALLY - run `npm run docs:generate` to regenerate
+ * Type definitions for prompts.chat.
+ * Keep this declaration synchronized with the public type API.
  */
 
 export const TYPE_DEFINITIONS = `

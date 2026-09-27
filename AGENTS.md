@@ -247,7 +247,7 @@ OPENAI_API_KEY=         # For AI-powered semantic search
 
 ## Testing
 
-Currently no automated tests. When implementing:
+The repository uses Vitest. Run `npm run test` to execute the test suite. When implementing:
 
 - Place tests adjacent to source files or in `__tests__/` directories
 - Use descriptive test names

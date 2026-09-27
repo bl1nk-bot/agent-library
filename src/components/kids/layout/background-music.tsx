@@ -212,7 +212,7 @@ export function MusicVolumeSlider() {
         value={volume * 100}
         onChange={(e) => setVolume(parseInt(e.target.value) / 100)}
         aria-label="Volume"
-        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B4513]"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513] focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none"
       />
     </div>
   );

@@ -1,0 +1,4 @@
+## 2025-02-25 - Music Settings Accessibility Improvement
+
+**Learning:** In custom volume sliders and toggle buttons within settings modals (especially in the kids section), standard keyboard interactions and screen reader context can be missing. Elements lacking `aria-pressed` or `aria-label` along with visible focus outlines degrade the experience for keyboard and screen reader users. The `focus-visible:ring-inset` is particularly important for pixel-art style buttons where clip-paths hide outer shadows.
+**Action:** When creating or updating custom interactive elements like volume toggles or sliders, always apply `aria-pressed` for toggle states, `aria-label` for inputs, and explicit `focus-visible` styles with `ring-inset` if the button uses a clip-path.

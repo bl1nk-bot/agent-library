@@ -1716,6 +1716,7 @@
     "settings": {
       "title": "설정",
       "music": "음악",
+      "volume": "Volume",
       "language": "언어",
       "progress": "진행 상황",
       "stars": "별",

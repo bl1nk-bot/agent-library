@@ -1751,6 +1751,7 @@
     "settings": {
       "title": "ตั้งค่า",
       "music": "ดนตรี",
+      "volume": "Volume",
       "language": "ภาษา",
       "progress": "ความคืบหน้าของคุณ",
       "stars": "ดาว",

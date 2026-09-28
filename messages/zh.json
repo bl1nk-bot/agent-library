@@ -1716,6 +1716,7 @@
     "settings": {
       "title": "设置",
       "music": "音乐",
+      "volume": "Volume",
       "language": "语言",
       "progress": "你的进度",
       "stars": "星星",

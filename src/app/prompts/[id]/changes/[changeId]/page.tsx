@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
-import { formatDistanceToNow } from "@/lib/date";
+import { formatDistanceToNow } from "@/lib/format";
 import { ArrowLeft, Clock, Check, X, FileText } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";

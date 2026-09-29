@@ -22,7 +22,7 @@ export function registerBuiltInStoragePlugins(): void {
   if (ENABLED_STORAGE === "do-spaces") {
     // To enable DO Spaces storage:
     // 1. Set DO_SPACES_BUCKET, DO_SPACES_REGION, DO_SPACES_ACCESS_KEY_ID, DO_SPACES_SECRET_ACCESS_KEY env vars
-    import("./do-spaces").then(({ doSpacesStoragePlugin }) => {
+    import("./s3").then(({ doSpacesStoragePlugin }) => {
       registerStoragePlugin(doSpacesStoragePlugin);
     });
     return;

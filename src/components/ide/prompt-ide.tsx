@@ -903,7 +903,7 @@ export function PromptIde() {
                 </TabsList>
               </Tabs>
               {(output || lastValidOutput) && (
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={copyOutput}>
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={copyOutput} aria-label="Copy output">
                   <Copy className="h-3 w-3" />
                 </Button>
               )}

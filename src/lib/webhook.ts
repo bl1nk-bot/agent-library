@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { Prisma, WebhookEvent } from "@prisma/client";
+import { validateUrl } from "@/lib/security";
 
 interface PromptData {
   id: string;
@@ -298,8 +299,10 @@ export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): 
     const promises = webhooks.map(async (webhook) => {
       try {
         // A10: Validate webhook URL is not targeting private/internal networks
-        if (isPrivateUrl(webhook.url)) {
-          console.error(`Webhook ${webhook.name} blocked: URL targets private/internal network`);
+        try {
+          await validateUrl(webhook.url);
+        } catch (error) {
+          console.error(`Webhook ${webhook.name} blocked:`, error);
           return;
         }
 
@@ -313,6 +316,7 @@ export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): 
           method: webhook.method,
           headers,
           body: payload,
+          redirect: "error",
         });
 
         if (!response.ok) {

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { isPrivateUrl } from "@/lib/webhook";
+import { validateUrl } from "@/lib/security";
 
 const VALID_METHODS = ["GET", "POST", "PUT", "PATCH"] as const;
 const VALID_EVENTS = ["PROMPT_CREATED", "PROMPT_UPDATED", "PROMPT_DELETED"] as const;
@@ -43,11 +43,6 @@ function validateWebhook(
     new URL(data.url);
   } catch {
     return { success: false, error: "Invalid URL" };
-  }
-
-  // A10: Block private/internal URLs to prevent SSRF
-  if (isPrivateUrl(data.url)) {
-    return { success: false, error: "Webhook URL cannot target private/internal networks" };
   }
 
   const method = (data.method as string) || "POST";
@@ -116,6 +111,21 @@ export async function POST(request: Request) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: "validation_error", message: parsed.error },
+        { status: 400 }
+      );
+    }
+
+    try {
+      await validateUrl(parsed.data.url);
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: "validation_error",
+          message:
+            error instanceof Error
+              ? error.message
+              : "Webhook URL cannot target private/internal networks",
+        },
         { status: 400 }
       );
     }

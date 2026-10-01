@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Check, X, RefreshCw, Lightbulb, ChevronRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -58,13 +58,15 @@ export function FillInTheBlank({
   const [showHints, setShowHints] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
 
+  const blanksMapById = useMemo(() => new Map(blanks.map((b) => [b.id, b])), [blanks]);
+
   const checkAnswerLocal = useCallback(
     (blankId: string, value: string): boolean => {
-      const blank = blanks.find((b) => b.id === blankId);
+      const blank = blanksMapById.get(blankId);
       if (!blank) return false;
 
       const normalizedValue = blank.caseSensitive ? value.trim() : value.trim().toLowerCase();
-      return blank.correctAnswers.some((answer) => {
+      return blank.correctAnswers.some((answer: string) => {
         const normalizedAnswer = blank.caseSensitive ? answer.trim() : answer.trim().toLowerCase();
         return normalizedValue === normalizedAnswer;
       });
@@ -174,7 +176,7 @@ export function FillInTheBlank({
       const match = part.match(/\{\{([^}]+)\}\}/);
       if (match) {
         const blankId = match[1];
-        const blank = blanks.find((b) => b.id === blankId);
+        const blank = blanksMapById.get(blankId);
         const hasIssue = openEnded && consistencyResult?.issues.some((i) => i.blankId === blankId);
         const isCorrect = openEnded
           ? submitted && !hasIssue
@@ -231,7 +233,7 @@ export function FillInTheBlank({
         {Object.entries(showHints)
           .filter(([, show]) => show)
           .map(([blankId]) => {
-            const blank = blanks.find((b) => b.id === blankId);
+            const blank = blanksMapById.get(blankId);
             return blank?.hint ? (
               <div
                 key={blankId}

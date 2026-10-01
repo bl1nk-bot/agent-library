@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useId } from "react";
+import { useState, useCallback, useEffect, useId, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Check, RefreshCw, Sparkles, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -96,13 +96,18 @@ export function MagicWords({ title, sentence, blanks, successMessage }: MagicWor
     });
   }, [levelSlug, componentId, placements, submitted, availableWords, isLoaded]);
 
+  const blanksMapById = useMemo(
+    () => new Map(blanksWithIds.map((b) => [b.id, b])),
+    [blanksWithIds]
+  );
+
   const checkAnswer = useCallback(
     (blankId: string, value: string): boolean => {
-      const blank = blanksWithIds.find((b) => b.id === blankId);
+      const blank = blanksMapById.get(blankId);
       if (!blank) return false;
-      return blank.answers.some((answer) => answer.toLowerCase() === value.toLowerCase());
+      return blank.answers.some((answer: string) => answer.toLowerCase() === value.toLowerCase());
     },
-    [blanksWithIds]
+    [blanksMapById]
   );
 
   // Don't render until loaded to prevent hydration mismatch

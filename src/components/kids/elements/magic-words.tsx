@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useId } from "react";
+import { useState, useCallback, useEffect, useId, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Check, RefreshCw, Sparkles, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -105,7 +105,7 @@ export function MagicWords({ title, sentence, blanks, successMessage }: MagicWor
     (blankId: string, value: string): boolean => {
       const blank = blanksMapById.get(blankId);
       if (!blank) return false;
-      return blank.answers.some((answer) => answer.toLowerCase() === value.toLowerCase());
+      return blank.answers.some((answer: string) => answer.toLowerCase() === value.toLowerCase());
     },
     [blanksMapById]
   );

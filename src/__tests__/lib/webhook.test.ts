@@ -16,7 +16,7 @@ const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 vi.mock("@/lib/security", () => ({
-  validateUrl: vi.fn().mockResolvedValue(),
+  validateUrl: vi.fn().mockResolvedValue(undefined),
 }));
 
 describe("WEBHOOK_PLACEHOLDERS", () => {

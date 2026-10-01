@@ -9,65 +9,7 @@ interface DiffViewProps {
   afterLabel?: string;
 }
 
-// Simple word-level diff algorithm
-function computeDiff(
-  before: string,
-  after: string
-): { type: "same" | "added" | "removed"; text: string }[] {
-  const beforeWords = before.split(/(\s+)/);
-  const afterWords = after.split(/(\s+)/);
-
-  const result: { type: "same" | "added" | "removed"; text: string }[] = [];
-
-  // LCS-based diff
-  const m = beforeWords.length;
-  const n = afterWords.length;
-
-  // Build LCS table
-  const dp: number[][] = Array(m + 1)
-    .fill(null)
-    .map(() => Array(n + 1).fill(0));
-
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (beforeWords[i - 1] === afterWords[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1] + 1;
-      } else {
-        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-      }
-    }
-  }
-
-  // Backtrack to find diff
-  let i = m,
-    j = n;
-  const diff: { type: "same" | "added" | "removed"; text: string }[] = [];
-
-  while (i > 0 || j > 0) {
-    if (i > 0 && j > 0 && beforeWords[i - 1] === afterWords[j - 1]) {
-      diff.unshift({ type: "same", text: beforeWords[i - 1] });
-      i--;
-      j--;
-    } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-      diff.unshift({ type: "added", text: afterWords[j - 1] });
-      j--;
-    } else {
-      diff.unshift({ type: "removed", text: beforeWords[i - 1] });
-      i--;
-    }
-  }
-
-  // Merge consecutive same-type segments
-  for (const segment of diff) {
-    if (result.length > 0 && result[result.length - 1].type === segment.type) {
-      result[result.length - 1].text += segment.text;
-    } else {
-      result.push({ ...segment });
-    }
-  }
-
-  return result;
-}
+import { computeWordDiff } from "@/lib/diff";
 
 export function DiffView({
   before,
@@ -75,7 +17,7 @@ export function DiffView({
   beforeLabel = "Before",
   afterLabel = "After",
 }: DiffViewProps) {
-  const diff = computeDiff(before, after);
+  const diff = computeWordDiff(before, after);
 
   return (
     <div className="my-4 grid gap-3 md:grid-cols-2">
@@ -94,7 +36,7 @@ export function DiffView({
                   {segment.text}
                 </span>
               );
-            } else if (segment.type === "same") {
+            } else if (segment.type === "unchanged") {
               return <span key={i}>{segment.text}</span>;
             }
             return null;
@@ -119,7 +61,7 @@ export function DiffView({
                   {segment.text}
                 </span>
               );
-            } else if (segment.type === "same") {
+            } else if (segment.type === "unchanged") {
               return <span key={i}>{segment.text}</span>;
             }
             return null;
@@ -160,7 +102,7 @@ export function VersionDiff({ versions }: VersionDiffProps) {
         }
 
         const prev = versions[index - 1];
-        const diff = computeDiff(prev.content, version.content);
+        const diff = computeWordDiff(prev.content, version.content);
 
         return (
           <div key={index} className="overflow-hidden rounded-lg border">
@@ -190,7 +132,7 @@ export function VersionDiff({ versions }: VersionDiffProps) {
                           {segment.text}
                         </span>
                       );
-                    } else if (segment.type === "same") {
+                    } else if (segment.type === "unchanged") {
                       return <span key={i}>{segment.text}</span>;
                     }
                     return null;
@@ -212,7 +154,7 @@ export function VersionDiff({ versions }: VersionDiffProps) {
                           {segment.text}
                         </span>
                       );
-                    } else if (segment.type === "same") {
+                    } else if (segment.type === "unchanged") {
                       return <span key={i}>{segment.text}</span>;
                     }
                     return null;

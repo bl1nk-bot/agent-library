@@ -67,31 +67,33 @@ export function VersionCompareModal({
   const [versionA, setVersionA] = useState<string>(allVersions[1]?.id || "");
   const [versionB, setVersionB] = useState<string>(allVersions[0]?.id || "current");
 
+  const versionMapById = useMemo(() => new Map(allVersions.map((v) => [v.id, v])), [allVersions]);
+
   const contentA = useMemo(() => {
-    const v = allVersions.find((v) => v.id === versionA);
+    const v = versionMapById.get(versionA);
     const content = v?.content || "";
     return isStructured && structuredFormat?.toLowerCase() === "json"
       ? prettifyJson(content)
       : content;
-  }, [allVersions, versionA, isStructured, structuredFormat]);
+  }, [versionMapById, versionA, isStructured, structuredFormat]);
 
   const contentB = useMemo(() => {
-    const v = allVersions.find((v) => v.id === versionB);
+    const v = versionMapById.get(versionB);
     const content = v?.content || "";
     return isStructured && structuredFormat?.toLowerCase() === "json"
       ? prettifyJson(content)
       : content;
-  }, [allVersions, versionB, isStructured, structuredFormat]);
+  }, [versionMapById, versionB, isStructured, structuredFormat]);
 
   const versionALabel = useMemo(() => {
-    const v = allVersions.find((v) => v.id === versionA);
+    const v = versionMapById.get(versionA);
     return v?.id === "current" ? t("currentVersion") : `${t("version")} ${v?.version}`;
-  }, [allVersions, versionA, t]);
+  }, [versionMapById, versionA, t]);
 
   const versionBLabel = useMemo(() => {
-    const v = allVersions.find((v) => v.id === versionB);
+    const v = versionMapById.get(versionB);
     return v?.id === "current" ? t("currentVersion") : `${t("version")} ${v?.version}`;
-  }, [allVersions, versionB, t]);
+  }, [versionMapById, versionB, t]);
 
   if (versions.length === 0) {
     return null;

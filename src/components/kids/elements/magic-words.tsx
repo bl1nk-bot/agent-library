@@ -96,13 +96,18 @@ export function MagicWords({ title, sentence, blanks, successMessage }: MagicWor
     });
   }, [levelSlug, componentId, placements, submitted, availableWords, isLoaded]);
 
+  const blanksMapById = useMemo(
+    () => new Map(blanksWithIds.map((b) => [b.id, b])),
+    [blanksWithIds]
+  );
+
   const checkAnswer = useCallback(
     (blankId: string, value: string): boolean => {
-      const blank = blanksWithIds.find((b) => b.id === blankId);
+      const blank = blanksMapById.get(blankId);
       if (!blank) return false;
       return blank.answers.some((answer) => answer.toLowerCase() === value.toLowerCase());
     },
-    [blanksWithIds]
+    [blanksMapById]
   );
 
   // Don't render until loaded to prevent hydration mismatch

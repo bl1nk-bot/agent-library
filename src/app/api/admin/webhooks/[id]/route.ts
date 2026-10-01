@@ -136,7 +136,13 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
         await validateUrl(validation.data.url);
       } catch (error) {
         return NextResponse.json(
-          { error: "validation_error", details: error instanceof Error ? error.message : "Webhook URL cannot target private/internal networks" },
+          {
+            error: "validation_error",
+            details:
+              error instanceof Error
+                ? error.message
+                : "Webhook URL cannot target private/internal networks",
+          },
           { status: 400 }
         );
       }

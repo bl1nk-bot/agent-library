@@ -45,8 +45,6 @@ function validateWebhook(
     return { success: false, error: "Invalid URL" };
   }
 
-
-
   const method = (data.method as string) || "POST";
   if (!VALID_METHODS.includes(method as (typeof VALID_METHODS)[number])) {
     return { success: false, error: "Invalid method" };
@@ -121,7 +119,13 @@ export async function POST(request: Request) {
       await validateUrl(parsed.data.url);
     } catch (error) {
       return NextResponse.json(
-        { error: "validation_error", message: error instanceof Error ? error.message : "Webhook URL cannot target private/internal networks" },
+        {
+          error: "validation_error",
+          message:
+            error instanceof Error
+              ? error.message
+              : "Webhook URL cannot target private/internal networks",
+        },
         { status: 400 }
       );
     }

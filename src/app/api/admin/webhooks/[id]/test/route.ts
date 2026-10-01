@@ -67,7 +67,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       await validateUrl(webhook.url);
     } catch (error) {
       return NextResponse.json(
-        { error: error instanceof Error ? error.message : "Webhook URL targets a private/internal network which is not allowed" },
+        {
+          error:
+            error instanceof Error
+              ? error.message
+              : "Webhook URL targets a private/internal network which is not allowed",
+        },
         { status: 400 }
       );
     }

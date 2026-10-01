@@ -15,6 +15,10 @@ vi.mock("@/lib/db", () => ({
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
+vi.mock("@/lib/security", () => ({
+  validateUrl: vi.fn().mockResolvedValue(),
+}));
+
 describe("WEBHOOK_PLACEHOLDERS", () => {
   it("should have all required placeholders", () => {
     expect(WEBHOOK_PLACEHOLDERS.PROMPT_ID).toBe("{{PROMPT_ID}}");

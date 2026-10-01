@@ -88,6 +88,7 @@ export async function POST(
       response = await fetch(url.toString(), {
         ...requestOptions,
         signal: controller.signal,
+        redirect: "error",
       });
     } catch (error: any) {
       if (error.name === "AbortError") {

@@ -11,6 +11,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidApiKeyFormat } from "@/lib/api-key";
 import { improvePrompt } from "@/lib/ai/improve-prompt";
+import { slugify } from "@/lib/slug";
 import {
   parseSkillFiles,
   serializeSkillFiles,
@@ -46,15 +47,11 @@ interface ExtractedVariable {
   defaultValue?: string;
 }
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
+// 🛡️ Guardian: Consolidated slugify function from src/lib/slug.ts to remove duplicate
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 function definition
+// Date: 2026-09-24
+// Session: .Jules/guardian/2026-09-24/
 /**
  * Get the prompt name/slug for MCP.
  * Priority: slug > slugify(title) > id

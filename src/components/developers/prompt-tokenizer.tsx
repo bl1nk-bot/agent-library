@@ -384,7 +384,7 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                    className="absolute top-1 right-1 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteFromHistory(item.id);

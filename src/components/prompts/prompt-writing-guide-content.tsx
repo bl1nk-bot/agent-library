@@ -35,7 +35,7 @@ function CodeBlock({ code }: CodeBlockProps) {
       <button
         type="button"
         onClick={handleCopy}
-        className="bg-background/80 absolute top-2 right-2 rounded border p-1.5 opacity-0 transition-opacity group-hover:opacity-100"
+        className="bg-background/80 absolute top-2 right-2 rounded border p-1.5 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
         title="Copy"
       >
         {copied ? (

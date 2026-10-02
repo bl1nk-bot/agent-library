@@ -185,7 +185,7 @@ function TreeNodeItem({
             e.stopPropagation();
             onDeleteFile(node.path);
           }}
-          className="hover:bg-destructive/10 mr-1 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+          className="hover:bg-destructive/10 mr-1 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 focus-within:opacity-100 focus-visible:opacity-100"
           title={t("deleteFile")}
         >
           <Trash2 className="text-destructive h-3 w-3" />

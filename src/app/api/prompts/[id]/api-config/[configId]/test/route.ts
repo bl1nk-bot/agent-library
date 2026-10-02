@@ -86,6 +86,7 @@ export async function POST(
     let response;
     try {
       response = await fetch(url.toString(), {
+        redirect: "error",
         ...requestOptions,
         signal: controller.signal,
       });

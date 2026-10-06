@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2024-05-24 - Accessible Custom Range Sliders & Decorative Emojis
+
+**Learning:** Custom `<input type="range">` elements need explicit `aria-label` (like "Music Volume") if they lack associated `<label>` tags, and focus visibility styles (like `focus-visible:ring-2`) are necessary when styling obscures default outlines. Additionally, decorative emojis in buttons (like 🔊 and 🔇) can create confusing screen reader announcements and should be wrapped in `<span aria-hidden="true">`. Finally, custom toggle buttons using `<button>` require `aria-pressed={boolean}` to convey active states.
+**Action:** Always add explicit `aria-label` and `focus-visible` classes to custom range inputs, wrap decorative emojis in `aria-hidden` spans, and apply `aria-pressed` to interactive toggles.

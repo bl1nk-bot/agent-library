@@ -1,0 +1,21 @@
+.serena/.gitignore
+  s_cc1b85446aabbc::t_d2775fcc432dd5 1-2
+.serena/project.yml
+  s_cc1b85446aabbc::t_cbb17aa3f5ed44 1-169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "84eb7cfff7c1cb177cc76225159e8d25e4a7a300",
+  "prompts": {},
+  "sessions": {
+    "s_cc1b85446aabbc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cdd65037-aa25-43f7-8617-56841f270dfd",
+        "model": "unknown"
+      },
+      "human_author": "bl1nk-team <billlzzz18@gmail.com>"
+    }
+  }
+}

@@ -56,3 +56,5 @@ archive
 !.gemini/**/
 !.gemini/**/.gitkeep
 conductor/
+.omg/state/
+.kilocode/

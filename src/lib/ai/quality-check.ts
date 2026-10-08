@@ -1,4 +1,3 @@
-import OpenAI from "openai";
 import { loadPrompt, getSystemPrompt } from "./load-prompt";
 
 const qualityCheckPrompt = loadPrompt("src/lib/ai/quality-check.prompt.yml");
@@ -11,21 +10,7 @@ export type DelistReason =
   | "NOT_LLM_INSTRUCTION"
   | "MANUAL";
 
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
+import { getOpenAIClient } from "@/lib/ai/client";
 
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o";
 

@@ -7,6 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
 ## 2025-02-12 - Accessible Range Inputs with Icons
+
 **Learning:** Custom `<input type="range">` elements that lack an associated native HTML label require explicit `aria-label` definitions to be accessible. In addition, when decorative icons (like SVG components for speakers/volume) are used alongside text within toggle buttons, these graphical representations should be hidden from screen readers using `aria-hidden="true"` to prevent redundant or confusing announcements.
 **Action:** Always provide an `aria-label` on bare `<input type="range">` elements and `aria-hidden="true"` on non-interactive, decorative SVGs embedded inside buttons. Furthermore, use `focus-visible:ring-2` to restore clear keyboard focus indicators on customized interactive elements.

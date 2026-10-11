@@ -29,7 +29,7 @@ export function CopyButton({ content, promptId }: CopyButtonProps) {
   };
 
   return (
-    <Button variant="ghost" size="sm" onClick={copyToClipboard}>
+    <Button variant="ghost" size="sm" onClick={copyToClipboard} aria-label={t("copy")}>
       {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
     </Button>
   );

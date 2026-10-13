@@ -1,0 +1,31 @@
+ WARN  Unsupported engine: wanted: {"node":"^24.x"} (current: {"node":"v22.22.1","pnpm":"10.30.3"})
+
+> agent-library@0.2.0 build /app
+> prisma generate --no-engine && bun exec next build
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (v6.19.2, engine=none) to ./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client in 240ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+
+⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.0.2:3001
+✓ Ready in 624ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          43464
+- Dir:          /app
+- Log:          .next/dev/logs/next-development.log
+
+Run kill 43464 to stop it.
+[?25h
+ ELIFECYCLE  Command failed with exit code 1.

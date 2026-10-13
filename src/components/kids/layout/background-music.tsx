@@ -186,6 +186,7 @@ export function MusicButton() {
 
 // Volume slider component for settings
 export function MusicVolumeSlider() {
+  const t = useTranslations("kids.settings");
   const context = useMusicContext();
 
   if (!context) return null;
@@ -206,12 +207,13 @@ export function MusicVolumeSlider() {
         <span className="text-sm text-[#5D4037]">{Math.round(volume * 100)}%</span>
       </div>
       <input
+        aria-label={t("music")}
         type="range"
         min="0"
         max="100"
         value={volume * 100}
         onChange={(e) => setVolume(parseInt(e.target.value) / 100)}
-        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513]"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513] focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none"
       />
     </div>
   );

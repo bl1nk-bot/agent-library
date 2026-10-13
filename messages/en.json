@@ -507,7 +507,9 @@
     "getVerifiedButton": "Get Verified Badge",
     "verifiedBadgePrice": "$9.99/month",
     "verifiedTitle": "Verified Supporter",
-    "verifiedThankYou": "Thank you for supporting the community! Your contribution helps keep this project running."
+    "verifiedThankYou": "Thank you for supporting the community! Your contribution helps keep this project running.",
+    "moveLinkUp": "Move link up",
+    "moveLinkDown": "Move link down"
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -1248,7 +1250,6 @@
     "title": "MCP API Key",
     "description": "Generate an API key to save prompts via MCP and access your private prompts.",
     "yourApiKey": "Your API Key",
-
     "keyWarning": "Keep this key secret. Anyone with this key can access your private prompts and create prompts on your behalf.",
     "noApiKey": "You haven't generated an API key yet.",
     "generate": "Generate API Key",

@@ -40,9 +40,11 @@ export function SettingsButton() {
           setIsOpen(true);
           analyticsKids.openSettings();
         }}
-        className="pixel-btn pixel-btn-purple flex h-8 items-center px-3 py-1.5 text-sm"
+        className="pixel-btn pixel-btn-purple flex h-8 items-center px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:outline-none"
         aria-label={t("title") || "Settings"}
         title={t("title") || "Settings"}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
       >
         <PixelSettingsIcon aria-hidden="true" />
       </button>

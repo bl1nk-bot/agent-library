@@ -44,6 +44,7 @@ export function McpServerPopup({
   showOfficialBranding = false,
 }: McpServerPopupProps) {
   const t = useTranslations("mcp");
+  const tCommon = useTranslations("common");
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -148,6 +149,7 @@ export function McpServerPopup({
             <div className="flex gap-0.5">
               <button
                 onClick={() => setMcpMode("remote")}
+                aria-pressed={mcpMode === "remote"}
                 className={cn(
                   "rounded px-2 py-1 text-[11px] font-medium transition-colors",
                   mcpMode === "remote"
@@ -159,6 +161,7 @@ export function McpServerPopup({
               </button>
               <button
                 onClick={() => setMcpMode("local")}
+                aria-pressed={mcpMode === "local"}
                 className={cn(
                   "rounded px-2 py-1 text-[11px] font-medium transition-colors",
                   mcpMode === "local"
@@ -199,10 +202,12 @@ export function McpServerPopup({
           <div className="border-t pt-2">
             <button
               onClick={() => setFiltersOpen(!filtersOpen)}
+              aria-expanded={filtersOpen}
               className="text-muted-foreground hover:text-foreground flex w-full items-center justify-between text-[11px] transition-colors"
             >
               <span>{t("customizeFilters")}</span>
               <ChevronDown
+                aria-hidden="true"
                 className={cn("h-3 w-3 transition-transform", filtersOpen && "rotate-180")}
               />
             </button>
@@ -235,9 +240,10 @@ export function McpServerPopup({
                           @{user}
                           <button
                             onClick={() => removeUser(user)}
+                            aria-label={`${tCommon("delete")} @${user}`}
                             className="hover:text-destructive"
                           >
-                            <X className="h-2.5 w-2.5" />
+                            <X aria-hidden="true" className="h-2.5 w-2.5" />
                           </button>
                         </Badge>
                       ))}
@@ -276,9 +282,10 @@ export function McpServerPopup({
                           {cat}
                           <button
                             onClick={() => removeCategory(cat)}
+                            aria-label={`${tCommon("delete")} ${cat}`}
                             className="hover:text-destructive"
                           >
-                            <X className="h-2.5 w-2.5" />
+                            <X aria-hidden="true" className="h-2.5 w-2.5" />
                           </button>
                         </Badge>
                       ))}
@@ -310,8 +317,12 @@ export function McpServerPopup({
                           className="h-5 gap-0.5 pr-0.5 text-[10px]"
                         >
                           {tag}
-                          <button onClick={() => removeTag(tag)} className="hover:text-destructive">
-                            <X className="h-2.5 w-2.5" />
+                          <button
+                            onClick={() => removeTag(tag)}
+                            aria-label={`${tCommon("delete")} ${tag}`}
+                            className="hover:text-destructive"
+                          >
+                            <X aria-hidden="true" className="h-2.5 w-2.5" />
                           </button>
                         </Badge>
                       ))}

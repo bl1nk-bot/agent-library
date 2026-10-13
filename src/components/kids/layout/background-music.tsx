@@ -186,6 +186,7 @@ export function MusicButton() {
 
 // Volume slider component for settings
 export function MusicVolumeSlider() {
+  const t = useTranslations("kids.settings");
   const context = useMusicContext();
 
   if (!context) return null;
@@ -197,7 +198,8 @@ export function MusicVolumeSlider() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          aria-pressed={isPlaying}
+          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none ${
             isPlaying ? "bg-[#22C55E] text-white" : "bg-gray-200 text-gray-600"
           }`}
         >
@@ -211,7 +213,8 @@ export function MusicVolumeSlider() {
         max="100"
         value={volume * 100}
         onChange={(e) => setVolume(parseInt(e.target.value) / 100)}
-        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513]"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#D4A574] accent-[#8B4513] focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none"
+        aria-label={t("music") || "Music volume"}
       />
     </div>
   );

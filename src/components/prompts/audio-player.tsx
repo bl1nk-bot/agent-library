@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface AudioPlayerProps {
   src: string;
@@ -14,6 +15,7 @@ interface AudioPlayerProps {
 const BARS = 32;
 
 export function AudioPlayer({ src, onError, className, compact = false }: AudioPlayerProps) {
+  const tCommon = useTranslations("common");
   const audioRef = useRef<HTMLAudioElement>(null);
   const animationRef = useRef<number | null>(null);
 
@@ -154,6 +156,7 @@ export function AudioPlayer({ src, onError, className, compact = false }: AudioP
         onClick={togglePlay}
         disabled={!isLoaded}
         className="bg-primary text-primary-foreground hover:bg-primary/90 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors disabled:opacity-50"
+        aria-label={isPlaying ? tCommon("pause") : tCommon("play")}
       >
         {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="ml-0.5 h-4 w-4" />}
       </button>

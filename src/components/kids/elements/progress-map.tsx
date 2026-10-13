@@ -65,6 +65,7 @@ export function ProgressMap() {
         <button
           onClick={scrollLeft}
           className="flex h-10 w-10 items-center justify-center border-3 border-[#DAA520] bg-[#FFD700] shadow-lg transition-colors hover:bg-[#FFC000]"
+          aria-label={t("map.scrollLeft")}
           style={{
             clipPath:
               "polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))",
@@ -77,6 +78,7 @@ export function ProgressMap() {
         <button
           onClick={scrollRight}
           className="flex h-10 w-10 items-center justify-center border-3 border-[#DAA520] bg-[#FFD700] shadow-lg transition-colors hover:bg-[#FFC000]"
+          aria-label={t("map.scrollRight")}
           style={{
             clipPath:
               "polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))",

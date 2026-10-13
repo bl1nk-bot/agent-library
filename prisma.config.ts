@@ -13,4 +13,6 @@ export default defineConfig({
     url:
       process.env.DATABASE_URL ?? "postgresql://placeholder:placeholder@localhost:5432/placeholder",
   },
+  // @ts-expect-error Disable Prisma Postgres Early Access
+  earlyAccess: true,
 });

@@ -18,6 +18,8 @@ import {
   DEFAULT_SKILL_CONTENT,
 } from "@/lib/skill-files";
 
+import { slugify } from "@/lib/slug";
+
 interface AuthenticatedUser {
   id: string;
   username: string;
@@ -44,15 +46,6 @@ async function authenticateApiKey(apiKey: string | null): Promise<AuthenticatedU
 interface ExtractedVariable {
   name: string;
   defaultValue?: string;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 /**

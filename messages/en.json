@@ -1679,7 +1679,9 @@
       "check": "Check!",
       "retry": "Retry",
       "correct": "correct",
-      "tryAgain": "Try again!"
+      "tryAgain": "Try again!",
+      "moveUp": "Move up",
+      "moveDown": "Move down"
     },
     "dragDrop": {
       "title": "Build the prompt!",

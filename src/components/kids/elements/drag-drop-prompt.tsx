@@ -336,8 +336,10 @@ export function DragDropPrompt({
                     clipPath:
                       "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                   }}
+                  aria-label={t("moveUp")}
+                  title={t("moveUp")}
                 >
-                  <ChevronUp className="h-5 w-5" />
+                  <ChevronUp className="h-5 w-5" aria-hidden="true" />
                 </button>
 
                 {/* Down arrow */}
@@ -354,8 +356,10 @@ export function DragDropPrompt({
                     clipPath:
                       "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                   }}
+                  aria-label={t("moveDown")}
+                  title={t("moveDown")}
                 >
-                  <ChevronDown className="h-5 w-5" />
+                  <ChevronDown className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
 

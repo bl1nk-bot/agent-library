@@ -184,6 +184,7 @@ function tokenizeForVisualization(text: string): { start: number; end: number }[
 
 export function PromptTokenizer() {
   const t = useTranslations("developers");
+  const tCommon = useTranslations("common");
   const { theme } = useTheme();
   const [text, setText] = useState("");
   const [history, setHistory] = useState<SavedAnalysis[]>([]);
@@ -389,8 +390,9 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
+                    aria-label={tCommon("delete")}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 aria-hidden="true" className="h-3 w-3" />
                   </Button>
                 </div>
               ))
@@ -421,8 +423,14 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
                 className="scale-75"
               />
             </div>
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={clearText}>
-              <Trash2 className="h-3.5 w-3.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={clearText}
+              aria-label={tCommon("reset")}
+            >
+              <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
             </Button>
           </div>
         </div>
@@ -472,8 +480,18 @@ Estimated Output Cost: ${formatPrice(estimatedOutputCost)}`;
           <span className="text-muted-foreground text-sm font-medium">
             {t("tokenizer.analysis")}
           </span>
-          <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6">
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleCopy}
+            className="h-6 w-6"
+            aria-label={tCommon("copy")}
+          >
+            {copied ? (
+              <Check aria-hidden="true" className="h-3 w-3" />
+            ) : (
+              <Copy aria-hidden="true" className="h-3 w-3" />
+            )}
           </Button>
         </div>
 

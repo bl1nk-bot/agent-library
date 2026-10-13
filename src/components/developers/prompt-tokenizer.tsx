@@ -62,17 +62,27 @@ const MAX_HISTORY = 30;
 function estimateTokens(text: string): number {
   if (!text) return 0;
   const charCount = text.length;
-  const wordCount = text.split(/\s+/).filter(Boolean).length;
+  // Match is significantly faster than split + filter for large strings
+  const wordMatch = text.match(/\S+/g);
+  const wordCount = wordMatch ? wordMatch.length : 0;
   // Average across common tokenizers: ~4 chars per token, with word boundary adjustments
   return Math.ceil(charCount / 4 + wordCount * 0.1);
 }
 
 function calculateStats(text: string): TokenStats {
   const characters = text.length;
-  const words = text.split(/\s+/).filter(Boolean).length;
-  const lines = text.split(/\n/).length;
+
+  // Match is significantly faster than split + filter for large strings
+  const wordsMatch = text.match(/\S+/g);
+  const words = wordsMatch ? wordsMatch.length : 0;
+
+  const linesMatch = text.match(/\n/g);
+  const lines = (linesMatch ? linesMatch.length : 0) + (characters > 0 ? 1 : 0);
+
   const sentences = text.split(/[.!?]+/).filter((s) => s.trim().length > 0).length;
-  const tokens = estimateTokens(text);
+
+  // Calculate tokens directly to avoid recalculating word count
+  const tokens = Math.ceil(characters / 4 + words * 0.1);
 
   return { tokens, characters, words, lines, sentences };
 }

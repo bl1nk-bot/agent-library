@@ -9,7 +9,7 @@ export function OmniBar() {
   const [activeAgent, setActiveAgent] = useState("System");
 
   return (
-    <div className="glass-panel focus-within:border-agent-cyan/30 mx-auto flex w-full max-w-3xl items-center gap-2 rounded-lg p-1 transition-all duration-300 focus-within:shadow-[0_0_30px_rgba(0,229,255,0.15)]">
+    <div className="glass-panel focus-within:border-agent-cyan/30 focus-within:ring-agent-cyan mx-auto flex w-full max-w-3xl items-center gap-2 rounded-lg p-1 transition-all duration-300 focus-within:shadow-[0_0_30px_rgba(0,229,255,0.15)] focus-within:ring-1">
       {/* Agent Switcher */}
       <button
         data-testid="agent-switcher"

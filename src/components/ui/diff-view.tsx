@@ -5,8 +5,12 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface DiffViewProps {
-  original: string;
-  modified: string;
+  original?: string;
+  modified?: string;
+  before?: string; // backwards compatibility
+  after?: string; // backwards compatibility
+  beforeLabel?: string; // backwards compatibility
+  afterLabel?: string; // backwards compatibility
   className?: string;
   mode?: "line" | "word" | "inline";
   language?: "json" | "yaml" | null;
@@ -94,12 +98,18 @@ function computeWordDiff(original: string, modified: string): WordDiff[] {
 }
 
 export function DiffView({
-  original,
-  modified,
+  original: propOriginal,
+  modified: propModified,
+  before,
+  after,
+  beforeLabel,
+  afterLabel,
   className,
   mode = "word",
   language,
 }: DiffViewProps) {
+  const original = propOriginal ?? before ?? "";
+  const modified = propModified ?? after ?? "";
   const t = useTranslations("diff");
   const isCode = !!language;
   const wordDiff = useMemo(() => computeWordDiff(original, modified), [original, modified]);
@@ -120,23 +130,30 @@ export function DiffView({
 
   return (
     <div className={cn("overflow-hidden rounded-lg border", className)}>
-      {/* Stats header */}
-      <div className="bg-muted/50 flex items-center justify-between border-b px-3 py-1.5 text-xs">
-        <div className="flex items-center gap-3">
-          {hasChanges ? (
-            <>
-              <span className="font-medium text-green-600 dark:text-green-400">
-                ≈+{stats.additions} {t("tokens")}
-              </span>
-              <span className="font-medium text-red-600 dark:text-red-400">
-                ≈-{stats.deletions} {t("tokens")}
-              </span>
-            </>
-          ) : (
-            <span className="text-muted-foreground">{t("noChanges")}</span>
-          )}
+      {/* Stats header - fallback to beforeLabel/afterLabel if provided */}
+      {beforeLabel || afterLabel ? (
+        <div className="grid grid-cols-2 divide-x border-b bg-muted/50 text-xs font-medium">
+          <div className="px-3 py-1.5 text-red-600 dark:text-red-400">{beforeLabel || "Original"}</div>
+          <div className="px-3 py-1.5 text-green-600 dark:text-green-400">{afterLabel || "Modified"}</div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-muted/50 flex items-center justify-between border-b px-3 py-1.5 text-xs">
+          <div className="flex items-center gap-3">
+            {hasChanges ? (
+              <>
+                <span className="font-medium text-green-600 dark:text-green-400">
+                  ≈+{stats.additions} {t("tokens")}
+                </span>
+                <span className="font-medium text-red-600 dark:text-red-400">
+                  ≈-{stats.deletions} {t("tokens")}
+                </span>
+              </>
+            ) : (
+              <span className="text-muted-foreground">{t("noChanges")}</span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Diff content - inline word diff */}
       {isCode ? (
@@ -244,25 +261,163 @@ function CodeDiffContent({
 }
 
 // Side by side diff view
-export function SideBySideDiff({ original, modified, className }: Omit<DiffViewProps, "mode">) {
+export function SideBySideDiff({ original: propOriginal, modified: propModified, before, after, beforeLabel, afterLabel, className }: Omit<DiffViewProps, "mode">) {
+  const original = propOriginal ?? before ?? "";
+  const modified = propModified ?? after ?? "";
+
+  const diff = useMemo(() => computeWordDiff(original, modified), [original, modified]);
+
   return (
     <div className={cn("grid grid-cols-2 gap-2", className)}>
       <div className="overflow-hidden rounded-lg border">
         <div className="border-b bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400">
-          Original
+          {beforeLabel || "Original"}
         </div>
         <div className="max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
-          {original}
+          {diff.map((segment, i) => {
+            if (segment.type === "removed") {
+              return (
+                <span
+                  key={i}
+                  className="bg-red-200 text-red-800 line-through decoration-red-500 dark:bg-red-900/50 dark:text-red-200"
+                >
+                  {segment.text}
+                </span>
+              );
+            } else if (segment.type === "unchanged") {
+              return <span key={i}>{segment.text}</span>;
+            }
+            return null;
+          })}
         </div>
       </div>
       <div className="overflow-hidden rounded-lg border">
         <div className="border-b bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-600 dark:text-green-400">
-          Modified
+          {afterLabel || "Modified"}
         </div>
         <div className="max-h-[calc(100vh-300px)] overflow-auto p-3 font-mono text-sm break-words whitespace-pre-wrap">
-          {modified}
+          {diff.map((segment, i) => {
+            if (segment.type === "added") {
+              return (
+                <span
+                  key={i}
+                  className="bg-green-200 text-green-800 dark:bg-green-900/50 dark:text-green-200"
+                >
+                  {segment.text}
+                </span>
+              );
+            } else if (segment.type === "unchanged") {
+              return <span key={i}>{segment.text}</span>;
+            }
+            return null;
+          })}
         </div>
       </div>
+    </div>
+  );
+}
+
+
+// 🛡️ Guardian: Consolidated from src/components/book/elements/diff-view.tsx (deleted)
+// This function was centralized to prevent architectural duplication of diffing logic.
+// JULES Check: Verified no Autonomous task conflicts
+// Impact: 2 → 1 file, unified LCS algorithm
+// Date: 2026-05-09
+// Session: .Jules/guardian/2026-05-09/
+
+export interface VersionDiffProps {
+  versions: {
+    label: string;
+    content: string;
+    note?: string;
+  }[];
+}
+
+export function VersionDiff({ versions }: VersionDiffProps) {
+  if (versions.length < 1) return null;
+
+  return (
+    <div className="my-4 space-y-4">
+      {versions.map((version, index) => {
+        // First version: show without diff
+        if (index === 0) {
+          return (
+            <div key={index} className="overflow-hidden rounded-lg border">
+              <div className="bg-muted/50 flex items-center justify-between border-b px-4 py-2">
+                <span className="text-sm font-semibold">{version.label}</span>
+                {version.note && (
+                  <span className="text-muted-foreground text-xs">{version.note}</span>
+                )}
+              </div>
+              <div className="p-4 font-mono text-sm whitespace-pre-wrap">{version.content}</div>
+            </div>
+          );
+        }
+
+        const prev = versions[index - 1];
+        const diff = computeWordDiff(prev.content, version.content);
+
+        return (
+          <div key={index} className="overflow-hidden rounded-lg border">
+            <div className="bg-muted/50 flex items-center justify-between border-b px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="text-muted-foreground text-xs font-medium">{prev.label}</span>
+                <span className="text-muted-foreground">→</span>
+                <span className="text-sm font-semibold">{version.label}</span>
+              </div>
+              {version.note && (
+                <span className="text-muted-foreground text-xs">{version.note}</span>
+              )}
+            </div>
+            <div className="grid divide-x md:grid-cols-2">
+              <div className="p-3">
+                <div className="mb-2 text-xs font-medium text-red-600 dark:text-red-400">
+                  {prev.label}
+                </div>
+                <div className="font-mono text-sm whitespace-pre-wrap">
+                  {diff.map((segment, i) => {
+                    if (segment.type === "removed") {
+                      return (
+                        <span
+                          key={i}
+                          className="bg-red-200 text-red-800 line-through decoration-red-500 dark:bg-red-900/50 dark:text-red-200"
+                        >
+                          {segment.text}
+                        </span>
+                      );
+                    } else if (segment.type === "unchanged") {
+                      return <span key={i}>{segment.text}</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+              </div>
+              <div className="p-3">
+                <div className="mb-2 text-xs font-medium text-green-600 dark:text-green-400">
+                  {version.label}
+                </div>
+                <div className="font-mono text-sm whitespace-pre-wrap">
+                  {diff.map((segment, i) => {
+                    if (segment.type === "added") {
+                      return (
+                        <span
+                          key={i}
+                          className="bg-green-200 text-green-800 dark:bg-green-900/50 dark:text-green-200"
+                        >
+                          {segment.text}
+                        </span>
+                      );
+                    } else if (segment.type === "unchanged") {
+                      return <span key={i}>{segment.text}</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

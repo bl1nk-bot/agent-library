@@ -9,3 +9,9 @@
 **Vulnerability:** GitHub Actions workflows that depend on secrets (like `ADD_TO_PROJECT_PAT`) can fail with "Bad credentials" if run from forks, where secrets are not exposed to the runner.
 **Learning:** Hard failures in workflows due to missing secrets create noisy CI environments and can potentially leak the absence of specific tokens.
 **Prevention:** Always check for the existence of required secrets in the job's `if` condition (e.g., `if: secrets.ADD_TO_PROJECT_PAT != ''`) before executing steps that require them.
+
+## 2026-07-30 - [SSRF via Unvalidated Image URLs]
+
+**Vulnerability:** Server-Side Request Forgery (SSRF) risk when fetching user-provided `inputImageUrl` directly via `fetch` on the backend.
+**Learning:** Backend requests to user-controlled URLs can expose internal network services or localhost if not properly validated.
+**Prevention:** Always validate user-provided URLs to ensure they use allowed protocols (http/https) and do not target internal/private IP addresses or localhost before issuing backend requests.

@@ -52,16 +52,29 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const edges: FlowEdge[] = [];
     const visited = new Set<string>();
 
-    // BFS to find all connected nodes (both directions)
-    const queue: string[] = [id];
+    // BFS to find all connected nodes (both directions) using layer-by-layer batching
+    let queue: string[] = [id];
 
     while (queue.length > 0) {
-      const currentId = queue.shift()!;
-      if (visited.has(currentId)) continue;
-      visited.add(currentId);
+      // Get all unvisited node IDs in the current layer
+      const unvisitedLayerIds = Array.from(new Set(queue.filter((nodeId) => !visited.has(nodeId))));
 
-      const p = await db.prompt.findUnique({
-        where: { id: currentId, deletedAt: null },
+      // Clear the queue to build the next layer
+      queue = [];
+
+      if (unvisitedLayerIds.length === 0) continue;
+
+      // Mark all layer nodes as visited before processing to prevent cycles
+      for (const nodeId of unvisitedLayerIds) {
+        visited.add(nodeId);
+      }
+
+      // Batch fetch nodes for the current layer
+      const layerPrompts = await db.prompt.findMany({
+        where: {
+          id: { in: unvisitedLayerIds },
+          deletedAt: null,
+        },
         select: {
           id: true,
           title: true,
@@ -80,39 +93,61 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         },
       });
 
-      if (!p || !canSee(p)) continue;
+      // Filter to prompts the user can see
+      const visiblePrompts = layerPrompts.filter(canSee);
+      const visiblePromptIds = visiblePrompts.map((p) => p.id);
 
-      nodes.set(p.id, {
-        id: p.id,
-        title: p.title,
-        slug: p.slug,
-        description: p.description,
-        content: p.content,
-        type: p.type,
-        authorId: p.authorId,
-        authorUsername: p.author.username,
-        authorAvatar: p.author.avatar,
-      });
+      if (visiblePromptIds.length === 0) continue;
 
-      // Get outgoing connections
-      const outgoing = await db.promptConnection.findMany({
-        where: {
-          sourceId: currentId,
-          label: { not: "related" },
-          target: { deletedAt: null },
-        },
-        orderBy: { order: "asc" },
-        include: {
-          target: {
-            select: { id: true, title: true, slug: true, isPrivate: true, authorId: true },
+      for (const p of visiblePrompts) {
+        nodes.set(p.id, {
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          description: p.description,
+          content: p.content,
+          type: p.type,
+          authorId: p.authorId,
+          authorUsername: p.author.username,
+          authorAvatar: p.author.avatar,
+        });
+      }
+
+      // Batch fetch outgoing and incoming connections for visible nodes
+      const [allOutgoing, allIncoming] = await Promise.all([
+        db.promptConnection.findMany({
+          where: {
+            sourceId: { in: visiblePromptIds },
+            label: { not: "related" },
+            target: { deletedAt: null },
           },
-        },
-      });
+          orderBy: { order: "asc" },
+          include: {
+            target: {
+              select: { id: true, title: true, slug: true, isPrivate: true, authorId: true },
+            },
+          },
+        }),
+        db.promptConnection.findMany({
+          where: {
+            targetId: { in: visiblePromptIds },
+            label: { not: "related" },
+            source: { deletedAt: null },
+          },
+          orderBy: { order: "asc" },
+          include: {
+            source: {
+              select: { id: true, title: true, slug: true, isPrivate: true, authorId: true },
+            },
+          },
+        }),
+      ]);
 
-      for (const conn of outgoing) {
+      // Process outgoing connections
+      for (const conn of allOutgoing) {
         if (canSee(conn.target)) {
           edges.push({
-            source: currentId,
+            source: conn.sourceId,
             target: conn.targetId,
             label: conn.label,
           });
@@ -122,31 +157,17 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         }
       }
 
-      // Get incoming connections
-      const incoming = await db.promptConnection.findMany({
-        where: {
-          targetId: currentId,
-          label: { not: "related" },
-          source: { deletedAt: null },
-        },
-        orderBy: { order: "asc" },
-        include: {
-          source: {
-            select: { id: true, title: true, slug: true, isPrivate: true, authorId: true },
-          },
-        },
-      });
-
-      for (const conn of incoming) {
+      // Process incoming connections
+      for (const conn of allIncoming) {
         if (canSee(conn.source)) {
           // Only add edge if not already added
           const edgeExists = edges.some(
-            (e) => e.source === conn.sourceId && e.target === currentId
+            (e) => e.source === conn.sourceId && e.target === conn.targetId
           );
           if (!edgeExists) {
             edges.push({
               source: conn.sourceId,
-              target: currentId,
+              target: conn.targetId,
               label: conn.label,
             });
           }

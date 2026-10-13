@@ -72,6 +72,7 @@ function saveHistory(history: SavedPrompt[]) {
 
 export function PromptEnhancer() {
   const t = useTranslations("developers");
+  const tCommon = useTranslations("common");
   const { theme } = useTheme();
   const [prompt, setPrompt] = useState("");
   const [outputType, setOutputType] = useState<OutputType>("text");
@@ -211,8 +212,10 @@ export function PromptEnhancer() {
                       e.stopPropagation();
                       deleteFromHistory(item.id);
                     }}
+                    aria-label={tCommon("delete")}
+                    title={tCommon("delete")}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-3 w-3" aria-hidden="true" />
                   </Button>
                 </div>
               ))
@@ -303,8 +306,19 @@ export function PromptEnhancer() {
           {result && (
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground text-xs">{result.model}</span>
-              <Button variant="ghost" size="icon" onClick={handleCopy} className="h-6 w-6">
-                {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopy}
+                className="h-6 w-6"
+                aria-label={tCommon("copy")}
+                title={tCommon("copy")}
+              >
+                {copied ? (
+                  <Check className="h-3 w-3" aria-hidden="true" />
+                ) : (
+                  <Copy className="h-3 w-3" aria-hidden="true" />
+                )}
               </Button>
               <RunPromptButton
                 content={result.improved}

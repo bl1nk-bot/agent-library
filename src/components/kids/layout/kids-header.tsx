@@ -110,6 +110,7 @@ export function KidsHeader() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="pixel-btn flex h-8 items-center px-3 py-1.5"
+              aria-expanded={menuOpen}
               aria-label={t("header.menu") || "Menu"}
               title={t("header.menu") || "Menu"}
             >

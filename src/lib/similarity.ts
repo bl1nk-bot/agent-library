@@ -38,10 +38,19 @@ function jaccardSimilarity(str1: string, str2: string): number {
   if (set1.size === 0 && set2.size === 0) return 1;
   if (set1.size === 0 || set2.size === 0) return 0;
 
-  const intersection = new Set([...set1].filter((x) => set2.has(x)));
-  const union = new Set([...set1, ...set2]);
+  let intersectionSize = 0;
+  // Determine which set is smaller for faster iteration
+  const [smallerSet, largerSet] = set1.size < set2.size ? [set1, set2] : [set2, set1];
 
-  return intersection.size / union.size;
+  for (const item of smallerSet) {
+    if (largerSet.has(item)) {
+      intersectionSize++;
+    }
+  }
+
+  const unionSize = set1.size + set2.size - intersectionSize;
+
+  return intersectionSize / unionSize;
 }
 
 /**
@@ -64,10 +73,20 @@ function ngramSimilarity(str1: string, str2: string, n: number = 3): number {
   if (ngrams1.size === 0 && ngrams2.size === 0) return 1;
   if (ngrams1.size === 0 || ngrams2.size === 0) return 0;
 
-  const intersection = new Set([...ngrams1].filter((x) => ngrams2.has(x)));
-  const union = new Set([...ngrams1, ...ngrams2]);
+  let intersectionSize = 0;
+  // Determine which set is smaller for faster iteration
+  const [smallerSet, largerSet] =
+    ngrams1.size < ngrams2.size ? [ngrams1, ngrams2] : [ngrams2, ngrams1];
 
-  return intersection.size / union.size;
+  for (const item of smallerSet) {
+    if (largerSet.has(item)) {
+      intersectionSize++;
+    }
+  }
+
+  const unionSize = ngrams1.size + ngrams2.size - intersectionSize;
+
+  return intersectionSize / unionSize;
 }
 
 /**

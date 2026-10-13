@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { formatDistanceToNow } from "@/lib/date";
+import { formatDistanceToNow } from "@/lib/format";
 import {
   ChevronUp,
   ChevronDown,

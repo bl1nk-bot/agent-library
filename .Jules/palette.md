@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2026-07-14 - Restore focus visibility for custom themed elements
+
+**Learning:** When using custom styling that removes native focus outlines (e.g. `pixel-btn` or custom buttons), the element loses visual indications when navigated by keyboard.
+**Action:** Always restore keyboard accessibility on custom interactive elements by adding standard `focus-visible:` utility classes like `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`.

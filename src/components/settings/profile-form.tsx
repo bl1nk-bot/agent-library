@@ -376,6 +376,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     size="icon"
                     onClick={() => moveLink(index, "up")}
                     disabled={index === 0}
+                    aria-label={t("moveLinkUp")}
                     className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
                   >
                     <ChevronUp className="h-4 w-4" />
@@ -386,6 +387,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                     size="icon"
                     onClick={() => moveLink(index, "down")}
                     disabled={index === customLinks.length - 1}
+                    aria-label={t("moveLinkDown")}
                     className="text-muted-foreground hover:text-foreground h-6 w-6 shrink-0 disabled:opacity-30"
                   >
                     <ChevronDown className="h-4 w-4" />
@@ -426,6 +428,7 @@ export function ProfileForm({ user, showVerifiedSection = false }: ProfileFormPr
                   variant="ghost"
                   size="icon"
                   onClick={() => removeLink(index)}
+                  aria-label={t("removeLink")}
                   className="text-muted-foreground hover:text-destructive shrink-0"
                 >
                   <Trash2 className="h-4 w-4" />

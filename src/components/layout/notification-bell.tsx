@@ -128,6 +128,8 @@ export function NotificationBell() {
           <span>{t("title")}</span>
           {totalCount > 0 && (
             <button
+              type="button"
+              aria-label={t("markAllRead")}
               onClick={() => handleMarkAsRead()}
               className="text-muted-foreground hover:text-foreground text-xs"
             >

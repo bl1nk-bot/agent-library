@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { isPrivateUrl } from "@/lib/webhook";
+import { validateUrl } from "@/lib/security";
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -63,9 +63,16 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     }
 
     // A10: Validate webhook URL is not targeting private/internal networks
-    if (isPrivateUrl(webhook.url)) {
+    try {
+      await validateUrl(webhook.url);
+    } catch (error) {
       return NextResponse.json(
-        { error: "Webhook URL targets a private/internal network which is not allowed" },
+        {
+          error:
+            error instanceof Error
+              ? error.message
+              : "Webhook URL targets a private/internal network which is not allowed",
+        },
         { status: 400 }
       );
     }
@@ -78,6 +85,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         ...(webhook.headers as Record<string, string> | null),
       },
       body: webhook.method !== "GET" ? JSON.stringify(parsedPayload) : undefined,
+      redirect: "error",
     });
 
     if (!response.ok) {

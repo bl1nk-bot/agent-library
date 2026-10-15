@@ -6,21 +6,7 @@ import { loadPrompt, getSystemPrompt } from "./load-prompt";
 
 const queryTranslatorPrompt = loadPrompt("src/lib/ai/query-translator.prompt.yml");
 
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
+import { getOpenAIClient } from "./openai";
 
 const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
 const TRANSLATION_MODEL = process.env.OPENAI_TRANSLATION_MODEL || "gpt-4o-mini";

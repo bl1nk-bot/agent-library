@@ -58,22 +58,46 @@ interface SavedAnalysis {
 const STORAGE_KEY = "promptTokenizerHistory";
 const MAX_HISTORY = 30;
 
-// Model-agnostic token estimation (~4 chars per token average)
-function estimateTokens(text: string): number {
-  if (!text) return 0;
-  const charCount = text.length;
-  const wordCount = text.split(/\s+/).filter(Boolean).length;
-  // Average across common tokenizers: ~4 chars per token, with word boundary adjustments
-  return Math.ceil(charCount / 4 + wordCount * 0.1);
-}
-
+// Optimized single-pass text statistics calculation
 function calculateStats(text: string): TokenStats {
-  const characters = text.length;
-  const words = text.split(/\s+/).filter(Boolean).length;
-  const lines = text.split(/\n/).length;
-  const sentences = text.split(/[.!?]+/).filter((s) => s.trim().length > 0).length;
-  const tokens = estimateTokens(text);
+  if (!text) return { tokens: 0, characters: 0, words: 0, lines: 1, sentences: 0 };
 
+  const characters = text.length;
+  let words = 0;
+  let lines = 1;
+  let sentences = 0;
+
+  let inWord = false;
+  let inSentence = false;
+
+  for (let i = 0; i < characters; i++) {
+    const char = text[i];
+
+    if (char === "\n") lines++;
+
+    // Space check for words
+    if (char === " " || char === "\n" || char === "\t" || char === "\r") {
+      inWord = false;
+    } else {
+      if (!inWord) {
+        words++;
+        inWord = true;
+      }
+      inSentence = true;
+    }
+
+    // Sentence check
+    if ((char === "." || char === "!" || char === "?") && inSentence) {
+      const next = i + 1 < characters ? text[i + 1] : "";
+      if (next !== "." && next !== "!" && next !== "?") {
+        sentences++;
+        inSentence = false;
+      }
+    }
+  }
+
+  // Average across common tokenizers: ~4 chars per token, with word boundary adjustments
+  const tokens = Math.ceil(characters / 4 + words * 0.1);
   return { tokens, characters, words, lines, sentences };
 }
 

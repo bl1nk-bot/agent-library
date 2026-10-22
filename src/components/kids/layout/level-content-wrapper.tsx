@@ -223,7 +223,7 @@ export function LevelContentWrapper({
                     onClick={() => handleDotClick(i)}
                     disabled={!canNavigate}
                     className={cn(
-                      "h-4 w-4 border-2 transition-all",
+                      "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset",
                       isCurrent
                         ? "border-[#16A34A] bg-[#22C55E]"
                         : isVisited && i < currentSection
@@ -284,7 +284,7 @@ export function LevelContentWrapper({
                   onClick={() => handleDotClick(i)}
                   disabled={!canNavigate}
                   className={cn(
-                    "h-4 w-4 border-2 transition-all",
+                    "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:outline-none focus-visible:ring-inset",
                     isCurrent
                       ? "border-[#16A34A] bg-[#22C55E]"
                       : isVisited && i < currentSection

@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2024-05-14 - Improve custom button keyboard accessibility with focus states
+
+**Learning:** When adding `focus-visible:ring-2` to elements that use a custom CSS `clip-path` (such as `pixelClipPath` or `smallPixelClipPath`), the default outset ring is entirely hidden by the clip path. You must include `focus-visible:ring-inset` to ensure the focus ring draws inside the shape where it's visible.
+**Action:** Always append `focus-visible:ring-inset` when styling focus states on interactive elements that rely on `clip-path`.

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { getOptionalOpenAIClient } from "@/lib/ai/client";
 import { auth } from "@/lib/auth";
 import { getConfig } from "@/lib/config";
 
@@ -229,10 +230,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
+    const openai = getOptionalOpenAIClient()!;
 
     let userContent: string;
     let responseFormat: "text" | "json_object" = "text";

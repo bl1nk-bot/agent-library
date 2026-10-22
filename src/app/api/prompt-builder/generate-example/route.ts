@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { getOptionalOpenAIClient } from "@/lib/ai/client";
 import { auth } from "@/lib/auth";
 import { getConfig } from "@/lib/config";
 import { loadPrompt, interpolatePrompt } from "@/lib/ai/load-prompt";
@@ -193,10 +194,7 @@ export async function POST() {
   }
 
   try {
-    const openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
+    const openai = getOptionalOpenAIClient()!;
 
     // Prepare existing examples summary
     const existingExamples = `

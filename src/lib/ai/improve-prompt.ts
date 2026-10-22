@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { getOpenAIClient } from "@/lib/ai/client";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { generateEmbedding, isAISearchEnabled } from "@/lib/ai/embeddings";
@@ -7,21 +8,7 @@ import { TYPE_DEFINITIONS } from "@/data/type-definitions";
 
 const IMPROVE_MODEL = process.env.OPENAI_IMPROVE_MODEL || "gpt-4o";
 
-let openai: OpenAI | null = null;
 
-function getOpenAIClient(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error("OPENAI_API_KEY is not set");
-    }
-    openai = new OpenAI({
-      apiKey,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-    });
-  }
-  return openai;
-}
 
 export type OutputType = "text" | "image" | "video" | "sound";
 export type OutputFormat = "text" | "structured_json" | "structured_yaml";

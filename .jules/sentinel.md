@@ -9,3 +9,9 @@
 **Vulnerability:** GitHub Actions workflows that depend on secrets (like `ADD_TO_PROJECT_PAT`) can fail with "Bad credentials" if run from forks, where secrets are not exposed to the runner.
 **Learning:** Hard failures in workflows due to missing secrets create noisy CI environments and can potentially leak the absence of specific tokens.
 **Prevention:** Always check for the existence of required secrets in the job's `if` condition (e.g., `if: secrets.ADD_TO_PROJECT_PAT != ''`) before executing steps that require them.
+
+## 2025-02-27 - SSRF Vulnerability and Redirect Bypass
+
+**Vulnerability:** Server-Side Request Forgery (SSRF) via user-controlled `inputImageUrl` and redirect bypass on webhook/API tests.
+**Learning:** Checking the URL hostname for private IPs is insufficient if the HTTP client (`fetch`) automatically follows redirects, allowing an attacker to bypass the validation by providing a public URL that redirects to a private IP.
+**Prevention:** Always use `{ redirect: "error" }` or `{ redirect: "manual" }` when using `fetch` with user-provided URLs after validating the initial URL, and ensure all user-provided URLs are validated using `validateUrl`.

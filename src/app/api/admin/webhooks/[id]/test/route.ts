@@ -78,6 +78,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         ...(webhook.headers as Record<string, string> | null),
       },
       body: webhook.method !== "GET" ? JSON.stringify(parsedPayload) : undefined,
+      redirect: "error",
     });
 
     if (!response.ok) {

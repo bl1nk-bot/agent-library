@@ -313,6 +313,7 @@ export async function triggerWebhooks(event: WebhookEvent, prompt: PromptData): 
           method: webhook.method,
           headers,
           body: payload,
+          redirect: "error",
         });
 
         if (!response.ok) {

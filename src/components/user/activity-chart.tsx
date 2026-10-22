@@ -129,6 +129,9 @@ export function ActivityChart({
 
   const dayLabels = ["", "M", "", "W", "", "F", ""];
 
+  const todayDateStr = new Date().toDateString();
+  const now = new Date();
+
   return (
     <div className="flex w-full flex-col items-center md:items-start">
       <div className="text-muted-foreground mb-3 text-sm">
@@ -165,8 +168,8 @@ export function ActivityChart({
                   {Array.from({ length: 7 }).map((_, dayIndex) => {
                     const day = week.find((d) => d.date.getDay() === dayIndex);
                     const intensity = day ? getIntensity(day.count) : 0;
-                    const isToday = day?.date.toDateString() === new Date().toDateString();
-                    const isFuture = day && day.date > new Date();
+                    const isToday = day?.date.toDateString() === todayDateStr;
+                    const isFuture = day && day.date > now;
 
                     if (!day || isFuture) {
                       return <div key={dayIndex} className="h-[10px] w-[10px]" />;

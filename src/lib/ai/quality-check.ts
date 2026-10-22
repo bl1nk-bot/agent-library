@@ -12,8 +12,6 @@ export type DelistReason =
   | "NOT_LLM_INSTRUCTION"
   | "MANUAL";
 
-
-
 const GENERATIVE_MODEL = process.env.OPENAI_GENERATIVE_MODEL || "gpt-4o";
 
 // Minimum character count for prompt content

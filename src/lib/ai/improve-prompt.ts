@@ -8,8 +8,6 @@ import { TYPE_DEFINITIONS } from "@/data/type-definitions";
 
 const IMPROVE_MODEL = process.env.OPENAI_IMPROVE_MODEL || "gpt-4o";
 
-
-
 export type OutputType = "text" | "image" | "video" | "sound";
 export type OutputFormat = "text" | "structured_json" | "structured_yaml";
 

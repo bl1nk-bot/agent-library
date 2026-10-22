@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { getOptionalOpenAIClient } from "@/lib/ai/client";
 import { auth } from "@/lib/auth";
 import { getConfig } from "@/lib/config";
 import {
@@ -127,10 +128,7 @@ export async function POST(request: NextRequest) {
   // Start processing in background
   (async () => {
     try {
-      const openai = new OpenAI({
-        apiKey,
-        baseURL: process.env.OPENAI_BASE_URL || undefined,
-      });
+      const openai = getOptionalOpenAIClient()!;
 
       // Build available tags and categories context
       const tagNames = availableTags.map((t) => t.name).join(", ");

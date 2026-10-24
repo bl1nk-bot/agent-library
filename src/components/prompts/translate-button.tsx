@@ -93,11 +93,12 @@ export function TranslateButton({ content, onTranslate, isLoggedIn }: TranslateB
               : "text-primary/60 hover:text-primary hover:bg-primary/10"
           }`}
           title={isTranslated ? t("alreadyTranslated") : t("translateToLanguage")}
+          aria-label={isTranslated ? t("alreadyTranslated") : t("translateToLanguage")}
         >
           {isTranslating ? (
-            <Loader2 className="h-3 w-3 animate-spin" />
+            <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />
           ) : (
-            <Languages className="h-3 w-3" />
+            <Languages className="h-3 w-3" aria-hidden="true" />
           )}
         </button>
       </TooltipTrigger>

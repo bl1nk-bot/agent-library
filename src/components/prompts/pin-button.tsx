@@ -55,11 +55,12 @@ export function PinButton({ promptId, initialPinned, iconOnly = false }: PinButt
         onClick={handleToggle}
         disabled={isLoading}
         title={isPinned ? t("unpin") : t("pin")}
+        aria-label={isPinned ? t("unpin") : t("pin")}
       >
         {isLoading ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
         ) : (
-          <Pin className={`h-3.5 w-3.5 ${isPinned ? "fill-current" : ""}`} />
+          <Pin className={`h-3.5 w-3.5 ${isPinned ? "fill-current" : ""}`} aria-hidden="true" />
         )}
       </Button>
     );

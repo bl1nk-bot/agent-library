@@ -141,7 +141,11 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
             <Button asChild variant="ghost" size="icon" className="-ml-2 h-8 w-8">
-              <button aria-label="Toggle menu" title="Toggle menu">
+              <button
+                aria-label="Toggle menu"
+                title="Toggle menu"
+                className="focus-visible:ring-agent-cyan rounded focus-visible:ring-2 focus-visible:outline-none"
+              >
                 <Menu className="h-4 w-4" aria-hidden="true" />
               </button>
             </Button>
@@ -394,7 +398,11 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button asChild variant="ghost" size="icon" className="h-8 w-8 2xl:hidden">
-                <button aria-label={t("nav.more")} title={t("nav.more")}>
+                <button
+                  aria-label={t("nav.more")}
+                  title={t("nav.more")}
+                  className="focus-visible:ring-agent-cyan rounded focus-visible:ring-2 focus-visible:outline-none"
+                >
                   <MoreHorizontal className="h-4 w-4" aria-hidden="true" />
                 </button>
               </Button>
@@ -514,6 +522,7 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               }}
               aria-label="Toggle theme"
               title="Toggle theme"
+              className="focus-visible:ring-agent-cyan rounded focus-visible:ring-2 focus-visible:outline-none"
             >
               <Sun
                 className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
@@ -610,7 +619,11 @@ export function Header({ authProvider = "credentials", allowRegistration = true 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                    <button aria-label="Toggle Language" title="Toggle Language">
+                    <button
+                      aria-label="Toggle Language"
+                      title="Toggle Language"
+                      className="focus-visible:ring-agent-cyan rounded focus-visible:ring-2 focus-visible:outline-none"
+                    >
                       <Globe className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </Button>

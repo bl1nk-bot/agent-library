@@ -80,7 +80,7 @@ export function Sidebar() {
       <div className="mt-auto flex w-full flex-col items-center gap-3 px-4">
         <button
           onClick={toggleLanguage}
-          className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white"
+          className="group focus-visible:ring-agent-cyan relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white focus-visible:ring-2 focus-visible:outline-none"
           aria-label="Toggle Language"
         >
           <Globe size={20} />

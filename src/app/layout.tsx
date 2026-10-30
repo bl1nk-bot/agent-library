@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/footer";
 import { CookieConsentBanner } from "@/components/layout/cookie-consent";
 import { Analytics } from "@/components/layout/analytics";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WebsiteStructuredData } from "@/components/seo/structured-data";
 import { AppBanner } from "@/components/layout/app-banner";
 import { LocaleDetector } from "@/components/providers/locale-detector";
@@ -198,6 +199,7 @@ export default async function RootLayout({
           )}
         </Providers>
         <VercelAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );

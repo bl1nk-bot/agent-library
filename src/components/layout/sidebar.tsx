@@ -80,10 +80,10 @@ export function Sidebar() {
       <div className="mt-auto flex w-full flex-col items-center gap-3 px-4">
         <button
           onClick={toggleLanguage}
-          className="group relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white"
+          className="group focus-visible:ring-agent-cyan relative mb-2 rounded-md p-3 text-white/40 transition-all hover:bg-white/5 hover:text-white focus-visible:ring-2 focus-visible:outline-none"
           aria-label="Toggle Language"
         >
-          <Globe size={20} />
+          <Globe size={20} aria-hidden="true" />
           <span className="pointer-events-none absolute left-14 z-50 rounded border border-white/10 bg-black/80 px-2 py-1 font-mono text-[10px] whitespace-nowrap uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
             Toggle EN/TH
           </span>

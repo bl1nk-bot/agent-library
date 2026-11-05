@@ -1,0 +1,24 @@
+🛡️ Guardian (JULES): Consolidate S3 storage logic
+
+WHAT:
+- Extracted common S3 SDK logic into src/lib/plugins/storage/s3-factory.ts
+- Updated src/lib/plugins/storage/do-spaces.ts and src/lib/plugins/storage/s3.ts to use factory
+
+WHY:
+- Identical structural implementations of file uploading logic
+- Repeated AWS SDK instantiation and configuration boilerplate
+
+JULES CONTEXT:
+- Checked .Jules/task-log.md: No Autonomous conflicts
+- Session logged: .Jules/guardian/2026-11-05/
+- Reference: .Jules/JULES.md
+
+IMPACT:
+- Lines: 302 -> 208 (-31%)
+- Extracted common logic for S3-compatible endpoints
+
+VERIFICATION:
+- All tests pass
+- TypeScript check: ✓
+- Linting: ✓
+- JULES compliance: ✓

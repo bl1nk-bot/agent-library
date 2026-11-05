@@ -74,10 +74,7 @@ function ngramSimilarity(str1: string, str2: string, n: number = 3): number {
  * Combined similarity score using multiple algorithms
  * Returns a value between 0 (completely different) and 1 (identical)
  */
-export function calculateSimilarity(content1: string, content2: string): number {
-  const normalized1 = normalizeContent(content1);
-  const normalized2 = normalizeContent(content2);
-
+export function calculateNormalizedSimilarity(normalized1: string, normalized2: string): number {
   // Exact match after normalization
   if (normalized1 === normalized2) return 1;
 
@@ -93,6 +90,16 @@ export function calculateSimilarity(content1: string, content2: string): number 
 }
 
 /**
+ * Combined similarity score using multiple algorithms
+ * Returns a value between 0 (completely different) and 1 (identical)
+ */
+export function calculateSimilarity(content1: string, content2: string): number {
+  const normalized1 = normalizeContent(content1);
+  const normalized2 = normalizeContent(content2);
+  return calculateNormalizedSimilarity(normalized1, normalized2);
+}
+
+/**
  * Check if two contents are similar enough to be considered duplicates
  * Default threshold is 0.85 (85% similar)
  */
@@ -102,6 +109,19 @@ export function isSimilarContent(
   threshold: number = 0.85
 ): boolean {
   return calculateSimilarity(content1, content2) >= threshold;
+}
+
+/**
+ * Check if a normalized content is similar to an unnormalized content.
+ * Optimized for loops where content1 is already normalized.
+ */
+export function isSimilarToNormalized(
+  normalizedContent1: string,
+  content2: string,
+  threshold: number = 0.85
+): boolean {
+  const normalized2 = normalizeContent(content2);
+  return calculateNormalizedSimilarity(normalizedContent1, normalized2) >= threshold;
 }
 
 /**

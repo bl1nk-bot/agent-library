@@ -165,7 +165,7 @@ export function KidsHomeContent() {
                   key={i}
                   onClick={() => setStep(i)}
                   className={cn(
-                    "h-4 w-4 border-2 transition-all",
+                    "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none",
                     i === step
                       ? "border-[#16A34A] bg-[#22C55E]"
                       : "border-[#8B4513] bg-[#4A3728] hover:bg-[#5D4037]"
@@ -175,6 +175,7 @@ export function KidsHomeContent() {
                       "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                   }}
                   aria-label={`Go to step ${i + 1}`}
+                  aria-current={i === step ? "step" : undefined}
                 />
               ))}
             </div>
@@ -210,7 +211,7 @@ export function KidsHomeContent() {
                 key={i}
                 onClick={() => setStep(i)}
                 className={cn(
-                  "h-4 w-4 border-2 transition-all",
+                  "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none",
                   i === step
                     ? "border-[#16A34A] bg-[#22C55E]"
                     : "border-[#8B4513] bg-[#4A3728] hover:bg-[#5D4037]"
@@ -220,6 +221,7 @@ export function KidsHomeContent() {
                     "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                 }}
                 aria-label={`Go to step ${i + 1}`}
+                aria-current={i === step ? "step" : undefined}
               />
             ))}
           </div>

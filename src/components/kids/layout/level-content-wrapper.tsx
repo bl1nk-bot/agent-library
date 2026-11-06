@@ -223,7 +223,7 @@ export function LevelContentWrapper({
                     onClick={() => handleDotClick(i)}
                     disabled={!canNavigate}
                     className={cn(
-                      "h-4 w-4 border-2 transition-all",
+                      "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none",
                       isCurrent
                         ? "border-[#16A34A] bg-[#22C55E]"
                         : isVisited && i < currentSection
@@ -235,6 +235,7 @@ export function LevelContentWrapper({
                         "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                     }}
                     aria-label={`Go to section ${i + 1}${!canNavigate ? " (locked)" : ""}`}
+                    aria-current={isCurrent ? "step" : undefined}
                   />
                 );
               })}
@@ -284,7 +285,7 @@ export function LevelContentWrapper({
                   onClick={() => handleDotClick(i)}
                   disabled={!canNavigate}
                   className={cn(
-                    "h-4 w-4 border-2 transition-all",
+                    "h-4 w-4 border-2 transition-all focus-visible:ring-2 focus-visible:ring-[#8B4513] focus-visible:ring-offset-2 focus-visible:outline-none",
                     isCurrent
                       ? "border-[#16A34A] bg-[#22C55E]"
                       : isVisited && i < currentSection
@@ -296,6 +297,7 @@ export function LevelContentWrapper({
                       "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
                   }}
                   aria-label={`Go to section ${i + 1}${!canNavigate ? " (locked)" : ""}`}
+                  aria-current={isCurrent ? "step" : undefined}
                 />
               );
             })}

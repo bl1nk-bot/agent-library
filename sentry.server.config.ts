@@ -2,7 +2,7 @@
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-async function initSentry() {
+export async function initSentry() {
   try {
     const Sentry = await import("@sentry/nextjs");
     Sentry.init({

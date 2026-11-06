@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import DeepWikiIcon from "@/../public/deepwiki.svg";
 import { useBranding } from "@/components/providers/branding-provider";
 import { analyticsExternal } from "@/lib/analytics";
 
@@ -36,7 +35,7 @@ export function Footer() {
                 className="hover:text-foreground flex items-center gap-1"
                 onClick={() => analyticsExternal.clickFooterLink("deepwiki")}
               >
-                <Image src={DeepWikiIcon} alt="" width={14} height={14} />
+                <Image src="/deepwiki.svg" alt="" width={14} height={14} />
                 DeepWiki
               </Link>
               <Link href="/how_to_write_effective_prompts" className="hover:text-foreground">

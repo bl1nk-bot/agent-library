@@ -1754,6 +1754,7 @@
     },
     "settings": {
       "title": "Settings",
+      "close": "Close",
       "music": "Music",
       "language": "Language",
       "progress": "Your Progress",

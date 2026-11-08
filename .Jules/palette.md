@@ -7,3 +7,8 @@
 
 **Learning:** For custom toggle buttons or selectable elements acting as a group (like language selection) that use standard HTML `<button>` tags, `aria-pressed={boolean}` should be applied to convey the active state to assistive technology. Furthermore, when decorative emojis are used alongside text labels, wrapping the emoji in a `<span>` with `aria-hidden="true"` prevents redundant or confusing screen reader announcements.
 **Action:** Always apply `aria-pressed` to custom toggle buttons and add `aria-hidden="true"` to wrapper spans around decorative emojis.
+
+## 2024-11-08 - Accessible Custom Audio Controls
+
+**Learning:** Custom interactive controls (like toggle buttons and sliders) in this app often lack ARIA roles, state indicators (`aria-pressed`), and keyboard focus rings (`focus-visible:ring-2`). Decorative emojis used within text elements are read out by screen readers and need to be isolated in `aria-hidden="true"` tags to prevent redundant or confusing announcements.
+**Action:** When building custom controls or inputs in the design system, always provide `aria-label`, ensure state toggles use `aria-pressed`, wrap emojis in `aria-hidden`, and apply `focus-visible:ring` utilities to maintain keyboard accessibility.

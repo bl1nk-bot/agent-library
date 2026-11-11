@@ -69,13 +69,15 @@ export function SubscribeButton({
         onClick={handleToggle}
         disabled={isLoading}
         title={isSubscribed ? t("unsubscribe") : t("subscribe")}
+        aria-label={isSubscribed ? t("unsubscribe") : t("subscribe")}
+        aria-pressed={isSubscribed}
       >
         {isLoading ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
         ) : isSubscribed ? (
-          <Bell className="h-3.5 w-3.5 fill-current" />
+          <Bell className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
         ) : (
-          <Bell className="h-3.5 w-3.5" />
+          <Bell className="h-3.5 w-3.5" aria-hidden="true" />
         )}
       </Button>
     );
@@ -91,11 +93,12 @@ export function SubscribeButton({
             ? "bg-primary/10 text-primary hover:bg-primary/20"
             : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
         } disabled:opacity-50`}
+        aria-pressed={isSubscribed}
       >
         {isLoading ? (
-          <Loader2 className="h-3 w-3 animate-spin" />
+          <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />
         ) : (
-          <Bell className={`h-3 w-3 ${isSubscribed ? "fill-current" : ""}`} />
+          <Bell className={`h-3 w-3 ${isSubscribed ? "fill-current" : ""}`} aria-hidden="true" />
         )}
         {isSubscribed ? t("subscribed") : t("subscribe")}
       </button>
@@ -108,17 +111,18 @@ export function SubscribeButton({
       size="sm"
       onClick={handleToggle}
       disabled={isLoading}
+      aria-pressed={isSubscribed}
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
       ) : isSubscribed ? (
         <>
-          <BellOff className="mr-1.5 h-4 w-4" />
+          <BellOff className="mr-1.5 h-4 w-4" aria-hidden="true" />
           {t("unsubscribe")}
         </>
       ) : (
         <>
-          <Bell className="mr-1.5 h-4 w-4" />
+          <Bell className="mr-1.5 h-4 w-4" aria-hidden="true" />
           {t("subscribe")}
         </>
       )}
